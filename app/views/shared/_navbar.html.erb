@@ -16,8 +16,19 @@
         </div>
       </div>
 
-      <div data-action="click->submenu#burgermenu">
-        <%= image_tag("user-light.svg", class: "nav-account") %>
+      <div data-action="click->submenu#show">
+        <% if user_signed_in? %>
+          <% if current_user.picture.attached? %>
+            <%= image_tag(current_user.picture.variant(:thumb), class: "nav-account avatar-medium") %>
+          <% else %>
+            <% first_name_initial = current_user.first_name[0] %>
+            <% last_name_initial = current_user.last_name[0] %>
+            <% initials = first_name_initial + last_name_initial %>
+            <p class="avatar-fake m-5"><%= initials.upcase %></p>
+          <% end %>
+        <% else %>
+          <%= image_tag("user-light.svg", class: "nav-account") %>
+        <% end %>
         <div class="account-menu-content" data-submenu-target="account">
           <% if user_signed_in? %>
             <p><%= link_to t("shared.account"), edit_user_registration_path %></p>

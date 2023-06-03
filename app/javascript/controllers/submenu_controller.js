@@ -7,7 +7,7 @@ export default class extends Controller {
     console.log("Submenu connected!");
   }
 
-  burgermenu() {
+  show() {
     this.accountTarget.classList.toggle("show");
   }
   flagmenu() {
