@@ -24,10 +24,8 @@
             <% first_name_initial = current_user.first_name[0] %>
             <% last_name_initial = current_user.last_name[0] %>
             <% initials = first_name_initial + last_name_initial %>
-            <p class="avatar-fake m-5"><%= initials.upcase! %><p>
-            <%#= image_tag("user-light.svg", class: "nav-account") %>
+            <p class="avatar-fake m-5"><%= initials.upcase %></p>
           <% end %>
-          <%#= image_tag("user-light.svg", class: "nav-account") %>
         <% else %>
           <%= image_tag("user-light.svg", class: "nav-account") %>
         <% end %>
