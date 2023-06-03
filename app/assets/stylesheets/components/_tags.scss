@@ -1,0 +1,112 @@
+.tag {
+  padding: 1px 2px;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 12px;
+  width: fit-content;
+  color: black;
+}
+.tag-primary {
+  color: white;
+  text-decoration: none;
+  background-color: $primary;
+  border: 1px solid $primary;
+  transition: 0.25s;
+}
+.tag-secondary {
+  color: white;
+  text-decoration: none;
+  background-color: $secondary;
+  border: 1px solid $secondary;
+  transition: 0.25s;
+}
+.tag-success {
+  color: white;
+  text-decoration: none;
+  background-color: $success;
+  border: 1px solid $success;
+  transition: 0.25s;
+}
+.tag-danger {
+  color: white;
+  text-decoration: none;
+  background-color: $danger;
+  border: 1px solid $danger;
+  transition: 0.25s;
+}
+.tag-warning {
+  color: black;
+  text-decoration: none;
+  background-color: $warning;
+  border: 1px solid $warning;
+  transition: 0.25s;
+}
+.tag-info {
+  color: black;
+  text-decoration: none;
+  background-color: $info;
+  border: 1px solid $info;
+  transition: 0.25s;
+}
+.tag-light {
+  color: black;
+  text-decoration: none;
+  background-color: $light;
+  border: 1px solid $light;
+  transition: 0.25s;
+}
+.tag-dark {
+  color: white;
+  text-decoration: none;
+  background-color: $dark;
+  border: 1px solid $dark;
+  transition: 0.25s;
+}
+.tag-outline-primary {
+  color: $primary;
+  text-decoration: none;
+  border: 1px solid $primary;
+  transition: 0.25s;
+}
+.tag-outline-secondary {
+  color: $secondary;
+  text-decoration: none;
+  border: 1px solid $secondary;
+  transition: 0.25s;
+}
+.tag-outline-success {
+  color: $success;
+  text-decoration: none;
+  border: 1px solid $success;
+  transition: 0.25s;
+}
+.tag-outline-danger {
+  color: $danger;
+  text-decoration: none;
+  border: 1px solid $danger;
+  transition: 0.25s;
+}
+.tag-outline-warning {
+  color: $warning;
+  text-decoration: none;
+  border: 1px solid $warning;
+  transition: 0.25s;
+}
+.tag-outline-info {
+  color: $info;
+  text-decoration: none;
+  border: 1px solid $info;
+  transition: 0.25s;
+}
+.tag-outline-light {
+  color: $light;
+  text-decoration: none;
+  border: 1px solid $light;
+  transition: 0.25s;
+}
+.tag-outline-dark {
+  color: $dark;
+  text-decoration: none;
+  border: 1px solid $dark;
+  transition: 0.25s;
+}

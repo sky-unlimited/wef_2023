@@ -1,0 +1,24 @@
+// Technical colors for the components
+$secondary: #6c757d;
+$secondary_bis: lighten($secondary, 8%);
+$success: #198754;
+$success_bis: lighten($success, 8%);
+$danger: #dc3545;
+$danger_bis: lighten($danger, 8%);
+$warning: #ffc107;
+$warning_bis: lighten($warning, 8%);
+$info: #0dcaf0;
+$info_bis: lighten($info, 8%);
+$light: #f8f9fa;
+$light_bis: lighten($light, 8%);
+$dark: #212529;
+$dark_bis: lighten($dark, 8%);
+
+// Theme colors to customize
+// https://coolors.co/ca2e55-ffe0b5-8a6552-462521-bdb246
+$primary: #ca2e55;
+$primary_bis: lighten($primary, 8%);
+$color1: #ffe0b5; //beige
+$color2: #8a6552; //marron clair
+$color3: #462521; //marron foncé
+$color4: #bdb246; //vert anis

@@ -1,0 +1,48 @@
+nav .burger {
+  text-align: center;
+  font-size: 1em;
+}
+nav .rotate {
+  transform: rotate(-90deg);
+  transition: 0.25s;
+}
+nav .icon {
+  transition: 0.25s;
+}
+nav .burger > p {
+  cursor: pointer;
+  margin: 0;
+  font-size: 3em;
+}
+nav .burger-menu-content {
+  position: absolute;
+  left: 0;
+  top: 64px;
+  width: 100%;
+  z-index: 20;
+  background-color: $light;
+  display: none;
+  flex-direction: column;
+  text-align: center;
+}
+nav .burger-menu-content p {
+  margin: 1em;
+  padding: 1em;
+}
+nav .burger-menu-content a {
+  text-decoration: none;
+  color: $dark;
+  padding: 1em;
+  font-size: 1.5em;
+  transition: 0.25s;
+}
+nav .burger-menu-content a:hover {
+  color: $secondary;
+  transition: 0.25s;
+}
+nav .burger-divider {
+  border-bottom: 1px solid $dark;
+}
+nav .show {
+  display: block;
+}

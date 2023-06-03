@@ -1,0 +1,52 @@
+// Graphical variables
+@import "config/colors";
+@import "config/fonts";
+@import "config/others";
+
+// Our CSS Components
+@import "components/index";
+
+// Our CSS partials
+@import "pages/index";
+
+// Default css
+body {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  font-family: $body-font, "Helvetica", "sans-serif";
+  font-weight: 400;
+  font-size: 1em;
+  color: $dark;
+}
+h1 {
+  font-family: $headers-font, "Helvetica", "sans-serif";
+  font-weight: 600;
+  font-size: 2em;
+  color: $dark;
+}
+h2 {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: $secondary;
+}
+h3 {
+  font-size: 1em;
+  font-weight: 400;
+  color: $secondary;
+}
+.hidden {
+  display: none;
+}
+@media only screen and (min-width: 700px) {
+  h1 {
+    font-size: 3em;
+  }
+  h2 {
+    font-size: 2em;
+  }
+  h3 {
+    font-size: 1.5em;
+  }
+}

@@ -1,0 +1,53 @@
+#https://github.com/rails/rails/blob/968de9cc6d48ca026303566d7d1f437d40360820/activemodel/lib/active_model/locale/en.yml
+en:
+  activerecord:
+    models:
+      user: "User"
+    errors:
+      messages:
+        blank:
+        taken:
+        invalid:
+        too_short:
+          one:
+          other:
+  forms:
+    submit: "Submit"
+    messages:
+      errors:
+        one: "An error prevent from saving"
+        other: "%{count} errors prevent from saving"
+  time:
+    am: a.m.
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+      date_short: "%d %b %Y"
+      date_very_short: "%d %b"
+    pm: p.m.
+  date:
+    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+    abbr_month_names:
+      [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+  shared:
+    sign_in:
+    sign_out:
+    sign_up:
+    account:
+    console:
+    legal_mentions:
+    privacy_policy:
+    copyright: "All rights reserved"
+  pages:
+    console:
+      title: "Administrator console"
+      export_title: "📤 Data Export"
+      export_button: "Export"
+      export_subscribers: "List of subscription Newsletter"
+      export_contacts: "Contact forms"
+      export_blog_views: "Views per post"
+      blog_views_title: "All posts views"
+      contacts_count_title: "Contact forms"
+      contacts_category_title: "Contact forms per category"

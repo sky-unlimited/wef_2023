@@ -1,0 +1,64 @@
+form {
+  color: $dark;
+  display: flex;
+  flex-direction: column;
+  background-color: $light;
+  align-items: center;
+  .form-title-error {
+    color: #8d2d36;
+  }
+  .field {
+    font-weight: 400;
+    font-size: 1em;
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .actions {
+    margin: 1em;
+  }
+  a {
+    color: $info;
+    text-decoration: none;
+  }
+  i {
+    color: $secondary;
+    font-size: 0.8em;
+  }
+  input {
+    border-radius: $border-radius;
+    border: 1px solid $secondary;
+    box-shadow: none;
+    outline: none;
+    padding: 0.5em;
+  }
+  em {
+    font-size: 0.8em;
+  }
+}
+.form-links {
+  text-decoration: none;
+  text-align: center;
+  margin: 1em;
+  a {
+    text-decoration: none;
+    color: $dark;
+  }
+  a:hover {
+    color: $primary;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  form {
+    border-radius: $border-radius;
+    box-shadow: 5px 5px 10px 0px rgb(150, 150, 150);
+    align-items: center;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid $dark;
+    width: fit-containt;
+    max-width: 400px;
+  }
+}

@@ -1,0 +1,113 @@
+.btn {
+  padding: 10px 16px;
+  border-radius: $border-radius;
+  text-align: center;
+  font-size: 1em;
+}
+.btn-full-width {
+  width: 100%; 
+}
+.btn-primary {
+  color: $light;
+  text-decoration: none;
+  background-color: $primary;
+  border: 1px solid $primary;
+  transition: 0.25s;
+}
+.btn-primary:hover {
+  background-color: $primary_bis;
+  border: 1px solid $primary_bis;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.btn-secondary {
+  color: white;
+  text-decoration: none;
+  background-color: $secondary;
+  border: 1px solid $secondary;
+  transition: 0.25s;
+}
+.btn-secondary:hover {
+  background-color: $secondary_bis;
+  border: 1px solid $secondary_bis;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.btn-success {
+  color: white;
+  text-decoration: none;
+  background-color: $success;
+  border: 1px solid $success;
+  transition: 0.25s;
+}
+.btn-success:hover {
+  background-color: $success_bis;
+  border: 1px solid $success_bis;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.btn-danger {
+  color: white;
+  text-decoration: none;
+  background-color: $danger;
+  border: 1px solid $danger;
+  transition: 0.25s;
+}
+.btn-danger:hover {
+  background-color: $danger_bis;
+  border: 1px solid $danger_bis;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.btn-warning {
+  color: black;
+  text-decoration: none;
+  background-color: $warning;
+  border: 1px solid $warning;
+  transition: 0.25s;
+}
+.btn-warning:hover {
+  background-color: $warning_bis;
+  border: 1px solid $warning_bis;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.btn-info {
+  color: black;
+  text-decoration: none;
+  background-color: $info;
+  border: 1px solid $info;
+  transition: 0.25s;
+}
+.btn-info:hover {
+  background-color: $info_bis;
+  border: 1px solid $info_bis;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.btn-light {
+  color: black;
+  text-decoration: none;
+  background-color: $light;
+  border: 1px solid $light;
+  transition: 0.25s;
+}
+.btn-light:hover {
+  background-color: $light_bis;
+  border: 1px solid $light_bis;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.btn-dark {
+  color: white;
+  text-decoration: none;
+  background-color: $dark;
+  border: 1px solid $dark;
+  transition: 0.25s;
+}
+.btn-dark:hover {
+  background-color: $dark_bis;
+  border: 1px solid $dark_bis;
+  transition: 0.25s;
+  cursor: pointer;
+}

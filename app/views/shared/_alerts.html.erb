@@ -1,0 +1,12 @@
+<% if notice %> 
+  <div class="alerts alert-info" data-controller="alerts" data-alerts-target="notice">
+    <button data-action="click -> alerts#close" class="alerts-btn-close alerts-color-info">&#10006;</button>
+    <%= notice %>
+  </div>
+<% end %>
+<% if alert %>  
+  <div class="alerts alert-danger" data-controller="alerts" data-alerts-target="notice">
+    <button data-action="click -> alerts#close" class="alerts-btn-close alerts-color-danger">&#10006;</button>
+    <%= alert %>
+  </div> 
+<% end %>

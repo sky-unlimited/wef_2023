@@ -1,0 +1,53 @@
+#https://github.com/rails/rails/blob/968de9cc6d48ca026303566d7d1f437d40360820/activemodel/lib/active_model/locale/en.yml
+fr:
+  activerecord:
+    models:
+      user: "utilisateur"
+    errors:
+      messages:
+        blank: "ne peut pas être vide"
+        taken: "a déjà été pris"
+        invalid: "n'est pas valide"
+        too_short:
+          one: "est trop court (minimum de 1 caractère)"
+          other: "est trop court (minimum de %{count} caractères)"
+  forms:
+    submit: "Soumettre"
+    messages:
+      errors:
+        one: "Une erreur empêche l'enregistrement"
+        other: "%{count} erreurs empêchent l'enregistrement"
+  time:
+    am: a.m.
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %Y %H:%M"
+      date_short: "%d %b %Y"
+      date_very_short: "%d %b"
+    pm: p.m.
+  date:
+    abbr_day_names: [Dim, Lun, Mar, Mer, Jeu, Ven, Sam]
+    abbr_month_names:
+      [~, Jan, Fév, Mar, Avr, Mai, Jun, Jul, Août, Sep, Oct, Nov, Déc]
+    day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
+  shared:
+    sign_in: "S'identifier"
+    sign_out: "Déconnexion"
+    sign_up: "S'inscrire"
+    account: "Compte"
+    console: "Console"
+    legal_mentions: "Mentions Légales"
+    privacy_policy: "Politique de confidentialité"
+    copyright: "Tous droits réservés"
+  pages:
+    console:
+      title: "Console Administrateur"
+      export_title: "📤 Export de données"
+      export_button: "Export"
+      export_subscribers: "Liste des souscriptions Newsletter"
+      export_contacts: "Formulaires de contact"
+      export_blog_views: "Vues par billet"
+      blog_views_title: "Vues tous billets confondus"
+      contacts_count_title: "Formulaire de contact"
+      contacts_category_title: "Formulaires par catégorie"
