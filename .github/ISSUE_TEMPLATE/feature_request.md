@@ -1,8 +1,8 @@
 ---
 name: Feature request
 about: New feature for the project
-title: ''
-labels: ''
+title: "[FEATURE] - Title"
+labels: enhancement
 assignees: alexstan67
 
 ---
