@@ -1,14 +1,28 @@
 .avatar-small {
   border-radius: 50%;
   width: 30px;
+  height: 30px;
 }
 
 .avatar-medium {
   border-radius: 50%;
   width: 50px;
+  height: 50px;
 }
 
 .avatar-large {
   border-radius: 50%;
   width: 70px;
+  height: 70px;
+}
+.avatar-fake {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: $success;
+  color: $light;
+  text-align: center;
+  line-height: 50px;
+  font-weight: 900;
+  cursor: pointer;
 }

@@ -1,7 +1,6 @@
 class User < ApplicationRecord
-  #has_many :blogs, :dependent => :delete_all
   has_one_attached :picture do | attachable |
-    attachable.variant :thumb, resize_to_fill: [ 100, 100 ]
+    attachable.variant :thumb, resize_to_fill: [ 48, 48 ]
   end
 
 
@@ -25,12 +24,12 @@ class User < ApplicationRecord
     return unless picture.attached?
     if picture.blob.content_type.start_with? 'image/'
       if picture.blob.byte_size > 2.megabytes
-        errors.add(:picture, I18n.t('blogs.errors.image_size'))
+        errors.add(:picture, I18n.t('users.errors.image_size'))
         picture.purge
       end
     else
       picture.purge
-      errors.add(:picture, I18n.t('blogs.errors.file_type'))
+      errors.add(:picture, I18n.t('users.errors.file_type'))
     end
   end
 

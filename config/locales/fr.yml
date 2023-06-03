@@ -2,3 +2,8 @@ fr:
   activerecord:
     models:
     attributes:
+  users:
+    errors:
+      file_type: Le format soumit n'est pas une image 
+      image_size: La taille de l'image dépasse 2MB
+
