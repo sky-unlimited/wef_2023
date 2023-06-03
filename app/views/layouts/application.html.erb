@@ -1,41 +1,31 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title>Wanderbird</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-<%= favicon_link_tag %>
-<title><%= meta_product %></title>
-<!-- Primary Meta Tags -->
-<meta name="title" content="<%= meta_title %>">
-<meta name="description" content="<%= meta_description %>">
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="<%= request.original_url %>">
-<meta property="og:title" content="<%= meta_title %>">
-<meta property="og:description" content="<%= meta_description %>">
-<meta property="og:image" content="<%= meta_image %>">
-<!-- Twitter -->
-<!--
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="<%= DEFAULT_META["twitter_account"] %>">
-<meta name="twitter:title" content="<%= meta_title %>">
-<meta name="twitter:description" content="<%= meta_description %>">
-<meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>">
-<meta name="twitter:image:src" content="<%= meta_image %>">
--->
-<link rel="canonical" href="<%= url_for(:only_path => false) %>" />
+    <%= favicon_link_tag %>
+    <title><%= meta_product %></title>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="<%= meta_title %>">
+    <meta name="description" content="<%= meta_description %>">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:title" content="<%= meta_title %>">
+    <meta property="og:description" content="<%= meta_description %>">
+    <meta property="og:image" content="<%= meta_image %>">
+    <link rel="canonical" href="<%= url_for(:only_path => false) %>" />
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-  <div class='container'>
-    <%= render 'shared/navbar' %>
-    <%= render 'shared/alerts' %>
-    <%= yield %>
-  </div>
-</body>
+    <div class='container'>
+      <%= render 'shared/navbar' %>
+      <%= render 'shared/alerts' %>
+      <%= yield %>
+    </div>
+  </body>
 </html>
