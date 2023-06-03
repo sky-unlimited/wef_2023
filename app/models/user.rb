@@ -1,5 +1,9 @@
 class User < ApplicationRecord
-  has_many :blogs, :dependent => :delete_all
+  #has_many :blogs, :dependent => :delete_all
+  has_one_attached :picture do | attachable |
+    attachable.variant :thumb, resize_to_fill: [ 100, 100 ]
+  end
+
 
 # Remainings timeoutable :omniauthable
   devise :database_authenticatable, :registerable,
@@ -9,10 +13,25 @@ class User < ApplicationRecord
   after_initialize :set_default_role, if: :new_record?
   validates :last_name, presence: true
   validates :first_name, presence: true
+  validate :picture_format
 
   private
 
   def set_default_role
     self.role ||= :user
-  end 
+  end
+
+  def picture_format
+    return unless picture.attached?
+    if picture.blob.content_type.start_with? 'image/'
+      if picture.blob.byte_size > 2.megabytes
+        errors.add(:picture, I18n.t('blogs.errors.image_size'))
+        picture.purge
+      end
+    else
+      picture.purge
+      errors.add(:picture, I18n.t('blogs.errors.file_type'))
+    end
+  end
+
 end
