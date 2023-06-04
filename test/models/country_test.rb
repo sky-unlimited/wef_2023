@@ -1,9 +1,6 @@
 require "test_helper"
 
 class CountryTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
     test "Countries presence" do
       assert Country.first.present?
     end

@@ -1,4 +1,6 @@
 class Country < ApplicationRecord
+  has_many :airports
+
   CONTINENTS = ["NA", "SA", "AF", "EU", "AN", "AS", "OC"].freeze
 
   validates :code, presence: true, uniqueness: true
