@@ -1,0 +1,15 @@
+development:
+  airport_countries_to_import:
+    - FR
+    - LU
+
+test:
+  airport_countries_to_import:
+    - FR
+    - LU
+
+production:
+  airport_countries_to_import:
+    - FR
+    - LU
+
