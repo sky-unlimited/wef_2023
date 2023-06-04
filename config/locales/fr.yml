@@ -6,4 +6,9 @@ fr:
     errors:
       file_type: Le format soumit n'est pas une image 
       image_size: La taille de l'image dépasse 2MB
+  pages:
+    home:
+      hero_one: Nous aidons les pilotes à trouver la meilleure destination 🌴
+      hero_two: Donnez un but à votre voyage, et seulement par météo favorable 🔆
+      banner-button: Vous êtes prêt?
 

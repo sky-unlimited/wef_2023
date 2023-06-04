@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $body-font, "Helvetica", "sans-serif";
+  background-color: white;
+}
+.page-wrapper {
+  font-family: $body-font, "Helvetica", "sans-serif";
+  font-weight: 400;
+  font-size: 1em;
+  color: $dark;
+  min-height: 90vh;
+}
+h1 {
+  font-family: $headers-font, "Helvetica", "sans-serif";
+  font-weight: 600;
+  font-size: 2.5em;
+  color: $dark;
+}
+h2 {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: $secondary;
+}
+h3 {
+  font-size: 1em;
+  font-weight: 400;
+  color: $secondary;
+}
+.hidden {
+  display: none;
+}
+@media only screen and (min-width: 768px) {
+  h1 {
+    font-size: 3em;
+  }
+  h2 {
+    font-size: 2em;
+  }
+  h3 {
+    font-size: 1.5em;
+  }
+}

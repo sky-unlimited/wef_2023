@@ -1,4 +1,5 @@
 header {
+  font-family: $body-font, "Helvetica", "sans-serif";
   display: flex;
   justify-content: space-between;
   background-color: $dark;
@@ -10,8 +11,6 @@ header p {
 header .logo {
   height: 64px;
   width: 100px;
-  //background-color: $color4;
-  //line-height: 64px;
 }
 header .burger {
   color: $light;

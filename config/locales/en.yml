@@ -6,3 +6,9 @@ en:
     errors:
       file_type: The uploaded format is not an image 
       image_size: Image size greater than 2MB
+  pages:
+    home:
+      hero_one: We help pilots find best destinations 🌴
+      hero_two: Give a goal to your flight, only by good weathear 🔆
+      banner-button: Let's go!
+
