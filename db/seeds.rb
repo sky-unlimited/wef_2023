@@ -1,15 +1,11 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require 'csv'
+
 # ############################################
 # CLEANING
 # ############################################
 puts "Cleaning databases..."
 User.destroy_all
+Country.destroy_all
 
 # ############################################
 # USERS
@@ -41,5 +37,19 @@ if Rails.env.development?
   user.save
   puts "User rachel created in dev"
 end
+
+# ############################################
+# COUNTRIES
+# ############################################
+filepath = "ourairports-data/countries.csv"
+puts "Reading #{filepath}..."
+counter_created = 0
+counter_rejected = 0
+CSV.foreach(filepath, headers: :first_row) do |row|
+  country = Country.create(code: row['code'], name: row['name'], continent: row['continent'])
+  country.persisted? ? counter_created += 1 : counter_rejected += 1
+end
+puts "#{counter_created} / #{counter_created + counter_rejected} countries created!"
+
 
 puts "Seeds complete! 🌻"

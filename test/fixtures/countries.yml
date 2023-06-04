@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+france:
+  code: "FR"
+  name: "France"
+  continent: "EU"
+
+incorrect1:
+  code: "FRA"
+  name: "France"
+  continent: "EU"
+
+incorrect2:
+  code: "DE"
+  name: ""
+  continent: "EU"
+
+incorrect3:
+  code: "BE"
+  name: "Belgium"
+  continent: "EUR"
+
+incorrect4:
+  code: "CH"
+  name: "Switzerland"
+  continent: "ZZ"
