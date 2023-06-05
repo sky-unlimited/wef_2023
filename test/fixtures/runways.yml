@@ -1,0 +1,37 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+ellx_runway:
+  airport: ellx
+  internal_id: 1
+  length_meter: 3939
+  width_meter: 44
+  surface: ASP
+  le_ident: 6
+  he_ident: 24
+  le_heading_degT: 57
+  he_heading_degT: 238
+  lighted: true
+
+lfsw_runway_1:
+  airport: lfsw
+  internal_id: 2
+  length_meter: 1181
+  width_meter: 49
+  surface: grass
+  le_ident: 4
+  he_ident: 22
+  le_heading_degT:
+  he_heading_degT:
+  lighted: false
+
+lfsw_runway_2:
+  airport: lfsw
+  internal_id: 2
+  length_meter: 945
+  width_meter: 49
+  surface: grass
+  le_ident: 10
+  he_ident: 28
+  le_heading_degT: 
+  he_heading_degT: 
+  lighted: false

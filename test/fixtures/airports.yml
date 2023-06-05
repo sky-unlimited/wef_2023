@@ -45,3 +45,18 @@ ellx:
   local_code: ELLX
   lonlat: 
 
+lfsw:
+  icao: LFSW
+  name: Épernay Plivot Airfield
+  city: Epernay
+  country: france
+  iata:
+  latitude: 49.004461
+  longitude: 4.085342
+  altitude: 289
+  dst:
+  airport_type: small_airport
+  url: http://www.aeroclub-epernay.com/
+  local_code: 
+  lonlat:
+

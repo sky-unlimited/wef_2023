@@ -1,5 +1,6 @@
 class Airport < ApplicationRecord
   belongs_to :country
+  has_many :runways
 
   ACCEPTED_AIRPORT_TYPES = [ "small_airport", "medium_airport", "large_airport" ].freeze
 

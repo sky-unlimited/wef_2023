@@ -39,6 +39,9 @@ rails db:migrate
 rails db:seed
 ````
 
+Import Airports:
+`rake import:airports`
+
 Launch local server:
 `rails s`
 
