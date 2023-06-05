@@ -1,24 +1,48 @@
-# README
+# INTROUDCTION
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<img src="https://github.com/alexstan67/wanderbird/blob/master/app/assets/images/full-logo-beta-dark.png" width="200" />
 
-Things you may want to cover:
+Wanderbird is based on Rails framework helping General Aviation fellows to find a destination !
 
-* Ruby version
+# WANDERBIRD
 
-* System dependencies
+## Features
+TODO
 
-* Configuration
+## Requirements
+* ruby 3.2.2
+* rails 7.0.5
+* bundler 2.4.10
 
-* Database creation
+## Installation
+To run wanderbird locally, follow those steps:
 
-* Database initialization
+Ensure to have a ".env" file at root directory containing devise confirmable email settings:
+````bash
+MAIL_USERNAME=noreply
+MAIL_PASSWORD=password
+MAIL_DOMAIN=example.com
+MAIL_SMTP_SERVER=example.com
+CONTACT_FORM_RECIPIENT=noreply@example.com
+````
 
-* How to run the test suite
+At the root of the project, we'll need airport data from (ourairports-data)[https://github.com/davidmegginson/ourairports-data]
 
-* Services (job queues, cache servers, search engines, etc.)
+`git clone https://github.com/davidmegginson/ourairports-data`
 
-* Deployment instructions
+`bundle`
 
-* ...
+Database creation:
+````bash
+rails db:create
+rails db:migrate
+rails db:seed
+````
+
+Import Airports:
+`rake import:airports`
+
+Launch local server:
+`rails s`
+
+Visit http://localhost:3000

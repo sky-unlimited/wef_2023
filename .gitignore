@@ -29,11 +29,16 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
 # AS-Consult specific
 /node_modules
 /public/sitemap.xml.gz
+
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store
 # Ignore .env file containing credentials.
 .env*
+
+# Ignore ourairports-data repository
+/ourairports-data

@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_03_140316) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_05_132753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +41,51 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_140316) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "airports", force: :cascade do |t|
+    t.string "icao", null: false
+    t.string "name"
+    t.string "city"
+    t.bigint "country_id", null: false
+    t.string "iata"
+    t.float "latitude", null: false
+    t.float "longitude", null: false
+    t.integer "altitude"
+    t.string "dst"
+    t.string "airport_type", null: false
+    t.string "url"
+    t.string "local_code"
+    t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_airports_on_country_id"
+    t.index ["id"], name: "index_airports_on_id", unique: true
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name"
+    t.string "continent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_countries_on_id", unique: true
+  end
+
+  create_table "runways", force: :cascade do |t|
+    t.bigint "airport_id", null: false
+    t.integer "internal_id", null: false
+    t.integer "length_meter"
+    t.integer "width_meter"
+    t.string "surface"
+    t.string "le_ident"
+    t.string "he_ident"
+    t.string "le_heading_degT"
+    t.string "he_heading_degT"
+    t.boolean "lighted", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airport_id"], name: "index_runways_on_airport_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,4 +117,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_140316) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "airports", "countries"
+  add_foreign_key "runways", "airports"
 end
