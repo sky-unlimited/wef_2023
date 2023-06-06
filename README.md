@@ -1,4 +1,4 @@
-# INTROUDCTION
+# INTRODUCTION
 
 <img src="https://github.com/alexstan67/wanderbird/blob/master/app/assets/images/full-logo-beta-dark.png" width="200" />
 
@@ -39,8 +39,11 @@ rails db:migrate
 rails db:seed
 ````
 
-Import Airports:
-`rake import:airports`
+Import Ourairports-data into database:
+````bash
+rake import:airports`
+rake import:runways`
+````
 
 Launch local server:
 `rails s`
