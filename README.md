@@ -41,8 +41,8 @@ rails db:seed
 
 Import Ourairports-data into database:
 ````bash
-rake import:airports`
-rake import:runways`
+rake import:airports
+rake import:runways
 ````
 
 Launch local server:
