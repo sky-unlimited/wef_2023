@@ -2,14 +2,20 @@ development:
   airport_countries_to_import:
     - FR
     - LU
+  airports_white_list:
+    - LFJY
 
 test:
   airport_countries_to_import:
     - FR
     - LU
+  airports_white_list:
+    - LFJY
 
 production:
   airport_countries_to_import:
     - FR
     - LU
+  airports_white_list:
+    - LFJY
 

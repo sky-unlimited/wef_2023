@@ -1,35 +1,5 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-ellx_military:
-  icao: ELLX
-  name: Luxembourg Findel Air Base
-  city: Luxembourg
-  country: :luxembourg
-  iata: LUX
-  latitude: 49.6233333
-  longitude: 6.2044444
-  altitude: 1234
-  dst: 
-  airport_type: large_airport
-  url: http://www.lux-airport.lu/en/
-  local_code: ELLX
-  lonlat: 
-
-ellx_heliport:
-  icao: ELLX
-  name: Luxembourg Findel Air Base
-  city: Luxembourg
-  country: :luxembourg
-  iata: LUX
-  latitude: 49.6233333
-  longitude: 6.2044444
-  altitude: 1234
-  dst: 
-  airport_type: heliport
-  url: http://www.lux-airport.lu/en/
-  local_code: ELLX
-  lonlat: 
-
 ellx:
   icao: ELLX
   name: Luxembourg Findel Airport
@@ -59,4 +29,3 @@ lfsw:
   url: http://www.aeroclub-epernay.com/
   local_code: 
   lonlat:
-
