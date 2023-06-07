@@ -53,13 +53,7 @@ namespace :import do
         airport_hash = {}
         airport_hash = csv_to_airport(row, factory, country)
         airport = Airport.create(airport_hash)
-        #airport.persisted? ? counter_created += 1 : counter_rejected += 1
-        if airport.persisted?
-          counter_created += 1
-        else
-          counter_rejected += 1
-          puts "#{airport.icao} rejected - #{airport.errors.full_messages.join(",")}"
-        end
+        airport.persisted? ? counter_created += 1 : counter_rejected += 1
       else
         # If NOT NIL we call an [UPDATE]
         airport_hash = {}
@@ -67,10 +61,7 @@ namespace :import do
         airport = Airport.find_by(icao: row['ident'])
         airport.update(airport_hash)
         airport.persisted? ? counter_updated += 1 : counter_rejected += 1
-      
       end
-
-
     end
 
     puts "✨ Created #{counter_created} / #{counter_created + counter_updated + counter_rejected} airports!"

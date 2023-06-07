@@ -1,4 +1,8 @@
 development:
+  airport_types_to_import:
+    - small_airport
+    - medium_airport
+    - large_airport
   airport_countries_to_import:
     - FR
     - LU
@@ -6,6 +10,10 @@ development:
     - LFJY
 
 test:
+  airport_types_to_import:
+    - small_airport
+    - medium_airport
+    - large_airport
   airport_countries_to_import:
     - FR
     - LU
@@ -13,6 +21,10 @@ test:
     - LFJY
 
 production:
+  airport_types_to_import:
+    - small_airport
+    - medium_airport
+    - large_airport
   airport_countries_to_import:
     - FR
     - LU

@@ -2,12 +2,9 @@ class Airport < ApplicationRecord
   belongs_to :country
   has_many :runways
 
-  validates :icao, uniqueness: true
-  validates :local_code, uniqueness: true
+  ACCEPTED_AIRPORT_TYPES = WANDERBIRD_CONFIG['airport_types_to_import']
 
-  ACCEPTED_AIRPORT_TYPES = [ "small_airport", "medium_airport", "large_airport" ].freeze
-
-  validates :icao, presence: true
+  validates :icao, presence: true, uniqueness: true
   validates :longitude, presence: true
   validates :latitude, presence: true
   validates :airport_type, presence: true, inclusion: { in: ACCEPTED_AIRPORT_TYPES }

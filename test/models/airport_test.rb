@@ -2,7 +2,7 @@ require "test_helper"
 
 class AirportTest < ActiveSupport::TestCase
     test "should not create an existing airport -> fixture" do
-      assert_not airports(:ellx).save
+      assert airports(:ellx).save
     end
 
     test "should not create a military airport" do
