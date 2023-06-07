@@ -49,20 +49,19 @@ namespace :import do
       
       # We check if current csv airport exists in database
       if Airport.find_by(icao: row['ident']).nil?
-        # If NO we call an [CREATE]
+        # If NIL we call an [CREATE]
+        airport_hash = {}
         airport_hash = csv_to_airport(row, factory, country)
         airport = Airport.create(airport_hash)
         airport.persisted? ? counter_created += 1 : counter_rejected += 1
       else
-        # If YES we call an [UPDATE]
+        # If NOT NIL we call an [UPDATE]
+        airport_hash = {}
         airport_hash = csv_to_airport(row, factory, country)
         airport = Airport.find_by(icao: row['ident'])
         airport.update(airport_hash)
         airport.persisted? ? counter_updated += 1 : counter_rejected += 1
-      
       end
-
-
     end
 
     puts "✨ Created #{counter_created} / #{counter_created + counter_updated + counter_rejected} airports!"
