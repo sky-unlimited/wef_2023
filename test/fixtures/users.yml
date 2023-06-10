@@ -5,7 +5,6 @@
 # below each fixture, per the syntax in the comments below
 #
 regular_user:
-  #id: 1
   first_name: John
   last_name: Smith
   encrypted_password: $2a$05$eYS1YRXKD.seFcBZwzfhmesmaejBMgcnbqgjOkT4WBh/pb0l796X6 #123456
@@ -15,7 +14,6 @@ regular_user:
   confirmation_sent_at: <%= Time.zone.now - 2.hours %>
 
 admin_user:
-  #id: 2
   first_name: Billie
   last_name: Queen
   encrypted_password: $2a$05$eYS1YRXKD.seFcBZwzfhmesmaejBMgcnbqgjOkT4WBh/pb0l796X6 #123456

@@ -1,0 +1,14 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+profile1:
+  user: regular_user
+  weather_profile: safe
+  airport_icao: both
+  min_runway_length: 300
+  fuel_card_total: false
+  fuel_card_bp: false
+  max_gnd_wind_speed: 15
+
+profile2:
+  user: admin_user
+

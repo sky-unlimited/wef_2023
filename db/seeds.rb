@@ -22,7 +22,9 @@ user.password = "alex@aerostan.com"
 user.confirmed_at = Time.zone.now - 1.hour
 user.confirmation_sent_at = Time.zone.now - 2.hours
 user.save
+profile = PilotPref.create(user: user)
 puts "Admin user alex created"
+puts "Pilot pref alex created"
 
 # Create an user
 if Rails.env.development?
@@ -35,7 +37,9 @@ if Rails.env.development?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
+  profile = PilotPref.create(user: user)
   puts "User rachel created in dev"
+  puts "Pilot pref rachel created"
 end
 
 # ############################################
