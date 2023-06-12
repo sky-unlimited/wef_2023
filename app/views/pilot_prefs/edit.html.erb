@@ -1,26 +1,42 @@
 <div class="container">
-  <h1><%= t('pilot_prefs.menu') %></h1>
-  <%= form_for @pilot_pref, url: pilot_prefs_update_path do |f| %>
-    <div class="d-flex flex-column p-10">
+  <h1 class="text-center"><%= t('activerecord.models.pilot_pref') %></h1>
+  <%= form_for @pilot_pref, method: :patch, data: { turbo: false } do |f| %>
+    <% if @pilot_pref.errors.any? %>
+      <div class="alert-danger">
+        <p><%=  t("forms.messages.errors", count: @pilot_pref.errors.count)
+%> </p>
+        <ul>
+          <% @pilot_pref.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="d-flex flex-column align-items-center p-10">
       <div><%= f.label :weather_profile %></div>
       <div><%= f.collection_select :weather_profile, PilotPref.weather_profiles.keys, :to_s, :humanize, class: "form-size" %></div>
     </div>
-    <div class="d-flex flex-column p-10">
+    <div class="d-flex flex-column align-items-center p-10">
       <div><%= f.label :airport_icao %></div>
       <div><%= f.collection_select :airport_icao, PilotPref.airport_icaos.keys, :to_s, :humanize, class: "form-size" %></div>
     </div>
-    <div class="d-flex flex-column p-10">
+    <div class="d-flex flex-column align-items-center p-10">
       <div><%= f.label :min_runway_length %></div>
       <div><%#= f.range_field :min_runway_length, min: 150, max: 1500, value: :min_runway_length, class: "slider", id: :min_runway_length %></div>
       <div><%= f.number_field :min_runway_length, size:4 %></div>
     </div>
-    <div class="d-flex flex-column p-10">
+    <div class="d-flex flex-column align-items-center p-10">
       <div><%= f.label :max_gnd_wind_speed %></div>
       <div><%= f.number_field :max_gnd_wind_speed, size:2 %></div>
     </div>
-    <div class="d-flex flex-row justify-content-around mt-20">
-    <%= link_to "Back", root_path, class:"btn btn-secondary" %>
-    <%= f.submit "Save", class: "btn btn-primary" %>
+    <div class="d-flex flex-row align-items-center mt-20">
+      <div class="ml-5 mr-5 mb-10">
+        <%= link_to t('forms.back'), root_path, class:"btn btn-secondary" %>
+      </div>
+      <div class="ml-5 mr-5 mb-10">
+        <%= f.submit t('forms.submit'), class: "btn btn-primary" %>
+      </div>
   </div>
 
     

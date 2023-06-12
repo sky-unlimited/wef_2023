@@ -1,7 +1,23 @@
 en:
   activerecord:
     models:
+      pilot_pref: Pilot preferences
     attributes:
+      pilot_pref:
+        weather_profile: Weather Profile
+        airport_icao: ICAO Airport
+        min_runway_length: Minimun runway length
+        max_gnd_wind_speed: Maximum ground wind speed
+        fuel_card_total: Fuel card TOTAL
+        fuel_card_bp: Fuel card BP
+    errors:
+      messages:
+        in: must be in %{count}
+  forms:
+    messages:
+      errors:
+        one: Une erreur a été détectée
+        other: Plusieurs erreurs ont été détectées
   users:
     errors:
       file_type: The uploaded format is not an image 
@@ -12,5 +28,3 @@ en:
       hero_two: Give a goal to your flight, only by good weathear 🔆
       banner-button: Let's go!
   pilot_prefs:
-    menu: Pilot's Pref
-

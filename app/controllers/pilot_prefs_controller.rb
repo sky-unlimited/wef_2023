@@ -2,12 +2,13 @@ class PilotPrefsController < ApplicationController
   def edit
     @pilot_pref = current_user.pilot_pref
   end
+
   def update
     @pilot_pref = PilotPref.find(params[:id])
     if @pilot_pref.update(pilot_pref_params)
-      redirect_to pilot_prefs_edit_path
+      redirect_to edit_pilot_pref_path(@pilot_pref)
     else
-      render "edit", pilot_pref: @pilot_pref
+      render "edit", status: :unprocessable_entity
     end
   end
 

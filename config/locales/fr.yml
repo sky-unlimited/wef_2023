@@ -1,7 +1,23 @@
 fr:
   activerecord:
     models:
+      pilot_pref: Préférences pilote
     attributes:
+      pilot_pref:
+        weather_profile: Profile météo
+        airport_icao: Aéroport ICAO
+        min_runway_length: Longueur de piste minimale
+        max_gnd_wind_speed: Vitesse de vent au sol maximale
+        fuel_card_total: Carte essence TOTAL
+        fuel_card_bp: Carte essence BP
+    errors:
+      messages:
+        in: doit être compris entre %{count}
+  forms:
+    messages:
+      errors:
+        one: Une erreur a été détectée
+        other: Plusieurs erreurs ont été détectées
   users:
     errors:
       file_type: Le format soumit n'est pas une image 
@@ -12,5 +28,3 @@ fr:
       hero_two: Donnez un but à votre voyage, et seulement par météo favorable 🔆
       banner-button: Vous êtes prêt?
   pilot_prefs:
-    menu: Prefs Pilote
-
