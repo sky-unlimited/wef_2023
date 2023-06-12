@@ -11,4 +11,6 @@ fr:
       hero_one: Nous aidons les pilotes à trouver la meilleure destination 🌴
       hero_two: Donnez un but à votre voyage, et seulement par météo favorable 🔆
       banner-button: Vous êtes prêt?
+  pilot_prefs:
+    menu: Prefs Pilote
 
