@@ -1,7 +1,29 @@
 fr:
   activerecord:
     models:
+      pilot_pref: Préférences pilote
     attributes:
+      pilot_pref:
+        weather_profile: Profile météo
+        weather_profile_options:
+          safe: Prudent
+          adventurous: Aventureux
+        airport_icao: Types d'aéroports à destination
+        airport_icao_options:
+          both: Aérodromes Non ICAO et ICAO
+          icao_only: Aérodromes ICAO seulement
+        min_runway_length: Longueur de piste minimale (m)
+        max_gnd_wind_speed: Vitesse de vent au sol maximale (kts)
+        fuel_card_total: Carte essence TOTAL
+        fuel_card_bp: Carte essence BP
+    errors:
+      messages:
+        in: doit être compris entre %{count}
+  forms:
+    messages:
+      errors:
+        one: Une erreur a été détectée
+        other: Plusieurs erreurs ont été détectées
   users:
     errors:
       file_type: Le format soumit n'est pas une image 
@@ -11,4 +33,6 @@ fr:
       hero_one: Nous aidons les pilotes à trouver la meilleure destination 🌴
       hero_two: Donnez un but à votre voyage, et seulement par météo favorable 🔆
       banner-button: Vous êtes prêt?
-
+  pilot_prefs:
+    menu: Préfèrences
+    saved: Préférences enregistrées!

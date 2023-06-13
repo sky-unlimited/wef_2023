@@ -32,6 +32,7 @@
         <div class="account-menu-content" data-submenu-target="account">
           <% if user_signed_in? %>
             <p><%= link_to t("shared.account"), edit_user_registration_path %></p>
+            <p><%= link_to t("pilot_prefs.menu"), edit_pilot_pref_path(current_user) %></p>
             <p><%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete} %></p>
             <% if current_user.role == "admin" %>
               <p><%= link_to t("shared.console"), pages_console_path %></p>
@@ -49,6 +50,7 @@
         <p><%= link_to t("shared.home"), root_path %></p>
         <% if user_signed_in? %>
           <p><%= link_to t("shared.account"), edit_user_registration_path %></p>
+          <p><%= link_to t("pilot_prefs.menu"), edit_pilot_pref_path(current_user) %></p>
           <p><%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete} %></p>
           <% if current_user.role == "admin" %>
             <p><%= link_to t("shared.console"), pages_console_path %></p>

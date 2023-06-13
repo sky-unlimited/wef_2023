@@ -13,6 +13,7 @@ fr:
           other: "est trop court (minimum de %{count} caractères)"
   forms:
     submit: "Soumettre"
+    back: "Retour"
     messages:
       errors:
         one: "Une erreur empêche l'enregistrement"
