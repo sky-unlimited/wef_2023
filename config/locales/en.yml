@@ -5,9 +5,15 @@ en:
     attributes:
       pilot_pref:
         weather_profile: Weather Profile
-        airport_icao: ICAO Airport
-        min_runway_length: Minimun runway length
-        max_gnd_wind_speed: Maximum ground wind speed
+        weather_profile_options:
+          safe: Safe
+          adventurous: Adventurous
+        airport_icao: Airport types at destination
+        airport_icao_options:
+          both: No ICAO and ICAO airfields
+          icao_only: ICAO only airfields
+        min_runway_length: Minimun runway length (m)
+        max_gnd_wind_speed: Maximum ground wind speed (kts)
         fuel_card_total: Fuel card TOTAL
         fuel_card_bp: Fuel card BP
     errors:
@@ -28,3 +34,5 @@ en:
       hero_two: Give a goal to your flight, only by good weathear 🔆
       banner-button: Let's go!
   pilot_prefs:
+    menu: Preferences
+    saved: Preferences saved!

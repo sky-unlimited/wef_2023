@@ -5,9 +5,15 @@ fr:
     attributes:
       pilot_pref:
         weather_profile: Profile météo
-        airport_icao: Aéroport ICAO
-        min_runway_length: Longueur de piste minimale
-        max_gnd_wind_speed: Vitesse de vent au sol maximale
+        weather_profile_options:
+          safe: Prudent
+          adventurous: Aventureux
+        airport_icao: Types d'aéroports à destination
+        airport_icao_options:
+          both: Aérodromes Non ICAO et ICAO
+          icao_only: Aérodromes ICAO seulement
+        min_runway_length: Longueur de piste minimale (m)
+        max_gnd_wind_speed: Vitesse de vent au sol maximale (kts)
         fuel_card_total: Carte essence TOTAL
         fuel_card_bp: Carte essence BP
     errors:
@@ -28,3 +34,5 @@ fr:
       hero_two: Donnez un but à votre voyage, et seulement par météo favorable 🔆
       banner-button: Vous êtes prêt?
   pilot_prefs:
+    menu: Préfèrences
+    saved: Préférences enregistrées!

@@ -12,8 +12,8 @@ class PilotPrefTest < ActiveSupport::TestCase
   #FIXME: Why doesn't it work? In console correct behavior
   #test "Wrong runway length should not save" do
   #  hash =  { user: users(:admin_user),
-  #            weather_profile: :safe,
-  #            airport_icao: :both,
+  #            weather_profile: 0,
+  #            airport_icao: 0,
   #            min_runway_length: 100,
   #            fuel_card_total: false,
   #            fuel_card_bp: false,

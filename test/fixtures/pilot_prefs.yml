@@ -2,8 +2,8 @@
 
 profile1:
   user: regular_user
-  weather_profile: safe
-  airport_icao: both
+  weather_profile: 0
+  airport_icao: 0
   min_runway_length: 300
   fuel_card_total: false
   fuel_card_bp: false
