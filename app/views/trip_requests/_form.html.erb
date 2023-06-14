@@ -1,0 +1,5 @@
+<%= form_for @trip_request do |f| %>
+  <%= f.text_field :airport_id, readonly: "readonly" %>
+  <%= f.text_field :airport, placeholder: "Departure airport"  %>
+  <%= f.submit "Search" %>
+<% end %>

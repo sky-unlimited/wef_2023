@@ -1,5 +1,6 @@
 class TripRequestsController < ApplicationController
   def new
+    @trip_request = TripRequest.new
   end
 
   def create
