@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_10_061132) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_13_150959) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -101,6 +101,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_061132) do
     t.index ["airport_id"], name: "index_runways_on_airport_id"
   end
 
+  create_table "trip_requests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "airport_id", null: false
+    t.datetime "start_date", null: false
+    t.datetime "end_date"
+    t.integer "trip_mode", null: false
+    t.boolean "proxy_food", default: false, null: false
+    t.boolean "proxy_fuel", default: false, null: false
+    t.boolean "proxy_car_rental", default: false, null: false
+    t.boolean "proxy_bike_rental", default: false, null: false
+    t.boolean "proxy_camp_site", default: false, null: false
+    t.boolean "proxy_hotel", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airport_id"], name: "index_trip_requests_on_airport_id"
+    t.index ["user_id"], name: "index_trip_requests_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -133,4 +151,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_10_061132) do
   add_foreign_key "airports", "countries"
   add_foreign_key "pilot_prefs", "users"
   add_foreign_key "runways", "airports"
+  add_foreign_key "trip_requests", "airports"
+  add_foreign_key "trip_requests", "users"
 end

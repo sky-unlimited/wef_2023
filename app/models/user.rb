@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_one :pilot_pref, dependent: :destroy
+  has_many :trip_requests, dependent: :destroy
   has_one_attached :picture do | attachable |
     attachable.variant :thumb, resize_to_fill: [ 48, 48 ]
   end

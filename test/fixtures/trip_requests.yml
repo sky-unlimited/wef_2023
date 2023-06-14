@@ -1,0 +1,53 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+trip_request_correct:
+  user: regular_user
+  airport: ellx
+  start_date: <%= Time.zone.now %>
+  end_date: <%= Time.zone.now + 1.day %>
+  trip_mode: 2
+  proxy_food: true
+  proxy_fuel: true
+  proxy_car_rental: false
+  proxy_bike_rental: false
+  proxy_camp_site: false
+  proxy_hotel: false
+
+start_date_in_past:
+  user: regular_user
+  airport: ellx
+  start_date: <%= Time.zone.now - 1.day %>
+  end_date: <%= Time.zone.now + 1.day %>
+  trip_mode: 2
+  proxy_food: true
+  proxy_fuel: true
+  proxy_car_rental: false
+  proxy_bike_rental: false
+  proxy_camp_site: false
+  proxy_hotel: false
+
+end_date_before_start_date:
+  user: regular_user
+  airport: ellx
+  start_date: <%= Time.zone.now + 1.day %>
+  end_date: <%= Time.zone.now + 0.day %>
+  trip_mode: 2
+  proxy_food: true
+  proxy_fuel: true
+  proxy_car_rental: false
+  proxy_bike_rental: false
+  proxy_camp_site: false
+  proxy_hotel: false
+
+wrong_enum:
+  user: regular_user
+  airport: ellx
+  start_date: <%= Time.zone.now  %>
+  end_date: <%= Time.zone.now + 0.day %>
+  trip_mode: 99
+  proxy_food: true
+  proxy_fuel: true
+  proxy_car_rental: false
+  proxy_bike_rental: false
+  proxy_camp_site: false
+  proxy_hotel: false
