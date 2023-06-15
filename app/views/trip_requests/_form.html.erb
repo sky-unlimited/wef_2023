@@ -1,10 +1,9 @@
 <%= form_for @trip_request do |f| %>
   <div class="d-flex flex-column align-items-center p-10">
-    <div><%= f.label :airport_id %></div>
-    <div><%= f.text_field :airport_id, readonly: "readonly", size: 4 %></div>
+    <div><%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true %></div>
   </div>
-  <div class="searchbox" data-controller="airport-searcher">
-    <div><%= text_field_tag "search" , nil, placeholder: '🔎 Search Airport', data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" } %>
+  <div class="searchbox" data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
+    <div><%= text_field_tag "search" , @airport_full_name, placeholder: '🔎 Search Airport', size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" } %>
     <ul id="results" data-airport-searcher-target="result" >
     </ul>
   </div>
@@ -19,7 +18,7 @@
   <div class="d-flex flex-column align-items-center p-10">
     <div><%= f.collection_select :trip_mode, TripRequest.trip_modes.keys, :to_s, :humanize, class: "form-size" %></div>
   </div>
-  <div class="airport-searcher-proxies">
+  <div class="airport-searcher-proxies d-flex flex-column align-items-left">
     <div class="d-flex flex-row align-items-left mb-5">
       <%= f.check_box :proxy_food %>
       <%= f.label :proxy_food %>
@@ -45,7 +44,7 @@
       <%= f.label :proxy_hotel %>
     </div>
   </div>
-  <div class="ml-5 mr-5 mb-10">
-    <div><%= f.submit "Search", class: "btn btn-primary" %></div>
+  <div class="d-flex flex-column align-items-center p-10">
+    <div class="ml-5 mr-5 mb-10"><%= f.submit "Search", class: "btn btn-primary" %></div>
   </div>
 <% end %>
