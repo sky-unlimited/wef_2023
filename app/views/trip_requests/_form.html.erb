@@ -1,5 +1,51 @@
 <%= form_for @trip_request do |f| %>
-  <%= f.text_field :airport_id, readonly: "readonly" %>
-  <%= f.text_field :airport, placeholder: "Departure airport"  %>
-  <%= f.submit "Search" %>
+  <div class="d-flex flex-column align-items-center p-10">
+    <div><%= f.label :airport_id %></div>
+    <div><%= f.text_field :airport_id, readonly: "readonly", size: 4 %></div>
+  </div>
+  <div class="searchbox" data-controller="airport-searcher">
+    <div><%= text_field_tag "search" , nil, placeholder: '🔎 Search Airport', data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" } %>
+    <ul id="results" data-airport-searcher-target="result" >
+    </ul>
+  </div>
+  <div class="d-flex flex-column align-items-center p-10">
+    <div><%= f.label :start_date %></div>
+    <div><%= f.date_field :start_date %></div>
+  </div>
+  <div class="d-flex flex-column align-items-center p-10">
+    <div><%= f.label :end_date %></div>
+    <div><%= f.date_field :end_date %></div>
+  </div>
+  <div class="d-flex flex-column align-items-center p-10">
+    <div><%= f.collection_select :trip_mode, TripRequest.trip_modes.keys, :to_s, :humanize, class: "form-size" %></div>
+  </div>
+  <div class="airport-searcher-proxies">
+    <div class="d-flex flex-row align-items-left mb-5">
+      <%= f.check_box :proxy_food %>
+      <%= f.label :proxy_food %>
+    </div>
+    <div class="d-flex flex-row align-items-left mb-5">
+      <%= f.check_box :proxy_fuel %>
+      <%= f.label :proxy_fuel %>
+    </div>
+    <div class="d-flex flex-row align-items-left mb-5">
+      <%= f.check_box :proxy_car_rental %>
+      <%= f.label :proxy_car_rental %>
+    </div>
+    <div class="d-flex flex-row align-items-left mb-5">
+      <%= f.check_box :proxy_bike_rental %>
+      <%= f.label :proxy_bike_rental %>
+    </div>
+    <div class="d-flex flex-row align-items-left mb-5">
+      <%= f.check_box :proxy_camp_site %>
+      <%= f.label :proxy_camp_site %>
+    </div>
+    <div class="d-flex flex-row align-items-left mb-5">
+      <%= f.check_box :proxy_hotel %>
+      <%= f.label :proxy_hotel %>
+    </div>
+  </div>
+  <div class="ml-5 mr-5 mb-10">
+    <div><%= f.submit "Search", class: "btn btn-primary" %></div>
+  </div>
 <% end %>
