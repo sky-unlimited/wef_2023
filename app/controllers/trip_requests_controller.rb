@@ -5,12 +5,19 @@ class TripRequestsController < ApplicationController
 
   def new
     @trip_request = TripRequest.new
-    @trip_request.user = current_user
+    @trip_request.user_id = current_user.id
     @trip_request.airport_id = params[:airport].to_i
     set_airport_details if @trip_request.airport_id.positive?
   end
 
   def create
+    @trip_request = TripRequest.new(trip_request_params)
+
+    if @trip_request.save
+      redirect_to root_path, notice: "saved"
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -32,6 +39,10 @@ class TripRequestsController < ApplicationController
     airport_name = airport.name
     airport_icao = airport.icao
     @airport_full_name = "#{airport_name} (#{airport_icao})"
+  end
+
+  def trip_request_params
+    params.require(:trip_request).permit(:user_id, :airport_id, :start_date, :end_date, :trip_mode, :proxy_food, :proxy_fuel, :proxy_car_rental, :proxy_bike_rental, :proxy_camp_site, :proxy_hotel)
   end
 
 end

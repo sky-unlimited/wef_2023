@@ -14,7 +14,7 @@ class TripRequest < ApplicationRecord
   end
 
   def start_date_cannot_be_in_the_past
-    if start_date.present? && start_date < Date.today
+    if start_date.present? && start_date.to_date < Date.today
       errors.add(:start_date, "can't be in the past")
     end
   end
