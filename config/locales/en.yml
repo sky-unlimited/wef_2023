@@ -2,6 +2,7 @@ en:
   activerecord:
     models:
       pilot_pref: Pilot preferences
+      trip_request: Trip Organization
     attributes:
       pilot_pref:
         weather_profile: Weather Profile
@@ -16,9 +17,22 @@ en:
         max_gnd_wind_speed: Maximum ground wind speed (kts)
         fuel_card_total: Fuel card TOTAL
         fuel_card_bp: Fuel card BP
+      trip_request:
+        airport: Airport
+        start_date: Departure Date
+        end_date: Return Date
+        trip_mode: Trip Mode
+        proxy_food: 🍔 Food
+        proxy_fuel: ⛽ Fuel
+        proxy_car_rental: 🚙 Car Rentals
+        proxy_bike_rental: 🚲 Bike Rentals
+        proxy_camp_site: 🏕️ Camp Site
+        proxy_hotel: 🛏️ Hotels 
     errors:
       messages:
         in: must be in %{count}
+        required: must be present
+        greater_than_or_equal_to: Must be greater or equal to
   forms:
     messages:
       errors:
@@ -36,3 +50,10 @@ en:
   pilot_prefs:
     menu: Preferences
     saved: Preferences saved!
+  trip_request:
+    title: Trip Organization
+    search_placeholder: 🔎 Search an Airport
+    airport: Departure Airport
+    no_airport_selected: No airport selected
+    messages:
+      end_date_greater_start_date: should be after Departure Date

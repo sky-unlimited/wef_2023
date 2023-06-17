@@ -4,7 +4,7 @@ class TripRequest < ApplicationRecord
 
   enum trip_mode: [ :events, :suggested, :custom ]
   validates :trip_mode, inclusion: { in: trip_modes.keys }
-  validates :end_date, comparison: { greater_than_or_equal_to: :start_date }, unless: :end_date_not_null?
+  validates :end_date, comparison: { greater_than_or_equal_to: :start_date, message: I18n.t('trip_request.messages.end_date_greater_start_date') }, unless: :end_date_not_null?
   validate :start_date_cannot_be_in_the_past
 
   private

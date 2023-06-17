@@ -2,6 +2,7 @@ fr:
   activerecord:
     models:
       pilot_pref: Préférences pilote
+      trip_request: Organisation Voyage
     attributes:
       pilot_pref:
         weather_profile: Profile météo
@@ -16,9 +17,22 @@ fr:
         max_gnd_wind_speed: Vitesse de vent au sol maximale (kts)
         fuel_card_total: Carte essence TOTAL
         fuel_card_bp: Carte essence BP
+      trip_request:
+        airport: Aéroport
+        start_date: Date Depart
+        end_date: Date Retour
+        trip_mode: Mode de suggestion
+        proxy_food: 🍔 Restauration
+        proxy_fuel: ⛽ Essence
+        proxy_car_rental: 🚙 Location Voiture
+        proxy_bike_rental: 🚲 Location Vélo
+        proxy_camp_site: 🏕️  Camping
+        proxy_hotel: 🛏️ Hotels
     errors:
       messages:
         in: doit être compris entre %{count}
+        required: doit être renseigné
+        greater_than_or_equal_to: Doit être supérieur ou égal à %{value}
   forms:
     messages:
       errors:
@@ -36,3 +50,10 @@ fr:
   pilot_prefs:
     menu: Préfèrences
     saved: Préférences enregistrées!
+  trip_request:
+    title: Organisation de Voyage
+    search_placeholder: 🔎 Chercher un Aéroport
+    airport: Aéroport de Départ
+    no_airport_selected: Pas d'aéroport choisi
+    messages:
+      end_date_greater_start_date: doit être après la date de départ

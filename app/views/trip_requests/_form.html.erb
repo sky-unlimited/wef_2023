@@ -15,22 +15,27 @@
     <div><%= f.text_field :user_id, readonly: "readonly", size: 4, hidden: true %></div>
   </div>
   <div class="searchbox" data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
-    <div><%= text_field_tag "search" , @airport_full_name, placeholder: '🔎 Search Airport', size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" } %>
+    <div><%= text_field_tag "search" ,"", placeholder: t('trip_request.search_placeholder'), size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" } %>
     <ul id="results" data-airport-searcher-target="result" >
     </ul>
   </div>
   <div class="d-flex flex-column align-items-center p-10">
-    <div><%= f.label :start_date %></div>
-    <div><%= f.date_field :start_date %></div>
+    <div><%= f.label t('trip_request.airport') %></div>
+    <div><%= text_field_tag "airport_full_nale",  @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly" %></div>
+  </div>
+  <div class="d-flex flex-column align-items-center p-10">
+  <div><%= f.label :start_date %></div>
+    <div><%= f.date_field :start_date, min: Date.today, value: Date.today %></div>
   </div>
   <div class="d-flex flex-column align-items-center p-10">
     <div><%= f.label :end_date %></div>
-    <div><%= f.date_field :end_date %></div>
+    <div><%= f.date_field :end_date, min: Date.today %></div>
   </div>
   <div class="d-flex flex-column align-items-center p-10">
-    <div><%= f.collection_select :trip_mode, TripRequest.trip_modes.keys, :to_s, :humanize, class: "form-size" %></div>
+    <div><%= f.label :trip_mode %></div>
+    <div class="m-10"><%= f.collection_select :trip_mode, TripRequest.trip_modes.keys, :to_s, :humanize, class: "form-size" %></div>
   </div>
-  <div class="airport-searcher-proxies d-flex flex-column align-items-left">
+  <div class="airport-searcher-proxies text-color-dark d-flex flex-column align-items-left">
     <div class="d-flex flex-row align-items-left mb-5">
       <%= f.check_box :proxy_food %>
       <%= f.label :proxy_food %>
