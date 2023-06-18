@@ -59,5 +59,6 @@ en:
     search_placeholder: 🔎 Search an Airport
     airport: Departure Airport
     no_airport_selected: No airport selected
+    poi: Points of Interest near Airport
     messages:
       end_date_greater_start_date: should be after Departure Date
