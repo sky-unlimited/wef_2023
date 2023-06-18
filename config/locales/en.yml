@@ -22,6 +22,10 @@ en:
         start_date: Departure Date
         end_date: Return Date
         trip_mode: Trip Mode
+        trip_mode_options:
+          custom: Custom Destination
+          events: Event based Destinations
+          suggested: Suggested Destinations
         proxy_food: 🍔 Food
         proxy_fuel: ⛽ Fuel
         proxy_car_rental: 🚙 Car Rentals

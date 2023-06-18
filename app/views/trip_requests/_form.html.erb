@@ -14,15 +14,18 @@
     <div><%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true %></div>
     <div><%= f.text_field :user_id, readonly: "readonly", size: 4, hidden: true %></div>
   </div>
+
   <div class="searchbox" data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
     <div><%= text_field_tag "search" ,"", placeholder: t('trip_request.search_placeholder'), size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" } %>
     <ul id="results" data-airport-searcher-target="result" >
     </ul>
   </div>
+
   <div class="d-flex flex-column align-items-center p-10">
     <div><%= f.label t('trip_request.airport') %></div>
-    <div><%= text_field_tag "airport_full_nale",  @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly" %></div>
+    <div><%= text_field_tag "airport_full_name",  @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true %></div>
   </div>
+
   <div class="d-flex flex-column align-items-center p-10">
   <div><%= f.label :start_date %></div>
     <div><%= f.date_field :start_date, min: Date.today, value: Date.today %></div>
@@ -31,36 +34,43 @@
     <div><%= f.label :end_date %></div>
     <div><%= f.date_field :end_date, min: Date.today %></div>
   </div>
-  <div class="d-flex flex-column align-items-center p-10">
-    <div><%= f.label :trip_mode %></div>
-    <div class="m-10"><%= f.collection_select :trip_mode, TripRequest.trip_modes.keys, :to_s, :humanize, class: "form-size" %></div>
+
+  <div class="d-flex flex-columns align-items-center p-10">
+    <%= f.collection_radio_buttons :trip_mode, TripRequest.trip_modes, :first, :first, class: "mr-5", 
+        checked: I18n.t('activerecord.attributes.trip_request.trip_mode_options.custom'), 
+        disabled: [I18n.t('activerecord.attributes.trip_request.trip_mode_options.events'), 
+                   I18n.t('activerecord.attributes.trip_request.trip_mode_options.suggested')] %>
   </div>
-  <div class="airport-searcher-proxies text-color-dark d-flex flex-column align-items-left">
-    <div class="d-flex flex-row align-items-left mb-5">
-      <%= f.check_box :proxy_food %>
-      <%= f.label :proxy_food %>
-    </div>
-    <div class="d-flex flex-row align-items-left mb-5">
-      <%= f.check_box :proxy_fuel %>
-      <%= f.label :proxy_fuel %>
-    </div>
-    <div class="d-flex flex-row align-items-left mb-5">
-      <%= f.check_box :proxy_car_rental %>
-      <%= f.label :proxy_car_rental %>
-    </div>
-    <div class="d-flex flex-row align-items-left mb-5">
-      <%= f.check_box :proxy_bike_rental %>
-      <%= f.label :proxy_bike_rental %>
-    </div>
-    <div class="d-flex flex-row align-items-left mb-5">
-      <%= f.check_box :proxy_camp_site %>
-      <%= f.label :proxy_camp_site %>
-    </div>
-    <div class="d-flex flex-row align-items-left mb-5">
-      <%= f.check_box :proxy_hotel %>
-      <%= f.label :proxy_hotel %>
+  
+  <div class="d-flex flex-row justify-content-center">
+    <div class="airport-searcher-proxies text-color-dark d-flex flex-column align-items-left">
+      <div class="d-flex flex-row align-items-left mb-5">
+        <%= f.check_box :proxy_food %>
+        <%= f.label :proxy_food %>
+      </div>
+      <div class="d-flex flex-row align-items-left mb-5">
+        <%= f.check_box :proxy_fuel %>
+        <%= f.label :proxy_fuel %>
+      </div>
+      <div class="d-flex flex-row align-items-left mb-5">
+        <%= f.check_box :proxy_car_rental %>
+        <%= f.label :proxy_car_rental %>
+      </div>
+      <div class="d-flex flex-row align-items-left mb-5">
+        <%= f.check_box :proxy_bike_rental %>
+        <%= f.label :proxy_bike_rental %>
+      </div>
+      <div class="d-flex flex-row align-items-left mb-5">
+        <%= f.check_box :proxy_camp_site %>
+        <%= f.label :proxy_camp_site %>
+      </div>
+      <div class="d-flex flex-row align-items-left mb-5">
+        <%= f.check_box :proxy_hotel %>
+        <%= f.label :proxy_hotel %>
+      </div>
     </div>
   </div>
+
   <div class="d-flex flex-column align-items-center p-10">
     <div class="ml-5 mr-5 mb-10"><%= f.submit "Check results!", class: "btn btn-primary" %></div>
   </div>
