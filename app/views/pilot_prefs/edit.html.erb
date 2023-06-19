@@ -1,49 +1,46 @@
-<div class="container">
-  <h1 class="text-center"><%= t('activerecord.models.pilot_pref') %></h1>
-  <%= form_for @pilot_pref, method: :patch, data: { turbo: false } do |f| %>
-    <% if @pilot_pref.errors.any? %>
-      <div class="alert-danger">
-        <p><%=  t("forms.messages.errors", count: @pilot_pref.errors.count) %> </p>
-        <ul>
-          <% @pilot_pref.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+<div class="container-sm">
+  <div class="form-wrapper card-product border-radius">
 
-    <div class="d-flex flex-column align-items-center p-10">
-      <div><%= f.label :weather_profile %></div>
-      <div><%= f.collection_select :weather_profile, PilotPref.weather_profiles.keys, :to_s, :humanize, class: "form-size" %></div>
-    </div>
-    <div class="d-flex flex-column align-items-center p-10">
-      <div><%= f.label :airport_icao %></div>
-      <div><%= f.collection_select :airport_icao, PilotPref.airport_icaos.keys, :to_s, :humanize, class: "form-size" %></div>
-    </div>
-    <div class="d-flex flex-column align-items-center p-10">
-      <div><%= f.label :min_runway_length %></div>
-      <%#= f.range_field :min_runway_length, min: 150, max: 1500, value: :min_runway_length, class: "slider", id: :min_runway_length %>
-      <div><%= f.number_field :min_runway_length, min: 150, max: 1500 %></div>
-    </div>
-    <div class="d-flex flex-column align-items-center p-10">
-      <div><%= f.label :max_gnd_wind_speed %></div>
-      <div><%= f.number_field :max_gnd_wind_speed, min: 15, max: 45 %></div>
-    </div>
-    <div class="d-flex flex-column align-items-center p-10">
-      <div><%= f.label :fuel_card_total %></div>
-      <div><%= f.check_box :fuel_card_total %></div>
-    </div>
-    <div class="d-flex flex-column align-items-center p-10">
-      <div><%= f.label :fuel_card_bp %></div>
-      <div><%= f.check_box :fuel_card_bp %></div>
-    </div>
-    <div class="d-flex flex-row align-items-center mt-20">
-      <div class="ml-5 mr-5 mb-10">
-        <%= link_to t('forms.back'), root_path, class:"btn btn-secondary" %>
+    <%= form_for @pilot_pref, method: :patch, data: { turbo: false } do |f| %>
+      <h1 class="text-center"><%= t('activerecord.models.pilot_pref') %></h1>
+
+      <div class="form-inputs">
+        <% if @pilot_pref.errors.any? %>
+          <div class="alert-danger">
+            <p><%=  t("forms.messages.errors", count: @pilot_pref.errors.count) %> </p>
+            <ul>
+              <% @pilot_pref.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= f.label :weather_profile, class: "form-label" %>
+        <div class="mb-15 form-select"><%= f.collection_select :weather_profile, PilotPref.weather_profiles.keys, :to_s, :humanize, class: "form-select" %></div>
+
+        <%= f.label :airport_icao, class: "form-label" %>
+        <div class="mb-15 form-select"><%= f.collection_select :airport_icao, PilotPref.airport_icaos.keys, :to_s, :humanize, class: "form-control" %></div>
+
+        <%= f.label :min_runway_length, class: "form-label" %>
+        <%#= f.range_field :min_runway_length, min: 150, max: 1500, value: :min_runway_length, class: "slider", id: :min_runway_length %>
+        <%= f.number_field :min_runway_length, min: 150, max: 1500, class: "form-control" %>
+
+        <%= f.label :max_gnd_wind_speed, class: "form-label" %>
+        <%= f.number_field :max_gnd_wind_speed, min: 15, max: 45, class: "form-control" %>
+
+        <%= f.label :fuel_card_total, class: "form-label" %>
+        <%= f.check_box :fuel_card_total %>
+        <%= f.label :fuel_card_bp, class: "form-label" %>
+        <%= f.check_box :fuel_card_bp %>
+        
       </div>
-      <div class="ml-5 mr-5 mb-10">
+      <div class="form-actions mt-15">
+        <%= link_to t('forms.back'), root_path, class:"btn btn-secondary" %>
         <%= f.submit t('forms.submit'), class: "btn btn-primary" %>
       </div>
-    </div>
-  <% end %>
+
+    <% end %>
+
+  </div>
 </div>

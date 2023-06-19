@@ -36,12 +36,12 @@ fr:
       messages:
         in: doit être compris entre %{count}
         required: doit être renseigné
-        greater_than_or_equal_to: Doit être supérieur ou égal à %{value}
   forms:
     messages:
       errors:
         one: Une erreur a été détectée
         other: Plusieurs erreurs ont été détectées
+        confirmation: Olala
   users:
     errors:
       file_type: Le format soumit n'est pas une image 

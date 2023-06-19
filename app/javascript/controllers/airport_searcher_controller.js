@@ -12,7 +12,7 @@ export default class extends Controller {
   display = (array) => {
     this.resultTarget.innerHTML = "";
     array.forEach((airport) => {
-      const line = `<li><a id="${airport.id}" href="${this.baseUrl}/trip_requests/new?airport=${airport.id}">${airport.name} (${airport.icao})</a></li>`;
+      const line = `<li><a class="link-dark link-no-underline" id="${airport.id}" href="${this.baseUrl}/trip_requests/new?airport=${airport.id}">${airport.name} (${airport.icao})</a></li>`;
       this.resultTarget.insertAdjacentHTML("afterbegin", line);
     });
   };

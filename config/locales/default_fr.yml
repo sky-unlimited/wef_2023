@@ -8,6 +8,7 @@ fr:
         blank: "ne peut pas être vide"
         taken: "a déjà été pris"
         invalid: "n'est pas valide"
+        confirmation: "erronnée"
         too_short:
           one: "est trop court (minimum de 1 caractère)"
           other: "est trop court (minimum de %{count} caractères)"
