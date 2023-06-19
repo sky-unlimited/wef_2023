@@ -1,64 +1,50 @@
-form {
-  color: $dark;
+.form-wrapper {
   display: flex;
   flex-direction: column;
-  background-color: $light;
   align-items: center;
-  .form-title-error {
-    color: #8d2d36;
-  }
-  .field {
-    font-weight: 400;
-    font-size: 1em;
-    margin-bottom: 1em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .actions {
-    margin: 1em;
-  }
-  a {
-    color: $info;
-    text-decoration: none;
-  }
-  i {
-    color: $secondary;
-    font-size: 0.8em;
-  }
-  input {
-    border-radius: $border-radius;
-    border: 1px solid $secondary;
-    box-shadow: none;
-    outline: none;
-    padding: 0.5em;
-  }
-  em {
-    font-size: 0.8em;
+  justify-content: center;
+  text-align: center;
+}
+.form-inputs {
+  overflow: hidden;
+  padding: 5px;
+}
+.form-actions {
+  margin-bottom: 20px;
+}
+.form-control {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  line-height: 1.5;
+  color: $text-color;
+  background-color: $body-color;
+  background-clip: padding-box;
+  border: 1px solid $secondary;
+  appearance: none; // Hide arrows for number inputs
+  border-radius: $border-radius;
+  transition: 0.5s ease-in-out;
+  margin-bottom: 15px;
+}
+.form-label {
+  margin-bottom: 5px;
+}
+.form-select {
+  select {
+    padding: .375rem .75rem;
   }
 }
-.form-links {
-  text-decoration: none;
-  text-align: center;
-  margin: 1em;
-  a {
-    text-decoration: none;
-    color: $dark;
-  }
-  a:hover {
-    color: $primary;
-  }
+.form-searcher {
+  border-radius: 25px;
+}
+.form-searcher-ul {
+  text-align: left;
+  list-style-type: none;
 }
 
-@media only screen and (min-width: 700px) {
-  form {
-    border-radius: $border-radius;
-    box-shadow: 5px 5px 10px 0px rgb(150, 150, 150);
-    align-items: center;
-    margin: auto;
-    padding: 10px;
-    border: 1px solid $dark;
-    width: fit-containt;
-    max-width: 400px;
+@media (min-width: 768px) {
+  .form-wrapper {
+    padding: 60px;
   }
 }

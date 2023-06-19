@@ -2,6 +2,7 @@ fr:
   activerecord:
     models:
       pilot_pref: Préférences pilote
+      trip_request: Organisation Voyage
     attributes:
       pilot_pref:
         weather_profile: Profile météo
@@ -16,14 +17,31 @@ fr:
         max_gnd_wind_speed: Vitesse de vent au sol maximale (kts)
         fuel_card_total: Carte essence TOTAL
         fuel_card_bp: Carte essence BP
+      trip_request:
+        airport: Aéroport
+        start_date: Date Depart
+        end_date: Date Retour
+        trip_mode: Mode de suggestion
+        trip_mode_options:
+          custom: Destination Personnalisée
+          events: Evennements intéressants
+          suggested: Destinations conseillées
+        proxy_food: 🍔 Restauration
+        proxy_fuel: ⛽ Essence
+        proxy_car_rental: 🚙 Location Voiture
+        proxy_bike_rental: 🚲 Location Vélo
+        proxy_camp_site: 🏕️  Camping
+        proxy_hotel: 🛏️ Hotels
     errors:
       messages:
         in: doit être compris entre %{count}
+        required: doit être renseigné
   forms:
     messages:
       errors:
         one: Une erreur a été détectée
         other: Plusieurs erreurs ont été détectées
+        confirmation: Olala
   users:
     errors:
       file_type: Le format soumit n'est pas une image 
@@ -36,3 +54,11 @@ fr:
   pilot_prefs:
     menu: Préfèrences
     saved: Préférences enregistrées!
+  trip_request:
+    title: Organisation de Voyage
+    search_placeholder: 🔎 Chercher un Aéroport
+    airport: Aéroport de Départ
+    no_airport_selected: Pas d'aéroport choisi
+    poi: Centres d'intérêts près des aérodromes
+    messages:
+      end_date_greater_start_date: doit être après la date de départ

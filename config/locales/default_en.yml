@@ -8,6 +8,7 @@ en:
         blank:
         taken:
         invalid:
+        confirmation: 
         too_short:
           one:
           other:
