@@ -22,6 +22,18 @@
 .color-dark {
   color: $dark;
 }
+.color1 {
+  color: $color1;
+}
+.color2 {
+  color: $color2;
+}
+.color3 {
+  color: $color3;
+}
+.color4 {
+  color: $color4;
+}
 .bg-primary {
   background-color: $primary;
 }
@@ -48,4 +60,16 @@
 }
 .bg-transparent {
   background-color: transparent;
+}
+.bg-color1 {
+  background-color: $color1;
+}
+.bg-color2 {
+  background-color: $color2;
+}
+.bg-color3 {
+  background-color: $color3;
+}
+.bg-color4 {
+  background-color: $color4;
 }

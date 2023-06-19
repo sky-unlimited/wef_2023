@@ -1,0 +1,91 @@
+.link {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+.link-primary {
+  @extend .link;
+  color: $primary;
+  &:hover {
+    color: $primary_bis;
+  }
+}
+.link-secondary {
+  @extend .link;
+  color: $secondary;
+  &:hover {
+    color: $secondary_bis;
+  }
+}
+.link-success {
+  @extend .link;
+  color: $success;
+  &:hover {
+    color: $success_bis;
+  }
+}
+.link-danger {
+  @extend .link;
+  color: $danger;
+  &:hover {
+    color: $danger_bis;
+  }
+}
+.link-warning {
+  @extend .link;
+  color: $warning;
+  &:hover {
+    color: $warning_bis;
+  }
+}
+.link-info {
+  @extend .link;
+  color: $info;
+  &:hover {
+    color: $info_bis;
+  }
+}
+.link-light {
+  @extend .link;
+  color: $light;
+  &:hover {
+    color: $light_bis;
+  }
+}
+.link-dark {
+  @extend .link;
+  color: $dark;
+  &:hover {
+    color: $dark_bis;
+  }
+}
+.link-color1 {
+  @extend .link;
+  color: $color1;
+  &:hover {
+    color: $color1_bis;
+  }
+}
+.link-color2 {
+  @extend .link;
+  color: $color2;
+  &:hover {
+    color: $color2_bis;
+  }
+}
+.link-color3 {
+  @extend .link;
+  color: $color3;
+  &:hover {
+    color: $color3_bis;
+  }
+}
+.link-color4 {
+  @extend .link;
+  color: $color4;
+  &:hover {
+    color: $color4_bis;
+  }
+}
+.link-no-underline {
+  text-decoration: none !important;
+}
