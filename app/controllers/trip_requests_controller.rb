@@ -14,7 +14,7 @@ class TripRequestsController < ApplicationController
     @trip_request = TripRequest.new(trip_request_params)
 
     if @trip_request.save
-      redirect_to root_path
+      redirect_to trip_suggestions_path
     else
       render :new, status: :unprocessable_entity
     end
