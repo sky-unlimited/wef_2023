@@ -60,5 +60,6 @@ en:
     airport: Departure Airport
     no_airport_selected: No airport selected
     poi: Points of Interest near Airport
+    submit: Find destinations!
     messages:
       end_date_greater_start_date: should be after Departure Date
