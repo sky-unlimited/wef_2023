@@ -60,5 +60,6 @@ fr:
     airport: Aéroport de Départ
     no_airport_selected: Pas d'aéroport choisi
     poi: Centres d'intérêts près des aérodromes
+    submit: Trouver destinations!
     messages:
       end_date_greater_start_date: doit être après la date de départ
