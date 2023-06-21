@@ -8,6 +8,7 @@ development:
     - LU
   airports_white_list:
     - LFJY
+  default_weather_calls_validity_hours: 8
 
 test:
   airport_types_to_import:
@@ -19,6 +20,7 @@ test:
     - LU
   airports_white_list:
     - LFJY
+  default_weather_calls_validity_hours: 8
 
 production:
   airport_types_to_import:
@@ -30,4 +32,5 @@ production:
     - LU
   airports_white_list:
     - LFJY
+  default_weather_calls_validity_hours: 8
 
