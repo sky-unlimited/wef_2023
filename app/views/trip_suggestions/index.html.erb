@@ -1,2 +1,8 @@
 <p>No suggestions yet, you silly boy. I'm waiting to be programmed !</p>
 <p>All I know, is that you asked for a <%= @trip_request.trip_mode %> departing from <%= @trip_request.airport.name %>.</p>
+
+<div class="map-container" \
+      data-controller="osm" \
+      data-osm-target="map" \
+      data-osm-airports-value="<%= @airports_array.to_json %>" \
+</div>
