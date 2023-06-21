@@ -82,6 +82,7 @@ gem "activerecord-postgis-adapter"
 gem "rgeo"
 gem "rgeo-geojson"
 gem "rgeo-proj4"
+gem "rest-client"
 
 group :development do
   gem "capistrano-rake", require: false
