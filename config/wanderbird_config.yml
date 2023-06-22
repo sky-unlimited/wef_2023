@@ -9,6 +9,8 @@ development:
   airports_white_list:
     - LFJY
   default_weather_calls_validity_hours: 8
+  default_weather_tile_precision: 1
+  default_weather_tile_depth: 4
 
 test:
   airport_types_to_import:
@@ -21,6 +23,8 @@ test:
   airports_white_list:
     - LFJY
   default_weather_calls_validity_hours: 8
+  default_weather_tile_precision: 1
+  default_weather_tile_depth: 4
 
 production:
   airport_types_to_import:
@@ -33,4 +37,7 @@ production:
   airports_white_list:
     - LFJY
   default_weather_calls_validity_hours: 8
+  default_weather_tile_precision: 1
+  default_weather_tile_depth: 4
+
 
