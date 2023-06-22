@@ -12,7 +12,7 @@ class WeatherService
         db_weather.created_at.today? &&
         db_weather.lon.round(6) == lon.round(6) &&
         db_weather.lat.round(6) == lat.round(6)
-        return db_weather.json
+        return db_weather.id
       end
     end
 
@@ -32,7 +32,9 @@ class WeatherService
                        lon: weather_call["lon"].round(6),
                        json: api_call)
 
-    return weather_call
-
+    # And we retrive the id of the record in database
+    return  WeatherCall.where(  lat: weather_call["lat"].round(6),
+                                lon: weather_call["lon"].round(6)
+                             ).pluck(:id).last
   end
 end
