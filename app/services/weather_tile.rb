@@ -1,41 +1,93 @@
 require 'json'
 
+# ┏━━━━━━━━━━━━━┓
+# ┃  A          ┃
+# ┃             ┃
+# ┃             ┃
+# ┃      C      ┃
+# ┃             ┃
+# ┃             ┃
+# ┃             ┃
+# O━━━━━━━━━━━━━┛
+#
+# "O" represents the Origin point of a weather tile (lon_tile_origin, lat_tile_origin)
+# "C" represents the Center point of a tile on which we'll the weather information (lon_center, lat_center)
+# "A" if provided, represents the Airport location to determine the first tile (airport)
+# Example:
+#   ELLX Luxembourg
+#   Precision: 1
+#   A (6.204444,49.6233333)
+#   C (6.5, 49.5)
+#   O (6,49)
 class WeatherTile
-  attr_reader :points, :center_lon, :center_lat, :weather_data, :start_date, :return_date
-  def initialize(airport, start_date, return_date=nil)
-    @precision =  WANDERBIRD_CONFIG['default_weather_tile_precision'].to_f
-    @depth =      WANDERBIRD_CONFIG['default_weather_tile_depth'].to_i
-    @start_date   = start_date
-    @return_date  = return_date
-    @points = nil
-    @center_lon = nil
-    @center_lat = nil
+  attr_reader :points, :lon_center, :lat_center, :lon_tile_origin, :lat_tile_origin, :weather_data, :date
+
+  def initialize(date, precision, lon_tile_origin=nil, lat_tile_origin=nil, airport=nil)
+    @points = nil           # represents coordiates of tile's corners
+    @lon_center = nil
+    @lat_center = nil
     @weather_data = nil
+    @lon_tile_origin = lon_tile_origin 
+    @lat_tile_origin = lat_tile_origin
+    @date = date            # At which date should we retrieve weather information
+    @precision = precision  # Precision is the size of a tile. The smaller, the more precise is the weather
+    @airport_departure = airport
 
-    # We check that the precision given in the config file is in the expected values.
-    check_precision
+    # If the tile is instantiated with an airport, it means we have first to 
+    # compute determine the bottom left coordinate.
+    # All other tiles are determined based on this initial point.
+    get_initial_boundaries unless @airport_departure.nil?
 
-    # We create at the tile at instantation
-    create_tile(airport)
-
+    # We now have all info to create the tile while instantiation
+    createTile
   end
 
   private
 
-  def check_precision
-    raise Exception.new("WeatherTile precision #{@precision} is not permitted! Accepted values: 0.25, 0.5 and 1") unless [0.25, 0.5, 1].include?(@precision)
+  def get_initial_boundaries
+    # boundaries contains the bottom left coordinate of the airport origin tile
+    boundaries = []
+
+    # Departure airport coordinates
+    coordinates = [ @airport_departure.longitude, @airport_departure.latitude ]
+    
+    # For each lon / lat we determine the tile minimums depending the precision
+    coordinates.each do |coordinate| 
+      left_boundary   = coordinate.floor
+
+      case precision
+      when 0.25
+        if number < left_boundary + ( 1 * precision )
+          left_boundary = left_boundary
+        elsif number < left_boundary + ( 2 * precision )
+          left_boundary += ( 1 * precision )
+        elsif number < left_boundary + ( 3 * precision )
+          left_boundary  += ( 2 * precision )
+        else
+          left_boundary += 3 * precision
+        end
+      when 0.5
+        left_boundary += precision if number >= left_boundary + precision
+      else
+        left_boundary = left_boundary
+      end
+      boundaries.push(left_boundary)
+    end
+
+    @lon_tile_origin = boundaries[0]
+    @lat_tile_origin = boundaries[1]
   end
 
-  def create_tile(airport)
+  def create_tile
     # We define the coordinates of the tile depending on the airport and precision
     # Exemple:  ELLX Airport
     #           longitude: 6.20444 latitude: 49.6233333
     #           Precision: 1
     #           See results below in comments
-    left_tile    = computeBoundaries(airport.longitude)[0]  #6  ELLX
-    right_tile   = computeBoundaries(airport.longitude)[1]  #7  ELLX
-    bottom_tile  = computeBoundaries(airport.latitude)[0]   #49 ELLX
-    top_tile     = computeBoundaries(airport.latitude)[1]   #50 ELLX
+    left_tile    = @lon_lat_origin                  #6  ELLX
+    right_tile   = @lon_lat_origin  + @precision    #7  ELLX
+    bottom_tile  = @lat_tile_origin                 #49 ELLX
+    top_tile     = @lat_tile_origin + @precision    #50 ELLX
 
     # x axis is longitude
     # y axis is latitude
@@ -53,7 +105,7 @@ class WeatherTile
     @center_lat = bottom_tile + ( top_tile.to_f - bottom_tile.to_f ) / 2
 
     # We need to determine at which date we need the weather
-    day_difference = (Date.current - @start_date.to_date).to_i
+    day_difference = (Date.current - @date.to_date).to_i
 
     # We retrieve the WeatherCall id
     weather_record_id = WeatherService::getWeather(@center_lat, @center_lon)
@@ -65,26 +117,4 @@ class WeatherTile
     # Depending on the pilot profile, we decide if the tile is ok or nok
   end
 
-  def computeBoundaries(number)
-    left_boundary   = number.floor
-
-    case @precision
-    when 1
-      left_boundary = left_boundary
-    when 0.5
-      left_boundary += @precision if number >= left_boundary + @precision
-    when 0.25
-      if number < left_boundary + ( 1 * @precision )
-        left_boundary = left_boundary
-      elsif number < left_boundary + ( 2 * @precision )
-        left_boundary += ( 1 * precision )
-      elsif number < left_boundary + ( 3 * @precision )
-        left_boundary  += ( 2 * @precision )
-      else
-        left_boundary += 3 * @precision
-      end
-    end
-
-    return [ left_boundary, left_boundary + @precision ]
-  end
 end
