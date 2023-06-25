@@ -39,7 +39,7 @@ class WeatherTile
     get_initial_boundaries unless @airport_departure.nil?
 
     # We now have all info to create the tile while instantiation
-    createTile
+    create_tile
   end
 
   private
@@ -55,19 +55,19 @@ class WeatherTile
     coordinates.each do |coordinate| 
       left_boundary   = coordinate.floor
 
-      case precision
+      case @precision
       when 0.25
-        if number < left_boundary + ( 1 * precision )
+        if number < left_boundary + ( 1 * @precision )
           left_boundary = left_boundary
-        elsif number < left_boundary + ( 2 * precision )
-          left_boundary += ( 1 * precision )
-        elsif number < left_boundary + ( 3 * precision )
-          left_boundary  += ( 2 * precision )
+        elsif number < left_boundary + ( 2 * @precision )
+          left_boundary += ( 1 * @precision )
+        elsif number < left_boundary + ( 3 * @precision )
+          left_boundary  += ( 2 * @precision )
         else
-          left_boundary += 3 * precision
+          left_boundary += 3 * @precision
         end
       when 0.5
-        left_boundary += precision if number >= left_boundary + precision
+        left_boundary += @precision if number >= left_boundary + @precision
       else
         left_boundary = left_boundary
       end
@@ -84,8 +84,8 @@ class WeatherTile
     #           longitude: 6.20444 latitude: 49.6233333
     #           Precision: 1
     #           See results below in comments
-    left_tile    = @lon_lat_origin                  #6  ELLX
-    right_tile   = @lon_lat_origin  + @precision    #7  ELLX
+    left_tile    = @lon_tile_origin                  #6  ELLX
+    right_tile   = @lon_tile_origin  + @precision    #7  ELLX
     bottom_tile  = @lat_tile_origin                 #49 ELLX
     top_tile     = @lat_tile_origin + @precision    #50 ELLX
 
