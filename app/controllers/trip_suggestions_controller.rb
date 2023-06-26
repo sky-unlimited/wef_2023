@@ -1,3 +1,5 @@
+require 'rgeo'
+
 class TripSuggestionsController < ApplicationController
   def index
     # We load the current user last trip request
@@ -14,6 +16,16 @@ class TripSuggestionsController < ApplicationController
       })
     end
 
+    fly_zone_departure_date = WeatherTiles.new(current_user, 
+                                               Airport.find(@trip_request.airport_id), 
+                                               @trip_request.start_date, 
+                                               nil)
+
+    # For development purpose, we create an array of tiles in order to be displayed on map
+    @tiles = []
+    fly_zone_departure_date.tiles.each do |tile|
+      @tiles.push(tile.polygon)
+    end
 
     # We check the weather at departure airport both for start date and return date (if provided)
       # If one of the checked dates is below user's acceptance threshold we display a message and next days weather

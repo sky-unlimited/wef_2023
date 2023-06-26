@@ -11,7 +11,8 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static values = {
     tile: Object,
-    airports: Array
+    airports: Array,
+    weatherTiles: Array
   }
 
   static targets = [ 'map' ]
@@ -57,7 +58,18 @@ export default class extends Controller {
     //var airportELLX = L.geoJSON(this.airportPolygonValue).addTo(this.map);
 
     // We add the weather tile
-    //var weatherLayer = L.geoJSON(this.tileValue).addTo(this.map);
+    //var weatherLayer = L.geoJSON(this.weather-tileValue).addTo(this.map);
+    this.weatherTilesValue.forEach((tile) => {
+      var weatherLayer = L.polygon(tile).addTo(this.map);
+      
+      weatherLayer.setStyle({
+      fillColor: 'green',        // Change the fill color to red
+      fillOpacity: 0.5,        // Set the fill opacity to 0.5
+      color: 'green',           // Change the border color to blue
+      weight: 2               // Set the border weight to 2 pixels
+      // Add more style properties as needed
+      });
+    });
     
     // Hereunder an example to manage the layer on/off depending on zoom
     /* 
@@ -139,6 +151,7 @@ export default class extends Controller {
       // Creating a Layer Group of airports
       airportsGroup.addLayer(circle);
     });
+
     // Adding the LayerGroup to the map
     airportsGroup.addTo(this.map);
 
@@ -151,7 +164,7 @@ export default class extends Controller {
       "OpenStreetMap": OpenStreetMap_Mapnik
     };
     var overlays = {
-      //"Weather Layer": weatherLayer,
+      //"Weather Layer": weatherLayer
       //"Airports": airportsGroup,
       //"ELLX": airportELLX
     };
