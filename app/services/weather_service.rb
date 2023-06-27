@@ -39,15 +39,36 @@ class WeatherService
   end
 
   def self.get_fake_weather(lat,lon)
-    # Random weather
-    rand(0..3) < 1 ? code = 200 : code = 800  #200=TS, 800=CLEAR
+    # We load bad weather possibilities
+    bad_weather_sample = self.random_bad_weather
 
-    data = {
-              "id" => code,
-              "main" => "Fake",
-              "description" => "Fake weather",
-              "icon" => "10d"
+    # Random weather
+    if rand(0..3) < 1
+      # bad weather
+      fake_data = {
+              "id" => bad_weather_sample["id"],
+              "main" => bad_weather_sample["main"],
+              "description" => bad_weather_sample["description"],
+              "icon" => bad_weather_sample["icon"]
             }
+    else
+      # good weather
+      fake_data = { "id" => 800, "main" => "Clear", "description" => "clear sky", "icon" => "01d" }
+    end
+  end
+  
+  private
+
+  def self.random_bad_weather()
+    random = rand(0..2)
+    case random
+    when 0
+      { "id" => 212, "main" => "Thunderstorm", "description" => "heavy thunderstorm", "icon" => "11d" }
+    when 2
+      { "id" => 602, "main" => "Snow", "description" => "very heavy snow", "icon" => "13d" }
+    else
+      { "id" => 503, "main" => "Rain", "description" => "very heavy rain", "icon" => "10d" }
+    end
   end
 
 end
