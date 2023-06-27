@@ -33,6 +33,8 @@ class WeatherTiles
                                   origin_tile.lon_tile_origin + @precision,
                                   origin_tile.lat_tile_origin,
                                   nil)
+
+    @tiles.push(second_tile)
   end
 
   private

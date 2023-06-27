@@ -60,14 +60,27 @@ export default class extends Controller {
     // We add the weather tile
     //var weatherLayer = L.geoJSON(this.weather-tileValue).addTo(this.map);
     this.weatherTilesValue.forEach((tile) => {
-      var weatherLayer = L.polygon(tile).addTo(this.map);
-      
+      var weatherLayer = L.polygon(tile[0]).addTo(this.map);
+
+      // We assign tile colors depending if weather is ok or not
+      var tileFillColor   = '';
+      var tileFillOpacity = 0.5;
+      var tileColor       = '';
+      var tileWeight      = 2;
+
+      if (tile[1] == true) {
+        tileFillColor = 'green',
+        tileColor = 'green'
+      } else {
+        tileFillColor = 'orange',
+        tileColor = 'orange'
+      }
+
       weatherLayer.setStyle({
-      fillColor: 'green',        // Change the fill color to red
-      fillOpacity: 0.5,        // Set the fill opacity to 0.5
-      color: 'green',           // Change the border color to blue
-      weight: 2               // Set the border weight to 2 pixels
-      // Add more style properties as needed
+        fillColor: tileFillColor,       // Change the fill color
+        fillOpacity: tileFillOpacity,   // Set the fill opacity to 0.5
+        color: tileColor,               // Change the border color
+        weight: tileWeight              // Set the border weight in pixels
       });
     });
     

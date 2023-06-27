@@ -24,7 +24,7 @@ class TripSuggestionsController < ApplicationController
     # For development purpose, we create an array of tiles in order to be displayed on map
     @tiles = []
     fly_zone_departure_date.tiles.each do |tile|
-      @tiles.push(tile.polygon)
+      @tiles.push([ tile.polygon, tile.weather_ok ])
     end
 
     # We check the weather at departure airport both for start date and return date (if provided)
