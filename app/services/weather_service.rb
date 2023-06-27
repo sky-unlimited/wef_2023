@@ -1,7 +1,7 @@
 require 'rest-client'
 
 class WeatherService
-  def self.getWeather(lat, lon)
+  def self.get_weather(lat, lon)
     # We check if weather available in database and inside validity
     db_weather = WeatherCall.where(lon: lon, lat: lat).last
 
@@ -37,4 +37,17 @@ class WeatherService
                                 lon: weather_call["lon"].round(6)
                              ).pluck(:id).last
   end
+
+  def self.get_fake_weather(lat,lon)
+    # Random weather
+    rand(0..3) < 1 ? code = 200 : code = 800  #200=TS, 800=CLEAR
+
+    data = {
+              "id" => code,
+              "main" => "Fake",
+              "description" => "Fake weather",
+              "icon" => "10d"
+            }
+  end
+
 end
