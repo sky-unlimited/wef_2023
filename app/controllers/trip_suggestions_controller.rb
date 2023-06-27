@@ -16,6 +16,7 @@ class TripSuggestionsController < ApplicationController
       })
     end
 
+    # We create the the first froup of tiles related to departure date -> fly_zone departure
     fly_zone_departure_date = WeatherTiles.new(current_user, 
                                                Airport.find(@trip_request.airport_id), 
                                                @trip_request.start_date, 

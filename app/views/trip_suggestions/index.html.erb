@@ -1,6 +1,12 @@
-<p>No suggestions yet, you silly boy. I'm waiting to be programmed !</p>
-<p>All I know, is that you asked for a <%= @trip_request.trip_mode %> departing from <%= @trip_request.airport.name %>.</p>
-
+<div class="d-flex flex-row justify-content-center">
+  <div>
+    <p>All good, you gonna fly, silly boy. ⚠️  Work in progress ⚠️ </p>
+    <p>You asked for a <b><%= @trip_request.trip_mode %></b> departing from <b><%= @trip_request.airport.name %></b>.</p>
+  </div>
+  <div style="margin: auto;">
+    <%= link_to "New Trip Request", new_trip_request_path, class: "btn btn-secondary" %>
+  </div>
+</div>
 <div class="map-container" \
       data-controller="osm" \
       data-osm-target="map" \
