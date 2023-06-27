@@ -21,11 +21,16 @@ class TripSuggestionsController < ApplicationController
                                                @trip_request.start_date, 
                                                nil)
 
+    @departure_weather = fly_zone_departure_date.tiles[0].weather_data
+
     # For development purpose, we create an array of tiles in order to be displayed on map
     @tiles = []
     fly_zone_departure_date.tiles.each do |tile|
       @tiles.push([ tile.polygon, tile.weather_ok ])
     end
+
+    # If weather on derparture aiport not ok, we display a specific page
+    render "bad_weather" if fly_zone_departure_date.start_date_weather_ok == false
 
     # We check the weather at departure airport both for start date and return date (if provided)
       # If one of the checked dates is below user's acceptance threshold we display a message and next days weather
