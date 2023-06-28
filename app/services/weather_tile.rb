@@ -24,7 +24,7 @@ class WeatherTile
   attr_reader :polygon, :polygon_geometry, :lon_center, :lat_center, :lon_tile_origin, :lat_tile_origin,
               :weather_data, :date, :weather_ok
 
-  def initialize(pilot_profile, date, precision, lon_tile_origin=nil, lat_tile_origin=nil, airport=nil)
+  def initialize(pilot_weather_profile, date, precision, lon_tile_origin=nil, lat_tile_origin=nil, airport=nil)
     @polygon = nil                      # represents the polygon of the tile
     @polygon_geometry = nil             # represents the polygon of the tile in RGeo factory format
     @lon_center = nil                   # Longitude center of the tile "C"
@@ -35,8 +35,8 @@ class WeatherTile
     @date = date                        # At which date should we retrieve weather information
     @precision = precision              # Precision is the size of a tile. The smaller, the more precise is the weather
     @airport_departure = airport        # Just used for the initial tile
-    @pilot_profile = pilot_profile      # The pilot weather profile (safe, ...)
     @weather_ok = false                 # Summarizes if tile's weather is in pilot's acceptance criteria (PilotPref.weather_profile)
+    @pilot_weather_profile = pilot_weather_profile  # The pilot weather profile (safe, ...)
 
     # If the tile is instantiated with an airport, it means we have first to 
     # compute determine the bottom left coordinate.
@@ -64,17 +64,17 @@ class WeatherTile
 
       case @precision
       when 0.25
-        if number < left_boundary + ( 1 * @precision )
+        if coordinate < left_boundary + ( 1 * @precision )
           left_boundary = left_boundary
-        elsif number < left_boundary + ( 2 * @precision )
+        elsif coordinate < left_boundary + ( 2 * @precision )
           left_boundary += ( 1 * @precision )
-        elsif number < left_boundary + ( 3 * @precision )
+        elsif coordinate < left_boundary + ( 3 * @precision )
           left_boundary  += ( 2 * @precision )
         else
           left_boundary += 3 * @precision
         end
       when 0.5
-        left_boundary += @precision if number >= left_boundary + @precision
+        left_boundary += @precision if coordinate >= left_boundary + @precision
       else
         left_boundary = left_boundary
       end
@@ -138,26 +138,26 @@ class WeatherTile
 
     # We retrieve the WeatherCall id
     # comment below in case of fake weather call
-    #weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
+    weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
 
     # We read and assign the corresponding weather info
     #   Exemple: {"id"=>502, "main"=>"Rain", "description"=>"heavy intensity rain", "icon"=>"10d"}
-    #@weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_difference]["weather"][0]
+    @weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_difference]["weather"][0]
     # To activate fake weather, comment above, uncomment below
-    @weather_data = WeatherService::get_fake_weather(@lat_center, @lon_center)
+    #@weather_data = WeatherService::get_fake_weather(@lat_center, @lon_center)
 
     # Depending on the pilot weather profile, we decide if the tile asociated weather is ok or nok
     weather_profiles =  WANDERBIRD_CONFIG['weather_profiles']
 
     # The pilot weather profile is "safe"
-    if @pilot_profile = PilotPref.weather_profiles.keys[0]
+    if @pilot_weather_profile = PilotPref.weather_profiles.keys[0]
       if weather_profiles[0]["safe"].include?(@weather_data["id"])
         @weather_ok = true
       end
     end
 
     # The pilot weather profile is "adventurous"
-    if @pilot_profile = PilotPref.weather_profiles.keys[1]
+    if @pilot_weather_profile = PilotPref.weather_profiles.keys[1]
       if weather_profiles[0]["safe"].include?(@weather_data["id"]) or
          weather_profiles[1]["adventurous"].include?(@weather_data["id"])
         @weather_ok = true

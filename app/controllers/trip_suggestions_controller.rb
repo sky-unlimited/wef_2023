@@ -16,13 +16,13 @@ class TripSuggestionsController < ApplicationController
       })
     end
 
-    # We create the the first froup of tiles related to departure date -> fly_zone departure
+    # We create the the first group of tiles related to departure date -> fly_zone departure
     fly_zone_departure_date = WeatherTiles.new(current_user, 
                                                Airport.find(@trip_request.airport_id), 
                                                @trip_request.start_date, 
                                                nil)
 
-    @departure_weather = fly_zone_departure_date.tiles[0].weather_data
+    @departure_weather = fly_zone_departure_date.tiles.first.weather_data #first is departure weather layer
 
     # For development purpose, we create an array of tiles in order to be displayed on map
     @tiles = []
