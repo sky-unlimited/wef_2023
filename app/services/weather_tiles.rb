@@ -29,7 +29,7 @@ class WeatherTiles
     @tiles.push(origin_tile)
     @x_tile_init = origin_tile.lon_tile_origin # will define the center of the weather grid -> lon
     @y_tile_init = origin_tile.lat_tile_origin # will define the center of the weather grid -> lon
-
+    
     # We check that the weather is ok on the initial tile
     @start_date_weather_data = origin_tile.weather_data           # used by controller to display information on the view
     @start_date_weather_ok = true if origin_tile.weather_ok
@@ -101,8 +101,9 @@ class WeatherTiles
 
     # Tile Latitude offsets depending the precisions
     tile_offset_y = []
+    precision_y = precision * (1.to_f / 1 )
     (0..(grid.count - 1)).each do |y|
-      tile_offset_y[y] = ( y * precision) + ( y_tile_init - ( (grid.count / 2).floor ) * precision )
+      tile_offset_y[y] = ( y * precision_y) + ( y_tile_init - ( (grid.count / 2).floor ) * precision_y )
     end
 
     # We visit all the tiles depending the depth_level
@@ -127,6 +128,7 @@ class WeatherTiles
         end
       end
     end
+    #TODO: Test this case
     return 1 if bad_weather_count == depth_level * 8
     return 0
   end

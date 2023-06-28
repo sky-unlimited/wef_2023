@@ -9,8 +9,8 @@ development:
   airports_white_list:
     - LFJY
   default_weather_calls_validity_hours: 8
-  default_weather_tile_precision: 0.5
-  default_weather_tile_depth: 2
+  default_weather_tile_precision: 1
+  default_weather_tile_depth: 3
   weather_profiles:
     - safe:
         - 210

@@ -27,8 +27,6 @@ class WeatherService
       }
     weather_call = JSON.parse( api_call )
 
-    raise
-
     # We store it in database
     WeatherCall.create(lat: weather_call["lat"].round(6),
                        lon: weather_call["lon"].round(6),

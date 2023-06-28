@@ -91,10 +91,11 @@ class WeatherTile
     #           longitude: 6.20444 latitude: 49.6233333
     #           Precision: 1
     #           See results below in comments
-    left_tile    = @lon_tile_origin                 #6  ELLX
-    right_tile   = @lon_tile_origin + @precision    #7  ELLX
-    bottom_tile  = @lat_tile_origin                 #49 ELLX
-    top_tile     = @lat_tile_origin + @precision    #50 ELLX
+    #           !!! To obtain a square tile, top_tile * (4/6)
+    left_tile    = @lon_tile_origin                                 #6  ELLX -> if precision=1
+    right_tile   = @lon_tile_origin + @precision                    #7  ELLX -> if precision=1
+    bottom_tile  = @lat_tile_origin                                 #49 ELLX -> if precision=1
+    top_tile     = @lat_tile_origin + (@precision * ( 1.to_f / 1) ) #50 ELLX -> if precision=1
 
     # x axis is longitude
     # y axis is latitude
@@ -138,13 +139,13 @@ class WeatherTile
 
     # We retrieve the WeatherCall id
     # comment below in case of fake weather call
-    weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
+    #weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
 
     # We read and assign the corresponding weather info
     #   Exemple: {"id"=>502, "main"=>"Rain", "description"=>"heavy intensity rain", "icon"=>"10d"}
-    @weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_difference]["weather"][0]
+    #@weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_difference]["weather"][0]
     # To activate fake weather, comment above, uncomment below
-    #@weather_data = WeatherService::get_fake_weather(@lat_center, @lon_center)
+    @weather_data = WeatherService::get_fake_weather(@lat_center, @lon_center)
 
     # Depending on the pilot weather profile, we decide if the tile asociated weather is ok or nok
     weather_profiles =  WANDERBIRD_CONFIG['weather_profiles']
