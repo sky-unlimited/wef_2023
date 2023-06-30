@@ -27,18 +27,11 @@ class TripSuggestionsController < ApplicationController
     # For development purpose, we create an array of tiles in order to be displayed on map
     @tiles = []
     fly_zone_departure_date.tiles.each do |tile|
-      @tiles.push([ tile.polygon, tile.weather_ok ])
+      @tiles.push([ tile.polygon, tile.is_in_fly_zone ])
     end
 
     # If weather on derparture aiport not ok, we display a specific page
     render "bad_weather" if fly_zone_departure_date.start_date_weather_ok == false
 
-    # We check the weather at departure airport both for start date and return date (if provided)
-      # If one of the checked dates is below user's acceptance threshold we display a message and next days weather
-      # We exit the process
-    # We define the elastic weather for departure date
-    # We define the elastic weather for return date
-    # We combine the 2 in a fly zone ST_Intersection -> https://chat.openai.com/share/c725d3ab-16f3-42f1-8ca6-972038393e93
-    # We display it on a Leaflet map.
   end
 end

@@ -23,6 +23,7 @@ require 'rgeo'
 class WeatherTile
   attr_reader :polygon, :polygon_geometry, :lon_center, :lat_center, :lon_tile_origin, :lat_tile_origin,
               :weather_data, :date, :weather_ok
+  attr_accessor :is_in_fly_zone
 
   def initialize(pilot_weather_profile, date, precision, lon_tile_origin=nil, lat_tile_origin=nil, airport=nil)
     @polygon = nil                      # represents the polygon of the tile
@@ -37,6 +38,7 @@ class WeatherTile
     @airport_departure = airport        # Just used for the initial tile
     @weather_ok = false                 # Summarizes if tile's weather is in pilot's acceptance criteria (PilotPref.weather_profile)
     @pilot_weather_profile = pilot_weather_profile  # The pilot weather profile (safe, ...)
+    @is_in_fly_zone = false             # Good weather is not enough. We need to display only the fly zone
 
     # If the tile is instantiated with an airport, it means we have first to 
     # compute determine the bottom left coordinate.
