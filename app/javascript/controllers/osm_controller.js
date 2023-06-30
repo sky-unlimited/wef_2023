@@ -10,7 +10,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static values = {
-    tile: Object,
+    airport: Object,
     airports: Array,
     weatherTiles: Array
   }
@@ -19,6 +19,7 @@ export default class extends Controller {
 
   connect() {
     console.log("Openstreetmap connected!")
+    console.log(this.airportValue.icao);
     this.displayMap();
   }
 
@@ -49,7 +50,7 @@ export default class extends Controller {
 
     // We create the base layers and add default one to the map
     this.map = L.map(this.mapTarget, {
-      center: [49.6, 6.2],
+      center: [this.airportValue.latitude, this.airportValue.longitude],
       zoom: 6,
       layers: [Esri_WorldGrayCanvas]
     });
@@ -64,16 +65,15 @@ export default class extends Controller {
 
       // We assign tile colors depending if weather is ok or not
       var tileFillColor   = '';
-      var tileFillOpacity = 0.5;
+      var tileFillOpacity = 0.2;
       var tileColor       = '';
-      var tileWeight      = 2;
+      var tileWeight      = 0;
 
       if (tile[1] == true) {
         tileFillColor = 'green',
         tileColor = 'green'
       } else {
-        tileFillColor = 'orange',
-        tileColor = 'orange'
+        tileFillOpacity = 0;
       }
 
       weatherLayer.setStyle({
@@ -118,43 +118,50 @@ export default class extends Controller {
     //this.map.fitBounds(airportELLX.getBounds());
 
     // We display the airport homebase marker
+    /*
     var myStyle = {
       opacity: 0.1,
       alt: "ELLX",
       title: "ELLX"
     };
-    //L.geoJSON(this.airportValue, { style: myStyle }).addTo(this.map)
+    L.geoJSON(this.airportValue, { style: myStyle }).addTo(this.map)
+    */
 
     // We display all airports
     var airportsGroup = L.layerGroup();
 
     this.airportsValue.forEach((airport) => {
-      var airport_color = "";
-      var airport_radius = 0;
-      var airport_weight = 0;
+      var airportColor = "";
+      var airportRadius = 0;
+      var airportWeight = 0;
       switch(airport.airport_type) {
         case "small_airport":
-          airport_color = "green"
-          airport_radius = 100
-          airport_weight = 1
+          airportColor = "green";
+          airportRadius = 100;
+          airportWeight = 1;
           break;
         case "medium_airport":
-          airport_color = "blue"
-          airport_radius = 300
-          airport_weight = 2
+          airportColor = "blue";
+          airportRadius = 300;
+          airportWeight = 2;
           break;
         default:
-          airport_color = "#FF00FF"
-          airport_radius = 500
-          airport_weight = 3
+          airportColor = "#FF00FF";
+          airportRadius = 500;
+          airportWeight = 3;
           break;
       }
+      if (this.airportValue.icao == airport.icao)
+      {
+        airportColor = "red";
+        airportRadius = 5000;
+      }
       var circle = L.circle([airport.geojson.coordinates[1], airport.geojson.coordinates[0]], {
-        color: airport_color,
-        weight: airport_weight,
-        fillColor: airport_color,
+        color: airportColor,
+        weight: airportWeight,
+        fillColor: airportColor,
         fillOpacity: 0.2,
-        radius: airport_radius
+        radius: airportRadius
       });
       
 
