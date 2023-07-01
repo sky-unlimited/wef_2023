@@ -12,14 +12,13 @@ export default class extends Controller {
   static values = {
     airport: Object,
     airports: Array,
-    weatherTiles: Array
+    flyzone: Object
   }
 
   static targets = [ 'map' ]
 
   connect() {
     console.log("Openstreetmap connected!")
-    console.log(this.airportValue.icao);
     this.displayMap();
   }
 
@@ -58,6 +57,7 @@ export default class extends Controller {
     // We add the airport polygon for ELLX
     //var airportELLX = L.geoJSON(this.airportPolygonValue).addTo(this.map);
 
+    /*
     // We add the weather tile
     //var weatherLayer = L.geoJSON(this.weather-tileValue).addTo(this.map);
     this.weatherTilesValue.forEach((tile) => {
@@ -83,6 +83,7 @@ export default class extends Controller {
         weight: tileWeight              // Set the border weight in pixels
       });
     });
+    */
     
     // Hereunder an example to manage the layer on/off depending on zoom
     /* 
@@ -126,6 +127,16 @@ export default class extends Controller {
     };
     L.geoJSON(this.airportValue, { style: myStyle }).addTo(this.map)
     */
+    
+    // We display the flyzone of the departure
+    var myStyle = {
+      opacity: 0.3,
+      fillColor: "green",
+      color: "green",
+      weight: 4,
+    };
+    L.geoJSON(this.flyzoneValue, { style: myStyle }).addTo(this.map)
+
 
     // We display all airports
     var airportsGroup = L.layerGroup();

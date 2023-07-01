@@ -16,22 +16,46 @@ class TripSuggestionsController < ApplicationController
       })
     end
 
-    # We create the the first group of tiles related to departure date -> fly_zone departure
+    # We create the union polygons fly-zone for departure and return date
     fly_zone_departure_date = WeatherTiles.new(current_user, 
                                                Airport.find(@trip_request.airport_id), 
                                                @trip_request.start_date, 
                                                nil)
 
-    @departure_weather = fly_zone_departure_date.tiles.first.weather_data #first is departure weather layer
+    @departure_weather_data = fly_zone_departure_date.weather_data_to_date
+    @departure_weather_ok   = fly_zone_departure_date.weather_ok_to_date
+    fly_zone_departure      = fly_zone_departure_date.flyzone_polygon
 
-    # For development purpose, we create an array of tiles in order to be displayed on map
-    @tiles = []
-    fly_zone_departure_date.tiles.each do |tile|
-      @tiles.push([ tile.polygon, tile.is_in_fly_zone ])
+    unless @trip_request.end_date.nil?
+      fly_zone_return_date = WeatherTiles.new(current_user, 
+                                               Airport.find(@trip_request.airport_id), 
+                                               @trip_request.end_date, 
+                                               nil)
+      @return_weather_data  = fly_zone_return_date.weather_data_to_date
+      @return_weather_ok    = fly_zone_return_date.weather_ok_to_date
+      fly_zone_return       = fly_zone_return_date.flyzone_polygon
+    end
+    
+    # We reate now the intersection between both weathers to define a fly zone that is ok
+    # either for departure date as return date
+    unless fly_zone_departure.nil?  # If bad weather on departure, to polygon is created
+      if fly_zone_return_date.nil?
+        fly_zone_combined = fly_zone_departure
+      else
+        unless fly_zone_return.nil?
+          fly_zone_combined = fly_zone_departure.intersection(fly_zone_return)
+        end
+      end
     end
 
-    # If weather on derparture aiport not ok, we display a specific page
-    render "bad_weather" if fly_zone_departure_date.start_date_weather_ok == false
+    # We convert the RGeo polygon into geojson
+    @flyzone = RGeo::GeoJSON.encode(fly_zone_combined).to_json
+
+    # If weather on departure aiport not ok, we display a specific page
+    if  fly_zone_departure_date.weather_ok_to_date == false ||
+        fly_zone_return_date.weather_ok_to_date == false 
+      render "bad_weather" 
+    end
 
   end
 end

@@ -1,5 +1,6 @@
 require 'json'
 require 'rgeo'
+require 'rgeo/geos'
 
 # ┏━━━━━━━━━━━━━┓
 # ┃  A          ┃
@@ -111,7 +112,9 @@ class WeatherTile
     ]
 
     # We deduct the polygon geometry representation by using a Factory
-    factory = RGeo::Geographic.spherical_factory(srid: 4326)
+    #factory = RGeo::Geographic.spherical_factory(srid: 4326)
+    factory = RGeo::Geos.factory(srid: 4326)
+
 
     # Create an array of RGeo::Feature::Point objects
     points = polygon.map { |coord| factory.point(coord[0], coord[1]) }

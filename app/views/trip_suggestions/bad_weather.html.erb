@@ -1,12 +1,29 @@
-<p>Sorry bro, there's  a <b><%= @departure_weather["description"] %></b>  at departure airport <b><%= @trip_request.airport.name %></b> on departure date. Stay tuned!</p>
+<% unless @departure_weather_ok %>
+  <p>Sorry bro, there's  a <b><%= @departure_weather_data["description"] %></b>  at departure airport <b><%= @trip_request.airport.name %></b> on departure date. Stay tuned!</p>
 
-<% if (200..299).include?@departure_weather["id"] %>
-    <!-- ThunderStorm (TS) weather -->
-    <img src="https://images.unsplash.com/photo-1457528877294-b48235bdaa68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Thunderstorm" width="600">
-  <% elsif (500..599).include?@departure_weather["id"] %>
-    <!-- Rainy weather -->
-    <img src="https://images.unsplash.com/photo-1438449805896-28a666819a20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Rainy weather" width="600">
-  <% elsif (600..699).include?@departure_weather["id"] %>
-    <!-- Snow weather -->
-    <img src="https://images.unsplash.com/photo-1507181179506-598491b53db4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80" alt"Snow weather" width="600">
+  <% if (200..299).include?@departure_weather_data["id"] %>
+      <!-- ThunderStorm (TS) weather -->
+      <img src="https://images.unsplash.com/photo-1457528877294-b48235bdaa68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Thunderstorm" width="600">
+    <% elsif (500..599).include?@departure_weather_data["id"] %>
+      <!-- Rainy weather -->
+      <img src="https://images.unsplash.com/photo-1438449805896-28a666819a20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Rainy weather" width="600">
+    <% elsif (600..699).include?@departure_weather_data["id"] %>
+      <!-- Snow weather -->
+      <img src="https://images.unsplash.com/photo-1507181179506-598491b53db4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80" alt"Snow weather" width="600">
+  <% end %>
 <% end %>
+<% unless @return_weather_ok %>
+  <p>Sorry bro, there's  a <b><%= @return_weather_data["description"] %></b>  at departure airport <b><%= @trip_request.airport.name %></b> on expected return date. Stay tuned!</p>
+
+  <% if (200..299).include?@return_weather_data["id"] %>
+      <!-- ThunderStorm (TS) weather -->
+      <img src="https://images.unsplash.com/photo-1457528877294-b48235bdaa68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Thunderstorm" width="600">
+    <% elsif (500..599).include?@return_weather_data["id"] %>
+      <!-- Rainy weather -->
+      <img src="https://images.unsplash.com/photo-1438449805896-28a666819a20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Rainy weather" width="600">
+    <% elsif (600..699).include?@return_weather_data["id"] %>
+      <!-- Snow weather -->
+      <img src="https://images.unsplash.com/photo-1507181179506-598491b53db4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80" alt"Snow weather" width="600">
+  <% end %>
+<% end %>
+

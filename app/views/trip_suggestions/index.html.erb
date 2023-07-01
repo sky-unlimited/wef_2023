@@ -2,6 +2,8 @@
   <div>
     <p>All good, you gonna fly, silly boy. ⚠️  Work in progress ⚠️ </p>
     <p>You asked for a <b><%= @trip_request.trip_mode %></b> departing from <b><%= @trip_request.airport.name %></b>.</p>
+    <p>Departure Date:<b> <%= @trip_request.start_date %></b></p>
+    <p>Return    Date:<b> <%= @trip_request.end_date %></b></p>
   </div>
   <div style="margin: auto;">
     <%= link_to "New Trip Request", new_trip_request_path, class: "btn btn-secondary" %>
@@ -12,5 +14,7 @@
       data-osm-target="map" \
       data-osm-airports-value="<%= @airports_array.to_json %>" \
       data-osm-airport-value="<%= @trip_request.airport.to_json %>" \
-      data-osm-weather-tiles-value="<%= @tiles %>" \
+      data-osm-flyzone-value="<%= @flyzone %>" \
+      data-osm-flyzone-value="<%= @flyzone_departure %>" \
+      data-osm-flyzone-value="<%= @flyzone_return %>" \
 </div>
