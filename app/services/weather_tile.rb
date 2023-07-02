@@ -142,15 +142,17 @@ class WeatherTile
     # FIXME: issue#29
     day_difference = [ 7, (@date.to_date - Date.current ).to_i ].min
 
-    # We retrieve the WeatherCall id
-    # comment below in case of fake weather call
-    #weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
 
     # We read and assign the corresponding weather info
     #   Exemple: {"id"=>502, "main"=>"Rain", "description"=>"heavy intensity rain", "icon"=>"10d"}
-    #@weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_difference]["weather"][0]
-    # To activate fake weather, comment above, uncomment below
-    @weather_data = WeatherService::get_fake_weather(@lat_center, @lon_center)
+    if WANDERBIRD_CONFIG['fake_weather'] == true
+      @weather_data = WeatherService::get_fake_weather(@lat_center, @lon_center)
+    else
+      # We retrieve the WeatherCall id
+      weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
+      # We read database
+      @weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_difference]["weather"][0]
+    end
 
     # Depending on the pilot weather profile, we decide if the tile asociated weather is ok or nok
     weather_profiles =  WANDERBIRD_CONFIG['weather_profiles']

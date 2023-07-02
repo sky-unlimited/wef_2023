@@ -34,6 +34,7 @@ class WeatherTiles
     @weather_ok_to_date   = true if origin_tile.weather_ok
 
     # We launch the progagation algo for a defined date only in case of good weather at departure airport
+    # If bad weather, no polygon created
     propagation_algo(x_tile_init, y_tile_init) unless @weather_ok_to_date == false
 
   end

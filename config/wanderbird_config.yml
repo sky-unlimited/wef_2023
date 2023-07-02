@@ -26,6 +26,7 @@ development:
         - 600
         - 803
         - 804
+  fake_weather: true
 
 test:
   airport_types_to_import:
@@ -55,6 +56,7 @@ test:
         - 600
         - 803
         - 804
+  fake_weather: true
 
 production:
   airport_types_to_import:
@@ -84,3 +86,4 @@ production:
         - 600
         - 803
         - 804
+  fake_weather: false
