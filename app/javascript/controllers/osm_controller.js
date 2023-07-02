@@ -12,7 +12,9 @@ export default class extends Controller {
   static values = {
     airport: Object,
     airports: Array,
-    flyzone: Object
+    destinationZone: Object,
+    flyzoneOutbound: Object,
+    flyzoneInbound: Object
   }
 
   static targets = [ 'map' ]
@@ -127,16 +129,30 @@ export default class extends Controller {
     };
     L.geoJSON(this.airportValue, { style: myStyle }).addTo(this.map)
     */
-    
-    // We display the flyzone of the departure
+
+    // We display the flyzone departure
     var myStyle = {
       opacity: 0.3,
       fillColor: "green",
-      color: "green",
-      weight: 4,
+      weight: 0,
     };
-    L.geoJSON(this.flyzoneValue, { style: myStyle }).addTo(this.map)
+    var flyZoneOutbound = L.geoJSON(this.flyzoneOutboundValue, { style: myStyle }).addTo(this.map)
 
+    // We display the flyzone return
+    var myStyle = {
+      opacity: 0.3,
+      fillColor: "green",
+      weight: 0,
+    };
+    var flyZoneInbound = L.geoJSON(this.flyzoneInboundValue, { style: myStyle }).addTo(this.map)
+
+    // We display the destination zone
+    var myStyle = {
+      opacity: 0.3,
+      fillColor: "#9A48D0",
+      weight: 0,
+    };
+    var destinationZone = L.geoJSON(this.destinationZoneValue, { style: myStyle }).addTo(this.map)
 
     // We display all airports
     var airportsGroup = L.layerGroup();
@@ -195,12 +211,15 @@ export default class extends Controller {
       "OpenStreetMap": OpenStreetMap_Mapnik
     };
     var overlays = {
+      "Destination Zone": destinationZone,
+      "Fly Zone - outbound": flyZoneOutbound,
+      "Fly Zone - inbound": flyZoneInbound,
       //"Weather Layer": weatherLayer
       //"Airports": airportsGroup,
       //"ELLX": airportELLX
     };
-    //L.control.layers(baselayers, overlays).addTo(this.map);
-    L.control.layers(baselayers).addTo(this.map);
+    L.control.layers(baselayers, overlays).addTo(this.map);
+    //L.control.layers(baselayers).addTo(this.map);
 
   }
   disconnect(){

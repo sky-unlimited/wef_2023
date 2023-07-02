@@ -139,15 +139,15 @@ class WeatherTiles
       grid[y][x] = 3        # cell should be part of flyzone
 
       # We search the corresponding weather tile
-      associated_tile = @tiles.find { |tile| tile.lon_tile_origin == @tile_offset_x[x] &&
+      corresponding_tile = @tiles.find { |tile| tile.lon_tile_origin == @tile_offset_x[x] &&
                                              tile.lat_tile_origin == @tile_offset_y[y] }
       
-      associated_tile.is_in_fly_zone = true if associated_tile
+      corresponding_tile.is_in_fly_zone = true if corresponding_tile
 
       if @flyzone_polygon.nil?
-        @flyzone_polygon = associated_tile.polygon_geometry
+        @flyzone_polygon = corresponding_tile.polygon_geometry
       else
-        @flyzone_polygon = @flyzone_polygon.union(associated_tile.polygon_geometry)
+        @flyzone_polygon = @flyzone_polygon.union(corresponding_tile.polygon_geometry)
       end
 
       # We call recursively all adjacent cells
