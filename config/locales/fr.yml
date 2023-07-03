@@ -65,4 +65,4 @@ fr:
       end_date_greater_start_date: doit être après la date de départ
   trip_suggestions:
     notices:
-      bad_weather: La météo est malheuresement mauvaise en tenant compte de vos critères
+      bad_weather: Nous ne pouvons proposer de destinations, météo au départ de %{airport} incompatible pour le créneau demandé

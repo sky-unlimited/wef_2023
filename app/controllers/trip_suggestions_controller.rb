@@ -69,7 +69,7 @@ class TripSuggestionsController < ApplicationController
       #departure_airport_weather_tile = fly_zone_outbound.tiles.first.weather_data
       
       # We render the bad weather specific page
-      flash.notice = t('trip_suggestions.notices.bad_weather')
+      flash.notice = t('trip_suggestions.notices.bad_weather', airport: @trip_request.airport.name)
       render "bad_weather"
     end
 
