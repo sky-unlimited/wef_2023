@@ -56,6 +56,28 @@ class WeatherService
       fake_data = { "id" => 800, "main" => "Clear", "description" => "clear sky", "icon" => "01d" }
     end
   end
+
+  def self.weather_code_in_pilot_profile(pilot_weather_profile, id)
+    weather_profiles =  WANDERBIRD_CONFIG['weather_profiles']
+    weather_ok = false
+
+    # The pilot weather profile is "safe"
+    if pilot_weather_profile == PilotPref.weather_profiles.keys[0]
+      if weather_profiles[0]["safe"].include?(id)
+        weather_ok = true
+      end
+    end
+
+    # The pilot weather profile is "adventurous"
+    if pilot_weather_profile == PilotPref.weather_profiles.keys[1]
+      if weather_profiles[0]["safe"].include?(id) or
+         weather_profiles[1]["adventurous"].include?(id)
+        weather_ok = true
+      end
+    end
+
+    return weather_ok
+  end
   
   private
 
