@@ -63,3 +63,6 @@ en:
     submit: Find destinations!
     messages:
       end_date_greater_start_date: should be after Departure Date
+  trip_suggestions:
+    notices:
+      bad_weather: Unfortunately, bad weather following your choices

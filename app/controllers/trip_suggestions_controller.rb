@@ -39,7 +39,7 @@ class TripSuggestionsController < ApplicationController
       @inbound_weather_data     = fly_zone_outbound.weather_data_to_date
       @inbound_weather_ok       = fly_zone_outbound.weather_ok_to_date
     end
-    
+
     # We reate now the intersection between both weathers to define a fly zone that is ok
     # either for departure date as return date
     #unless fly_zone_outbound.nil?  # If bad weather on departure, to polygon is created
@@ -69,7 +69,8 @@ class TripSuggestionsController < ApplicationController
       #departure_airport_weather_tile = fly_zone_outbound.tiles.first.weather_data
       
       # We render the bad weather specific page
-      render "bad_weather" 
+      flash.notice = t('trip_suggestions.notices.bad_weather')
+      render "bad_weather"
     end
 
   end

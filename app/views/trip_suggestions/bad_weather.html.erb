@@ -1,29 +1,19 @@
-<% unless @outbound_weather_ok %>
-  <p>Sorry bro, there's  a <b><%= @outbound_weather_data["description"] %></b>  at departure airport <b><%= @trip_request.airport.name %></b> on departure date. Stay tuned!</p>
-
-  <% if (200..299).include?@outbound_weather_data["id"] %>
-      <!-- ThunderStorm (TS) weather -->
-      <img src="https://images.unsplash.com/photo-1457528877294-b48235bdaa68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Thunderstorm" width="600">
-    <% elsif (500..599).include?@outbound_weather_data["id"] %>
-      <!-- Rainy weather -->
-      <img src="https://images.unsplash.com/photo-1438449805896-28a666819a20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Rainy weather" width="600">
-    <% elsif (600..699).include?@outbound_weather_data["id"] %>
-      <!-- Snow weather -->
-      <img src="https://images.unsplash.com/photo-1507181179506-598491b53db4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80" alt"Snow weather" width="600">
-  <% end %>
-<% end %>
-<% unless @inbound_weather_ok %>
-  <p>Sorry bro, there's  a <b><%= @inbound_weather_data["description"] %></b>  at departure airport <b><%= @trip_request.airport.name %></b> on expected return date. Stay tuned!</p>
-
-  <% if (200..299).include?@inbound_weather_data["id"] %>
-      <!-- ThunderStorm (TS) weather -->
-      <img src="https://images.unsplash.com/photo-1457528877294-b48235bdaa68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Thunderstorm" width="600">
-    <% elsif (500..599).include?@inbound_weather_data["id"] %>
-      <!-- Rainy weather -->
-      <img src="https://images.unsplash.com/photo-1438449805896-28a666819a20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt"Rainy weather" width="600">
-    <% elsif (600..699).include?@inbound_weather_data["id"] %>
-      <!-- Snow weather -->
-      <img src="https://images.unsplash.com/photo-1507181179506-598491b53db4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80" alt"Snow weather" width="600">
-  <% end %>
-<% end %>
-
+<div class="container-sm bg-color1 d-flex flex-column">
+  <div class="w-100">
+    <h1 class="text-center mb-5 mt-5"><%= @trip_request.airport.icao %></h1>
+    <h2 class="text-center mt-0"><%= @trip_request.airport.name %></h2>
+  </div>
+  <div class="d-flex flex-row justify-content-around align-items-center">
+    <div class="d-flex flex-column align-items-center" >
+      <p><b>outbound</b> <%= l @trip_request.start_date, format: :date_short %></p>
+      <img src="https://openweathermap.org/img/wn/<%= @outbound_weather_data["icon"] %>@2x.png" alt="weather icon">
+      <p><%= @outbound_weather_data["description"] %></p>
+    </div>
+    <div class="d-flex flex-column align-items-center" >
+      <p><b>inbound</b> <%= l @trip_request.end_date, format: :date_short %></p>
+      <img src="https://openweathermap.org/img/wn/<%= @inbound_weather_data["icon"] %>@2x.png" alt="weather icon">
+      <p><%= @inbound_weather_data["description"] %></p>
+    </div>
+  </div>
+  <%= link_to "New Trip Request", new_trip_request_path, class: "btn btn-secondary mb-10" %>
+</div>
