@@ -154,23 +154,8 @@ class WeatherTile
       @weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_difference]["weather"][0]
     end
 
-    # Depending on the pilot weather profile, we decide if the tile asociated weather is ok or nok
-    weather_profiles =  WANDERBIRD_CONFIG['weather_profiles']
-
-    # The pilot weather profile is "safe"
-    if @pilot_weather_profile = PilotPref.weather_profiles.keys[0]
-      if weather_profiles[0]["safe"].include?(@weather_data["id"])
-        @weather_ok = true
-      end
-    end
-
-    # The pilot weather profile is "adventurous"
-    if @pilot_weather_profile = PilotPref.weather_profiles.keys[1]
-      if weather_profiles[0]["safe"].include?(@weather_data["id"]) or
-         weather_profiles[1]["adventurous"].include?(@weather_data["id"])
-        @weather_ok = true
-      end
-    end
+    # Depending on the pilot weather profile, we deduct if the tile asociated weather is ok or nok
+    @weather_ok = WeatherService::weather_code_in_pilot_profile(@pilot_weather_profile, @weather_data["id"])
 
   end
 

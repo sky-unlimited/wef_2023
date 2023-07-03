@@ -66,3 +66,7 @@ fr:
   trip_suggestions:
     notices:
       bad_weather: Nous ne pouvons proposer de destinations, météo au départ de %{airport} incompatible pour le créneau demandé
+    weather_outlook:
+      compliant_with_weather: Météo compatible avec préférences météo utilisateur
+      not_compliant_with_weather: Météo non compatible avec préférences météo utilisateur
+      title: Prévisions météorologiques

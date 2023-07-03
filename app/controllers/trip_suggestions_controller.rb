@@ -1,4 +1,5 @@
 require 'rgeo'
+require 'json'
 
 class TripSuggestionsController < ApplicationController
   def index
@@ -40,17 +41,6 @@ class TripSuggestionsController < ApplicationController
       @inbound_weather_ok       = fly_zone_outbound.weather_ok_to_date
     end
 
-    # We reate now the intersection between both weathers to define a fly zone that is ok
-    # either for departure date as return date
-    #unless fly_zone_outbound.nil?  # If bad weather on departure, to polygon is created
-    #  if fly_zone_inbound.nil?
-    #    fly_zone_combined = fly_zone_outbound
-    #  else
-    #    unless fly_zone_inbound.nil?
-    #      fly_zone_combined = fly_zone_outbound.intersection(fly_zone_inbound)
-    #    end
-    #  end
-    #end
     unless fly_zone_outbound_polygon.nil? || fly_zone_inbound_polygon.nil?
       fly_zone_combined_polygon = fly_zone_outbound_polygon.intersection(fly_zone_inbound_polygon)
     end
@@ -65,8 +55,27 @@ class TripSuggestionsController < ApplicationController
     # If weather on departure aiport not ok, we display a specific page
     if  @outbound_weather_ok == false ||
         @inbound_weather_ok  == false 
-      # We load the forecast of outbound airport
-      #departure_airport_weather_tile = fly_zone_outbound.tiles.first.weather_data
+      # We load the forecast of outbound airport based on coordinates of origin tile
+      weather_call_id = WeatherService::get_weather(fly_zone_outbound.tiles.first.lat_center,
+                                                    fly_zone_outbound.tiles.first.lon_center)
+
+      # We retrieve weather information from that id
+      weather_data = JSON.parse(WeatherCall.find(weather_call_id).json)
+
+      # We load the data in an array
+      @weather_array = []
+      hash = {}
+      (0..7).each do |index|
+        weather_ok = WeatherService::weather_code_in_pilot_profile( current_user.pilot_pref.weather_profile,
+                                                                    weather_data["daily"][index]["weather"][0]["id"].to_i)
+
+        hash = { "id"           => weather_data["daily"][index]["weather"][0]["id"],
+                 "description"  => weather_data["daily"][index]["weather"][0]["description"],
+                 "icon"         => weather_data["daily"][index]["weather"][0]["icon"],
+                 "weather_ok"   => weather_ok
+        }
+        @weather_array.push(hash)
+      end
       
       # We render the bad weather specific page
       flash.notice = t('trip_suggestions.notices.bad_weather', airport: @trip_request.airport.name)

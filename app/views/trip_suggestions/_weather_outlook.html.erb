@@ -1,0 +1,16 @@
+<div class="container-sm bg-color1 border border-radius border-color2">
+  <h2 class="text-center"><%= t('trip_suggestions.weather_outlook.title') %></h2>
+  <div class="d-flex flex-column">
+    <% @weather_array.each_with_index do |record, index| %>
+      <div class="d-flex flex-row justify-content-around align-items-center">
+        <% record_date = Date.current + index.day %>
+        <p><%= record_date.strftime('%a %d/%m') %></p>
+        <p>
+        <img src="https://openweathermap.org/img/wn/<%= record["icon"] %>.png" alt="<%= record["description"] %>">
+        </p>
+        <p><%= record["description"] %></p>
+        <p title="<%= record["weather_ok"] ? t('trip_suggestions.weather_outlook.compliant_with_weather') : t('trip_suggestions.weather_outlook.not_compliant_with_weather')%>"><%= record["weather_ok"] ? "✅" : "❌" %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
