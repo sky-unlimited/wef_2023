@@ -8,7 +8,7 @@
     <div class="nav-links" data-controller="submenu">
       <p class="nav-link"><%= link_to t("shared.home"), root_path %></p>
       <div class="nav-lang">
-        <p data-action="click->submenu#flagmenu"><%= displayFlag(locale) %></p>
+        <p data-action="click->submenu#displayMenuFlag"><%= displayFlag(locale) %></p>
         <div class="nav-lang-content" data-submenu-target="flag">
           <% I18n.available_locales.each do |loc| %>
             <p><%= link_to displayFlag(loc), root_path(locale: loc) %></p>
@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <div data-action="click->submenu#show">
+      <div data-action="click->submenu#displayMenuAccount">
         <% if user_signed_in? %>
           <% if current_user.picture.attached? %>
             <%= image_tag(current_user.picture.variant(:thumb), class: "nav-account avatar-medium") %>

@@ -81,6 +81,8 @@ header .nav-lang-content {
   position: absolute;
   display: none;
   z-index: 20;
+  left: -10px;
+  padding: 10px;
 }
 header .account-menu-content {
   background-color: $dark;

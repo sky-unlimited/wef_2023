@@ -7,10 +7,10 @@ export default class extends Controller {
     console.log("Submenu connected!");
   }
 
-  show() {
+  displayMenuAccount() {
     this.accountTarget.classList.toggle("show");
   }
-  flagmenu() {
+  displayMenuFlag() {
     this.flagTarget.classList.toggle("show");
   }
 }
