@@ -1,12 +1,13 @@
 <%#= render 'seo' %>
-<div class="home-banner">
-  <div class="container">
-    <div class="home-banner__body container-lg">
-      <h1><%= t('pages.home.hero_one') %></h1>
-      <p><%= t('pages.home.hero_two') %></p>
-      <p><%= link_to t('pages.home.banner-button'), new_trip_request_path, class: "btn btn-primary" %></p>
-    </div>
+<div class="container-fluid">
+  <div class="d-flex flex-column align-items-center">
+    <h1 class="text-center"><%= t('pages.home.hero_one') %></h1>
+    <h3 class="color-dark"><%= t('pages.home.hero_two') %></h3>
+    <p class="text-center">
+      <%= link_to t('pages.home.banner-button'),
+        new_trip_request_path,
+        class: "btn btn-primary",
+        style: "font-size: 1.5em;" %>
+    </p>
   </div>
-</div>
-<div class="container">
 </div>
