@@ -63,3 +63,10 @@ en:
     submit: Find destinations!
     messages:
       end_date_greater_start_date: should be after Departure Date
+  trip_suggestions:
+    notices:
+      bad_weather: We can't suggest you any destination due to incompatible weather conditions in %{airport} between required dates
+    weather_outlook:
+      compliant_with_weather: Weather compliant with pilot's weather prefs
+      not_compliant_with_weather: Weather not compliant with pilot's weather prefs
+      title: Weather Outlook
