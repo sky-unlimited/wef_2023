@@ -6,7 +6,8 @@ class PilotPrefsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    login_as users(:regular_user)
+    #login_as users(:regular_user)
+    sign_in users(:regular_user)
     get edit_pilot_pref_url(locale: I18n.default_locale, id: @user.id)
     assert_response :success
   end

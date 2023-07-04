@@ -7,7 +7,7 @@
 regular_user:
   first_name: John
   last_name: Smith
-  encrypted_password: $2a$05$eYS1YRXKD.seFcBZwzfhmesmaejBMgcnbqgjOkT4WBh/pb0l796X6 #123456
+  encrypted_password: <%= User.new.send(:password_digest, '123456') %>
   role: user
   email: contact@as-consult.io
   confirmed_at: <%= Time.zone.now - 1.hour %>
@@ -16,7 +16,7 @@ regular_user:
 admin_user:
   first_name: Billie
   last_name: Queen
-  encrypted_password: $2a$05$eYS1YRXKD.seFcBZwzfhmesmaejBMgcnbqgjOkT4WBh/pb0l796X6 #123456
+  encrypted_password: <%= User.new.send(:password_digest, '123456') %>
   role: admin
   email: alex@aerostan.com
   confirmed_at: <%= Time.zone.now - 1.hour %>
