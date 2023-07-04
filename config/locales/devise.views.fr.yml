@@ -28,6 +28,7 @@ fr:
         last_name: Nom
         first_name: Prénom
         role: Rôle
+        picture: Avatar
     models:
       user:
         one: Utilisateur
