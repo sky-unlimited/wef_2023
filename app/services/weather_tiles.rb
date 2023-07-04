@@ -1,6 +1,4 @@
-# WeatherTiles represents the group of multiple Tiles to build a flyable zone.
-require 'debug'
-
+# WeatherTiles represents the group of Tile to build a flyable zone.
 class WeatherTiles
 
   attr_reader :tiles, :weather_ok_to_date, :weather_data_to_date, :flyzone_polygon
@@ -46,7 +44,9 @@ class WeatherTiles
     indexes = (@depth * 2) + 1
     x_grid_init = (indexes / 2).to_i
     y_grid_init = x_grid_init
-    virtual_grid         = Array.new(indexes) { Array.new(indexes, 0) } # Represents the virtual represenation of the tiles
+    # Virtual grid is a represenation of the geometric tiles
+    virtual_grid         = Array.new(indexes) { Array.new(indexes, 0) } 
+    # used for the algo
     virtual_grid_visited = Array.new(indexes) { Array.new(indexes, 0) }
     
     # Tile Longitude offsets depending the precisions
@@ -86,7 +86,7 @@ class WeatherTiles
 
   # The explore_depth_level works on 2 grids:
     # The virtual grid which is an array the represents the tiles
-    # The tiles themselfs, which contain their real origin points, bottom left
+    # The geometric tiles themselfs, which contain their real origin points, bottom left
   # Here's a representation on one axis:
   # ==========================================
   # | Virtual Grid (x)  ||  Tile longitude   |

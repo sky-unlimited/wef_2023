@@ -36,13 +36,13 @@ class TripSuggestionsController < ApplicationController
       @inbound_weather_ok       = fly_zone_inbound.weather_ok_to_date
       fly_zone_inbound_polygon  = fly_zone_inbound.flyzone_polygon
     else
-      fly_zone_inbound_polygon = fly_zone_outbound_polygon
+      fly_zone_inbound_polygon  = fly_zone_outbound_polygon
       @inbound_weather_data     = fly_zone_outbound.weather_data_to_date
       @inbound_weather_ok       = fly_zone_outbound.weather_ok_to_date
     end
 
     unless fly_zone_outbound_polygon.nil? || fly_zone_inbound_polygon.nil?
-      fly_zone_combined_polygon = fly_zone_outbound_polygon.intersection(fly_zone_inbound_polygon)
+      destination_zone_polygon = fly_zone_outbound_polygon.intersection(fly_zone_inbound_polygon)
     end
 
     # Geometries in geojson for depature date and return date
@@ -50,11 +50,10 @@ class TripSuggestionsController < ApplicationController
     @flyzone_inbound   = RGeo::GeoJSON.encode(fly_zone_inbound_polygon).to_json
    
     # We convert the RGeo polygon into geojson
-    @destination_zone = RGeo::GeoJSON.encode(fly_zone_combined_polygon).to_json
+    @destination_zone = RGeo::GeoJSON.encode(destination_zone_polygon).to_json
 
-    # If weather on departure aiport not ok, we display a specific page
-    if  @outbound_weather_ok == false ||
-        @inbound_weather_ok  == false 
+    # If weather on departure aiport not ok for outbound or inbound flight, we display a specific page
+    if  @outbound_weather_ok == false || @inbound_weather_ok  == false 
       # We load the forecast of outbound airport based on coordinates of origin tile
       weather_call_id = WeatherService::get_weather(fly_zone_outbound.tiles.first.lat_center,
                                                     fly_zone_outbound.tiles.first.lon_center)
