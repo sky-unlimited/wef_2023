@@ -17,6 +17,21 @@ end
 
 
 namespace :import do
+  desc "Import countries from csv file"
+  task countries: :environment do
+
+  filepath = "ourairports-data/countries.csv"
+  puts "⏱️ Reading #{filepath}. Please wait..."
+  counter_created = 0
+  counter_rejected = 0
+  CSV.foreach(filepath, headers: :first_row) do |row|
+    country = Country.create(code: row['code'], name: row['name'], continent: row['continent'])
+    country.persisted? ? counter_created += 1 : counter_rejected += 1
+  end
+  puts "✨ #{counter_created} / #{counter_created + counter_rejected} countries created!"
+
+  end
+
   desc "Import airports from csv file"
   task airports: :environment do
     include ImportHelpers

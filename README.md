@@ -23,7 +23,7 @@ MAIL_USERNAME=noreply
 MAIL_PASSWORD=password
 MAIL_DOMAIN=example.com
 MAIL_SMTP_SERVER=example.com
-CONTACT_FORM_RECIPIENT=noreply@example.com
+OPENWEATHERMAP_API=your openweather api key
 ````
 
 At the root of the project, we'll need airport data from (ourairports-data)[https://github.com/davidmegginson/ourairports-data]
@@ -32,18 +32,20 @@ At the root of the project, we'll need airport data from (ourairports-data)[http
 
 `bundle`
 
-Database creation:
+Database creation: (👇 Follow this order)
 ````bash
 rails db:create
 rails db:migrate
-rails db:seed
 ````
 
 Import Ourairports-data into database:
 ````bash
-rake import:airports
-rake import:runways
+rails import:countries
+rails import:airports
+rails import:runways
 ````
+Seed database:
+`rails db:seed`
 
 Launch local server:
 `rails s`

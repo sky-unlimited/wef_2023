@@ -2,6 +2,7 @@ class Airport < ApplicationRecord
   belongs_to :country
   has_many :runways
   has_many :trip_requests, dependent: :destroy
+  has_many :pilot_prefs
 
   ACCEPTED_AIRPORT_TYPES = WANDERBIRD_CONFIG['airport_types_to_import']
 
