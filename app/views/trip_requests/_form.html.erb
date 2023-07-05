@@ -15,18 +15,21 @@
       </div>
     <% end %>
 
+    <div data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
 
-    <%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true %>
-    <%= f.text_field :user_id, readonly: "readonly", size: 4, hidden: true %>
+      <%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: false, hidden: true, data: { airport_searcher_target: "airportId" }%>
+      <%= f.text_field :user_id, readonly: "readonly", size: 4, hidden: true %>
 
-    <div class="searcher" data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
-      <%= text_field_tag "search" ,"", placeholder: t('trip_request.search_placeholder'), size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, class: "form-control form-searcher mt-20" %>
-      <ul id="results" data-airport-searcher-target="result" class="form-searcher-ul" >
-      </ul>
+      <div class="searcher">
+        <%= text_field_tag "search" ,"", placeholder: t('trip_request.search_placeholder'), size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, class: "form-control form-searcher mt-20" %>
+        <ul id="results" data-airport-searcher-target="resultList" class="form-searcher-ul" >
+        </ul>
+      </div>
+
+      <div><%= f.label t('trip_request.airport'), class: "form-label" %></div>
+      <div><%= text_field_tag "airport_full_name", @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true, class: "form-control", data: { airport_searcher_target: "resultField" } %></div>
+
     </div>
-
-    <div><%= f.label t('trip_request.airport'), class: "form-label" %></div>
-    <div><%= text_field_tag "airport_full_name",  @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true, class: "form-control" %></div>
 
     <div><%= f.label :start_date, class: "form-label" %></div>
     <div><%= f.date_field :start_date, min: Date.today, value: Date.today, class: "form-control text-center" %></div>
