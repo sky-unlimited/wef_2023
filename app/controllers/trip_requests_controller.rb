@@ -6,8 +6,7 @@ class TripRequestsController < ApplicationController
   def new
     @trip_request = TripRequest.new
     @trip_request.user_id = current_user.id
-    @trip_request.airport_id = params[:airport].to_i
-    set_airport_details if @trip_request.airport_id.positive?
+    set_airport_details unless @trip_request.airport_id.nil?
   end
 
   def create

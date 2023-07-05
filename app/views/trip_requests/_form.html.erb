@@ -17,7 +17,7 @@
 
     <div data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
 
-      <%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: false, hidden: true, data: { airport_searcher_target: "airportId" }%>
+      <%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true, data: { airport_searcher_target: "airportId" } %>
       <%= f.text_field :user_id, readonly: "readonly", size: 4, hidden: true %>
 
       <div class="searcher">
