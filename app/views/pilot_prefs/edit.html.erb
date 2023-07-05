@@ -16,18 +16,45 @@
           </div>
         <% end %>
 
-        <%= f.label :weather_profile, class: "form-label" %>
-        <div class="mb-15 form-select"><%= f.collection_select :weather_profile, PilotPref.weather_profiles.keys, :to_s, :humanize, class: "form-select" %></div>
+        <%= f.label :weather_profile,
+                    class: "form-label" %>
+        <div class="mb-15 form-select">
+          <%= f.collection_select :weather_profile,
+                                  PilotPref.weather_profiles.keys, :to_s,
+                                  :humanize,
+                                  class: "form-select" %>
+        </div>
 
-        <%= f.label :airport_icao, class: "form-label" %>
-        <div class="mb-15 form-select"><%= f.collection_select :airport_icao, PilotPref.airport_icaos.keys, :to_s, :humanize, class: "form-control" %></div>
+        <%= f.label :is_ultralight_pilot,
+                    class: "form-label" %>
+        <%= f.check_box :is_ultralight_pilot %>
+        <%= f.label :is_private_pilot,
+                    class: "form-label" %>
+        <%= f.check_box :is_private_pilot %>
 
-        <%= f.label :min_runway_length, class: "form-label" %>
+        </br><%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: false %>
+
+        <div class="searcher" data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
+          <%= text_field_tag "search" ,"", placeholder: t('trip_request.search_placeholder'), size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, class: "form-control form-searcher mt-20" %>
+          <ul id="results" data-airport-searcher-target="result" class="form-searcher-ul" >
+          </ul>
+        </div>
+        <div><%= f.label t('trip_request.airport'), 
+                            class: "form-label" %></div>
+        <div><%= text_field_tag "airport_full_name",  @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true, class: "form-control" %></div>
+
+        <%= f.label :min_runway_length,
+                    class: "form-label" %>
         <%#= f.range_field :min_runway_length, min: 150, max: 1500, value: :min_runway_length, class: "slider", id: :min_runway_length %>
-        <%= f.number_field :min_runway_length, min: 150, max: 1500, class: "form-control" %>
+        <%= f.number_field :min_runway_length, 
+                           min: 150, max: 1500,
+                           class: "form-control" %>
 
-        <%= f.label :max_gnd_wind_speed, class: "form-label" %>
-        <%= f.number_field :max_gnd_wind_speed, min: 15, max: 45, class: "form-control" %>
+        <%= f.label :max_gnd_wind_speed,
+                    class: "form-label" %>
+        <%= f.number_field  :max_gnd_wind_speed,
+                            min: 15, max: 45,
+                            class: "form-control" %>
 
         <%= f.label :fuel_card_total, class: "form-label" %>
         <%= f.check_box :fuel_card_total %>
