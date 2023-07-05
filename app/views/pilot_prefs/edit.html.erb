@@ -16,6 +16,20 @@
           </div>
         <% end %>
 
+        <div data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
+          </br><%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true, data: { airport_searcher_target: "airportId" }%>
+        
+          <div class="searcher">
+            <%= text_field_tag "search" ,"", placeholder: t('trip_request.search_placeholder'), size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, class: "form-control form-searcher mt-20" %>
+            <ul id="results" data-airport-searcher-target="resultList" class="form-searcher-ul" >
+            </ul>
+          </div>
+
+          <div><%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %></div>
+          <div><%= text_field_tag "airport_full_name", @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true, class: "form-control", data: { airport_searcher_target: "resultField" } %></div>
+
+        </div>
+
         <%= f.label :weather_profile,
                     class: "form-label" %>
         <div class="mb-15 form-select">
@@ -25,26 +39,18 @@
                                   class: "form-select" %>
         </div>
 
+        <div class="form-checkboxes border border-radius mb-10">
         <%= f.label :is_ultralight_pilot,
                     class: "form-label" %>
         <%= f.check_box :is_ultralight_pilot %>
         <%= f.label :is_private_pilot,
                     class: "form-label" %>
         <%= f.check_box :is_private_pilot %>
-
-        </br><%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: false %>
-
-        <div class="searcher" data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
-          <%= text_field_tag "search" ,"", placeholder: t('trip_request.search_placeholder'), size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, class: "form-control form-searcher mt-20" %>
-          <ul id="results" data-airport-searcher-target="result" class="form-searcher-ul" >
-          </ul>
         </div>
-        <div><%= f.label t('trip_request.airport'), 
-                            class: "form-label" %></div>
-        <div><%= text_field_tag "airport_full_name",  @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true, class: "form-control" %></div>
+        
 
         <%= f.label :min_runway_length,
-                    class: "form-label" %>
+                    class: "form-label mt-10" %>
         <%#= f.range_field :min_runway_length, min: 150, max: 1500, value: :min_runway_length, class: "slider", id: :min_runway_length %>
         <%= f.number_field :min_runway_length, 
                            min: 150, max: 1500,
@@ -56,10 +62,16 @@
                             min: 15, max: 45,
                             class: "form-control" %>
 
-        <%= f.label :fuel_card_total, class: "form-label" %>
-        <%= f.check_box :fuel_card_total %>
-        <%= f.label :fuel_card_bp, class: "form-label" %>
-        <%= f.check_box :fuel_card_bp %>
+        <div class="form-checkboxes border border-radius mb-10 d-flex flex-column">
+          <div>
+            <%= f.check_box :fuel_card_total %>
+            <%= f.label :fuel_card_total, class: "form-label" %>
+          </div>
+          <div>
+            <%= f.check_box :fuel_card_bp %>
+            <%= f.label :fuel_card_bp, class: "form-label" %>
+          </div>
+        </div>
         
       </div>
       <div class="form-actions mt-15">
