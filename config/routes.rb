@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     devise_for :users
     get 'pages/console'
     resources :pilot_prefs,   only: [ :edit, :update ]
+    get 'pilot_prefs/weather_info'
     resources :trip_requests, only: [ :new, :create, :edit, :update ]
     resources :trip_suggestions, only: [ :index ]
     root to: 'pages#home'

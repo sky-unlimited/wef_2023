@@ -1,0 +1,13 @@
+<div data-modals-target="modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-content__title">
+      <span class="modal-close" data-action="click->modals#close">&times;</span>
+      <h1>Weather profiles information</h1>
+    </div>
+    <div class="modal-content__body">
+    </div>
+    <p>By default, all weather conditions are excluded, excpeted below ones depending on the pilot's weather profile:</p>
+    <div><%= link_to "OK", "#", class: "btn btn-primary", data: { action: "click->modals#close" } %></div>
+  </div>
+</div>
+

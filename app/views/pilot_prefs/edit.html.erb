@@ -1,4 +1,6 @@
 <div class="container-sm">
+  <%= render "weather_info" %>
+
   <div class="form-wrapper card-product border-radius">
 
     <%= form_for @pilot_pref, method: :patch, data: { turbo: false } do |f| %>
@@ -37,6 +39,9 @@
                                   PilotPref.weather_profiles.keys, :to_s,
                                   :humanize,
                                   class: "form-select" %>
+          <%= link_to "info", "#", 
+            class: "ml-5 link-info link-no-underline",
+            data: { action: "click->modals#display" } %>
         </div>
 
         <div class="form-checkboxes border border-radius mb-10">

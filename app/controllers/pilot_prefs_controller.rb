@@ -19,6 +19,9 @@ class PilotPrefsController < ApplicationController
     end
   end
 
+  def weather_info
+  end
+
   private
 
   def pilot_pref_params
