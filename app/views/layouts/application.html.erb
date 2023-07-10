@@ -24,6 +24,7 @@
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/alerts' %>
+    <%= turbo_frame_tag "modal" %>
     <div class='page-wrapper'>
       <%= yield %>
     </div>
