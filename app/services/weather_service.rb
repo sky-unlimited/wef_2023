@@ -18,13 +18,13 @@ class WeatherService
 
     # If not, we call the weather api
     api_call = RestClient.get 'https://api.openweathermap.org/data/3.0/onecall', 
-      {params: 
-       {lat: lat, 
-        lon: lon, 
-        appid: ENV["OPENWEATHERMAP_API"],
-        exclude: "current,hourly,minutely",
-        units: "metric"}
-      }
+                              {params: 
+                                       {lat: lat, 
+                                        lon: lon, 
+                                        appid: ENV["OPENWEATHERMAP_API"],
+                                        exclude: "current,hourly,minutely",
+                                        units: "metric"}
+                              }
     weather_call = JSON.parse( api_call )
 
     # We store it in database
@@ -39,21 +39,13 @@ class WeatherService
   end
 
   def self.get_fake_weather(lat,lon)
-    # We load bad weather possibilities
-    bad_weather_sample = self.random_bad_weather
-
     # Random weather
-    if rand(0..3) < 1
-      # bad weather
-      fake_data = {
-              "id" => bad_weather_sample["id"],
-              "main" => bad_weather_sample["main"],
-              "description" => bad_weather_sample["description"],
-              "icon" => bad_weather_sample["icon"]
-            }
+    if rand(0..3) < 1 # 25% bad weather probability
+      # We load bad weather possibilities
+      fake_data = self.random_bad_weather
     else
       # good weather
-      fake_data = { "id" => 800, "main" => "Clear", "description" => "clear sky", "icon" => "01d" }
+      fake_data = find_weather_description_by_id(800)
     end
   end
 
@@ -78,18 +70,44 @@ class WeatherService
 
     return weather_ok
   end
-  
+
+  # Return a hash with weather description
+  def self.find_weather_description_by_id(id)
+    #OPTIMIZE: List here all codes from https://openweathermap.org/weather-conditions issue#45
+    array = [
+      { "id" => 210, "main" => "Thunderstorm", "description" => "light thunderstorm", "icon" => "11d" },
+      { "id" => 212, "main" => "Thunderstorm", "description" => "heavy thunderstorm", "icon" => "11d" },
+      { "id" => 300, "main" => "Drizzle", "description" => "light intensity drizzle", "icon" => "09d" },
+      { "id" => 310, "main" => "Drizzle", "description" => "light intensity drizzle rain", "icon" => "09d" },
+      { "id" => 500, "main" => "Rain", "description" => "light rain", "icon" => "10d" },
+      { "id" => 501, "main" => "Rain", "description" => "moderate rain", "icon" => "10d" },
+      { "id" => 503, "main" => "Rain", "description" => "very heavy rain", "icon" => "10d" },
+      { "id" => 520, "main" => "Rain", "description" => "light intensity shower rain", "icon" => "09d" },
+      { "id" => 520, "main" => "Rain", "description" => "light intensity shower rain", "icon" => "09d" },
+      { "id" => 600, "main" => "Snow", "description" => "light snow", "icon" => "13d" },
+      { "id" => 602, "main" => "Snow", "description" => "very heavy snow", "icon" => "13d" },
+      { "id" => 800, "main" => "Clear", "description" => "clear sky", "icon" => "01d" },
+      { "id" => 801, "main" => "Clouds", "description" => "few clouds: 11-25%", "icon" => "02d" },
+      { "id" => 802, "main" => "Clouds", "description" => "scattered clouds: 25-50%", "icon" => "03d" },
+      { "id" => 803, "main" => "Clouds", "description" => "broken clouds: 51-84%", "icon" => "04d" },
+      { "id" => 804, "main" => "Clouds", "description" => "overcast clouds: 85-100%", "icon" => "04d" }
+    ]
+
+    array.each do |hash|
+      return hash if hash["id"] == id
+    end
+  end
+
   private
 
   def self.random_bad_weather()
-    random = rand(0..2)
-    case random
+    case rand(0..2)
     when 0
-      { "id" => 212, "main" => "Thunderstorm", "description" => "heavy thunderstorm", "icon" => "11d" }
+      find_weather_description_by_id(212)
     when 2
-      { "id" => 602, "main" => "Snow", "description" => "very heavy snow", "icon" => "13d" }
+      find_weather_description_by_id(602)
     else
-      { "id" => 503, "main" => "Rain", "description" => "very heavy rain", "icon" => "10d" }
+      find_weather_description_by_id(503)
     end
   end
 
