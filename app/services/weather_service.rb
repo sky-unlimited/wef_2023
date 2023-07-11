@@ -75,24 +75,23 @@ class WeatherService
   def self.find_weather_description_by_id(id)
     #OPTIMIZE: List here all codes from https://openweathermap.org/weather-conditions issue#45
     array = [
-      { "id" => 210, "main" => "Thunderstorm", "description" => "light thunderstorm", "icon" => "11d" },
-      { "id" => 212, "main" => "Thunderstorm", "description" => "heavy thunderstorm", "icon" => "11d" },
-      { "id" => 300, "main" => "Drizzle", "description" => "light intensity drizzle", "icon" => "09d" },
-      { "id" => 310, "main" => "Drizzle", "description" => "light intensity drizzle rain", "icon" => "09d" },
-      { "id" => 500, "main" => "Rain", "description" => "light rain", "icon" => "10d" },
-      { "id" => 501, "main" => "Rain", "description" => "moderate rain", "icon" => "10d" },
-      { "id" => 503, "main" => "Rain", "description" => "very heavy rain", "icon" => "10d" },
-      { "id" => 520, "main" => "Rain", "description" => "light intensity shower rain", "icon" => "09d" },
-      { "id" => 520, "main" => "Rain", "description" => "light intensity shower rain", "icon" => "09d" },
-      { "id" => 600, "main" => "Snow", "description" => "light snow", "icon" => "13d" },
-      { "id" => 602, "main" => "Snow", "description" => "very heavy snow", "icon" => "13d" },
-      { "id" => 800, "main" => "Clear", "description" => "clear sky", "icon" => "01d" },
-      { "id" => 801, "main" => "Clouds", "description" => "few clouds: 11-25%", "icon" => "02d" },
-      { "id" => 802, "main" => "Clouds", "description" => "scattered clouds: 25-50%", "icon" => "03d" },
-      { "id" => 803, "main" => "Clouds", "description" => "broken clouds: 51-84%", "icon" => "04d" },
-      { "id" => 804, "main" => "Clouds", "description" => "overcast clouds: 85-100%", "icon" => "04d" }
+      { "id" => 210, "main" => "Thunderstorm", "description" => I18n.t('weather.210'), "icon" => "11d" },
+      { "id" => 212, "main" => "Thunderstorm", "description" => I18n.t('weather.212'), "icon" => "11d" },
+      { "id" => 300, "main" => "Drizzle", "description" => I18n.t('weather.300'), "icon" => "09d" },
+      { "id" => 310, "main" => "Drizzle", "description" => I18n.t('weather.310'), "icon" => "09d" },
+      { "id" => 500, "main" => "Rain", "description" => I18n.t('weather.500'), "icon" => "10d" },
+      { "id" => 501, "main" => "Rain", "description" => I18n.t('weather.501'), "icon" => "10d" },
+      { "id" => 503, "main" => "Rain", "description" => I18n.t('weather.503'), "icon" => "10d" },
+      { "id" => 520, "main" => "Rain", "description" => I18n.t('weather.520'), "icon" => "09d" },
+      { "id" => 600, "main" => "Snow", "description" => I18n.t('weather.600'), "icon" => "13d" },
+      { "id" => 602, "main" => "Snow", "description" => I18n.t('weather.602'), "icon" => "13d" },
+      { "id" => 800, "main" => "Clear", "description" => I18n.t('weather.800'), "icon" => "01d" },
+      { "id" => 801, "main" => "Clouds", "description" => I18n.t('weather.801'), "icon" => "02d" },
+      { "id" => 802, "main" => "Clouds", "description" => I18n.t('weather.802'), "icon" => "03d" },
+      { "id" => 803, "main" => "Clouds", "description" => I18n.t('weather.803'), "icon" => "04d" },
+      { "id" => 804, "main" => "Clouds", "description" => I18n.t('weather.804'), "icon" => "04d" }
     ]
-
+    
     array.each do |hash|
       return hash if hash["id"] == id
     end

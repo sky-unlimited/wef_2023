@@ -1,0 +1,17 @@
+fr:
+  weather:
+    210: faible orage
+    212: orage violent
+    300: bruine de faible intensité
+    310: bruine de faible intensité pluie 
+    500: pluie légère
+    501: pluie modérée
+    503: pluie très forte
+    520: légère averses de pluie
+    600: neige légère
+    602: neige très abondante
+    800: ciel clair (SKC)
+    801: quelques nuages (FEW)
+    802: nuages épars (SCT)
+    803: nuages fragmentés (BKN)
+    804: couvert (OVC)
