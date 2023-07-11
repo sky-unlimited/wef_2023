@@ -34,29 +34,29 @@
 
         <%= f.label :weather_profile,
                     class: "form-label" %>
-        <div class="mb-15 form-select">
+        <div class="mb-15 form-select d-flex justify-content-center">
           <%= f.collection_select :weather_profile,
                                   PilotPref.weather_profiles.keys, :to_s,
                                   :humanize,
                                   class: "form-select" %>
-          <%= link_to "info", "#", 
-            class: "ml-5 link-info link-no-underline",
-            data: { action: "click->modals#display" } %>
+          <%= image_tag "icons8-question-mark-48", 
+            data: { action: "click->modals#display" },
+            width: 32,
+            class: "p-5" %>
         </div>
 
-        <div class="form-checkboxes border border-radius mb-10">
-        <%= f.label :is_ultralight_pilot,
-                    class: "form-label" %>
-        <%= f.check_box :is_ultralight_pilot %>
-        <%= f.label :is_private_pilot,
-                    class: "form-label" %>
-        <%= f.check_box :is_private_pilot %>
+        <div class="form-checkboxes border border-radius m20-auto">
+          <%= f.label :is_ultralight_pilot,
+                      class: "form-label" %>
+          <%= f.check_box :is_ultralight_pilot %>
+          <%= f.label :is_private_pilot,
+                      class: "form-label" %>
+          <%= f.check_box :is_private_pilot %>
         </div>
         
 
         <%= f.label :min_runway_length,
                     class: "form-label mt-10" %>
-        <%#= f.range_field :min_runway_length, min: 150, max: 1500, value: :min_runway_length, class: "slider", id: :min_runway_length %>
         <%= f.number_field :min_runway_length, 
                            min: 150, max: 1500,
                            class: "form-control" %>
@@ -67,7 +67,7 @@
                             min: 15, max: 45,
                             class: "form-control" %>
 
-        <div class="form-checkboxes border border-radius mb-10 d-flex flex-column">
+        <div class="form-checkboxes border border-radius m10-auto d-flex flex-column">
           <div>
             <%= f.check_box :fuel_card_total %>
             <%= f.label :fuel_card_total, class: "form-label" %>
