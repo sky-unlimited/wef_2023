@@ -11,6 +11,7 @@ class User < ApplicationRecord
          :trackable, :confirmable, :lockable
   enum role: [ :user, :admin ]
   after_initialize :set_default_role, if: :new_record?
+  after_save :create_default_pilot_preferences
   validates :last_name, presence: true
   validates :first_name, presence: true
   validate :picture_format
@@ -31,6 +32,16 @@ class User < ApplicationRecord
     else
       picture.purge
       errors.add(:picture, I18n.t('users.errors.file_type'))
+    end
+  end
+
+  def create_default_pilot_preferences
+    if self.pilot_pref.nil?
+      pilot_pref = PilotPref.create(
+        user_id: self.id,
+        is_private_pilot: true,
+        airport_id: Airport.find_by(icao: "ELLX").id
+      )
     end
   end
 
