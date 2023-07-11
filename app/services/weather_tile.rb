@@ -138,9 +138,8 @@ class WeatherTile
     @lat_center = bottom_tile + ( top_tile.to_f - bottom_tile.to_f ) / 2
 
     # We need to determine at which date we need the weather
-    # Openweather API provides daily forecast for 8 days
-    # FIXME: issue#29
-    day_difference = [ 7, (@date.to_date - Date.current ).to_i ].min
+    # Openweather API provides daily forecast for 7 days
+    day_offset = (@date.to_date - Date.current ).to_i
 
 
     # We read and assign the corresponding weather info
@@ -151,7 +150,7 @@ class WeatherTile
       # We retrieve the WeatherCall id
       weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
       # We read database
-      @weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_difference]["weather"][0]
+      @weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_offset]["weather"][0]
     end
 
     # Depending on the pilot weather profile, we deduct if the tile asociated weather is ok or nok

@@ -36,6 +36,8 @@ en:
         in: must be in %{count}
         required: must be present
         greater_than_or_equal_to: Must be greater or equal to
+        end_date_more_7_days: "can't have more than 7 days (No weather forecast)"
+        start_date_not_in_past: can't be in the past
   forms:
     messages:
       errors:
