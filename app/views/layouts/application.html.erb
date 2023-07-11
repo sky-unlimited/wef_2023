@@ -25,7 +25,9 @@
     <%= render 'shared/navbar' %>
     <%= render 'shared/alerts' %>
     <div class='page-wrapper'>
-      <%= yield %>
+      <div data-controller="modals">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>

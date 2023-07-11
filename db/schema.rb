@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_28_122206) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_04_185836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -75,13 +75,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_28_122206) do
   create_table "pilot_prefs", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "weather_profile", default: 0, null: false
-    t.integer "airport_icao", default: 0, null: false
     t.integer "min_runway_length", default: 250, null: false
     t.boolean "fuel_card_total", default: false, null: false
     t.boolean "fuel_card_bp", default: false, null: false
     t.integer "max_gnd_wind_speed", default: 15, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_ultralight_pilot", default: false, null: false
+    t.boolean "is_private_pilot", default: false, null: false
+    t.bigint "airport_id"
+    t.index ["airport_id"], name: "index_pilot_prefs_on_airport_id"
     t.index ["user_id"], name: "index_pilot_prefs_on_user_id"
   end
 
@@ -157,6 +160,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_28_122206) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "airports", "countries"
+  add_foreign_key "pilot_prefs", "airports"
   add_foreign_key "pilot_prefs", "users"
   add_foreign_key "runways", "airports"
   add_foreign_key "trip_requests", "airports"

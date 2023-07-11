@@ -1,0 +1,34 @@
+<div data-modals-target="modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-content__title">
+      <span class="modal-close" data-action="click->modals#close">&times;</span>
+      <h1>⛅ <%= t('activerecord.attributes.pilot_pref.weather_profile') %></h1>
+    </div>
+    <div class="modal-content__body">
+    </div>
+
+    <table class="mb-20">
+      <tr>
+        <th></th>
+        <th><%= t('activerecord.attributes.pilot_pref.weather_profile_options.safe') %></th>
+        <th><%= t('activerecord.attributes.pilot_pref.weather_profile_options.adventurous') %></th>
+      </tr>
+      <% @array_profile_safe.each do |profile| %>
+        <tr>
+          <td><%= profile["description"] %></td>
+          <td class="text-center">✅</td>
+          <td class="text-center">✅</td>
+        </tr>
+      <% end %>
+      <% @array_profile_adventurous.each do |profile| %>
+        <tr>
+          <td><%= profile["description"] %></td>
+          <td class="text-center">❌</td>
+          <td class="text-center">✅</td>
+        </tr>
+      <% end %>
+    </table>
+
+    <div><%= link_to "OK", "#", class: "btn btn-primary", data: { action: "click->modals#close" } %></div>
+  </div>
+</div>

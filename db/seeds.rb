@@ -5,7 +5,6 @@ require 'csv'
 # ############################################
 puts "Cleaning databases..."
 User.destroy_all
-Country.destroy_all
 
 # ############################################
 # USERS
@@ -22,7 +21,7 @@ user.password = "alex@aerostan.com"
 user.confirmed_at = Time.zone.now - 1.hour
 user.confirmation_sent_at = Time.zone.now - 2.hours
 user.save
-profile = PilotPref.create(user: user)
+PilotPref.create(user: user, airport: Airport.find_by(icao: "ELLX"), is_ultralight_pilot: true)
 puts "Admin user alex created"
 puts "Pilot pref alex created"
 
@@ -37,23 +36,7 @@ if Rails.env.development?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  profile = PilotPref.create(user: user)
+  PilotPref.create(user: user, airport: Airport.find_by(icao: "ELLX"), is_private_pilot: true)
   puts "User rachel created in dev"
   puts "Pilot pref rachel created"
 end
-
-# ############################################
-# COUNTRIES
-# ############################################
-filepath = "ourairports-data/countries.csv"
-puts "Reading #{filepath}..."
-counter_created = 0
-counter_rejected = 0
-CSV.foreach(filepath, headers: :first_row) do |row|
-  country = Country.create(code: row['code'], name: row['name'], continent: row['continent'])
-  country.persisted? ? counter_created += 1 : counter_rejected += 1
-end
-puts "#{counter_created} / #{counter_created + counter_rejected} countries created!"
-
-
-puts "Seeds complete! 🌻"

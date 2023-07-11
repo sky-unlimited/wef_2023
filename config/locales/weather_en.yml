@@ -1,0 +1,17 @@
+en:
+  weather:
+    210: light thunderstorm
+    212: heavy thunderstorm
+    300: light intensity drizzle
+    310: light intensity drizzle rain
+    500: light rain
+    501: moderate rain
+    503: very heavy rain
+    520: light intensity shower rain
+    600: light snow
+    602: very heavy snow
+    800: clear sky (SKC)
+    801: few clouds (FEW)
+    802: scattered cloud (SCT)
+    803: broken clouds (BKN)
+    804: overcast clouds (OVC)
