@@ -2,6 +2,7 @@ require 'uri'
 
 class PilotPrefsController < ApplicationController
   before_action :set_base_url, only: [:new, :create, :edit, :update]
+  before_action :load_weather_profiles, only: [ :edit]
 
   def edit
     @pilot_pref = current_user.pilot_pref
@@ -17,9 +18,6 @@ class PilotPrefsController < ApplicationController
     else
       render "edit", status: :unprocessable_entity
     end
-  end
-
-  def weather_info
   end
 
   private
@@ -39,5 +37,20 @@ class PilotPrefsController < ApplicationController
     url = request.url
     uri = URI.parse(url)
     @base_url = "#{uri.scheme}://#{uri.host}:#{uri.port}"
+  end
+
+  def load_weather_profiles
+    profiles_safe        = WANDERBIRD_CONFIG['weather_profiles'][0]["safe"]
+    profiles_adventurous = WANDERBIRD_CONFIG['weather_profiles'][1]["adventurous"]
+
+    @array_profile_safe = []
+    @array_profile_adventurous = []
+
+    profiles_safe.each do |weather_code|
+      @array_profile_safe.push(WeatherService.find_weather_description_by_id(weather_code))
+    end
+    profiles_adventurous.each do |weather_code|
+      @array_profile_adventurous.push(WeatherService.find_weather_description_by_id(weather_code))
+    end
   end
 end
