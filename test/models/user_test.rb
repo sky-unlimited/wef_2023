@@ -26,7 +26,6 @@ class UserTest < ActiveSupport::TestCase
 
   test "New user should have default pilot preferences" do
     user = users(:regular_user)
-    p user.pilot_pref
     assert_not_nil user.pilot_pref, "The new user should have a default pilot profile"
   end
 

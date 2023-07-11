@@ -16,4 +16,8 @@ class TripRequestTest < ActiveSupport::TestCase
   test "wrong enum should not save" do
     assert_not trip_requests(:wrong_enum).save
   end
+
+  test "end_date can not have more than 7 days in future" do
+    assert_not trip_requests(:end_date_more_7_days).save
+  end
 end

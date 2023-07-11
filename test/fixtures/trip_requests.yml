@@ -51,3 +51,16 @@ wrong_enum:
   proxy_bike_rental: false
   proxy_camp_site: false
   proxy_hotel: false
+
+end_date_more_7_days:
+  user: regular_user
+  airport: ellx
+  start_date: <%= Time.zone.now + 0.day %>
+  end_date: <%= Time.zone.now + 8.day %>
+  trip_mode: 2
+  proxy_food: true
+  proxy_fuel: true
+  proxy_car_rental: false
+  proxy_bike_rental: false
+  proxy_camp_site: false
+  proxy_hotel: false

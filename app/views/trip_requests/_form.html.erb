@@ -32,10 +32,17 @@
     </div>
 
     <div><%= f.label :start_date, class: "form-label" %></div>
-    <div><%= f.date_field :start_date, min: Date.today, value: Date.today, class: "form-control text-center" %></div>
+    <div><%= f.date_field :start_date,
+              min: Date.today, 
+              value: Date.today, 
+              class: "form-control text-center" %></div>
 
     <div><%= f.label :end_date, class: "form-label" %></div>
-    <div><%= f.date_field :end_date, min: Date.today, value: Date.today, class: "form-control text-center" %></div>
+    <div><%= f.date_field :end_date,
+              min: Date.today,
+              max: Date.today + 7.days,
+              value: Date.today, 
+              class: "form-control text-center" %></div>
 
     <p class="text-center mb-5"><%= t('activerecord.attributes.trip_request.trip_mode') %></p>
     <div class="d-flex flex-columns align-items-center p-10 border border-radius mb-20 bg-color2 color-light">
