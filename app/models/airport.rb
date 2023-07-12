@@ -4,7 +4,7 @@ class Airport < ApplicationRecord
   has_many :trip_requests, dependent: :destroy
   has_many :pilot_prefs
 
-  ACCEPTED_AIRPORT_TYPES = WANDERBIRD_CONFIG['airport_types_to_import']
+  ACCEPTED_AIRPORT_TYPES = WEF_CONFIG['airport_types_to_import']
 
   validates :icao, presence: true, uniqueness: true
   validates :longitude, presence: true
@@ -14,7 +14,7 @@ class Airport < ApplicationRecord
 
   def filter_airports
     # We load white list from config file
-    white_list = WANDERBIRD_CONFIG['airports_white_list']
+    white_list = WEF_CONFIG['airports_white_list']
 
     # We check if airport is white listed
     return if white_list.include?(icao)

@@ -1,10 +1,10 @@
 # INTRODUCTION
 
-<img src="https://github.com/alexstan67/wanderbird/blob/master/app/assets/images/full-logo-beta-dark.png" width="200" />
+<img src="https://github.com/alexstan67/wef_2023/blob/master/app/assets/images/full-logo-beta-dark.png" width="200" />
 
-Wanderbird is based on Rails framework helping General Aviation fellows to find a destination !
+weekend-fly is based on Rails framework helping General Aviation fellows to find a destination !
 
-# WANDERBIRD
+# WEEKEND-FLY
 
 ## Features
 TODO
@@ -15,7 +15,7 @@ TODO
 * bundler 2.4.10
 
 ## Installation
-To run wanderbird locally, follow those steps:
+To run weekend-fly locally, follow those steps:
 
 Ensure to have a ".env" file at root directory containing devise confirmable email settings:
 ````bash

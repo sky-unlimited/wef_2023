@@ -144,7 +144,7 @@ class WeatherTile
 
     # We read and assign the corresponding weather info
     #   Exemple: {"id"=>502, "main"=>"Rain", "description"=>"heavy intensity rain", "icon"=>"10d"}
-    if WANDERBIRD_CONFIG['fake_weather'] == true
+    if WEF_CONFIG['fake_weather'] == true
       @weather_data = WeatherService::get_fake_weather(@lat_center, @lon_center)
     else
       # We retrieve the WeatherCall id

@@ -6,8 +6,8 @@ class WeatherTiles
   # WeatherTiles initialization
   def initialize(current_user, airport, start_date, end_date = nil)
     @pilot_weather_profile = PilotPref.find_by(user_id: current_user).weather_profile
-    @precision =  WANDERBIRD_CONFIG['default_weather_tile_precision'].to_f
-    @depth =      WANDERBIRD_CONFIG['default_weather_tile_depth'].to_i
+    @precision =  WEF_CONFIG['default_weather_tile_precision'].to_f
+    @depth =      WEF_CONFIG['default_weather_tile_depth'].to_i
     @start_date = start_date
     @end_date   = end_date
     @airport_departure = airport
