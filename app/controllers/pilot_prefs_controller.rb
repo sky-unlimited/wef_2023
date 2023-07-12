@@ -40,8 +40,8 @@ class PilotPrefsController < ApplicationController
   end
 
   def load_weather_profiles
-    profiles_safe        = WANDERBIRD_CONFIG['weather_profiles'][0]["safe"]
-    profiles_adventurous = WANDERBIRD_CONFIG['weather_profiles'][1]["adventurous"]
+    profiles_safe        = WEF_CONFIG['weather_profiles'][0]["safe"]
+    profiles_adventurous = WEF_CONFIG['weather_profiles'][1]["adventurous"]
 
     @array_profile_safe = []
     @array_profile_adventurous = []

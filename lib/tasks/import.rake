@@ -21,7 +21,7 @@ namespace :import do
   task countries: :environment do
 
   filepath = "ourairports-data/countries.csv"
-  puts "⏱️ Reading #{filepath}. Please wait..."
+  puts "⏱️  Reading #{filepath}. Please wait..."
   counter_created = 0
   counter_rejected = 0
   CSV.foreach(filepath, headers: :first_row) do |row|
@@ -44,7 +44,7 @@ namespace :import do
 
     # Variables setup
     factory = RGeo::Geographic.spherical_factory(srid: 4326)
-    country_list = WANDERBIRD_CONFIG['airport_countries_to_import']
+    country_list = WEF_CONFIG['airport_countries_to_import']
 
     # Accepted countries
     puts "✈️  from #{country_list} are being imported:"
@@ -56,7 +56,7 @@ namespace :import do
       # We retrieve the country id
       country = Country.find_by(code: row['iso_country'])
 
-      # We check if airport country is white listed in wanderbird_config
+      # We check if airport country is white listed in WEF_CONFIG
       unless country_list.include?(Country.find(country.id).code)
         counter_rejected += 1
         next

@@ -8,7 +8,7 @@ class WeatherService
     # If available, we return it
     unless db_weather.nil?
       # We check if weather call created inside validity tolerance and same location
-      if Time.now.hour - db_weather.created_at.hour <= WANDERBIRD_CONFIG['default_weather_calls_validity_hours'].to_i &&
+      if Time.now.hour - db_weather.created_at.hour <= WEF_CONFIG['default_weather_calls_validity_hours'].to_i &&
         db_weather.created_at.today? &&
         db_weather.lon.round(6) == lon.round(6) &&
         db_weather.lat.round(6) == lat.round(6)
@@ -50,7 +50,7 @@ class WeatherService
   end
 
   def self.weather_code_in_pilot_profile(pilot_weather_profile, id)
-    weather_profiles =  WANDERBIRD_CONFIG['weather_profiles']
+    weather_profiles =  WEF_CONFIG['weather_profiles']
     weather_ok = false
 
     # The pilot weather profile is "safe"
