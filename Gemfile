@@ -87,8 +87,9 @@ gem 'ffi-geos', '~> 2.4'
 
 group :development do
   gem 'capistrano-rake', require: false
-  gem 'capistrano', '~> 3.11'
+  gem 'capistrano', '~> 3.17', '>= 3.17.3'
   gem 'capistrano-rails', '~> 1.4'
   gem 'capistrano-passenger', '~> 0.2.0'
   gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+  gem 'capistrano-git-with-submodules', '~> 2.0', '>= 2.0.6'
 end
