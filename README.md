@@ -1,6 +1,6 @@
 # INTRODUCTION
 
-<img src="https://github.com/alexstan67/wef_2023/blob/master/app/assets/images/full-logo-beta-dark.png" width="200" />
+<!--<img src="https://github.com/alexstan67/wef_2023/blob/master/app/assets/images/full-logo-beta-dark.png" width="200" /> -->
 
 weekend-fly is based on Rails framework helping General Aviation fellows to find a destination !
 
@@ -25,26 +25,21 @@ MAIL_DOMAIN=example.com
 MAIL_SMTP_SERVER=example.com
 OPENWEATHERMAP_API=your openweather api key
 ````
-We update airports info from: ()[https://github.com/davidmegginson/ourairports-data]
+We update airports data from: [https://github.com/davidmegginson/ourairports-data]()
 
 `git submodule update --init`
 
 `bundle`
 
-Database creation: (👇 Follow this order)
+Database creation: (Follow this order 👇) 
 ````bash
 rails db:create
 rails db:migrate
-````
-
-Import Ourairports-data into database:
-````bash
 rails import:countries
 rails import:airports
 rails import:runways
+rails db:seed
 ````
-Seed database:
-`rails db:seed`
 
 Launch local server:
 `rails s`
