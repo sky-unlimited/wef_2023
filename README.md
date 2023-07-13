@@ -25,10 +25,9 @@ MAIL_DOMAIN=example.com
 MAIL_SMTP_SERVER=example.com
 OPENWEATHERMAP_API=your openweather api key
 ````
+We update airports info from: (ourairports-data)[https://github.com/davidmegginson/ourairports-data]
 
-At the root of the project, we'll need airport data from (ourairports-data)[https://github.com/davidmegginson/ourairports-data]
-
-`git clone https://github.com/davidmegginson/ourairports-data`
+`git submodule update --init`
 
 `bundle`
 
