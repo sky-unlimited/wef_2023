@@ -40,26 +40,30 @@ class WeatherTiles
   private
 
   def propagation_algo(x_tile_init, y_tile_init)
+    # In order to keep a ratio y/x close to 1, we compute a correction factor
+    correction_x = @depth.odd? ? @depth + 1 : @depth
+    
     # Grid parameters initialization
-    indexes = (@depth * 2) + 1
-    x_grid_init = (indexes / 2).to_i
-    y_grid_init = x_grid_init
+    indexes_x = ((@depth * 2) + 1) + correction_x
+    indexes_y = (@depth * 2) + 1
+    x_grid_init = (indexes_x / 2).to_i  # center x
+    y_grid_init = (indexes_y / 2).to_i  # center y
+    
     # Virtual grid is a represenation of the geometric tiles
-    virtual_grid         = Array.new(indexes) { Array.new(indexes, 0) } 
+    virtual_grid         = Array.new(indexes_y) { Array.new(indexes_x, 0) } 
     # used for the algo
-    virtual_grid_visited = Array.new(indexes) { Array.new(indexes, 0) }
+    virtual_grid_visited = Array.new(indexes_y) { Array.new(indexes_x, 0) }
     
     # Tile Longitude offsets depending the precisions
     @tile_offset_x = []
-    (0..(virtual_grid.count - 1)).each do |x|
-      @tile_offset_x[x] = ( x * @precision) + ( x_tile_init - ( (virtual_grid.count / 2).floor ) * @precision )
+    (0..(virtual_grid[0].count - 1)).each do |x|
+      @tile_offset_x[x] = ( x * @precision) + ( x_tile_init - ( (virtual_grid[0].count / 2).floor ) * @precision )
     end
 
-    # Tile Latitude offsets depending the precisions
+    # Tile Latitude offsets depending of the precisions
     @tile_offset_y = []
-    precision_y = @precision * (1.to_f / 1 )
     (0..(virtual_grid.count - 1)).each do |y|
-      @tile_offset_y[y] = ( y * precision_y) + ( y_tile_init - ( (virtual_grid.count / 2).floor ) * precision_y )
+      @tile_offset_y[y] = ( y * @precision) + ( y_tile_init - ( (virtual_grid.count / 2).floor ) * @precision )
     end
 
     # At this stage, weather on initial tile is ok
@@ -67,14 +71,15 @@ class WeatherTiles
 
     # We continue the process and explore the surroundings of the initial tile, depth by depth
     stop_loop = 0
-    (1..@depth).each do | depth |
+    (1..@depth + correction_x).each do | current_depth |
       stop_loop = explore_depth_level(x_grid_init,
                                       y_grid_init,
                                       virtual_grid,
-                                      depth,
+                                      current_depth,
                                       virtual_grid_visited,
                                       x_tile_init,
-                                      y_tile_init
+                                      y_tile_init,
+                                      @depth
                                      )
       break if stop_loop == 1
     end
@@ -105,14 +110,13 @@ class WeatherTiles
     # the center of the tiles grid is lon=6, lat=49
     # the center of the virtual grid is x=2, y=2
   # THE ARRAY GRID IS THE VIRTUAL REPRESENTATION OF THE TILES 
-  def explore_depth_level(x_grid_init, y_grid_init, grid, depth_level, visited, x_tile_init, y_tile_init)
+  def explore_depth_level(x_grid_init, y_grid_init, grid, current_depth, visited, x_tile_init, y_tile_init, max_y)
     # Variable init
     bad_weather_count = 0
 
-    # We visit all the tiles depending the depth_level
-    ((x_grid_init - depth_level)..(x_grid_init + depth_level)).each do |x|
-      ((y_grid_init - depth_level)..(y_grid_init + depth_level)).each do |y|
-
+    # We visit all the tiles depending the current depth_level
+    ((x_grid_init - current_depth)..(x_grid_init + current_depth)).each do |x|
+      ((y_grid_init - [current_depth, max_y].min)..(y_grid_init + [current_depth, max_y].min)).each do |y|
         # We create the tile
         if grid[y][x] == 0  # cell is not visited
           tile = WeatherTile.new( @pilot_weather_profile, 
@@ -131,7 +135,7 @@ class WeatherTiles
         end
       end
     end
-    return if bad_weather_count == depth_level * 8 ? 1 : 0
+    return if bad_weather_count == current_depth * 8 ? 1 : 0
   end
 
   def union_test(x, y, grid, visited)
