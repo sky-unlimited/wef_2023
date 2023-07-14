@@ -5,6 +5,17 @@ class TripRequestsController < ApplicationController
 
   def new
     @trip_request = TripRequest.new
+    last_request = TripRequest.where(user_id: current_user).order(id: :asc).last
+    @trip_request.start_date  = Date.today
+    @trip_request.end_date    = Date.today
+    unless last_request.nil?
+      @trip_request.airport_id = last_request.airport_id
+      if last_request.start_date.to_date >= Date.today
+        @trip_request.start_date = last_request.start_date
+        @trip_request.end_date = last_request.end_date
+      end
+    end
+
     @trip_request.user_id = current_user.id
     set_airport_details unless @trip_request.airport_id.nil?
   end
