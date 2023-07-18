@@ -19,9 +19,9 @@
   padding: .375rem .75rem;
   line-height: 1.5;
   color: $text-color;
-  background-color: $body-color;
+  background-color: $light;
   background-clip: padding-box;
-  border: 1px solid $secondary;
+  border: 1px solid $dark;
   appearance: none; // Hide arrows for number inputs
   border-radius: $border-radius;
   transition: 0.5s ease-in-out;

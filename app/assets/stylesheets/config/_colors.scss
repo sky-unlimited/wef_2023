@@ -11,21 +11,23 @@ $info: #0dcaf0;
 $info_bis: darken($info, 8%);
 $light: #f8f9fa;
 $light_bis: darken($light, 8%);
-$dark: #212529;
+//ddark: #212529;
+//$dark_bis: darken($dark, 8%);
+$dark: #042A2B;
 $dark_bis: darken($dark, 8%);
 
 // Theme colors to customize
 // https://coolors.co/ca2e55-ffe0b5-8a6552-462521-bdb246
-$primary: #ca2e55;
+$primary: #D84727;// Chili red
 $primary_bis: darken($primary, 8%);
-$color1: #ffe0b5; //beige
+$color1: #ef7b45; //orange
 $color1_bis: darken($color1, 8%);
-$color2: #8a6552; //marron clair
+$color2: #cdedf6; //light cyan
 $color2_bis: darken($color2, 8%);
-$color3: #462521; //marron foncé
+$color3: #5EB1BF; //moonstone (bleu)
 $color3_bis: darken($color3, 8%);
 $color4: #bdb246; //vert anis
 $color4_bis: darken($color4, 8%);
 
-$body-color: white;
+$body-color: $color2;
 $text-color: $dark;
