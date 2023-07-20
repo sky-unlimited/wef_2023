@@ -23,7 +23,7 @@
             <% first_name_initial = current_user.first_name[0] %>
             <% last_name_initial = current_user.last_name[0] %>
             <% initials = first_name_initial + last_name_initial %>
-            <p class="avatar-fake m-5"><%= initials.upcase %></p>
+            <p class="avatar-fake m-5 bg-color1 color-light"><%= initials.upcase %></p>
           <% end %>
         <% else %>
           <%= image_tag("user-light.svg", class: "nav-account") %>
