@@ -16,7 +16,7 @@ body {
 h1 {
   font-family: $headers-font, "Helvetica", "sans-serif";
   font-weight: 600;
-  font-size: 2.5em;
+  font-size: 2em;
   color: $text-color;
 }
 h2 {
@@ -34,7 +34,7 @@ h3 {
 }
 @media only screen and (min-width: 768px) {
   h1 {
-    font-size: 3em;
+    font-size: 2.5em;
   }
   h2 {
     font-size: 2em;

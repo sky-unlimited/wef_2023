@@ -1,12 +1,11 @@
 <header>
   <div class="logo">
     <%= link_to root_path do %>
-      <%= image_tag("full-logo-beta-dark.png", alt: "Weekend-fly logo") %>
+      <%= image_tag("full-logo-beta-dark.png", alt: "Weekend-fly logo", height: 64) %>
     <% end %>
   </div>
   <nav>
     <div class="nav-links" data-controller="submenu">
-      <p class="nav-link"><%= link_to t("shared.home"), root_path %></p>
       <div class="nav-lang">
         <p data-action="click->submenu#displayMenuFlag"><%= displayFlag(locale) %></p>
         <div class="nav-lang-content" data-submenu-target="flag">
@@ -24,7 +23,7 @@
             <% first_name_initial = current_user.first_name[0] %>
             <% last_name_initial = current_user.last_name[0] %>
             <% initials = first_name_initial + last_name_initial %>
-            <p class="avatar-fake m-5"><%= initials.upcase %></p>
+            <p class="avatar-fake m-5 bg-color1 color-light"><%= initials.upcase %></p>
           <% end %>
         <% else %>
           <%= image_tag("user-light.svg", class: "nav-account") %>

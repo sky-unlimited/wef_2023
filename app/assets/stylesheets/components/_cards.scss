@@ -1,13 +1,12 @@
 .card-product {
   overflow: hidden;
-    background: white;
-    border: solid 2px $secondary;
+    //border: solid 2px $dark;
     display: flex;
     align-items: start;
     margin-bottom: 10px;
     justify-content: space-between;
     padding: 10px;
     &:hover {
-      border: solid 2px $dark;
+      //border: solid 2px $dark;
     }
 }

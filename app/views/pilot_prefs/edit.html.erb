@@ -1,7 +1,7 @@
 <div class="container-sm">
   <%= render "weather_info" %>
 
-  <div class="form-wrapper card-product border-radius">
+  <div class="form-wrapper card-product border-radius bg-color3">
 
     <%= form_for @pilot_pref, method: :patch, data: { turbo: false } do |f| %>
       <h1 class="text-center"><%= t('activerecord.models.pilot_pref') %></h1>
@@ -45,7 +45,7 @@
             class: "p-5" %>
         </div>
 
-        <div class="form-checkboxes border border-radius m20-auto">
+        <div class="form-checkboxes border border-radius m20-auto bg-light color-dark">
           <%= f.label :is_ultralight_pilot,
                       class: "form-label" %>
           <%= f.check_box :is_ultralight_pilot %>
@@ -67,7 +67,7 @@
                             min: 15, max: 45,
                             class: "form-control" %>
 
-        <div class="form-checkboxes border border-radius m10-auto d-flex flex-column">
+        <div class="form-checkboxes border border-radius m10-auto d-flex flex-column bg-dark color2">
           <div>
             <%= f.check_box :fuel_card_total %>
             <%= f.label :fuel_card_total, class: "form-label" %>

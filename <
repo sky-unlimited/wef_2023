@@ -43,7 +43,7 @@
               class: "form-control text-center" %></div>
 
     <p class="text-center mb-5"><%= t('activerecord.attributes.trip_request.trip_mode') %></p>
-    <div class="d-flex flex-columns align-items-center p-10 border border-radius mb-20 bg-light color-dark">
+    <div class="d-flex flex-columns align-items-center p-10 border border-radius mb-20 bg-dark color-light">
       <%= f.collection_radio_buttons :trip_mode, TripRequest.trip_modes, :first, :first, class: "mr-5", 
           checked: I18n.t('activerecord.attributes.trip_request.trip_mode_options.custom'), 
           disabled: [I18n.t('activerecord.attributes.trip_request.trip_mode_options.events'), 
@@ -52,7 +52,7 @@
   
     <p class="text-center mb-5"><%= t('trip_request.poi') %></p>
     <div style="width: fit-content; margin: auto;" class="border border-radius bg-dark color-light p-20">
-      <div class="airport-select-proxies text-start">
+      <div class="airport-select-proxies text-start bg-dark">
         <div>
           <%= f.check_box :proxy_food %>
           <%= f.label :proxy_food, class: "form-label" %>

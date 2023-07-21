@@ -1,7 +1,7 @@
-<div class="container-sm bg-color1 d-flex flex-column border border-radius border-color2 mb-10" style="margin-bottom: 10px!important;">
+<div class="container-sm bg-color3 d-flex flex-column border border-radius border-color2 mb-10" style="margin-bottom: 10px!important;">
   <div class="w-100">
     <h1 class="text-center mb-5 mt-5"><%= @trip_request.airport.icao %></h1>
-    <h2 class="text-center mt-0"><%= @trip_request.airport.name %></h2>
+    <h2 class="text-center mt-0 color-light"><%= @trip_request.airport.name %></h2>
     <% if @trip_request.airport.icao.length > 4 %>
       <h2 class="text-center mt-0">(<%= @trip_request.airport.local_code %>)</h2>
     <% end %>
@@ -18,7 +18,7 @@
       <p title="test"><%= @inbound_weather_ok ? "✅" : "❌" %> <%= @inbound_weather_data["description"] %></p>
     </div>
   </div>
-  <%= link_to "New Trip Request", new_trip_request_path, class: "btn btn-secondary mb-10" %>
+  <%= link_to "New Trip Request", new_trip_request_path, class: "btn btn-primary mb-10" %>
 </div>
 
 <%= render "weather_outlook" %>

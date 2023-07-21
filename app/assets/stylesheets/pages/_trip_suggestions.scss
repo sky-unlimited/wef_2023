@@ -1,5 +1,7 @@
 @import "../../vendor/assets/stylesheets/leaflet";
 
 .map-container {
-  height: 500px;
+  height: 50vh;
+  position: relative;
+  outline-style: none;
 }
