@@ -24,8 +24,10 @@
   text-align: left;
 }
 .alert-info {
-  color: #055160;
-  background-color: #cff4fc;
+  //color: #055160;
+  //background-color: #cff4fc;
+  color: $dark;
+  background-color: $color1;
   border: 1px solid #055160;
   border-left: 0.4em solid #055160;
 }

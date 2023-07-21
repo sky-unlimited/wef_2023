@@ -20,7 +20,7 @@ nav .burger-menu-content {
   top: 64px;
   width: 100%;
   z-index: 20;
-  background-color: $light;
+  background-color: $color1;
   display: none;
   flex-direction: column;
   text-align: center;
@@ -31,13 +31,13 @@ nav .burger-menu-content p {
 }
 nav .burger-menu-content a {
   text-decoration: none;
-  color: $dark;
+  color: $color2;
   padding: 1em;
   font-size: 1.5em;
   transition: 0.25s;
 }
 nav .burger-menu-content a:hover {
-  color: $secondary;
+  color: $dark;
   transition: 0.25s;
 }
 nav .burger-divider {

@@ -149,7 +149,7 @@ export default class extends Controller {
     // We display the destination zone
     var myStyle = {
       opacity: 0.3,
-      fillColor: "#9A48D0",
+      fillColor: "green",
       weight: 0,
     };
     var destinationZone = L.geoJSON(this.destinationZoneValue, { style: myStyle }).addTo(this.map)

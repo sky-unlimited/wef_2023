@@ -105,6 +105,7 @@ header .account-menu-content a {
   color: $light;
   text-decoration: none;
   padding: 1em;
+  white-space: nowrap;
 }
 header .account-menu-content a:hover {
   color: $light;
