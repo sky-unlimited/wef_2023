@@ -80,7 +80,7 @@ header .nav-lang-content {
   background-color: $dark;
   position: absolute;
   display: none;
-  z-index: 20;
+  z-index: 1100;
   left: -10px;
   padding: 10px;
 }
@@ -91,7 +91,7 @@ header .account-menu-content {
   display: none;
   right: 0;
   top: 64px;
-  z-index: 20;
+  z-index: 1100;
 }
 header .account-menu-content p {
   line-height: 2em;
