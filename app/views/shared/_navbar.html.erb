@@ -4,6 +4,11 @@
       <%= image_tag("full-logo-beta-dark.png", alt: "Weekend-fly logo", height: 64) %>
     <% end %>
   </div>
+  <% if @fake_weather %>
+    <p class="tag-outline-warning"><%= fake weather %></p>
+  <% else %>
+    <p class="tag-outline-success">real weather</p>
+  <% end %>
   <nav>
     <div class="nav-links" data-controller="submenu">
       <div class="nav-lang">

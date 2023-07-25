@@ -14,7 +14,7 @@ class PilotPrefsController < ApplicationController
     set_airport_details if @pilot_pref.airport_id.positive?
     if @pilot_pref.update(pilot_pref_params)
       flash.notice = t('pilot_prefs.saved') 
-      redirect_to edit_pilot_pref_path(@pilot_pref)
+      redirect_to root_path
     else
       render "edit", status: :unprocessable_entity
     end

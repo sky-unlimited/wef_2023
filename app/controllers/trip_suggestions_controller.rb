@@ -71,6 +71,8 @@ class TripSuggestionsController < ApplicationController
         hash = { "id"           => weather_data["daily"][index]["weather"][0]["id"],
                  "description"  => weather_data["daily"][index]["weather"][0]["description"],
                  "icon"         => weather_data["daily"][index]["weather"][0]["icon"],
+                 "wind_speed"   => weather_data["daily"][index]["wind_speed"].round(0),
+                 "wind_deg"     => weather_data["daily"][index]["wind_deg"].round(0),
                  "weather_ok"   => weather_ok
         }
         @weather_array.push(hash)

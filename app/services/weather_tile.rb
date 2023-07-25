@@ -26,7 +26,7 @@ class WeatherTile
               :weather_data, :date, :weather_ok
   attr_accessor :is_in_fly_zone
 
-  def initialize(pilot_weather_profile, date, precision, lon_tile_origin=nil, lat_tile_origin=nil, airport=nil)
+  def initialize(pilot_weather_profile, pilot_max_wind, date, precision, lon_tile_origin=nil, lat_tile_origin=nil, airport=nil)
     @polygon = nil                      # represents the polygon of the tile
     @polygon_geometry = nil             # represents the polygon of the tile in RGeo factory format
     @lon_center = nil                   # Longitude center of the tile "C"
@@ -39,6 +39,7 @@ class WeatherTile
     @airport_departure = airport        # Just used for the initial tile
     @weather_ok = false                 # Summarizes if tile's weather is in pilot's acceptance criteria (PilotPref.weather_profile)
     @pilot_weather_profile = pilot_weather_profile  # The pilot weather profile (safe, ...)
+    @pilot_max_wind = pilot_max_wind    # pilot's max accepted ground wind
     @is_in_fly_zone = false             # Good weather is not enough. We need to display only the fly zone
 
     # If the tile is instantiated with an airport, it means we have first to 
@@ -115,7 +116,6 @@ class WeatherTile
     #factory = RGeo::Geographic.spherical_factory(srid: 4326)
     factory = RGeo::Geos.factory(srid: 4326)
 
-
     # Create an array of RGeo::Feature::Point objects
     points = polygon.map { |coord| factory.point(coord[0], coord[1]) }
 
@@ -141,21 +141,26 @@ class WeatherTile
     # Openweather API provides daily forecast for 7 days
     day_offset = (@date.to_date - Date.current ).to_i
 
-
     # We read and assign the corresponding weather info
     #   Exemple: {"id"=>502, "main"=>"Rain", "description"=>"heavy intensity rain", "icon"=>"10d"}
     if WEF_CONFIG['fake_weather'] == true
-      @weather_data = WeatherService::get_fake_weather(@lat_center, @lon_center)
+      @weather_data = WeatherService::get_fake_weather
     else
       # We retrieve the WeatherCall id
       weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
       # We read database
-      @weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_offset]["weather"][0]
+      #@weather_data   =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_offset]["weather"][0]
+      @weather_data   =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_offset]
     end
 
     # Depending on the pilot weather profile, we deduct if the tile asociated weather is ok or nok
-    @weather_ok = WeatherService::weather_code_in_pilot_profile(@pilot_weather_profile, @weather_data["id"])
+    # We check if weather code belongs to pilot's preference
+    @weather_ok = WeatherService::weather_code_in_pilot_profile(@pilot_weather_profile, @weather_data["weather"][0]["id"])
 
+    # We check if wind speed is above pilot's preferences
+    if WEF_CONFIG['fake_weather'] == false && @weather_ok # Wind speeds not handled by fake weather
+      @weather_ok = @weather_data["wind_speed"].round(0) <= @pilot_max_wind ? true : false
+    end
   end
 
 end

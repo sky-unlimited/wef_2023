@@ -38,7 +38,7 @@ class WeatherService
                              ).pluck(:id).last
   end
 
-  def self.get_fake_weather(lat,lon)
+  def self.get_fake_weather
     # Random weather
     if rand(0..3) < 1 # 25% bad weather probability
       # We load bad weather possibilities
