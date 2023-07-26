@@ -116,4 +116,4 @@ staging:
         - 600
         - 803
         - 804
-  fake_weather: true
+  fake_weather: false

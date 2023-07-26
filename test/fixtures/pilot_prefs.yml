@@ -12,7 +12,7 @@ profile_ok:
   max_gnd_wind_speed: 15
 
 wrong_licence:
-  user: :regular_user
+  user: :admin_user
   weather_profile: 0
   airport: :ellx
   is_ultralight_pilot: false

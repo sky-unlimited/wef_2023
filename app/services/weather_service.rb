@@ -42,10 +42,14 @@ class WeatherService
     # Random weather
     if rand(0..3) < 1 # 25% bad weather probability
       # We load bad weather possibilities
-      fake_data = self.random_bad_weather
+      fake_data = { "weather" => [self.random_bad_weather],
+                    "wind_speed" => rand(0..40),
+                    "wind_deg" => rand(0..359) }
     else
       # good weather
-      fake_data = find_weather_description_by_id(800)
+      fake_data = { "weather" => [find_weather_description_by_id(800)],
+                    "wind_speed" => rand(0..5),
+                    "wind_deg" => rand(0..359) }
     end
   end
 

@@ -158,8 +158,9 @@ class WeatherTile
     @weather_ok = WeatherService::weather_code_in_pilot_profile(@pilot_weather_profile, @weather_data["weather"][0]["id"])
 
     # We check if wind speed is above pilot's preferences
-    if WEF_CONFIG['fake_weather'] == false && @weather_ok # Wind speeds not handled by fake weather
-      @weather_ok = @weather_data["wind_speed"].round(0) <= @pilot_max_wind ? true : false
+    if @weather_ok # We weather was already not ok, no need to check the winds
+      wind_kts = @weather_data["wind_speed"] * 1.9438445
+      @weather_ok = wind_kts.round(0) <= @pilot_max_wind ? true : false
     end
   end
 

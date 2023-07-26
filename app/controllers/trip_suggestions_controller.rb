@@ -6,6 +6,9 @@ class TripSuggestionsController < ApplicationController
     # We load the current user last trip request
     @trip_request = TripRequest.where(user_id: current_user.id).order(id: :desc).first
 
+    # Temporary indication on fake weather
+    @fake_weather = WEF_CONFIG['fake_weather']
+
     # We load all airports markers
     @airports_array = []
     airports = Airport.all
