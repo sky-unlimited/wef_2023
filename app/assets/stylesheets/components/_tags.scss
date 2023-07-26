@@ -1,12 +1,12 @@
 .tag {
-  padding: 1px 2px;
+  padding: 1px 4px;
   border-radius: 7px;
   text-align: center;
   font-size: 12px;
   width: fit-content;
-  color: black;
 }
 .tag-primary {
+  @extend .tag;
   color: white;
   text-decoration: none;
   background-color: $primary;
@@ -14,6 +14,7 @@
   transition: 0.25s;
 }
 .tag-secondary {
+  @extend .tag;
   color: white;
   text-decoration: none;
   background-color: $secondary;
@@ -21,6 +22,7 @@
   transition: 0.25s;
 }
 .tag-success {
+  @extend .tag;
   color: white;
   text-decoration: none;
   background-color: $success;
@@ -28,6 +30,7 @@
   transition: 0.25s;
 }
 .tag-danger {
+  @extend .tag;
   color: white;
   text-decoration: none;
   background-color: $danger;
@@ -35,27 +38,31 @@
   transition: 0.25s;
 }
 .tag-warning {
-  color: black;
+  @extend .tag;
+  color: $dark;
   text-decoration: none;
   background-color: $warning;
   border: 1px solid $warning;
   transition: 0.25s;
 }
 .tag-info {
-  color: black;
+  @extend .tag;
+  color: $dark;
   text-decoration: none;
   background-color: $info;
   border: 1px solid $info;
   transition: 0.25s;
 }
 .tag-light {
-  color: black;
+  @extend .tag;
+  color: $dark;
   text-decoration: none;
   background-color: $light;
   border: 1px solid $light;
   transition: 0.25s;
 }
 .tag-dark {
+  @extend .tag;
   color: white;
   text-decoration: none;
   background-color: $dark;
@@ -63,48 +70,56 @@
   transition: 0.25s;
 }
 .tag-outline-primary {
+  @extend .tag;
   color: $primary;
   text-decoration: none;
   border: 1px solid $primary;
   transition: 0.25s;
 }
 .tag-outline-secondary {
+  @extend .tag;
   color: $secondary;
   text-decoration: none;
   border: 1px solid $secondary;
   transition: 0.25s;
 }
 .tag-outline-success {
+  @extend .tag;
   color: $success;
   text-decoration: none;
   border: 1px solid $success;
   transition: 0.25s;
 }
 .tag-outline-danger {
+  @extend .tag;
   color: $danger;
   text-decoration: none;
   border: 1px solid $danger;
   transition: 0.25s;
 }
 .tag-outline-warning {
+  @extend .tag;
   color: $warning;
   text-decoration: none;
   border: 1px solid $warning;
   transition: 0.25s;
 }
 .tag-outline-info {
+  @extend .tag;
   color: $info;
   text-decoration: none;
   border: 1px solid $info;
   transition: 0.25s;
 }
 .tag-outline-light {
+  @extend .tag;
   color: $light;
   text-decoration: none;
   border: 1px solid $light;
   transition: 0.25s;
 }
 .tag-outline-dark {
+  @extend .tag;
   color: $dark;
   text-decoration: none;
   border: 1px solid $dark;
