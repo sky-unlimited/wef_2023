@@ -14,6 +14,7 @@ class User < ApplicationRecord
   after_save :create_default_pilot_preferences
   validates :last_name, presence: true
   validates :first_name, presence: true
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
   validate :picture_format
 
   private
