@@ -27,6 +27,7 @@ fr:
         updated_at: Date de mise à jour
         last_name: Nom
         first_name: Prénom
+        username: Identifiant
         role: Rôle
         picture: Avatar
     models:

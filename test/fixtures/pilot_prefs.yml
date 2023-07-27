@@ -6,6 +6,7 @@ profile_ok:
   airport: :ellx
   is_ultralight_pilot: true
   is_private_pilot: true
+  average_true_airspeed: 100
   min_runway_length: 300
   fuel_card_total: false
   fuel_card_bp: false
@@ -17,6 +18,7 @@ wrong_licence:
   airport: :ellx
   is_ultralight_pilot: false
   is_private_pilot: false
+  average_true_airspeed: 100
   min_runway_length: 300
   fuel_card_total: false
   fuel_card_bp: false

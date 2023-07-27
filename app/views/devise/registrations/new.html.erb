@@ -12,6 +12,14 @@
         <%= f.file_field      :picture, 
                               class: "form-control" %>
 
+        <%= f.label           :username,
+                              class: "form-label" %>
+        <%= f.text_field      :username,
+                              autofocus: true,
+                              autocomplete: "username",
+                              class: "form-control",
+                              placeholder: "e.g. josmith123" %>
+
         <%= f.label           :email,
                               class: "form-label" %>
         <%= f.email_field     :email,

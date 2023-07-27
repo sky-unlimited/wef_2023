@@ -8,6 +8,7 @@ class PilotPref < ApplicationRecord
   validates :user, presence: true
   validates :min_runway_length, numericality: { in: 150..1500 }
   validates :max_gnd_wind_speed, numericality: { in: 15..45 }
+  validates :average_true_airspeed, numericality: { in: 0..250 }
 
   validate :pilot_should_have_at_least_one_licence
 
