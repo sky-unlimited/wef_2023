@@ -54,6 +54,11 @@
           <%= f.check_box :is_private_pilot %>
         </div>
         
+        <%= f.label :average_true_airspeed,
+                    class: "form-label mt-10" %>
+        <%= f.number_field :average_true_airspeed, 
+                           min: 0, max: 250,
+                           class: "form-control" %>
 
         <%= f.label :min_runway_length,
                     class: "form-label mt-10" %>

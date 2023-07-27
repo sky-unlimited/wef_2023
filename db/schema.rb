@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_27_113016) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_27_123820) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_27_113016) do
     t.boolean "is_ultralight_pilot", default: false, null: false
     t.boolean "is_private_pilot", default: false, null: false
     t.bigint "airport_id"
+    t.integer "average_true_airspeed", default: 100, null: false
     t.index ["airport_id"], name: "index_pilot_prefs_on_airport_id"
     t.index ["user_id"], name: "index_pilot_prefs_on_user_id"
   end
