@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_27_133410) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_27_153752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -78,7 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_27_133410) do
     t.string "amenity", null: false
     t.string "tags"
     t.string "category"
-    t.geometry "way", limit: {:srid=>3857, :type=>"st_point"}
+    t.geometry "way", limit: {:srid=>3857, :type=>"line_string"}
     t.float "distance"
     t.integer "airport_id"
     t.datetime "created_at", null: false
@@ -104,7 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_27_133410) do
     t.string "amenity", null: false
     t.string "tags"
     t.string "category"
-    t.geometry "way", limit: {:srid=>3857, :type=>"st_point"}
+    t.geometry "way", limit: {:srid=>3857, :type=>"st_polygon"}
     t.float "distance"
     t.integer "airport_id"
     t.datetime "created_at", null: false
