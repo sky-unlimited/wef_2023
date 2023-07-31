@@ -77,6 +77,7 @@ gem 'ed25519', '~> 1.3'
 gem "bcrypt_pbkdf", ">= 1.0", "< 2.0"
 gem 'rack-cors', '~> 2.0', '>= 2.0.1'
 gem 'rest-client', '~> 2.1'
+gem 'normalize_country', '~> 0.3.2'
 
 # Geospatial queries
 gem 'activerecord-postgis-adapter', '~> 8.0', '>= 8.0.2'
