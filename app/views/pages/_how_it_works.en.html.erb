@@ -1,41 +1,44 @@
 <section class="container-fluid bg-color3 d-flex flex-column py-20">
   <h1 class="text-center">How it works</h1>
   <div class="d-flex flex-row justify-content-around flex-wrap">
-    <div class="d-flex flex-column align-items-center bg-color4 m-15 card-small justify-content-between">
+    <div class="d-flex flex-column align-items-center m-15 card-small">
       <div><%= image_tag("sliders.svg", style: "height:100px; width:auto") %></div>
       <h2 class="color-dark">Pilot Preferences</h2>
       <p class="text-center lh-base">
-      Your way of flying, your rules. Set your weather aversion level, min runway length, and other rules to expect <b>tailor made</b> results
+      <b class="color-primary">Your way of flying, your rules.</b> Set your weather aversion level, min runway length, and other rules to expect tailor made results. All destinations we'll suggest you will fit your preferences.
       </p>
       <p class="text-center">
         <%= link_to "Read more",
           root_path,
           class: "btn btn-dark",
-          style: "font-size: 1em;" %>
+          style: "font-size: 1em;",
+          onclick: "event.preventDefault();" %>
       </p>
     </div>
-    <div class="d-flex flex-column align-items-center bg-color4 m-15 card-small justify-content-between">
+    <div class="d-flex flex-column align-items-center m-15 card-small">
       <div><%= image_tag("briefcase.svg", style: "height:100px; width:auto") %></div>
       <h2 class="color-dark">Find Destinations</h2>
-      <p class="text-center lh-base">Just want a lunch, or want to leave the weekend, maybe even longer, just tell us what you expect to find at destination, and we'll suggest you our best destinations. And <b>only where weather is welcoming you!</b></p>
+      <p class="text-center lh-base"><b class="color-primary">Time is valuable.</b> Just want a lunch, or to leave the weekend, maybe even longer, just tell us what you expect to find at destination.In a few clicks, you'll discover our best destinations. And <b class="color-primary">only where weather is welcoming you!</b></p>
       <p class="text-center">
         <%= link_to "Read more",
           root_path,
           class: "btn btn-dark",
-          style: "font-size: 1em;" %>
+          style: "font-size: 1em;",
+          onclick: "event.preventDefault();" %>
       </p>
     </div>
-    <div class="d-flex flex-column align-items-center bg-color4 m-15 card-small justify-content-between">
+    <div class="d-flex flex-column align-items-center m-15 card-small">
       <div><%= image_tag("message-circle.svg", style: "height:100px; width:auto") %></div>
       <h2 class="color-dark">Community</h2>
       <p class="text-center lh-base">
-      <b>Pilots only trust pilots.</b><br>Share your experiences, rate places, follow insipring pilots, share usefull information to the community. Benefit from your community 😎.
+      <b class="color-primary">Pilots only trust pilots.</b><br>Share your experiences, rate places, follow insipring pilots, share usefull information to the community. Benefit from your community.
       </p>
       <p class="text-center">
         <%= link_to "Read more",
           root_path,
           class: "btn btn-dark",
-          style: "font-size: 1em;" %>
+          style: "font-size: 1em;",
+          onclick: "event.preventDefault();" %>
       </p>
     </div>
   </div>
