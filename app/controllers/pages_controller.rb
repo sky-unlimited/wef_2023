@@ -1,6 +1,14 @@
+require "normalize_country"
+
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: :home
   def home
+    # We load the current covered countries (airport countries)
+    @countries_array = []
+    distinct_countries = Country.joins(:airports).distinct
+    distinct_countries.each do |country|
+      @countries_array.push country.code
+    end
   end
 
   def console

@@ -5,7 +5,12 @@
       <div><%= image_tag("globe.svg", style: "height:100px; width:auto") %></div>
       <h2 class="color-dark">Coverage</h2>
       <p class="text-center lh-base">
-      We focus on travellers. There are treasures all around Europe. We'll progressively extend the point of interests <b>near</b> airports to all Europe.
+      We focus on travellers. There are treasures all around Europe. We'll progressively extend the point of interests <b>near</b> airports to all Europe.</br>
+      <p class="text-center text-decoration-underline">Currently covered</p>
+      <p class="text-center m-0"> 
+      <% @countries_array.each do |country| %>
+        <%= NormalizeCountry(country, :to => :emoji) %>
+      <% end %>
       </p>
     </div>
     <div class="d-flex flex-column align-items-center bg-color4 m-15 card-small">
