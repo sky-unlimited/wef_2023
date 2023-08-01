@@ -183,6 +183,7 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.2-x86_64-linux)
       racc (~> 1.4)
+    normalize_country (0.3.2)
     orm_adapter (0.5.0)
     pg (1.5.3)
     public_suffix (5.0.1)
@@ -324,6 +325,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  normalize_country (~> 0.3.2)
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors (~> 2.0, >= 2.0.1)

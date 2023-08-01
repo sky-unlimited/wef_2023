@@ -13,7 +13,7 @@ en:
           one:
           other:
   forms:
-    back: "back"
+    back: "Back"
     submit: "Submit"
     messages:
       errors:

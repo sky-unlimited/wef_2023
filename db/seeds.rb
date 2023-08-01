@@ -16,6 +16,7 @@ User.destroy_all
 user = User.new
 user.first_name = "Alexandre"
 user.last_name = "Stanescot"
+user.username = "alexstan57"
 user.email = "alex@aerostan.com"
 user.role = "admin"
 user.password = "alex@aerostan.com"
@@ -31,6 +32,7 @@ if Rails.env.development? || Rails.env.staging?
   user = User.new
   user.first_name = "Rachel"
   user.last_name = "Muller"
+  user.username = "rachmu57"
   user.email = "rachel.fly@me.com"
   user.role = "user"
   user.password = "rachel.fly@me.com"
@@ -44,6 +46,7 @@ if Rails.env.development? || Rails.env.staging?
   user = User.new
   user.first_name = "Margaux"
   user.last_name = "Arnould"
+  user.username = "marnou01"
   user.email = "margaux.arnould.20@neoma-bs.com"
   user.role = "user"
   user.password = "margaux.arnould.20@neoma-bs.com"

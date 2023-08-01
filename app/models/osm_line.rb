@@ -1,0 +1,2 @@
+class OsmLine < ApplicationRecord
+end

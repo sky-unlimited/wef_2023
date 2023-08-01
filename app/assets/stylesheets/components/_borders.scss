@@ -76,3 +76,6 @@
 .border-dashed {
   border-style: dashed;
 }
+.border-shadow {
+  box-shadow: rgba(0, 0, 0, 0.24) $box-shadow $box-shadow $box-shadow;
+}

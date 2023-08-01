@@ -1,0 +1,2 @@
+class OsmPolygone < ApplicationRecord
+end

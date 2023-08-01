@@ -1,16 +1,18 @@
-<div class="container-sm bg-color3 border border-radius border-color2">
+<div class="container-sm bg-color3 border border-radius border-color2 d-flex flex-column">
   <h2 class="text-center color-light"><%= t('trip_suggestions.weather_outlook.title') %></h2>
-  <div class="d-flex flex-column">
+  <table class="mb-10 align-center">
     <% @weather_array.each_with_index do |record, index| %>
-      <div class="d-flex flex-row justify-content-around align-items-center">
-        <% record_date = Date.current + index.day %>
-        <p><%= record_date.strftime('%a %d/%m') %></p>
-        <p>
-        <img src="https://openweathermap.org/img/wn/<%= record["icon"] %>.png" alt="<%= record["description"] %>">
-        </p>
-        <p><%= record["description"] %></p>
-        <p title="<%= record["weather_ok"] ? t('trip_suggestions.weather_outlook.compliant_with_weather') : t('trip_suggestions.weather_outlook.not_compliant_with_weather')%>"><%= record["weather_ok"] ? "✅" : "❌" %></p>
-      </div>
+      <% next if index.zero? %>
+      <tr>
+        <td><% record_date = Date.current + index.day %></td>
+        <td><%= record_date.strftime('%a %d/%m') %></td>
+        <td>
+          <img src="https://openweathermap.org/img/wn/<%= record["icon"] %>.png" alt="<%= record["description"] %>">
+        </td>
+        <td><%= "#{record["wind_deg"]}°#{winds_ms_to_kts(record["wind_speed"])} kts" %></td>
+        <td><%= record["description"] %></td>
+        <td title="<%= record["weather_ok"] ? t('trip_suggestions.weather_outlook.compliant_with_weather') : t('trip_suggestions.weather_outlook.not_compliant_with_weather')%>"><%= record["weather_ok"] ? "✅" : "❌" %></td>
+      </tr>
     <% end %>
-  </div>
+  </table>
 </div>

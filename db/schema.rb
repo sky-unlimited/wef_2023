@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_04_185836) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_27_153752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -72,6 +72,45 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_04_185836) do
     t.index ["id"], name: "index_countries_on_id", unique: true
   end
 
+  create_table "osm_lines", force: :cascade do |t|
+    t.bigint "osm_id", null: false
+    t.string "osm_name"
+    t.string "amenity", null: false
+    t.string "tags"
+    t.string "category"
+    t.geometry "way", limit: {:srid=>3857, :type=>"line_string"}
+    t.float "distance"
+    t.integer "airport_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "osm_points", force: :cascade do |t|
+    t.bigint "osm_id", null: false
+    t.string "osm_name"
+    t.string "amenity", null: false
+    t.string "tags"
+    t.string "category"
+    t.geometry "way", limit: {:srid=>3857, :type=>"st_point"}
+    t.float "distance"
+    t.integer "airport_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "osm_polygones", force: :cascade do |t|
+    t.bigint "osm_id", null: false
+    t.string "osm_name"
+    t.string "amenity", null: false
+    t.string "tags"
+    t.string "category"
+    t.geometry "way", limit: {:srid=>3857, :type=>"st_polygon"}
+    t.float "distance"
+    t.integer "airport_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pilot_prefs", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "weather_profile", default: 0, null: false
@@ -84,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_04_185836) do
     t.boolean "is_ultralight_pilot", default: false, null: false
     t.boolean "is_private_pilot", default: false, null: false
     t.bigint "airport_id"
+    t.integer "average_true_airspeed", default: 100, null: false
     t.index ["airport_id"], name: "index_pilot_prefs_on_airport_id"
     t.index ["user_id"], name: "index_pilot_prefs_on_user_id"
   end
@@ -145,6 +185,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_04_185836) do
     t.integer "failed_attempts"
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.string "username", default: "user123", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

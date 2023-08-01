@@ -1,9 +1,10 @@
 <%#= render 'seo' %>
-<div class="container-fluid">
-  <div class="d-flex flex-column align-items-center">
-    <h1 class="text-center"><%= t('pages.home.hero_one') %></h1>
-    <h3 class="color-dark"><%= t('pages.home.hero_two') %></h3>
-    <p class="text-center">
+<div class="container-fluid py-20">
+  <div class="d-flex flex-column align-items-center bg-light">
+    <h1 class="text-center" style="padding-left: 1em;padding-right: 2em"><%= t('pages.home.hero_one') %></h1>
+    <h3 class="color-dark text-center"><%= t('pages.home.hero_two') %></h3>
+    <div><%= image_tag("screen.png", class: "border-radius border-shadow") %></div>
+    <p class="text-center" style="margin: 50px;">
       <%= link_to t('pages.home.banner-button'),
         new_trip_request_path,
         class: "btn btn-primary",
@@ -11,3 +12,6 @@
     </p>
   </div>
 </div>
+<%= render 'how_it_works' %>
+<%= render 'what_you_get' %>
+<%= render 'footer' %>

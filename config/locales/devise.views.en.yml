@@ -27,6 +27,7 @@ en:
         updated_at: Updated at
         last_name: Last name
         first_name: First name
+        username: Username
         role: Role
         picture: Avatar
     models:

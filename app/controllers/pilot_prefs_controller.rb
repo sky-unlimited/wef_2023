@@ -14,7 +14,7 @@ class PilotPrefsController < ApplicationController
     set_airport_details if @pilot_pref.airport_id.positive?
     if @pilot_pref.update(pilot_pref_params)
       flash.notice = t('pilot_prefs.saved') 
-      redirect_to edit_pilot_pref_path(@pilot_pref)
+      redirect_to root_path
     else
       render "edit", status: :unprocessable_entity
     end
@@ -23,7 +23,7 @@ class PilotPrefsController < ApplicationController
   private
 
   def pilot_pref_params
-    params.require(:pilot_pref).permit(:user_id, :airport_id, :is_ultralight_pilot, :is_private_pilot, :weather_profile, :min_runway_length, :max_gnd_wind_speed, :min_runway_length, :fuel_card_total, :fuel_card_bp)
+    params.require(:pilot_pref).permit(:user_id, :airport_id, :is_ultralight_pilot, :is_private_pilot, :weather_profile, :min_runway_length, :max_gnd_wind_speed, :min_runway_length, :fuel_card_total, :fuel_card_bp, :average_true_airspeed)
   end
   
   def set_airport_details

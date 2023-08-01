@@ -44,6 +44,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Email", with: "hannibal.smith@email.com"
     fill_in "Last name", with: "Smith"
     fill_in "First name", with: "Hannibal"
+    fill_in "Username", with: "username1"
     fill_in "Password", with: "123456"
     fill_in "Password confirmation", with: "123456"
     click_on "Sign up"

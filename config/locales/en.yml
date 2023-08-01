@@ -10,6 +10,7 @@ en:
           safe: Safe
           adventurous: Adventurous
         airport: Home Base Airport
+        average_true_airspeed: Average True Airspeed
         min_runway_length: Minimun runway length (m)
         max_gnd_wind_speed: Maximum ground wind speed (kts)
         is_ultralight_pilot: Ultralight Pilot
@@ -51,7 +52,7 @@ en:
     home:
       hero_one: We help pilots find best destinations 🌴
       hero_two: Give a goal to your flight, only by good weather 🔆
-      banner-button: Let's fly!
+      banner-button: Get started
   pilot_prefs:
     menu: Preferences
     saved: Preferences saved!
