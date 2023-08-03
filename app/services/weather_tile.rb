@@ -149,19 +149,13 @@ class WeatherTile
       # We retrieve the WeatherCall id
       weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
       # We read database
-      #@weather_data   =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_offset]["weather"][0]
       @weather_data   =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_offset]
     end
 
     # Depending on the pilot weather profile, we deduct if the tile asociated weather is ok or nok
     # We check if weather code belongs to pilot's preference
-    @weather_ok = WeatherService::weather_code_in_pilot_profile(@pilot_weather_profile, @weather_data["weather"][0]["id"])
+    @weather_ok = WeatherService::is_weather_ok?(@pilot_weather_profile, @pilot_max_wind, @weather_data)
 
-    # We check if wind speed is above pilot's preferences
-    if @weather_ok # We weather was already not ok, no need to check the winds
-      wind_kts = @weather_data["wind_speed"] * 1.9438445
-      @weather_ok = wind_kts.round(0) <= @pilot_max_wind ? true : false
-    end
   end
 
 end

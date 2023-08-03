@@ -53,23 +53,30 @@ class WeatherService
     end
   end
 
-  def self.weather_code_in_pilot_profile(pilot_weather_profile, id)
+  def self.is_weather_ok?(pilot_weather_profile, pilot_max_ground_wind, weather_data)
+    weather_code_id = weather_data["weather"][0]["id"].to_i
     weather_profiles =  WEF_CONFIG['weather_profiles']
     weather_ok = false
 
     # The pilot weather profile is "safe"
     if pilot_weather_profile == PilotPref.weather_profiles.keys[0]
-      if weather_profiles[0]["safe"].include?(id)
+      if weather_profiles[0]["safe"].include?(weather_code_id)
         weather_ok = true
       end
     end
 
     # The pilot weather profile is "adventurous"
     if pilot_weather_profile == PilotPref.weather_profiles.keys[1]
-      if weather_profiles[0]["safe"].include?(id) or
-         weather_profiles[1]["adventurous"].include?(id)
+      if weather_profiles[0]["safe"].include?(weather_code_id) or
+         weather_profiles[1]["adventurous"].include?(weather_code_id)
         weather_ok = true
       end
+    end
+    
+    # We check if wind speed is above pilot's preferences
+    if weather_ok # We weather was already not ok, no need to check the winds
+      wind_kts = weather_data["wind_speed"] * 1.9438445
+      weather_ok = wind_kts.round(0) <= pilot_max_ground_wind ? true : false
     end
 
     return weather_ok
