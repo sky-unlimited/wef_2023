@@ -55,7 +55,7 @@ class TripSuggestionsController < ApplicationController
     # We convert the RGeo polygon into geojson
     @destination_zone = RGeo::GeoJSON.encode(destination_zone_polygon).to_json
 
-    # If weather on departure aiport not ok for outbound or inbound flight, we display a specific page
+    # If weather on departure airport not ok for outbound or inbound flight, we display a specific page
     if  @outbound_weather_ok == false || @inbound_weather_ok  == false 
       # We load the forecast of outbound airport based on coordinates of origin tile
       weather_call_id = WeatherService::get_weather(fly_zone_outbound.tiles.first.lat_center,
@@ -68,8 +68,9 @@ class TripSuggestionsController < ApplicationController
       @weather_array = []
       hash = {}
       (0..7).each do |index|
-        weather_ok = WeatherService::weather_code_in_pilot_profile( current_user.pilot_pref.weather_profile,
-                                                                    weather_data["daily"][index]["weather"][0]["id"].to_i)
+        weather_ok = WeatherService::is_weather_ok?(  current_user.pilot_pref.weather_profile,
+                                                      current_user.pilot_pref.max_gnd_wind_speed,
+                                                      weather_data["daily"][index])
 
         hash = { "id"           => weather_data["daily"][index]["weather"][0]["id"],
                  "description"  => weather_data["daily"][index]["weather"][0]["description"],
