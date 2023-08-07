@@ -1,8 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.active_storage.service = :production
-  config.action_mailer.default_url_options = { host: "http://weekend-fly.com", port: 8181 }
+  config.action_mailer.default_url_options = { host: "http://fly.aerostan.com", port: 8181 }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
