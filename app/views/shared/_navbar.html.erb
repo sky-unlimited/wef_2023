@@ -17,7 +17,12 @@
         <p data-action="click->submenu#displayMenuFlag"><%= displayFlag(locale) %></p>
         <div class="nav-lang-content" data-submenu-target="flag">
           <% I18n.available_locales.each do |loc| %>
-            <p><%= link_to displayFlag(loc), root_path(locale: loc) %></p>
+            <% current_locale = params[:locale] || I18n.default_locale.to_s %>
+            <% new_full_path = request.fullpath.sub("/#{current_locale}", "") %>
+            <% new_locale = loc.to_s %>
+            <% new_locale_param = (new_locale == "en") ? nil : new_locale %>
+            <% new_url = "#{root_url(locale: new_locale_param)}#{new_full_path}" %>
+            <p><%= link_to displayFlag(loc), new_url %></p>
           <% end %>
         </div>
       </div>
