@@ -23,6 +23,7 @@ MAIL_USERNAME=noreply
 MAIL_PASSWORD=password
 MAIL_DOMAIN=example.com
 MAIL_SMTP_SERVER=example.com
+MAIL_SMTP_PORT=465
 OPENWEATHERMAP_API=your openweather api key
 ````
 We update airports data from: [https://github.com/davidmegginson/ourairports-data]()
