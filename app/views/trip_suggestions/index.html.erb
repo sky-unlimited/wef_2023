@@ -1,5 +1,10 @@
 <div class="container">
   <h1>Destinations from <%= @trip_request.airport.icao %></h1>
+  <% if @fake_weather %>
+    <p class="tag-danger">fake weather</p>
+  <% else %>
+    <p class="tag-success">real weather</p>
+  <% end %>
   <div class="map-container" \
         data-controller="osm" \
         data-osm-target="map" \
