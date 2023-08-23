@@ -21,6 +21,7 @@ fr:
         airport: Aéroport
         start_date: Date Depart
         end_date: Date Retour
+        international_flight: Vols internationaux
         trip_mode: Mode de suggestion
         trip_mode_options:
           custom: Destination Personnalisée

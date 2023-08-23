@@ -42,6 +42,9 @@
               max: Date.today + 7.days,
               class: "form-control text-center" %></div>
 
+    <div><%= f.label :international_flight, class: "form_label" %></div>
+    <div><%= f.check_box :international_flight %></div>
+
     <p class="text-center mb-5"><%= t('activerecord.attributes.trip_request.trip_mode') %></p>
     <div class="d-flex flex-columns align-items-center p-10 border border-radius mb-20 bg-light color-dark">
       <%= f.collection_radio_buttons :trip_mode, TripRequest.trip_modes, :first, :first, class: "mr-5", 

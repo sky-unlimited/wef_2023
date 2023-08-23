@@ -5,6 +5,7 @@ trip_request_correct:
   airport: ellx
   start_date: <%= Time.zone.now %>
   end_date: <%= Time.zone.now + 1.day %>
+  international_flight: false
   trip_mode: 2
   proxy_food: true
   proxy_fuel: true
@@ -18,6 +19,7 @@ start_date_in_past:
   airport: ellx
   start_date: <%= Time.zone.now - 1.day %>
   end_date: <%= Time.zone.now + 1.day %>
+  international_flight: false
   trip_mode: 2
   proxy_food: true
   proxy_fuel: true
@@ -31,6 +33,7 @@ end_date_before_start_date:
   airport: ellx
   start_date: <%= Time.zone.now + 1.day %>
   end_date: <%= Time.zone.now + 0.day %>
+  international_flight: false
   trip_mode: 2
   proxy_food: true
   proxy_fuel: true
@@ -44,6 +47,7 @@ wrong_enum:
   airport: ellx
   start_date: <%= Time.zone.now  %>
   end_date: <%= Time.zone.now + 0.day %>
+  international_flight: false
   trip_mode: 99
   proxy_food: true
   proxy_fuel: true
@@ -57,6 +61,7 @@ end_date_more_7_days:
   airport: ellx
   start_date: <%= Time.zone.now + 0.day %>
   end_date: <%= Time.zone.now + 8.day %>
+  international_flight: false
   trip_mode: 2
   proxy_food: true
   proxy_fuel: true

@@ -21,6 +21,7 @@ en:
         airport: Airport
         start_date: Departure Date
         end_date: Return Date
+        international_flight: International flights
         trip_mode: Trip Mode
         trip_mode_options:
           custom: Custom Destination
