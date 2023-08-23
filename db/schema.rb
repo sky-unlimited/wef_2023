@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_23_085659) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_23_115446) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -159,6 +159,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_23_085659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "international_flight", default: false
+    t.boolean "small_airport", default: false
+    t.boolean "medium_airport", default: true
+    t.boolean "large_airport", default: false
     t.index ["airport_id"], name: "index_trip_requests_on_airport_id"
     t.index ["user_id"], name: "index_trip_requests_on_user_id"
   end
