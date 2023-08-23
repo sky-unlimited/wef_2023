@@ -22,6 +22,9 @@ en:
         start_date: Departure Date
         end_date: Return Date
         international_flight: International flights
+        small_airport: Small airport
+        medium_airport: Medium Airport
+        large_airport: Large airport
         trip_mode: Trip Mode
         trip_mode_options:
           custom: Custom Destination
@@ -40,6 +43,7 @@ en:
         greater_than_or_equal_to: Must be greater or equal to
         end_date_more_7_days: "can't have more than 7 days (No weather forecast)"
         start_date_not_in_past: can't be in the past
+        check_at_least_one_airport_type: Please choose at least one airport type
   forms:
     messages:
       errors:
@@ -64,6 +68,7 @@ en:
     no_airport_selected: No airport selected
     poi: Points of Interest near Airport
     submit: Find destinations!
+    airport_types: Destination airport type
     messages:
       end_date_greater_start_date: should be after Departure Date
   trip_suggestions:

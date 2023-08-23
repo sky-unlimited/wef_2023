@@ -6,6 +6,9 @@ trip_request_correct:
   start_date: <%= Time.zone.now %>
   end_date: <%= Time.zone.now + 1.day %>
   international_flight: false
+  small_airport: false
+  medium_airport: true
+  large_airport: false
   trip_mode: 2
   proxy_food: true
   proxy_fuel: true
@@ -20,6 +23,9 @@ start_date_in_past:
   start_date: <%= Time.zone.now - 1.day %>
   end_date: <%= Time.zone.now + 1.day %>
   international_flight: false
+  small_airport: false
+  medium_airport: true
+  large_airport: false
   trip_mode: 2
   proxy_food: true
   proxy_fuel: true
@@ -34,6 +40,9 @@ end_date_before_start_date:
   start_date: <%= Time.zone.now + 1.day %>
   end_date: <%= Time.zone.now + 0.day %>
   international_flight: false
+  small_airport: false
+  medium_airport: true
+  large_airport: false
   trip_mode: 2
   proxy_food: true
   proxy_fuel: true
@@ -48,6 +57,9 @@ wrong_enum:
   start_date: <%= Time.zone.now  %>
   end_date: <%= Time.zone.now + 0.day %>
   international_flight: false
+  small_airport: false
+  medium_airport: true
+  large_airport: false
   trip_mode: 99
   proxy_food: true
   proxy_fuel: true
@@ -62,7 +74,27 @@ end_date_more_7_days:
   start_date: <%= Time.zone.now + 0.day %>
   end_date: <%= Time.zone.now + 8.day %>
   international_flight: false
+  small_airport: false
+  medium_airport: true
+  large_airport: false
   trip_mode: 2
+  proxy_food: true
+  proxy_fuel: true
+  proxy_car_rental: false
+  proxy_bike_rental: false
+  proxy_camp_site: false
+  proxy_hotel: false
+
+wrong_airport_type:
+  user: regular_user
+  airport: ellx
+  start_date: <%= Time.zone.now  %>
+  end_date: <%= Time.zone.now + 0.day %>
+  international_flight: false
+  small_airport: false
+  medium_airport: false
+  large_airport: false
+  trip_mode: 1
   proxy_food: true
   proxy_fuel: true
   proxy_car_rental: false

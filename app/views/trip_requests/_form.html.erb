@@ -28,22 +28,44 @@
 
       <div><%= f.label t('trip_request.airport'), class: "form-label" %></div>
       <div><%= text_field_tag "airport_full_name", @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true, class: "form-control", data: { airport_searcher_target: "resultField" } %></div>
-
     </div>
 
-    <div><%= f.label :start_date, class: "form-label" %></div>
-    <div><%= f.date_field :start_date,
-              min: Date.today, 
-              class: "form-control text-center" %></div>
-
-    <div><%= f.label :end_date, class: "form-label" %></div>
-    <div><%= f.date_field :end_date,
-              min: Date.today,
-              max: Date.today + 7.days,
-              class: "form-control text-center" %></div>
+    <div class="d-flex flex-row justify-content-around">
+      <div class="d-flex flex-column">
+        <div><%= f.label :start_date, class: "form-label" %></div>
+        <div><%= f.date_field :start_date,
+                min: Date.today, 
+                class: "form-control text-center" %></div>
+      </div>
+      <div class="d-flex flex-column">
+        <div><%= f.label :end_date, class: "form-label" %></div>
+        <div><%= f.date_field :end_date,
+                min: Date.today,
+                max: Date.today + 7.days,
+                class: "form-control text-center" %></div>
+      </div>
+    </div>
 
     <div><%= f.label :international_flight, class: "form_label" %></div>
-    <div><%= f.check_box :international_flight %></div>
+    <div class="p-10 border border-radius mb-20 bg-light color-dark">
+      <div><%= f.check_box :international_flight %></div>
+    </div>
+
+    <p class="text-center mb-5"><%= t('trip_request.airport_types') %></p>
+    <div class="d-flex flex-row justify-content-around p-10 border border-radius mb-20 bg-light color-dark">
+      <div class="d-flex flex-column">
+        <%= f.check_box :small_airport %>
+        <%= f.label :small_airport, class: "form-label" %>
+      </div>
+      <div class="d-flex flex-column">
+        <%= f.check_box :medium_airport %>
+        <%= f.label :medium_airport %>
+      </div>
+      <div class="d-flex flex-column">
+        <%= f.check_box :large_airport %>
+        <%= f.label :large_airport %>
+      </div>
+    </div>
 
     <p class="text-center mb-5"><%= t('activerecord.attributes.trip_request.trip_mode') %></p>
     <div class="d-flex flex-columns align-items-center p-10 border border-radius mb-20 bg-light color-dark">
