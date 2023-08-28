@@ -21,6 +21,10 @@ fr:
         airport: Aéroport
         start_date: Date Depart
         end_date: Date Retour
+        international_flight: Vols internationaux
+        small_airport: Petit aéroport
+        medium_airport: Moyen aéroport
+        large_airport: Grand aéroport
         trip_mode: Mode de suggestion
         trip_mode_options:
           custom: Destination Personnalisée
@@ -39,6 +43,7 @@ fr:
         greater_than_or_equal_to: Doit être supérieur ou égale à
         end_date_more_7_days: "ne peut être à plus de 7 jours dans le futur (Prévisions météo)"
         start_date_not_in_past: ne peut être dans le passé
+        check_at_least_one_airport_type: Veuillez au moins choisir une taille d'aéroprt de destination
   forms:
     messages:
       errors:
@@ -64,6 +69,7 @@ fr:
     no_airport_selected: Pas d'aéroport choisi
     poi: Centres d'intérêts près des aérodromes
     submit: Trouver destinations!
+    airport_types: Type d'aérodrome de destination
     messages:
       end_date_greater_start_date: doit être après la date de départ
   trip_suggestions:

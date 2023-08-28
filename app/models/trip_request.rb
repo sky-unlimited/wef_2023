@@ -11,6 +11,7 @@ class TripRequest < ApplicationRecord
   validates :end_date, comparison: { greater_than_or_equal_to: :start_date, message: I18n.t('trip_request.messages.end_date_greater_start_date') }, unless: :end_date_not_null?
   validate :start_date_cannot_be_in_the_past
   validate :end_date_no_longer_than_7_days
+  validate :check_at_least_one_airport_type
 
   private
 
@@ -27,6 +28,12 @@ class TripRequest < ApplicationRecord
   def end_date_no_longer_than_7_days
     if end_date.to_date - Date.today > 7
       errors.add(:end_date, I18n.t('activerecord.errors.messages.end_date_more_7_days'))
+    end
+  end
+
+  def check_at_least_one_airport_type
+    if small_airport == false && medium_airport == false  && large_airport == false
+      errors.add("Airport type:", I18n.t('activerecord.errors.messages.check_at_least_one_airport_type'))
     end
   end
 end
