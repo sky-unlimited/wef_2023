@@ -22,25 +22,25 @@ require 'rgeo/geos'
 #   C (6.5, 49.5)
 #   O (6,49)
 class WeatherTile
-  attr_reader :polygon, :polygon_geometry, :lon_center, :lat_center, :lon_tile_origin, :lat_tile_origin,
-              :weather_data, :date, :weather_ok
+  attr_reader :polygon_geometry, :lon_center, :lat_center, :lon_tile_origin, :lat_tile_origin,
+              :weather_data, :weather_ok
   attr_accessor :is_in_fly_zone
 
-  def initialize(pilot_weather_profile, pilot_max_wind, date, precision, lon_tile_origin=nil, lat_tile_origin=nil, airport=nil)
-    @polygon = nil                      # represents the polygon of the tile
-    @polygon_geometry = nil             # represents the polygon of the tile in RGeo factory format
+  def initialize(user, effective_date, precision, lon_tile_origin=nil, lat_tile_origin=nil, airport=nil)
+    @user = user                        # represents the user and it's weather preferences
+    @effective_date = effective_date    # At which date should we retrieve weather information
+    @precision = precision              # Precision is the size of a tile. The smaller, the more precise is the weather
     @lon_center = nil                   # Longitude center of the tile "C"
     @lat_center = nil                   # Latitude  center of the tile "C"
-    @weather_data = nil                 # Will store the needed weather info from openweather.com
     @lon_tile_origin = lon_tile_origin  # Longitude of the origin point of the tile "O" 
     @lat_tile_origin = lat_tile_origin  # Latitude  of the origin point of the tile "O"
-    @date = date                        # At which date should we retrieve weather information
-    @precision = precision              # Precision is the size of a tile. The smaller, the more precise is the weather
-    @airport_departure = airport        # Just used for the initial tile
+    @weather_data = nil                 # Will store the needed weather info from openweather.com
     @weather_ok = false                 # Summarizes if tile's weather is in pilot's acceptance criteria (PilotPref.weather_profile)
-    @pilot_weather_profile = pilot_weather_profile  # The pilot weather profile (safe, ...)
-    @pilot_max_wind = pilot_max_wind    # pilot's max accepted ground wind
+    @airport_departure = airport        # Just used for the initial tile
+    @pilot_weather_profile = PilotPref.find_by(user_id: user.id).weather_profile  # The pilot weather profile (safe, ...)
+    @pilot_max_wind = PilotPref.find_by(user_id: user.id).max_gnd_wind_speed      # pilot's max accepted ground wind
     @is_in_fly_zone = false             # Good weather is not enough. We need to display only the fly zone
+    @polygon_geometry = nil             # represents the polygon of the tile in RGeo factory format
 
     # If the tile is instantiated with an airport, it means we have first to 
     # compute determine the bottom left coordinate.
@@ -125,21 +125,13 @@ class WeatherTile
     # Create a polygon object from the linear ring
     @polygon_geometry = factory.polygon(ring)
 
-    # We create a simple polygon array to be used with Leaflet
-    @polygon = [
-      [ bottom_tile, left_tile ],
-      [ bottom_tile, right_tile ],
-      [ top_tile, right_tile ],
-      [ top_tile, left_tile ]
-    ]
-    
     # We define the center of the tile to call weather state
     @lon_center = left_tile   + ( right_tile.to_f - left_tile.to_f ) / 2
     @lat_center = bottom_tile + ( top_tile.to_f - bottom_tile.to_f ) / 2
 
     # We need to determine at which date we need the weather
     # Openweather API provides daily forecast for 7 days
-    day_offset = (@date.to_date - Date.current ).to_i
+    day_offset = (@effective_date.to_date - Date.current ).to_i
 
     # We read and assign the corresponding weather info
     #   Exemple: {"id"=>502, "main"=>"Rain", "description"=>"heavy intensity rain", "icon"=>"10d"}
@@ -154,8 +146,7 @@ class WeatherTile
 
     # Depending on the pilot weather profile, we deduct if the tile asociated weather is ok or nok
     # We check if weather code belongs to pilot's preference
-    @weather_ok = WeatherService::is_weather_ok?(@pilot_weather_profile, @pilot_max_wind, @weather_data)
+    @weather_ok = WeatherService::is_weather_ok?(@user, @weather_data)
 
   end
-
 end

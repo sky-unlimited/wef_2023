@@ -21,20 +21,15 @@ class TripSuggestionsController < ApplicationController
     end
 
     # We create the union polygon tiles for outbound and inbound date
-    fly_zone_outbound = WeatherTiles.new(current_user, 
-                                         Airport.find(@trip_request.airport_id), 
-                                         @trip_request.start_date, 
-                                         nil)
+    fly_zone_outbound = WeatherFlyzone.new(@trip_request, @trip_request.start_date)
 
+    #TODO: Create a separate part to retrieve weather data info.
     @outbound_weather_data    = fly_zone_outbound.weather_data_to_date
     @outbound_weather_ok      = fly_zone_outbound.weather_ok_to_date
     fly_zone_outbound_polygon = fly_zone_outbound.flyzone_polygon
 
     unless @trip_request.end_date.nil? || (@trip_request.start_date == @trip_request.end_date)
-      fly_zone_inbound = WeatherTiles.new(current_user, 
-                                          Airport.find(@trip_request.airport_id), 
-                                          @trip_request.end_date, 
-                                          nil)
+      fly_zone_inbound = WeatherFlyzone.new(@trip_request, @trip_request.end_date)
       @inbound_weather_data     = fly_zone_inbound.weather_data_to_date
       @inbound_weather_ok       = fly_zone_inbound.weather_ok_to_date
       fly_zone_inbound_polygon  = fly_zone_inbound.flyzone_polygon
@@ -68,9 +63,7 @@ class TripSuggestionsController < ApplicationController
       @weather_array = []
       hash = {}
       (0..7).each do |index|
-        weather_ok = WeatherService::is_weather_ok?(  current_user.pilot_pref.weather_profile,
-                                                      current_user.pilot_pref.max_gnd_wind_speed,
-                                                      weather_data["daily"][index])
+        weather_ok = WeatherService::is_weather_ok?( current_user, weather_data["daily"][index])
 
         hash = { "id"           => weather_data["daily"][index]["weather"][0]["id"],
                  "description"  => weather_data["daily"][index]["weather"][0]["description"],

@@ -17,9 +17,9 @@ user = User.new
 user.first_name = "Alexandre"
 user.last_name = "Stanescot"
 user.username = "alexstan57"
-user.email = "alex@aerostan.com"
+user.email = "alex@sky-unlimited.lu"
 user.role = "admin"
-user.password = "alex@aerostan.com"
+user.password = "alex@sky-unlimited.lu"
 user.confirmed_at = Time.zone.now - 1.hour
 user.confirmation_sent_at = Time.zone.now - 2.hours
 user.save
@@ -33,9 +33,9 @@ if Rails.env.development? || Rails.env.staging?
   user.first_name = "Rachel"
   user.last_name = "Muller"
   user.username = "rachmu57"
-  user.email = "rachel.fly@me.com"
+  user.email = "rachel@sky-unlimited.lu"
   user.role = "user"
-  user.password = "rachel.fly@me.com"
+  user.password = "rachel@sky-unlimited.lu"
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
@@ -47,9 +47,9 @@ if Rails.env.development? || Rails.env.staging?
   user.first_name = "Margaux"
   user.last_name = "Arnould"
   user.username = "marnou01"
-  user.email = "margaux.arnould.20@neoma-bs.com"
+  user.email = "margaux@sky-unlimited.lu"
   user.role = "user"
-  user.password = "margaux.arnould.20@neoma-bs.com"
+  user.password = "margaux@sky-unlimited.lu"
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save

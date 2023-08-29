@@ -53,7 +53,14 @@ class WeatherService
     end
   end
 
-  def self.is_weather_ok?(pilot_weather_profile, pilot_max_ground_wind, weather_data)
+  # This method ensures that the weather is compliant with all pilot's preferences
+  # Parameters:
+  #   user (User):          the user to retrieve it's weather preferences
+  #   weather_data (hash):  the result of openweather api call format - daily
+  def self.is_weather_ok?(user, weather_data)
+    pilot_weather_profile = PilotPref.find_by(user_id: user).weather_profile
+    pilot_max_ground_wind = PilotPref.find_by(user_id: user).max_gnd_wind_speed
+
     weather_code_id = weather_data["weather"][0]["id"].to_i
     weather_profiles =  WEF_CONFIG['weather_profiles']
     weather_ok = false

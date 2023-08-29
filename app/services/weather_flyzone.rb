@@ -1,19 +1,22 @@
-# WeatherTiles represents the group of Tile to build a flyable zone.
-class WeatherTiles
+# WeatherFlyzone represents a collection of WeatherTile created in 
+# one polygon (GIS).
+# It represents the geographic area where a defined pilot can fly from
+# a defined airport, at a defined date.
+class WeatherFlyzone
 
   attr_reader :tiles, :weather_ok_to_date, :weather_data_to_date, :flyzone_polygon
 
-  # WeatherTiles initialization
-  def initialize(current_user, airport, start_date, end_date = nil)
-    @pilot_weather_profile  =  PilotPref.find_by(user_id: current_user).weather_profile
-    @pilot_max_wind         =  PilotPref.find_by(user_id: current_user).max_gnd_wind_speed.to_i
+  # WeatherFlyzone initialization
+  def initialize(trip_request, effective_date)
+    @trip_request = trip_request
+    @effective_date = effective_date
+    @pilot_weather_profile  =  PilotPref.find_by(user_id: trip_request.user_id).weather_profile
+    @pilot_max_wind         =  PilotPref.find_by(user_id: trip_request.user_id).max_gnd_wind_speed.to_i
     @precision  = WEF_CONFIG['default_weather_tile_precision'].to_f
     @depth      = WEF_CONFIG['default_weather_tile_depth'].to_i
-    @start_date = start_date
-    @end_date   = end_date
-    @airport_departure = airport
-    @weather_ok_to_date  = false
-    @weather_data_to_date  = nil #Could be used in the view bad_weather.html to customize page depending weather
+    @airport_departure = trip_request.airport
+    @weather_ok_to_date  = false    # Represents if the weather of the original tile is ok
+    @weather_data_to_date  = nil    # Represents the weather detail of the original tile
     @tiles = []
     @tile_offset_x = []             # Represents the longitude offset between Tile and virtual grid
     @tile_offset_y = []             # Represents the latitude offset between Tile and virtual grid
@@ -23,7 +26,7 @@ class WeatherTiles
     raise Exception.new("WeatherTile precision #{@precision} is not permitted! Accepted values: 0.25, 0.5 and 1") unless [0.25, 0.5, 1].include?(@precision)
 
     # We create the origin tile
-    origin_tile = WeatherTile.new(@pilot_weather_profile, @pilot_max_wind, @start_date, @precision, nil, nil, @airport_departure)
+    origin_tile = WeatherTile.new(@trip_request.user, @effective_date, @precision, nil, nil, @airport_departure)
     @tiles.push(origin_tile)
     x_tile_init = origin_tile.lon_tile_origin # will define the center of the weather grid -> lon
     y_tile_init = origin_tile.lat_tile_origin # will define the center of the weather grid -> lon
@@ -120,9 +123,9 @@ class WeatherTiles
       ((y_grid_init - [current_depth, max_y].min)..(y_grid_init + [current_depth, max_y].min)).each do |y|
         # We create the tile
         if grid[y][x] == 0  # cell is not visited
-          tile = WeatherTile.new( @pilot_weather_profile,
-                                  @pilot_max_wind, 
-                                  @start_date, @precision, 
+          tile = WeatherTile.new( @trip_request.user,
+                                  @effective_date, 
+                                  @precision, 
                                   @tile_offset_x[x], 
                                   @tile_offset_y[y], 
                                   nil)
