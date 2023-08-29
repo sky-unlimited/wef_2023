@@ -7,23 +7,23 @@ assignees: alexstan67
 
 ---
 
-Issue Description
+**Issue Description**
 ...
 
-Desired Behavior
+**Desired Behaviour**
 ...
 
-Acceptance Criteria
+**Acceptance Criteria**
 ...
 
-Additional Considerations
+**Additional Considerations**
 ...
 
-Resources
+**Resources**
 ...
 
-Impact
+**Impact**
 ...
 
-Related Issues
+**Related Issues**
 ...
