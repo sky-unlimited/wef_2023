@@ -59,33 +59,6 @@ export default class extends Controller {
     // We add the airport polygon for ELLX
     //var airportELLX = L.geoJSON(this.airportPolygonValue).addTo(this.map);
 
-    /*
-    // We add the weather tile
-    //var weatherLayer = L.geoJSON(this.weather-tileValue).addTo(this.map);
-    this.weatherTilesValue.forEach((tile) => {
-      var weatherLayer = L.polygon(tile[0]).addTo(this.map);
-
-      // We assign tile colors depending if weather is ok or not
-      var tileFillColor   = '';
-      var tileFillOpacity = 0.2;
-      var tileColor       = '';
-      var tileWeight      = 0;
-
-      if (tile[1] == true) {
-        tileFillColor = 'green',
-        tileColor = 'green'
-      } else {
-        tileFillOpacity = 0;
-      }
-
-      weatherLayer.setStyle({
-        fillColor: tileFillColor,       // Change the fill color
-        fillOpacity: tileFillOpacity,   // Set the fill opacity to 0.5
-        color: tileColor,               // Change the border color
-        weight: tileWeight              // Set the border weight in pixels
-      });
-    });
-    */
     
     // Hereunder an example to manage the layer on/off depending on zoom
     /* 
