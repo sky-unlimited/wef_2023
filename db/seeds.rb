@@ -17,9 +17,9 @@ user = User.new
 user.first_name = "Alexandre"
 user.last_name = "Stanescot"
 user.username = "alexstan57"
-user.email = "alex@aerostan.com"
+user.email = "alex@sky-unlimited.lu"
 user.role = "admin"
-user.password = "alex@aerostan.com"
+user.password = "alex@sky-unlimited.lu"
 user.confirmed_at = Time.zone.now - 1.hour
 user.confirmation_sent_at = Time.zone.now - 2.hours
 user.save
