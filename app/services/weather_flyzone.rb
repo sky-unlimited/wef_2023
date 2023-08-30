@@ -4,7 +4,7 @@
 # a defined airport, at a defined date.
 class WeatherFlyzone
 
-  attr_reader :origin_tile, :flyzone_polygon
+  attr_reader :origin_tile, :polygon
 
   # WeatherFlyzone initialization
   def initialize(trip_request, effective_date)
@@ -15,7 +15,7 @@ class WeatherFlyzone
     @tiles = []
     @tile_offset_x = []             # Represents the longitude offset between Tile and virtual grid
     @tile_offset_y = []             # Represents the latitude offset between Tile and virtual grid
-    @flyzone_polygon = nil          # The polygon that should union the adjacent good weather tiles
+    @polygon = nil          # The polygon that should union the adjacent good weather tiles
 
     # We check that the precision given in the config file is in the expected values.
     raise Exception.new("WeatherTile precision #{@precision} is not permitted! Accepted values: 0.25, 0.5 and 1") unless [0.25, 0.5, 1].include?(@precision)
@@ -152,10 +152,10 @@ class WeatherFlyzone
       corresponding_tile = @tiles.find { |tile| tile.lon_tile_origin == @tile_offset_x[x] &&
                                              tile.lat_tile_origin == @tile_offset_y[y] }
       
-      if @flyzone_polygon.nil?
-        @flyzone_polygon = corresponding_tile.polygon_geometry
+      if @polygon.nil?
+        @polygon = corresponding_tile.polygon_geometry
       else
-        @flyzone_polygon = @flyzone_polygon.union(corresponding_tile.polygon_geometry)
+        @polygon = @polygon.union(corresponding_tile.polygon_geometry)
       end
 
       # We call recursively all adjacent cells

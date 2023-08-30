@@ -12,7 +12,7 @@ export default class extends Controller {
   static values = {
     airport: Object,
     airports: Array,
-    destinationZone: Object,
+    flyzoneCommonPolygon: Object,
     flyzoneOutbound: Object,
     flyzoneInbound: Object
   }
@@ -125,7 +125,7 @@ export default class extends Controller {
       fillColor: "green",
       weight: 0,
     };
-    var destinationZone = L.geoJSON(this.destinationZoneValue, { style: myStyle }).addTo(this.map)
+    var flyzoneCommonPolygon = L.geoJSON(this.flyzoneCommonPolygonValue, { style: myStyle }).addTo(this.map)
 
     // We display all airports
     var airportsGroup = L.layerGroup();
@@ -184,7 +184,7 @@ export default class extends Controller {
       "OpenStreetMap": OpenStreetMap_Mapnik
     };
     var overlays = {
-      "Destination Zone": destinationZone,
+      "Fly Zone - Cumulative": flyzoneCommonPolygon,
       "Fly Zone - outbound": flyZoneOutbound,
       "Fly Zone - inbound": flyZoneInbound,
       //"Weather Layer": weatherLayer
