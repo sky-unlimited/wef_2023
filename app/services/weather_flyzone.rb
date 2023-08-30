@@ -4,19 +4,14 @@
 # a defined airport, at a defined date.
 class WeatherFlyzone
 
-  attr_reader :tiles, :weather_ok_to_date, :weather_data_to_date, :flyzone_polygon
+  attr_reader :origin_tile, :flyzone_polygon
 
   # WeatherFlyzone initialization
   def initialize(trip_request, effective_date)
     @trip_request = trip_request
     @effective_date = effective_date
-    @pilot_weather_profile  =  PilotPref.find_by(user_id: trip_request.user_id).weather_profile
-    @pilot_max_wind         =  PilotPref.find_by(user_id: trip_request.user_id).max_gnd_wind_speed.to_i
     @precision  = WEF_CONFIG['default_weather_tile_precision'].to_f
     @depth      = WEF_CONFIG['default_weather_tile_depth'].to_i
-    @airport_departure = trip_request.airport
-    @weather_ok_to_date  = false    # Represents if the weather of the original tile is ok
-    @weather_data_to_date  = nil    # Represents the weather detail of the original tile
     @tiles = []
     @tile_offset_x = []             # Represents the longitude offset between Tile and virtual grid
     @tile_offset_y = []             # Represents the latitude offset between Tile and virtual grid
@@ -26,19 +21,24 @@ class WeatherFlyzone
     raise Exception.new("WeatherTile precision #{@precision} is not permitted! Accepted values: 0.25, 0.5 and 1") unless [0.25, 0.5, 1].include?(@precision)
 
     # We create the origin tile
-    origin_tile = WeatherTile.new(@trip_request.user, @effective_date, @precision, nil, nil, @airport_departure)
-    @tiles.push(origin_tile)
-    x_tile_init = origin_tile.lon_tile_origin # will define the center of the weather grid -> lon
-    y_tile_init = origin_tile.lat_tile_origin # will define the center of the weather grid -> lon
+    @origin_tile = WeatherTile.new(@trip_request.user, @effective_date, @precision, nil, nil, @trip_request.airport)
+    @tiles.push(@origin_tile)
+    x_tile_init = @origin_tile.lon_tile_origin # will define the center of the weather grid -> lon
+    y_tile_init = @origin_tile.lat_tile_origin # will define the center of the weather grid -> lat
     
-    # We check that the weather is ok on the initial tile
-    @weather_data_to_date = origin_tile.weather_data           # used by controller to display information on the view
-    @weather_ok_to_date   = true if origin_tile.weather_ok
-
     # We launch the progagation algo for a defined date only in case of good weather at departure airport
     # If bad weather, no polygon created
-    propagation_algo(x_tile_init, y_tile_init) unless @weather_ok_to_date == false
+    propagation_algo(x_tile_init, y_tile_init) unless weather_departure_to_date_ok? == false
+  end
 
+  # We check that the weather is ok on the initial tile
+  def weather_departure_to_date_ok?
+    @origin_tile.is_weather_ok?
+  end
+
+  # We retrieve weather data from the original tile (departure airport)
+  def get_weather_data_departure_to_date
+    @origin_tile.weather_data
   end
 
   private
@@ -131,7 +131,7 @@ class WeatherFlyzone
                                   nil)
           @tiles.push(tile) unless (x == x_grid_init && y == y_grid_init) # origin tile already pushed
 
-          if tile.weather_ok
+          if tile.is_weather_ok?
            grid[y][x] = 2   # cell is good weather
           else 
             grid[y][x] = 1  # cell was visited
@@ -152,8 +152,6 @@ class WeatherFlyzone
       corresponding_tile = @tiles.find { |tile| tile.lon_tile_origin == @tile_offset_x[x] &&
                                              tile.lat_tile_origin == @tile_offset_y[y] }
       
-      corresponding_tile.is_in_fly_zone = true if corresponding_tile
-
       if @flyzone_polygon.nil?
         @flyzone_polygon = corresponding_tile.polygon_geometry
       else

@@ -24,19 +24,19 @@ class TripSuggestionsController < ApplicationController
     fly_zone_outbound = WeatherFlyzone.new(@trip_request, @trip_request.start_date)
 
     #TODO: Create a separate part to retrieve weather data info.
-    @outbound_weather_data    = fly_zone_outbound.weather_data_to_date
-    @outbound_weather_ok      = fly_zone_outbound.weather_ok_to_date
+    @outbound_weather_data    = fly_zone_outbound.get_weather_data_departure_to_date
+    @outbound_weather_ok      = fly_zone_outbound.weather_departure_to_date_ok?
     fly_zone_outbound_polygon = fly_zone_outbound.flyzone_polygon
 
     unless @trip_request.end_date.nil? || (@trip_request.start_date == @trip_request.end_date)
       fly_zone_inbound = WeatherFlyzone.new(@trip_request, @trip_request.end_date)
-      @inbound_weather_data     = fly_zone_inbound.weather_data_to_date
-      @inbound_weather_ok       = fly_zone_inbound.weather_ok_to_date
+      @inbound_weather_data     = fly_zone_inbound.get_weather_data_departure_to_date
+      @inbound_weather_ok       = fly_zone_inbound.weather_departure_to_date_ok?
       fly_zone_inbound_polygon  = fly_zone_inbound.flyzone_polygon
     else
       fly_zone_inbound_polygon  = fly_zone_outbound_polygon
-      @inbound_weather_data     = fly_zone_outbound.weather_data_to_date
-      @inbound_weather_ok       = fly_zone_outbound.weather_ok_to_date
+      @inbound_weather_data     = fly_zone_outbound.get_weather_data_departure_to_date
+      @inbound_weather_ok       = fly_zone_outbound.weather_departure_to_date_ok?
     end
 
     unless fly_zone_outbound_polygon.nil? || fly_zone_inbound_polygon.nil?
@@ -53,8 +53,8 @@ class TripSuggestionsController < ApplicationController
     # If weather on departure airport not ok for outbound or inbound flight, we display a specific page
     if  @outbound_weather_ok == false || @inbound_weather_ok  == false 
       # We load the forecast of outbound airport based on coordinates of origin tile
-      weather_call_id = WeatherService::get_weather(fly_zone_outbound.tiles.first.lat_center,
-                                                    fly_zone_outbound.tiles.first.lon_center)
+      weather_call_id = WeatherService::get_weather(fly_zone_outbound.origin_tile.lat_center,
+                                                    fly_zone_outbound.origin_tile.lon_center)
 
       # We retrieve weather information from that id
       weather_data = JSON.parse(WeatherCall.find(weather_call_id).json)
