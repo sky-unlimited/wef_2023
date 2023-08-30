@@ -9,6 +9,9 @@ class TripSuggestionsController < ApplicationController
     # Temporary indication on fake weather
     @fake_weather = WEF_CONFIG['fake_weather']
 
+    # Instanciation of Destinations
+    destinations = Destinations.new(@trip_request)
+
     # We load all airports markers
     @airports_array = []
     airports = Airport.all
