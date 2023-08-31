@@ -9,15 +9,21 @@ class TripRequestsController < ApplicationController
     @trip_request.start_date  = Date.today
     @trip_request.end_date    = Date.today
     unless last_request.nil?
-      @trip_request.airport_id = last_request.airport_id
-      @trip_request.international_flight = last_request.international_flight
-      @trip_request.small_airport = last_request.small_airport
-      @trip_request.medium_airport = last_request.medium_airport
-      @trip_request.large_airport = last_request.large_airport
       if last_request.start_date.to_date >= Date.today
         @trip_request.start_date = last_request.start_date
         @trip_request.end_date = last_request.end_date
       end
+      @trip_request.airport_id            = last_request.airport_id
+      @trip_request.international_flight  = last_request.international_flight
+      @trip_request.small_airport         = last_request.small_airport
+      @trip_request.medium_airport        = last_request.medium_airport
+      @trip_request.large_airport         = last_request.large_airport
+      @trip_request.proxy_food            = last_request.proxy_food
+      @trip_request.proxy_fuel            = last_request.proxy_fuel
+      @trip_request.proxy_car_rental      = last_request.proxy_car_rental
+      @trip_request.proxy_bike_rental     = last_request.proxy_bike_rental
+      @trip_request.proxy_camp_site       = last_request.proxy_camp_site
+      @trip_request.proxy_hotel           = last_request.proxy_hotel
     end
 
     @trip_request.user_id = current_user.id
