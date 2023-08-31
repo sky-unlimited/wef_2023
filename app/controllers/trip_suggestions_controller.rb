@@ -18,7 +18,8 @@ class TripSuggestionsController < ApplicationController
     @flyzone_common_polygon = RGeo::GeoJSON.encode(destinations.flyzone_common_polygon).to_json
 
     # We load airports with matching criterias for display purpose
-    @airports_array = destinations.airports_matching_criterias
+    #@airports_array = destinations.airports_matching_criterias
+    @airports_array = destinations.airports_flyzone_common
 
     # We load weather for outbound and inbound for display purpose
     @outbound_weather_data  = destinations.flyzone_outbound.get_weather_data_departure_to_date
