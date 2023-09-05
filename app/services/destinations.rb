@@ -25,7 +25,7 @@ class Destinations
 
   private
 
-  # This method will create if weather conditions ok on outbound and inbound
+  # This method will create if weather conditions ok on outbound and inbound:
   #   - flyzone_outbound
   #   - flyzone_inbound
   #   - flyzone_common_polygons
@@ -91,6 +91,10 @@ class Destinations
     selected_airport_types << "medium_airport"  if @trip_request.medium_airport
     selected_airport_types << "large_airport"   if @trip_request.large_airport
     flyzone_airports = flyzone_airports.where(airport_type: selected_airport_types)
+
+    # We apply also filter on pilot preferences runway length
+    flyzone_airports = flyzone_airports.joins(:runways)
+      .where('runways.length_meter >= ?', @trip_request.user.pilot_pref.min_runway_length)
 
     # We filter also if destinations airports are outside departure country or not
     unless @trip_request.international_flight
