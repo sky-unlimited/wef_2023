@@ -16,10 +16,10 @@ class Destinations
     @airports_top_destinations = []
 
     create_flyzones
+    get_airports_matching_criterias
     # If no flyzones -> no flight -> no destinations
     unless @flyzone_outbound.polygon.nil? || @flyzone_inbound.polygon.nil?
       get_airports_flyzone_common
-      get_airports_matching_criterias
     end
   end
 
@@ -64,41 +64,23 @@ class Destinations
     end
   end
 
-  def get_airports_flyzone_common
-    # All airports inside the flyzone_common_polygon
-    # Approach is different whether @flyzone_common_polygons has a
-    # geometry_type POLYGON or MULTIPOLYGON
-    if @flyzone_common_polygons.geometry_type.name == "RGeo::Feature::Polygon"
-      flyzone_airports = Airport.where("ST_Within(lonlat::geometry, ?::geometry)", @flyzone_common_polygons)
-    else
-      # We need to iterate on each POLYGON included in MULTIPOLYGON
-      airports_array = nil
-      @flyzone_common_polygons.each do |polygon|
-        if airports_array.nil?
-          airports_array = Airport.where("ST_Within(lonlat::geometry, ?::geometry)", polygon).pluck(:id)
-        else
-          airports_array += Airport.where("ST_Within(lonlat::geometry, ?::geometry)", polygon).pluck(:id)
-        end
-      end
-      # We convert the airports_array into an activerecord_relation
-      flyzone_airports = Airport.where(id: airports_array)
-    end
-
+  def get_airports_matching_criterias
+    airports_matching_criterias = Airport.all
     # We apply the trip_request preferences on airport_type
     # Build an array of selected airport types
     selected_airport_types = []
     selected_airport_types << "small_airport"   if @trip_request.small_airport
     selected_airport_types << "medium_airport"  if @trip_request.medium_airport
     selected_airport_types << "large_airport"   if @trip_request.large_airport
-    flyzone_airports = flyzone_airports.where(airport_type: selected_airport_types)
+    airports_matching_criterias = airports_matching_criterias.where(airport_type: selected_airport_types)
 
     # We apply also filter on pilot preferences runway length
-    flyzone_airports = flyzone_airports.joins(:runways)
+    airports_matching_criterias = airports_matching_criterias.joins(:runways)
       .where('runways.length_meter >= ?', @trip_request.user.pilot_pref.min_runway_length)
 
     # We filter also if destinations airports are outside departure country or not
     unless @trip_request.international_flight
-      flyzone_airports = flyzone_airports.where(country_id: @trip_request.airport.country_id)
+      airports_matching_criterias = airports_matching_criterias.where(country_id: @trip_request.airport.country_id)
     end
 
     # We take into account the points of interest
@@ -111,13 +93,13 @@ class Destinations
     osm_lines_airports      = []
     osm_polygones_airports  = []
 
-    osm_points_airports     =  OsmPoint.where(airport_id: flyzone_airports)
+    osm_points_airports     =  OsmPoint.where(airport_id: airports_matching_criterias)
                               .and(OsmPoint.where(amenity: poi_all))
                               .pluck(:airport_id)
-    osm_lines_airports      =  OsmLine.where(airport_id: flyzone_airports)
+    osm_lines_airports      =  OsmLine.where(airport_id: airports_matching_criterias)
                               .and(OsmLine.where(amenity: poi_all))
                               .pluck(:airport_id)
-    osm_polygones_airports  =  OsmPolygone.where(airport_id: flyzone_airports)
+    osm_polygones_airports  =  OsmPolygone.where(airport_id: airports_matching_criterias)
                               .and(OsmPolygone.where(amenity: poi_all))
                               .pluck(:airport_id)
 
@@ -130,19 +112,31 @@ class Destinations
     airports_array.delete_if { |value| value == @trip_request.airport_id }
 
     # We create an Airport object in order to retrieve all information
-    airports = Airport.find(airports_array)
+    @airports_matching_criterias = Airport.where(id: airports_array)
+  end
 
-    # We convert the activerecords into an array with format required for map display
-    airports.each do |airport|
-    @airports_flyzone_common.push({ :name => airport.name,
-                                    :icao => airport.icao,
-                                    :airport_type => airport.airport_type,
-                                    :geojson => RGeo::GeoJSON.encode(airport.lonlat)
-    })
+  def get_airports_flyzone_common
+    # All airports inside the flyzone_common_polygon
+    # Approach is different whether @flyzone_common_polygons has a
+    # geometry_type POLYGON or MULTIPOLYGON
+    if @flyzone_common_polygons.geometry_type.name == "RGeo::Feature::Polygon"
+      flyzone_airports = Airport.where("ST_Within(lonlat::geometry, ?::geometry)", @flyzone_common_polygons)
+    else
+      # We need to iterate on each POLYGON included in MULTIPOLYGON
+      airports_array = nil
+      @flyzone_common_polygons.each do |polygon|
+        if airports_array.nil?
+          airports_array = @airports_matching_criterias.where("ST_Within(lonlat::geometry, ?::geometry)", polygon).pluck(:id)
+        else
+          airports_array += @airports_matching_criterias.where("ST_Within(lonlat::geometry, ?::geometry)", polygon).pluck(:id)
+        end
+      end
+      # We convert the airports_array into an activerecord_relation
+      @airports_flyzone_common = Airport.where(id: airports_array)
     end
   end
 
-  def get_airports_matching_criterias
+  def get_airports_matching_criterias_old
     # We load all airports markers
     airports = Airport.all
     airports.each do |airport|

@@ -17,9 +17,33 @@ class TripSuggestionsController < ApplicationController
     @flyzone_inbound          = RGeo::GeoJSON.encode(destinations.flyzone_inbound.polygon).to_json
     @flyzone_common_polygons  = RGeo::GeoJSON.encode(destinations.flyzone_common_polygons).to_json
 
-    # We load airports with matching criterias for display purpose
-    #@airports_array = destinations.airports_matching_criterias
-    @airports_array = destinations.airports_flyzone_common
+    # We load departure airport information for map display
+    @departure_airport = []
+    @departure_airport.push( { :name => @trip_request.airport.name,
+                               :icao => @trip_request.airport.icao,
+                               :airport_type => @trip_request.airport.airport_type,
+                               :geojson => RGeo::GeoJSON.encode(@trip_request.airport.lonlat)
+    })
+
+    # We load airports with matching criterias for map display purpose
+    @airports_matching_criterias_map = []
+    destinations.airports_matching_criterias.each do |airport|
+      @airports_matching_criterias_map.push({ :name => airport.name,
+                                    :icao => airport.icao,
+                                    :airport_type => airport.airport_type,
+                                    :geojson => RGeo::GeoJSON.encode(airport.lonlat)
+    })
+    end
+
+    # We load flyzone airports for map display purpose
+    @airports_flyzone_map = []
+    destinations.airports_flyzone_common.each do |airport|
+      @airports_flyzone_map.push({ :name => airport.name,
+                                    :icao => airport.icao,
+                                    :airport_type => airport.airport_type,
+                                    :geojson => RGeo::GeoJSON.encode(airport.lonlat)
+    })
+    end
 
     # We load weather for outbound and inbound for display purpose
     @outbound_weather_data  = destinations.flyzone_outbound.get_weather_data_departure_to_date

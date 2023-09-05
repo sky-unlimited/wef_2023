@@ -8,8 +8,9 @@
   <div class="map-container" \
         data-controller="osm" \
         data-osm-target="map" \
-        data-osm-airports-value="<%= @airports_array.to_json %>" \
-        data-osm-airport-value="<%= @trip_request.airport.to_json %>" \
+        data-osm-airports-matching-criterias-map-value="<%= @airports_matching_criterias_map.to_json %>" \
+        data-osm-airports-flyzone-map-value="<%= @airports_flyzone_map.to_json %>" \
+        data-osm-departure-airport-value="<%= @departure_airport.first.to_json %>" \
         data-osm-flyzone-common-polygon-value="<%= @flyzone_common_polygons %>" \
         data-osm-flyzone-outbound-value="<%= @flyzone_outbound %>" \
         data-osm-flyzone-inbound-value="<%= @flyzone_inbound %>" \>
