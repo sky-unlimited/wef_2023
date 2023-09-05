@@ -13,9 +13,9 @@ class TripSuggestionsController < ApplicationController
     @fake_weather = WEF_CONFIG['fake_weather']
 
     # Geometries in geojson for depature date and return date for display purpose
-    @flyzone_outbound       = RGeo::GeoJSON.encode(destinations.flyzone_outbound.polygon).to_json
-    @flyzone_inbound        = RGeo::GeoJSON.encode(destinations.flyzone_inbound.polygon).to_json
-    @flyzone_common_polygon = RGeo::GeoJSON.encode(destinations.flyzone_common_polygon).to_json
+    @flyzone_outbound         = RGeo::GeoJSON.encode(destinations.flyzone_outbound.polygon).to_json
+    @flyzone_inbound          = RGeo::GeoJSON.encode(destinations.flyzone_inbound.polygon).to_json
+    @flyzone_common_polygons  = RGeo::GeoJSON.encode(destinations.flyzone_common_polygons).to_json
 
     # We load airports with matching criterias for display purpose
     #@airports_array = destinations.airports_matching_criterias
