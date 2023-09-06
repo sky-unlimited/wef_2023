@@ -23,8 +23,7 @@ require 'rgeo/geos'
 #   O (6,49)
 class WeatherTile
   attr_reader :polygon_geometry, :lon_center, :lat_center, :lon_tile_origin, :lat_tile_origin,
-              :weather_data, :weather_ok
-  attr_accessor :is_in_fly_zone
+              :weather_data
 
   def initialize(user, effective_date, precision, lon_tile_origin=nil, lat_tile_origin=nil, airport=nil)
     @user = user                        # represents the user and it's weather preferences
@@ -35,30 +34,32 @@ class WeatherTile
     @lon_tile_origin = lon_tile_origin  # Longitude of the origin point of the tile "O" 
     @lat_tile_origin = lat_tile_origin  # Latitude  of the origin point of the tile "O"
     @weather_data = nil                 # Will store the needed weather info from openweather.com
-    @weather_ok = false                 # Summarizes if tile's weather is in pilot's acceptance criteria (PilotPref.weather_profile)
-    @airport_departure = airport        # Just used for the initial tile
-    @pilot_weather_profile = PilotPref.find_by(user_id: user.id).weather_profile  # The pilot weather profile (safe, ...)
-    @pilot_max_wind = PilotPref.find_by(user_id: user.id).max_gnd_wind_speed      # pilot's max accepted ground wind
-    @is_in_fly_zone = false             # Good weather is not enough. We need to display only the fly zone
     @polygon_geometry = nil             # represents the polygon of the tile in RGeo factory format
 
     # If the tile is instantiated with an airport, it means we have first to 
     # compute determine the bottom left coordinate.
     # All other tiles are determined based on this initial point.
-    get_origin unless @airport_departure.nil?
+    get_origin(airport.longitude, airport.latitude) unless airport.nil?
 
     # We now have all info to create the tile while instantiation
     create_tile
+    get_weather_data
+  end
+
+  def is_weather_ok?
+    # Depend on the pilot weather profile, we deduct if the tile asociated weather is ok or nok
+    # We check if weather code belongs to pilot's preference
+    WeatherService::is_weather_ok?(@user, @weather_data)
   end
 
   private
 
-  def get_origin
+  def get_origin(longitude, latitude)
     # origin contains the bottom left coordinate of the airport origin tile
     origin = []
 
     # Departure airport coordinates
-    coordinates = [ @airport_departure.longitude, @airport_departure.latitude ]
+    coordinates = [ longitude, latitude ]
     
     # For each lon / lat we determine the tile minimums depending the precision
     # left_boundary is the minimum of a coordinate. Example:
@@ -128,7 +129,9 @@ class WeatherTile
     # We define the center of the tile to call weather state
     @lon_center = left_tile   + ( right_tile.to_f - left_tile.to_f ) / 2
     @lat_center = bottom_tile + ( top_tile.to_f - bottom_tile.to_f ) / 2
+  end
 
+  def get_weather_data
     # We need to determine at which date we need the weather
     # Openweather API provides daily forecast for 7 days
     day_offset = (@effective_date.to_date - Date.current ).to_i
@@ -143,10 +146,5 @@ class WeatherTile
       # We read database
       @weather_data   =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_offset]
     end
-
-    # Depending on the pilot weather profile, we deduct if the tile asociated weather is ok or nok
-    # We check if weather code belongs to pilot's preference
-    @weather_ok = WeatherService::is_weather_ok?(@user, @weather_data)
-
   end
 end

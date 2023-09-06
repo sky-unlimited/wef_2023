@@ -10,9 +10,10 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static values = {
-    airport: Object,
-    airports: Array,
-    destinationZone: Object,
+    departureAirport: Object,
+    airportsMatchingCriteriasMap: Array,
+    airportsFlyzoneMap: Array,
+    flyzoneCommonPolygon: Object,
     flyzoneOutbound: Object,
     flyzoneInbound: Object
   }
@@ -20,7 +21,8 @@ export default class extends Controller {
   static targets = [ 'map' ]
 
   connect() {
-    console.log("Openstreetmap connected!")
+    console.log("Openstreetmap connected!");
+    console.log(this.departureAirportValue);
     this.displayMap();
   }
 
@@ -51,14 +53,15 @@ export default class extends Controller {
 
     // We create the base layers and add default one to the map
     this.map = L.map(this.mapTarget, {
-      center: [this.airportValue.latitude, this.airportValue.longitude],
+      //center: [this.airportValue.latitude, this.airportValue.longitude],
+      center: [ this.departureAirportValue.geojson.coordinates[1],
+                this.departureAirportValue.geojson.coordinates[0]],
       zoom: 6,
       layers: [Esri_WorldGrayCanvas]
     });
 
     // We add the airport polygon for ELLX
     //var airportELLX = L.geoJSON(this.airportPolygonValue).addTo(this.map);
-
     
     // Hereunder an example to manage the layer on/off depending on zoom
     /* 
@@ -94,6 +97,23 @@ export default class extends Controller {
     //this.map.fitBounds(airportELLX.getBounds());
 
     // We display the airport homebase marker
+    var myStyle = {
+      opacity: 0.1,
+      color: "red",
+      alt: this.departureAirportValue.name,
+      title: this.departureAirportValue.name
+    };
+    L.geoJSON(this.departureAirportValue.geojson, { style: myStyle }).addTo(this.map);
+    /*
+    var circle = L.circle([ this.departureAirportValue.geojson.coordinates[1],
+                            this.departureAirportValue.geojson.coordinates[0]], {
+        color: airportColor,
+        weight: airportWeight,
+        fillColor: airportColor,
+        fillOpacity: 0.2,
+        radius: airportRadius
+      }).addTo(this.map);
+    */
     /*
     var myStyle = {
       opacity: 0.1,
@@ -125,36 +145,31 @@ export default class extends Controller {
       fillColor: "green",
       weight: 0,
     };
-    var destinationZone = L.geoJSON(this.destinationZoneValue, { style: myStyle }).addTo(this.map)
+    var flyzoneCommonPolygon = L.geoJSON(this.flyzoneCommonPolygonValue, { style: myStyle }).addTo(this.map)
 
-    // We display all airports
-    var airportsGroup = L.layerGroup();
+    // We display the airports respecting pilot's criterias
+    var airportsMatchingCriteriasGroup = L.layerGroup();
 
-    this.airportsValue.forEach((airport) => {
+    this.airportsMatchingCriteriasMapValue.forEach((airport) => {
       var airportColor = "";
       var airportRadius = 0;
       var airportWeight = 0;
       switch(airport.airport_type) {
         case "small_airport":
-          airportColor = "green";
+          airportColor = "lightgray"; // green
           airportRadius = 100;
           airportWeight = 1;
           break;
         case "medium_airport":
-          airportColor = "blue";
+          airportColor = "gray";  //blue
           airportRadius = 300;
           airportWeight = 2;
           break;
         default:
-          airportColor = "#FF00FF";
+          airportColor = "darkgray"; //#FF00FF
           airportRadius = 500;
           airportWeight = 3;
           break;
-      }
-      if (this.airportValue.icao == airport.icao)
-      {
-        airportColor = "red";
-        airportRadius = 5000;
       }
       var circle = L.circle([airport.geojson.coordinates[1], airport.geojson.coordinates[0]], {
         color: airportColor,
@@ -163,36 +178,73 @@ export default class extends Controller {
         fillOpacity: 0.2,
         radius: airportRadius
       });
-      
 
       // Binding a popup with airport names
       circle.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name);
 
       // Creating a Layer Group of airports
-      airportsGroup.addLayer(circle);
+      airportsMatchingCriteriasGroup.addLayer(circle);
+    });
+    
+    // We display the airports inside the flyzone
+    var airportsFlyzoneGroup = L.layerGroup();
+
+    this.airportsFlyzoneMapValue.forEach((airport) => {
+      var airportColor = "";
+      var airportRadius = 0;
+      var airportWeight = 0;
+      switch(airport.airport_type) {
+        case "small_airport":
+          airportColor = "green"; // green
+          airportRadius = 100;
+          airportWeight = 1;
+          break;
+        case "medium_airport":
+          airportColor = "blue";  //blue
+          airportRadius = 300;
+          airportWeight = 2;
+          break;
+        default:
+          airportColor = "#FF00FF"; //#FF00FF
+          airportRadius = 500;
+          airportWeight = 3;
+          break;
+      }
+      var circle = L.circle([airport.geojson.coordinates[1], airport.geojson.coordinates[0]], {
+        color: airportColor,
+        weight: airportWeight,
+        fillColor: airportColor,
+        fillOpacity: 0.2,
+        radius: airportRadius
+      });
+
+      // Binding a popup with airport names
+      circle.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name);
+
+      // Creating a Layer Group of airports
+      airportsFlyzoneGroup.addLayer(circle);
     });
 
     // Adding the LayerGroup to the map
-    airportsGroup.addTo(this.map);
+    airportsMatchingCriteriasGroup.addTo(this.map);
+    airportsFlyzoneGroup.addTo(this.map);
 
     // Display a scale on the map
     L.control.scale({ imperial: false }).addTo(this.map);
 
     // Display the control layers
-    var baselayers = {
+    var baseLayers = {
       "LightMap": Esri_WorldGrayCanvas,
       "OpenStreetMap": OpenStreetMap_Mapnik
     };
-    var overlays = {
-      "Destination Zone": destinationZone,
+    var Overlays = {
+      "Fly Zone - Cumulative": flyzoneCommonPolygon,
       "Fly Zone - outbound": flyZoneOutbound,
       "Fly Zone - inbound": flyZoneInbound,
-      //"Weather Layer": weatherLayer
-      //"Airports": airportsGroup,
-      //"ELLX": airportELLX
+      "Airports matching criterias": airportsMatchingCriteriasGroup,
+      "Airports in flyzone": airportsFlyzoneGroup
     };
-    L.control.layers(baselayers, overlays).addTo(this.map);
-    //L.control.layers(baselayers).addTo(this.map);
+    L.control.layers(baseLayers, Overlays).addTo(this.map);
 
   }
   disconnect(){
