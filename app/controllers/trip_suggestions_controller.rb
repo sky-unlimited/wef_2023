@@ -37,7 +37,7 @@ class TripSuggestionsController < ApplicationController
 
     # We load flyzone airports for map display purpose
     @airports_flyzone_map = []
-    destinations.airports_flyzone_common.each do |airport|
+    destinations.airports_flyzone.each do |airport|
       @airports_flyzone_map.push({ :name => airport.name,
                                     :icao => airport.icao,
                                     :airport_type => airport.airport_type,

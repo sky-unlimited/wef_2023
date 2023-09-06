@@ -3,7 +3,7 @@ require 'rgeo/geos'
 
 class Destinations
 
-  attr_reader  :airports_matching_criterias, :airports_flyzone_common,
+  attr_reader  :airports_matching_criterias, :airports_flyzone,
                :flyzone_outbound, :flyzone_inbound, :flyzone_common_polygons
 
   def initialize(trip_request)
@@ -12,14 +12,15 @@ class Destinations
     @flyzone_inbound = nil
     @flyzone_common_polygons = nil
     @airports_matching_criterias = []
-    @airports_flyzone_common = []
+    @airports_flyzone = []
     @airports_top_destinations = []
 
     create_flyzones
     get_airports_matching_criterias
     # If no flyzones -> no flight -> no destinations
     unless @flyzone_outbound.polygon.nil? || @flyzone_inbound.polygon.nil?
-      get_airports_flyzone_common
+      get_airports_flyzone
+      get_top_destinations
     end
   end
 
@@ -141,12 +142,12 @@ class Destinations
     @airports_matching_criterias = Airport.where(id: airports_array)
   end
 
-  def get_airports_flyzone_common
+  def get_airports_flyzone
     # All airports inside the flyzone_common_polygon
     # Approach is different whether @flyzone_common_polygons has a
     # geometry_type POLYGON or MULTIPOLYGON
     if @flyzone_common_polygons.geometry_type.name == "RGeo::Feature::Polygon"
-      @airports_flyzone_common = @airports_matching_criterias.where("ST_Within(lonlat::geometry, ?::geometry)", @flyzone_common_polygons)
+      @airports_flyzone = @airports_matching_criterias.where("ST_Within(lonlat::geometry, ?::geometry)", @flyzone_common_polygons)
     else
       # We need to iterate on each POLYGON included in MULTIPOLYGON
       airports_array = nil
@@ -158,8 +159,12 @@ class Destinations
         end
       end
       # We convert the airports_array into an activerecord_relation
-      @airports_flyzone_common = Airport.where(id: airports_array)
+      @airports_flyzone = Airport.where(id: airports_array)
     end
   end
 
+  def get_top_destinations
+    #TODO: Of course, the algo needs further analysis. Issue github to come
+    @airports_top_destinations = @airports_flyzone.first(5)
+  end
 end
