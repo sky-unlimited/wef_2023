@@ -78,6 +78,9 @@ class Destinations
     airports_matching_criterias = airports_matching_criterias.joins(:runways)
       .where('runways.length_meter >= ?', @trip_request.user.pilot_pref.min_runway_length)
 
+    # We filter airports not usable for PPL only
+    airports_matching_criterias = airports_matching_criterias.where('length(icao) = 4') if @trip_request.user.pilot_pref.is_ultralight_pilot == false
+ 
     # We filter also if destinations airports are outside departure country or not
     unless @trip_request.international_flight
       airports_matching_criterias = airports_matching_criterias.where(country_id: @trip_request.airport.country_id)
