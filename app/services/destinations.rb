@@ -123,7 +123,7 @@ class Destinations
     # Approach is different whether @flyzone_common_polygons has a
     # geometry_type POLYGON or MULTIPOLYGON
     if @flyzone_common_polygons.geometry_type.name == "RGeo::Feature::Polygon"
-      flyzone_airports = Airport.where("ST_Within(lonlat::geometry, ?::geometry)", @flyzone_common_polygons)
+      @airports_flyzone_common = @airports_matching_criterias.where("ST_Within(lonlat::geometry, ?::geometry)", @flyzone_common_polygons)
     else
       # We need to iterate on each POLYGON included in MULTIPOLYGON
       airports_array = nil
@@ -139,15 +139,4 @@ class Destinations
     end
   end
 
-  def get_airports_matching_criterias_old
-    # We load all airports markers
-    airports = Airport.all
-    airports.each do |airport|
-      @airports_matching_criterias.push({ :name => airport.name,
-                                          :icao => airport.icao,
-                                          :airport_type => airport.airport_type,
-                                          :geojson => RGeo::GeoJSON.encode(airport.lonlat)
-      })
-    end
-  end
 end
