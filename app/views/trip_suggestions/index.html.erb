@@ -5,6 +5,7 @@
   <% else %>
     <p class="tag-success">real weather</p>
   <% end %>
+  <p><%= @airports_flyzone_map.count %> Airports found</p>
   <div class="map-container" \
         data-controller="osm" \
         data-osm-target="map" \
