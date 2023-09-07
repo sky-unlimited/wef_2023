@@ -1,4 +1,5 @@
 require "normalize_country"
+require 'poi_catalogue'
 
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: :home
@@ -11,41 +12,12 @@ class PagesController < ApplicationController
     end
 
     # We count the number of amenities available in our database
-    @accomodation_count = 0
-    amenities = ['hostel', 'hotel', 'chalet', 'motel', 'guest_house']
-    @accomodation_count += OsmPoint.where(amenity: amenities).count
-    @accomodation_count += OsmLine.where(amenity: amenities).count
-    @accomodation_count += OsmPolygone.where(amenity: amenities).count
-
-    @restaurants_count = 0
-    amenities = ['restaurant', 'fast-food']
-    @restaurants_count += OsmPoint.where(amenity: amenities).count
-    @restaurants_count += OsmLine.where(amenity: amenities).count
-    @restaurants_count += OsmPolygone.where(amenity: amenities).count
-
-    @bus_stations_count = 0
-    amenities = ['bus_station', 'bus_stop']
-    @bus_stations_count += OsmPoint.where(amenity: amenities).count
-    @bus_stations_count += OsmLine.where(amenity: amenities).count
-    @bus_stations_count += OsmPolygone.where(amenity: amenities).count
-
-    @bicycle_rental_count = 0
-    amenities = ['bicycle_rental']
-    @bicycle_rental_count += OsmPoint.where(amenity: amenities).count
-    @bicycle_rental_count += OsmLine.where(amenity: amenities).count
-    @bicycle_rental_count += OsmPolygone.where(amenity: amenities).count
-
-    @camp_sites_count = 0
-    amenities = ['camp_site']
-    @camp_sites_count += OsmPoint.where(amenity: amenities).count
-    @camp_sites_count += OsmLine.where(amenity: amenities).count
-    @camp_sites_count += OsmPolygone.where(amenity: amenities).count
-
-    @bars_count = 0
-    amenities = ['bar', 'cafe']
-    @bars_count += OsmPoint.where(amenity: amenities).count
-    @bars_count += OsmLine.where(amenity: amenities).count
-    @bars_count += OsmPolygone.where(amenity: amenities).count
+    @accomodation_count = PoiCatalogue.count(:accomodations)
+    @restaurants_count = PoiCatalogue.count(:food) 
+    @bus_stations_count = PoiCatalogue.count(:bus_station)
+    @bicycle_rental_count = PoiCatalogue.count(:bike_rental)
+    @camp_sites_count = PoiCatalogue.count(:camp_site)
+    @bars_count = PoiCatalogue.count(:beverage)
   end
 
   def console
