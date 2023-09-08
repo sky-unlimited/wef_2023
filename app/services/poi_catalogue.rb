@@ -48,4 +48,36 @@ class PoiCatalogue
     counter += OsmPolygone.where(amenity: amenities).and(OsmPolygone.where(category: category)).count
   end
 
+  # Depending pilot's choice of amenities, we sum all the poi
+  # amenities and categories to query on
+  def self.trip_request_filter(trip_request)
+    amenities   = []
+    categories  = []
+    if trip_request.proxy_food
+      amenities   += @@inventory[:food][:amenities]
+      categories  += @@inventory[:food][:categories]
+    end
+    if trip_request.proxy_fuel
+      amenities   += @@inventory[:fuel_car][:amenities]
+      categories  += @@inventory[:fuel_car][:categories]
+    end
+    if trip_request.proxy_bike_rental
+      amenities   += @@inventory[:bike_rental][:amenities]
+      categories  += @@inventory[:bike_rental][:categories]
+    end
+    if trip_request.proxy_car_rental
+      amenities   += @@inventory[:car_rental][:amenities]
+      categories  += @@inventory[:car_rental][:categories]
+    end
+    if trip_request.proxy_camp_site
+      amenities   += @@inventory[:camp_site][:amenities]
+      categories  += @@inventory[:camp_site][:categories]
+    end
+    if trip_request.proxy_hotel
+      amenities   += @@inventory[:accomodation][:amenities]
+      categories  += @@inventory[:accomodation][:categories]
+    end
+    filters = {:amenities => amenities, :categories => categories}
+  end
+
 end

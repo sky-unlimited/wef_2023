@@ -87,16 +87,8 @@ class Destinations
       airports_matching_criterias = airports_matching_criterias.where(country_id: @trip_request.airport.country_id)
     end
 
-    # We take into account the points of interest per category
-    poi_amenities = []
-    poi_amenities += PoiCatalogue.inventory[:food][:amenities] if @trip_request.proxy_food
-    poi_amenities += PoiCatalogue.inventory[:fuel_car][:amenities] if @trip_request.proxy_fuel
-    poi_amenities += PoiCatalogue.inventory[:bike_rental][:amenities] if @trip_request.proxy_bike_rental
-    poi_amenities += PoiCatalogue.inventory[:car_rental][:amenities] if @trip_request.proxy_car_rental
-
-    poi_tourism = []
-    poi_tourism += PoiCatalogue.inventory[:camp_site][:amenities] if @trip_request.proxy_camp_site
-    poi_tourism += PoiCatalogue.inventory[:accomodation][:amenities] if @trip_request.proxy_hotel
+    # We take into account the points of interest per category depending user's choice
+    filters = PoiCatalogue.trip_request_filter(@trip_request)
 
     # We filter the osm tables with filtered airports and poi's
     osm_points_airports     = []
@@ -104,24 +96,16 @@ class Destinations
     osm_polygones_airports  = []
 
     osm_points_airports     +=  OsmPoint.where(airport_id: airports_matching_criterias)
-                                .and(OsmPoint.where(amenity: poi_amenities))
-                                .and(OsmPoint.where(category: 'amenity'))
-                                .pluck(:airport_id)
-    osm_points_airports     +=  OsmPoint.where(airport_id: airports_matching_criterias)
-                                .and(OsmPoint.where(amenity: poi_tourism))
-                                .and(OsmPoint.where(category: 'tourism'))
+                                .and(OsmPoint.where(amenity: filters[:amenities]))
+                                .and(OsmPoint.where(category: filters[:categories]))
                                 .pluck(:airport_id)
     osm_lines_airports      +=  OsmLine.where(airport_id: airports_matching_criterias)
-                                .and(OsmLine.where(amenity: poi_amenities))
-                                .and(OsmLine.where(category: 'amenity'))
+                                .and(OsmLine.where(amenity: filters[:amenities]))
+                                .and(OsmLine.where(category: filters[:categories]))
                                 .pluck(:airport_id)
     osm_polygones_airports  +=  OsmPolygone.where(airport_id: airports_matching_criterias)
-                                .and(OsmPolygone.where(amenity: poi_amenities))
-                                .and(OsmPolygone.where(category: 'amenity'))
-                                .pluck(:airport_id)
-    osm_polygones_airports  +=  OsmPolygone.where(airport_id: airports_matching_criterias)
-                                .and(OsmPolygone.where(amenity: poi_tourism))
-                                .and(OsmPolygone.where(category: 'tourism'))
+                                .and(OsmPolygone.where(amenity: filters[:amenities]))
+                                .and(OsmPolygone.where(category: filters[:categories]))
                                 .pluck(:airport_id)
 
     # We insert all airports in a single array
