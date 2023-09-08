@@ -34,8 +34,8 @@ fr:
         proxy_fuel: ⛽ Station Essence Voiture
         proxy_car_rental: 🚙 Location Voiture
         proxy_bike_rental: 🚲 Location Vélo
-        proxy_camp_site: 🏕️  Camping
-        proxy_hotel: 🛏️ Hotels
+        proxy_camp_site: 🏕️  Campings
+        proxy_hotel: 🛏️ Hébergements
     errors:
       messages:
         in: doit être compris entre %{count}
