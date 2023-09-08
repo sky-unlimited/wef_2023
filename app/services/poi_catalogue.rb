@@ -80,4 +80,18 @@ class PoiCatalogue
     filters = {:amenities => amenities, :categories => categories}
   end
 
+  def self.count_groups_per_airport(airport)
+    airport_group_inventory = {}
+    osm_points = []
+    @@inventory.each_key do |group|
+      counter = OsmPoint.where(airport_id: airport)
+        .and(OsmPoint.where(amenity:  @@inventory[group][:amenities]))
+        .and(OsmPoint.where(category: @@inventory[group][:categories]))
+        .count
+
+      airport_group_inventory[group] = counter 
+    end
+    airport_group_inventory
+  end
+
 end
