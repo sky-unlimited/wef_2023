@@ -15,4 +15,8 @@ module TripSuggestionsHelper
     end
   end
 
+  def poi_group_to_icon(destination_airport, trip_request)
+    PoiCatalogue.count_groups_per_airport(destination_airport)
+  end
+
 end

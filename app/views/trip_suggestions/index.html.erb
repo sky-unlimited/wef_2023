@@ -26,6 +26,7 @@
         <p><%= "#{airport.name} (#{airport.icao})" %>
           <span class="tag-outline-dark ml-5"><%= airport.airport_type %></span>
         </p>
+        <%= poi_group_to_icon(airport, @trip_request) %>
       </div>
     </div>
   <% end %>
