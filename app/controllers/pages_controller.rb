@@ -13,11 +13,11 @@ class PagesController < ApplicationController
 
     # We count the number of amenities available in our database
     @accomodation_count = PoiCatalogue.count(:accomodations)
-    @restaurants_count = PoiCatalogue.count(:food) 
-    @bus_stations_count = PoiCatalogue.count(:bus_station)
-    @bicycle_rental_count = PoiCatalogue.count(:bike_rental)
-    @camp_sites_count = PoiCatalogue.count(:camp_site)
-    @bars_count = PoiCatalogue.count(:beverage)
+    @food_count = PoiCatalogue.count(:food) 
+    @bus_station_count = PoiCatalogue.count(:bus_station)
+    @bike_rental_count = PoiCatalogue.count(:bike_rental)
+    @camp_site_count = PoiCatalogue.count(:camp_site)
+    @beverage_count = PoiCatalogue.count(:beverage)
   end
 
   def console
