@@ -92,6 +92,7 @@ class PoiCatalogue
       airport_group_inventory[group] = counter 
     end
     airport_group_inventory
+    # .select { |key,value| value > 0 } to retrieve not empty poi groups per airport
   end
 
 end
