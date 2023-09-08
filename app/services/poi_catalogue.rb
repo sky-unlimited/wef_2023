@@ -82,17 +82,24 @@ class PoiCatalogue
 
   def self.count_groups_per_airport(airport)
     airport_group_inventory = {}
-    osm_points = []
+    counter = 0
     @@inventory.each_key do |group|
-      counter = OsmPoint.where(airport_id: airport)
+      counter += OsmPoint.where(airport_id: airport)
         .and(OsmPoint.where(amenity:  @@inventory[group][:amenities]))
         .and(OsmPoint.where(category: @@inventory[group][:categories]))
+        .count
+      counter += OsmLine.where(airport_id: airport)
+        .and(OsmLine.where(amenity:  @@inventory[group][:amenities]))
+        .and(OsmLine.where(category: @@inventory[group][:categories]))
+        .count
+      counter += OsmPolygone.where(airport_id: airport)
+        .and(OsmPolygone.where(amenity:  @@inventory[group][:amenities]))
+        .and(OsmPolygone.where(category: @@inventory[group][:categories]))
         .count
 
       airport_group_inventory[group] = counter 
     end
-    airport_group_inventory
-    # .select { |key,value| value > 0 } to retrieve not empty poi groups per airport
+    airport_group_inventory.select { |key,value| value > 0 } #to retrieve not empty poi groups per airport
   end
 
 end
