@@ -4,7 +4,8 @@ require 'rgeo/geos'
 class Destinations
 
   attr_reader  :airports_matching_criterias, :airports_flyzone,
-               :flyzone_outbound, :flyzone_inbound, :flyzone_common_polygons
+               :flyzone_outbound, :flyzone_inbound, :flyzone_common_polygons,
+               :airports_top_destinations
 
   def initialize(trip_request)
     @trip_request = trip_request

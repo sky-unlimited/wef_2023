@@ -79,3 +79,7 @@ fr:
       compliant_with_weather: Météo compatible avec préférences météo utilisateur
       not_compliant_with_weather: Météo non compatible avec préférences météo utilisateur
       title: Prévisions météorologiques
+    index:
+      title: Top Destinations
+      summary: Sommaire
+      flyzone_map:  Carte Météo Favorable

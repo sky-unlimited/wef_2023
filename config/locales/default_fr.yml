@@ -33,6 +33,9 @@ fr:
     abbr_month_names:
       [~, Jan, Fév, Mar, Avr, Mai, Jun, Jul, Août, Sep, Oct, Nov, Déc]
     day_names: [Dimanche, Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi]
+    days:
+      one: "dans un jour"
+      other: "dans %{count} jours"
   shared:
     sign_in: "S'identifier"
     sign_out: "Déconnexion"

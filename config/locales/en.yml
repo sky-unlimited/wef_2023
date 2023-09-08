@@ -78,3 +78,7 @@ en:
       compliant_with_weather: Weather compliant with pilot's weather prefs
       not_compliant_with_weather: Weather not compliant with pilot's weather prefs
       title: Weather Outlook
+    index:
+      title: Top Destinations
+      summary: Summary
+      flyzone_map:  Flyzone Map
