@@ -16,6 +16,21 @@
     </tr>
   </table>
 
+  <h2><%= t('trip_suggestions.index.title') %></h2>
+
+  <% @airports_top_destination.each do |airport| %>
+    <div>
+      <div class="bg-color3 p-5 m-5"> 
+        <h3 class="color-light"><%= "#{NormalizeCountry(airport.country.code, :to => :emoji)} #{airport.city} 
+        (#{airport.country.name})" %></h3>
+        <p><%= "#{airport.name} (#{airport.icao})" %>
+          <span class="tag-outline-dark ml-5"><%= airport.airport_type %></span>
+        </p>
+      </div>
+    </div>
+  <% end %>
+
+
   <h2><%= t('trip_suggestions.index.flyzone_map') %></h2>
   <% if @fake_weather %>
     <p class="tag-danger">fake weather</p>
@@ -33,6 +48,7 @@
         data-osm-flyzone-outbound-value="<%= @flyzone_outbound %>" \
         data-osm-flyzone-inbound-value="<%= @flyzone_inbound %>" \>
   </div>
+
   <div class="my-20">
     <%= link_to "New Trip Request", new_trip_request_path, class: "btn btn-secondary" %>
   </div>
