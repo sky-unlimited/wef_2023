@@ -31,11 +31,11 @@ en:
           events: Event based Destinations
           suggested: Suggested Destinations
         proxy_food: 🍔 Food
-        proxy_fuel: ⛽ Car Gas Station
+        proxy_fuel: ⛽ Car Gas Stations
         proxy_car_rental: 🚙 Car Rentals
         proxy_bike_rental: 🚲 Bike Rentals
-        proxy_camp_site: 🏕️ Camp Site
-        proxy_hotel: 🛏️ Hotels 
+        proxy_camp_site: 🏕️ Camp Sites
+        proxy_hotel: 🛏️ Accomodations
     errors:
       messages:
         in: must be in %{count}
