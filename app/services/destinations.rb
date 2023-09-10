@@ -144,11 +144,12 @@ class Destinations
 
   def get_top_destinations
     #TODO: Of course, the algo needs further analysis. Issue github to come
-    @airports_flyzone.first(5).each do |airport|
+    @airports_flyzone.each do |airport|
       flight_track = FlightTrack.new( @trip_request.airport.lonlat, 
                                     airport.lonlat,
                                     @trip_request.user.pilot_pref.average_true_airspeed)
-      @top_destinations << {:airport => airport, :flight_track => flight_track }
+      top_destinations << {:airport => airport, :flight_track => flight_track }
     end
+    @top_destinations = top_destinations.first(5)
   end
 end
