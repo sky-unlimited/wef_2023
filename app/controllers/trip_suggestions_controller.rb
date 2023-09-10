@@ -46,7 +46,7 @@ class TripSuggestionsController < ApplicationController
     end
 
     # We load the top destinations
-    @airports_top_destination = destinations.airports_top_destinations
+    @top_destinations = destinations.top_destinations
 
     # We load weather for outbound and inbound for display purpose
     @outbound_weather_data  = destinations.flyzone_outbound.get_weather_data_departure_to_date

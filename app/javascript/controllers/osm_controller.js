@@ -15,14 +15,14 @@ export default class extends Controller {
     airportsFlyzoneMap: Array,
     flyzoneCommonPolygon: Object,
     flyzoneOutbound: Object,
-    flyzoneInbound: Object
+    flyzoneInbound: Object,
+    flightTrackLines: Array
   }
 
   static targets = [ 'map' ]
 
   connect() {
     console.log("Openstreetmap connected!");
-    console.log(this.departureAirportValue);
     this.displayMap();
   }
 
@@ -59,6 +59,15 @@ export default class extends Controller {
       zoom: 6,
       layers: [Esri_WorldGrayCanvas]
     });
+
+    // We display the flight tracks of destinations
+    this.flightTrackLinesValue.forEach((track) => {
+    var myStyle = {
+      opacity: 0.7,
+      weight: 1,
+      color: "magenta"
+    };
+    L.geoJSON(track, { style: myStyle }).addTo(this.map)});
 
     // We add the airport polygon for ELLX
     //var airportELLX = L.geoJSON(this.airportPolygonValue).addTo(this.map);

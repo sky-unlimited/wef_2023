@@ -18,15 +18,14 @@
 
   <h2><%= t('trip_suggestions.index.title') %></h2>
 
-  <% @airports_top_destination.each do |airport| %>
+  <% @top_destinations.each do |destination| %>
     <div>
       <div class="bg-color3 p-5 m-5"> 
-        <h3 class="color-light"><%= "#{NormalizeCountry(airport.country.code, :to => :emoji)} #{airport.city} 
-        (#{airport.country.name})" %></h3>
-        <p><%= "#{airport.name} (#{airport.icao})" %>
-          <span class="tag-outline-dark ml-5"><%= airport.airport_type %></span>
+        <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{destination[:airport].city} (#{destination[:airport].country.name})" %></h3>
+        <p><%= "#{destination[:airport].name} (#{destination[:airport].icao})" %>
+          <span class="tag-outline-dark ml-5"><%= destination[:airport].airport_type %></span>
         </p>
-        <%= poi_group_to_icon(airport, @trip_request) %>
+        <%= poi_group_to_icon(destination[:airport], @trip_request) %>
       </div>
     </div>
   <% end %>
@@ -47,7 +46,8 @@
         data-osm-departure-airport-value="<%= @departure_airport.first.to_json %>" \
         data-osm-flyzone-common-polygon-value="<%= @flyzone_common_polygons %>" \
         data-osm-flyzone-outbound-value="<%= @flyzone_outbound %>" \
-        data-osm-flyzone-inbound-value="<%= @flyzone_inbound %>" \>
+        data-osm-flyzone-inbound-value="<%= @flyzone_inbound %>" \
+        data-osm-flight-track-lines-value="<%= @top_destinations.map { |destination| destination[:flight_track].line }.to_json %>" \>
   </div>
 
   <div class="my-20">

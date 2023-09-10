@@ -5,7 +5,7 @@ class Destinations
 
   attr_reader  :airports_matching_criterias, :airports_flyzone,
                :flyzone_outbound, :flyzone_inbound, :flyzone_common_polygons,
-               :airports_top_destinations
+               :top_destinations
 
   def initialize(trip_request)
     @trip_request = trip_request
@@ -14,7 +14,7 @@ class Destinations
     @flyzone_common_polygons = nil
     @airports_matching_criterias = []
     @airports_flyzone = []
-    @airports_top_destinations = []
+    @top_destinations = []
 
     create_flyzones
     get_airports_matching_criterias
@@ -144,6 +144,11 @@ class Destinations
 
   def get_top_destinations
     #TODO: Of course, the algo needs further analysis. Issue github to come
-    @airports_top_destinations = @airports_flyzone.first(5)
+    @airports_flyzone.first(5).each do |airport|
+      flight_track = FlightTrack.new( @trip_request.airport.lonlat, 
+                                    airport.lonlat,
+                                    @trip_request.user.pilot_pref.average_true_airspeed)
+      @top_destinations << {:airport => airport, :flight_track => flight_track }
+    end
   end
 end
