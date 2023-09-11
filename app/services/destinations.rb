@@ -151,12 +151,17 @@ class Destinations
                                     @flyzone_common_polygons)
       top_destinations << {:airport => airport, :flight_track => flight_track }
     end
+    # Rejection rules
+    # 1. Flight Time less than 30 minutes
+    rejected_destinations = top_destinations.reject do |destination|
+      destination[:flight_track].average_flight_time_min < 30
+    end
 
     # Sorting rules:
     # 1.  We first sort records by prioritizing direct flights. It means destinations
     #     for which the flight track is 100% within the flyzone (good weather zone)
     # 2. The distance from departure airport
-    sorted_destinations = top_destinations.sort_by do |destination|
+    sorted_destinations = rejected_destinations.sort_by do |destination|
       flight_track = destination[:flight_track]
       # rule 1
       is_in_flyzone = flight_track.is_in_flyzone ? 0 : 1
