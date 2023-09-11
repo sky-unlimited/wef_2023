@@ -151,6 +151,23 @@ class Destinations
                                     @flyzone_common_polygons)
       top_destinations << {:airport => airport, :flight_track => flight_track }
     end
-    @top_destinations = top_destinations.first(5)
+
+    # Sorting rules:
+    # 1.  We first sort records by prioritizing direct flights. It means destinations
+    #     for which the flight track is 100% within the flyzone (good weather zone)
+    # 2. The distance from departure airport
+    sorted_destinations = top_destinations.sort_by do |destination|
+      flight_track = destination[:flight_track]
+      # rule 1
+      is_in_flyzone = flight_track.is_in_flyzone ? 0 : 1
+      # rule 2
+      distance = flight_track.distance_km
+
+      [is_in_flyzone, distance]
+    end
+    @top_destinations = sorted_destinations.first(5)
+
+    #NOTE: %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3) {|group| p group}
+    # https://www.rubydoc.info/docs/rails/Array
   end
 end
