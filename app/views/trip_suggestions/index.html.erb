@@ -1,3 +1,6 @@
+<% require 'rgeo' %>
+<% require 'rgeo/geos' %>
+
 <div class="container">
   <h1><%= t('trip_suggestions.index.title') %></h1>
   <h2><%= t('trip_suggestions.index.summary') %></h2>
@@ -26,6 +29,8 @@
           <span class="tag-outline-dark ml-5"><%= destination[:airport].airport_type %></span>
         </p>
         <%= poi_group_to_icon(destination[:airport], @trip_request) %>
+        </br>
+        Is in flyzone? <%= destination[:flight_track].is_in_flyzone %>
       </div>
     </div>
   <% end %>
@@ -47,7 +52,7 @@
         data-osm-flyzone-common-polygon-value="<%= @flyzone_common_polygons %>" \
         data-osm-flyzone-outbound-value="<%= @flyzone_outbound %>" \
         data-osm-flyzone-inbound-value="<%= @flyzone_inbound %>" \
-        data-osm-flight-track-lines-value="<%= @top_destinations.map { |destination| destination[:flight_track].line }.to_json %>" \>
+        data-osm-flight-track-lines-value="<%= @top_destinations.map { |destination| RGeo::GeoJSON.encode(destination[:flight_track].line) }.to_json %>" \>
   </div>
 
   <div class="my-20">

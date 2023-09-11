@@ -147,7 +147,8 @@ class Destinations
     @airports_flyzone.each do |airport|
       flight_track = FlightTrack.new( @trip_request.airport.lonlat, 
                                     airport.lonlat,
-                                    @trip_request.user.pilot_pref.average_true_airspeed)
+                                    @trip_request.user.pilot_pref.average_true_airspeed,
+                                    @flyzone_common_polygons)
       top_destinations << {:airport => airport, :flight_track => flight_track }
     end
     @top_destinations = top_destinations.first(5)
