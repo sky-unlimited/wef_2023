@@ -80,6 +80,8 @@ en:
       compliant_with_weather: Weather compliant with pilot's weather prefs
       not_compliant_with_weather: Weather not compliant with pilot's weather prefs
       title: Weather Outlook
+    warnings:
+      direct_flight_outside_flyzone: One of the flight may be below weather limits
     index:
       title: Top Destinations
       summary: Summary

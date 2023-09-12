@@ -24,13 +24,27 @@
   <% @top_destinations.each do |destination| %>
     <div>
       <div class="bg-color3 p-5 m-5"> 
-        <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{destination[:airport].city} (#{destination[:airport].country.name})" %></h3>
-        <p><%= "#{destination[:airport].name} (#{destination[:airport].icao})" %>
+        <div class="top_desinations__airport">
+          <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{destination[:airport].city} (#{destination[:airport].country.name})" %></h3>
+          <p><%= "#{destination[:airport].name} (#{destination[:airport].icao})" %>
           <span class="tag-outline-dark ml-5"><%= destination[:airport].airport_type %></span>
-        </p>
-        <%= poi_group_to_icon(destination[:airport], @trip_request) %>
-        </br>
-        Is in flyzone? <%= destination[:flight_track].is_in_flyzone %>
+          </p>
+        </div>
+        <div class="top_destinations__flight_track">
+          <%= poi_group_to_icon(destination[:airport], @trip_request) %>
+        </div>
+        <div class="top_destinations__warnings">
+          <div class="top_destinations__warnings__title">
+            <p><b><%= "Warnings (#{destination[:flight_track].warnings.count})" %></b></p>
+            <div class="top_destinations__warnings__content">
+              <ul>
+                <% destination[:flight_track].warnings.each do |warning| %>
+                  <li class="color-warning"><%= warning %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>

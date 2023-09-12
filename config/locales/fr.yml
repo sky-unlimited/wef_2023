@@ -81,6 +81,8 @@ fr:
       compliant_with_weather: Météo compatible avec préférences météo utilisateur
       not_compliant_with_weather: Météo non compatible avec préférences météo utilisateur
       title: Prévisions météorologiques
+    warnings:
+      direct_flight_outside_flyzone: Un des vols pourrait être en dessous de vos limites météo
     index:
       title: Top Destinations
       summary: Sommaire

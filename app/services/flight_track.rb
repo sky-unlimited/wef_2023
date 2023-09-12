@@ -3,7 +3,7 @@ require 'rgeo'
 
 class FlightTrack
   attr_reader :start_point, :end_point, :distance_km, :distance_nm, :average_flight_time_min,
-              :line, :line_geojson, :bearing, :is_in_flyzone
+              :line, :line_geojson, :bearing, :is_in_flyzone, :warnings
 
   # parameters:
   #   start_point:  geography(st_point: 4326)
@@ -20,6 +20,9 @@ class FlightTrack
     @line_geojson = RGeo::GeoJSON.encode(@line)
     @bearing = calculate_bearing(start_point, end_point)
     @is_in_flyzone = is_in_flyzone?(flyzone)
+    @warnings = []
+
+    check_warnings
   end
 
   private
@@ -60,5 +63,11 @@ class FlightTrack
     # We convert @line from srid 4326 to 3857
     line3857 = RGeo::Feature.cast(@line, factory: RGeo::Geographic.simple_mercator_factory(srid: 3857))
     line3857.within?(flyzone)
+  end
+
+  def check_warnings
+    unless @is_in_flyzone
+      @warnings << I18n.t('trip_suggestions.warnings.direct_flight_outside_flyzone')
+    end
   end
 end
