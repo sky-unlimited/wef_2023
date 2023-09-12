@@ -62,11 +62,21 @@ export default class extends Controller {
 
     // We display the flight tracks of destinations
     this.flightTracksValue.forEach((track) => {
-    var myStyle = {
-      opacity: 0.7,
-      weight: 2,
-      color: "magenta"
-    };
+      if (track.is_in_flyzone == true) {
+        var myStyle = {
+        opacity: 0.7,
+        weight: 3,
+        color: "#198754"
+        }
+      }
+      else
+      {
+        var myStyle = {
+        opacity: 0.7,
+        weight: 3,
+        color: "#dc3545"
+        }
+      };
     L.geoJSON(track.line_geojson, { style: myStyle }).addTo(this.map)});
 
     // We add the airport polygon for ELLX
