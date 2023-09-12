@@ -3,7 +3,7 @@ require 'rgeo'
 
 class FlightTrack
   attr_reader :start_point, :end_point, :distance_km, :distance_nm, :average_flight_time_min,
-              :line, :bearing, :is_in_flyzone
+              :line, :line_geojson, :bearing, :is_in_flyzone
 
   # parameters:
   #   start_point:  geography(st_point: 4326)
@@ -17,6 +17,7 @@ class FlightTrack
     @average_flight_time_min = ((@distance_nm.to_f / average_tas_kts)*60).to_i
 
     @line = create_line
+    @line_geojson = RGeo::GeoJSON.encode(@line)
     @bearing = calculate_bearing(start_point, end_point)
     @is_in_flyzone = is_in_flyzone?(flyzone)
   end

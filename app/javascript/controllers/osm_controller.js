@@ -16,7 +16,7 @@ export default class extends Controller {
     flyzoneCommonPolygon: Object,
     flyzoneOutbound: Object,
     flyzoneInbound: Object,
-    flightTrackLines: Array
+    flightTracks: Array
   }
 
   static targets = [ 'map' ]
@@ -61,13 +61,13 @@ export default class extends Controller {
     });
 
     // We display the flight tracks of destinations
-    this.flightTrackLinesValue.forEach((track) => {
+    this.flightTracksValue.forEach((track) => {
     var myStyle = {
       opacity: 0.7,
-      weight: 1,
+      weight: 2,
       color: "magenta"
     };
-    L.geoJSON(track, { style: myStyle }).addTo(this.map)});
+    L.geoJSON(track.line_geojson, { style: myStyle }).addTo(this.map)});
 
     // We add the airport polygon for ELLX
     //var airportELLX = L.geoJSON(this.airportPolygonValue).addTo(this.map);
