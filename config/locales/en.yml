@@ -66,11 +66,13 @@ en:
     search_placeholder: 🔎 Search an Airport
     airport: Departure Airport
     no_airport_selected: No airport selected
-    poi: Points of Interest near Airport
+    poi: Points of Interest ON/NEAR Airport
     submit: Find destinations!
     airport_types: Destination airport type
     messages:
       end_date_greater_start_date: should be after Departure Date
+    buttons:
+      new_trip_request: New Trip Request
   trip_suggestions:
     notices:
       bad_weather: We can't suggest you any destination due to incompatible weather conditions in %{airport} between required dates

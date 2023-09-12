@@ -67,11 +67,13 @@ fr:
     search_placeholder: 🔎 Chercher un Aéroport
     airport: Aéroport de Départ
     no_airport_selected: Pas d'aéroport choisi
-    poi: Centres d'intérêts près des aérodromes
+    poi: Centres d'intérêts SUR/PROCHE aérodrome
     submit: Trouver destinations!
     airport_types: Type d'aérodrome de destination
     messages:
       end_date_greater_start_date: doit être après la date de départ
+    buttons:
+      new_trip_request: Nouvelle Requête
   trip_suggestions:
     notices:
       bad_weather: Nous ne pouvons proposer de destinations, météo au départ de %{airport} incompatible pour le créneau demandé
