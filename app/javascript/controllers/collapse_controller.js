@@ -9,6 +9,12 @@ export default class extends Controller {
   }
   toggle(event) {
     this.contentTarget.classList.toggle("show");
+    if(event.target.innerText == "▶"){
+      event.target.innerText = "▼"
+    }
+    else
+    {
+      event.target.innerText = "▶"
+    }
   }
-
 }

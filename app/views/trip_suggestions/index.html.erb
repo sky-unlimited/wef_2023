@@ -34,13 +34,9 @@
           <%= poi_group_to_icon(destination[:airport], @trip_request) %>
         </div>
         <div class="top_destinations__warnings" data-controller="collapse">
-          <a href="#top_destination_<%= index + 1 %>" 
-             class="btn btn-primary top_destinations__warnings__title"
-             data-action="click->collapse#toggle">
-            <b><%= "Warnings (#{destination[:flight_track].warnings.count})" %></b>
-          </a>
+          <span class="collapse-marker" data-action="click->collapse#toggle">&#9654;</span>
+          <span><b><%= "Warnings (#{destination[:flight_track].warnings.count})" %></b></span>
           <div id="warning_<%= index + 1 %>" class="collapse top_destinations__warnings__content" data-collapse-target="content">
-            <p>hello <%= index + 1 %></p>
             <ul>
               <% destination[:flight_track].warnings.each do |warning| %>
                 <li class="color-warning"><%= warning %></li>
