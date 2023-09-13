@@ -74,8 +74,8 @@ class PoiCatalogue
       categories  += @@inventory[:camp_site][:categories]
     end
     if trip_request.proxy_hotel
-      amenities   += @@inventory[:accomodation][:amenities]
-      categories  += @@inventory[:accomodation][:categories]
+      amenities   += @@inventory[:accommodation][:amenities]
+      categories  += @@inventory[:accommodation][:categories]
     end
     filters = {:amenities => amenities, :categories => categories}
   end
