@@ -1,0 +1,18 @@
+.collapse{
+  display: none;
+  cursor: pointer;
+}
+.collapsing{}
+.show{
+  display: block;
+}
+
+/*
+// how to use it:
+<div data-controller="collapse">
+  <a href="#" data-action="click->collapse#toggle">...</a>
+  <div id="unique_id" data-collapse-target="content">
+    ...
+  </div>
+</div>
+*/
