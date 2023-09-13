@@ -21,9 +21,9 @@
 
   <h2><%= t('trip_suggestions.index.title') %></h2>
 
-  <% @top_destinations.each do |destination| %>
+  <% @top_destinations.each_with_index do |destination,index| %>
     <div>
-      <div class="bg-color3 p-5 m-5"> 
+      <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5"> 
         <div class="top_desinations__airport">
           <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{destination[:airport].city} (#{destination[:airport].country.name})" %></h3>
           <p><%= "#{destination[:airport].name} (#{destination[:airport].icao})" %>
@@ -33,16 +33,19 @@
         <div class="top_destinations__flight_track">
           <%= poi_group_to_icon(destination[:airport], @trip_request) %>
         </div>
-        <div class="top_destinations__warnings">
-          <div class="top_destinations__warnings__title">
-            <p><b><%= "Warnings (#{destination[:flight_track].warnings.count})" %></b></p>
-            <div class="top_destinations__warnings__content">
-              <ul>
-                <% destination[:flight_track].warnings.each do |warning| %>
-                  <li class="color-warning"><%= warning %></li>
-                <% end %>
-              </ul>
-            </div>
+        <div class="top_destinations__warnings" data-controller="collapse">
+          <a href="#top_destination_<%= index + 1 %>" 
+             class="btn btn-primary top_destinations__warnings__title"
+             data-action="click->collapse#toggle">
+            <b><%= "Warnings (#{destination[:flight_track].warnings.count})" %></b>
+          </a>
+          <div id="warning_<%= index + 1 %>" class="collapse top_destinations__warnings__content" data-collapse-target="content">
+            <p>hello <%= index + 1 %></p>
+            <ul>
+              <% destination[:flight_track].warnings.each do |warning| %>
+                <li class="color-warning"><%= warning %></li>
+              <% end %>
+            </ul>
           </div>
         </div>
       </div>
