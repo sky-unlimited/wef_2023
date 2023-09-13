@@ -21,7 +21,7 @@ class PoiCatalogue
     :camp_site => {
         :categories => ["tourism"],
         :amenities => ["camp_site", "bivouac_site"]},
-    :accomodation => {
+    :accommodation => {
         :categories => ["tourism"],
         :amenities => ["hotel","chalet","guest_house","Gîte","hostel","motel"]},
     :shop => {

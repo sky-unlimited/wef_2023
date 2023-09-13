@@ -15,8 +15,30 @@ module TripSuggestionsHelper
     end
   end
 
-  def poi_group_to_icon(destination_airport, trip_request)
+  def poi_count_groups(destination_airport, trip_request)
     PoiCatalogue.count_groups_per_airport(destination_airport)
   end
 
+  def get_group_icon(group)
+    data = {
+    :food => "🍔",
+    :beverage => "🥤",
+    :fuel_car => "⛽",
+    :fuel_plane => "✈️",
+    :bike_rental => "🚲",
+    :car_rental => "🚗",
+    :camp_site => "⛺",
+    :accommodation => "🏨",
+    :shop => "🛒",
+    :bus_station => "🚌",
+    :train_station => "🚆"
+    }
+
+    # Check if the provided key exists in the data hash
+    if data.key?(group)
+      return data[group]
+    else
+      return "?"
+    end  
+  end
 end

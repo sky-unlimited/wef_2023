@@ -35,7 +35,7 @@ en:
         proxy_car_rental: 🚙 Car Rentals
         proxy_bike_rental: 🚲 Bike Rentals
         proxy_camp_site: 🏕️ Camp Sites
-        proxy_hotel: 🛏️ Accomodations
+        proxy_hotel: 🛏️ Accommodations
     errors:
       messages:
         in: must be in %{count}

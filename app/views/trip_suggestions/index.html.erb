@@ -23,23 +23,45 @@
 
   <% @top_destinations.each_with_index do |destination,index| %>
     <div>
-      <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5"> 
+      <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5 border-radius"> 
         <div class="top_desinations__airport">
           <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{destination[:airport].city} (#{destination[:airport].country.name})" %></h3>
           <p><%= "#{destination[:airport].name} (#{destination[:airport].icao})" %>
           <span class="tag-outline-dark ml-5"><%= destination[:airport].airport_type %></span>
           </p>
         </div>
-        <div class="top_destinations__flight_track">
-          <%= poi_group_to_icon(destination[:airport], @trip_request) %>
+        <div class="top_destinations__flight_track" data-controller="collapse">
+          <span class="collapse-marker" data-action="click->collapse#toggle">▼</span>
+          <span><b>Flight track</b></span>
+          <div  id="flight_track_<%= index + 1 %>" 
+                class="collapse show bg-light px-5 border-radius" 
+                data-collapse-target="content">
+            <ul>
+              <li><%= "Distance: #{destination[:flight_track].distance_km}km (#{destination[:flight_track].distance_nm}nm)" %></li>
+              <li><%= "Flight time: #{destination[:flight_track].average_flight_time_min}min" %></li>
+              <li><%= "Bearing: #{destination[:flight_track].bearing}°" %></li>
+          </div>
+        </div>
+        <div class="top_destinations__poi" data-controller="collapse">
+          <% poi_count_group = poi_count_groups(destination[:airport], @trip_request) %>
+          <% total_poi_sum = poi_count_group.values.sum %>
+          <span class="collapse-marker" data-action="click->collapse#toggle">▶</span>
+          <span><b><%= "Point of interests near Aiport (#{total_poi_sum})" %></b></span>
+          <div id="group_pois_<%= index + 1 %>" class="collapse bg-light px-5 border-radius" data-collapse-target="content">
+            <ul>
+              <% poi_count_group.each do |key,value| %>
+                <li><%= "#{get_group_icon(key)} #{key} (#{value})" %></li>
+              <% end %>
+            </ul>
+          </div>
         </div>
         <div class="top_destinations__warnings" data-controller="collapse">
-          <span class="collapse-marker" data-action="click->collapse#toggle">&#9654;</span>
+          <span class="collapse-marker" data-action="click->collapse#toggle">▶</span>
           <span><b><%= "Warnings (#{destination[:flight_track].warnings.count})" %></b></span>
-          <div id="warning_<%= index + 1 %>" class="collapse top_destinations__warnings__content" data-collapse-target="content">
+          <div id="warning_<%= index + 1 %>" class="collapse bg-warning px-5 border-radius" data-collapse-target="content">
             <ul>
               <% destination[:flight_track].warnings.each do |warning| %>
-                <li class="color-warning"><%= warning %></li>
+                <li class=""><%= warning %></li>
               <% end %>
             </ul>
           </div>
