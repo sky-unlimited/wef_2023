@@ -35,7 +35,7 @@ en:
         proxy_car_rental: 🚙 Car Rentals
         proxy_bike_rental: 🚲 Bike Rentals
         proxy_camp_site: 🏕️ Camp Sites
-        proxy_hotel: 🛏️ Accomodations
+        proxy_hotel: 🛏️ Accommodations
     errors:
       messages:
         in: must be in %{count}
@@ -66,11 +66,13 @@ en:
     search_placeholder: 🔎 Search an Airport
     airport: Departure Airport
     no_airport_selected: No airport selected
-    poi: Points of Interest near Airport
+    poi: Points of Interest ON/NEAR Airport
     submit: Find destinations!
     airport_types: Destination airport type
     messages:
       end_date_greater_start_date: should be after Departure Date
+    buttons:
+      new_trip_request: New Trip Request
   trip_suggestions:
     notices:
       bad_weather: We can't suggest you any destination due to incompatible weather conditions in %{airport} between required dates
@@ -78,3 +80,14 @@ en:
       compliant_with_weather: Weather compliant with pilot's weather prefs
       not_compliant_with_weather: Weather not compliant with pilot's weather prefs
       title: Weather Outlook
+    warnings:
+      direct_flight_outside_flyzone: One of the flight may be below weather limits
+    index:
+      title: Top Destinations
+      summary: Summary
+      flyzone_map:  Flyzone Map
+      flight_track: Flight Track
+      distance: Distance
+      flight_time: Flight Time
+      bearing: "True Bearing"
+      warnings: Warnings

@@ -45,7 +45,16 @@ class TripSuggestionsController < ApplicationController
     })
     end
 
-    # We load weather for outbound and inbound for display purpose
+    # We load the top destinations
+    @top_destinations = destinations.top_destinations
+
+    # We load the flight tracks for front-end (javascript)
+    @flight_tracks = []
+    @top_destinations.each do |destination|
+      @flight_tracks << destination[:flight_track]
+    end
+
+    # We load weather for outbound and inbound for front-end (javascript)
     @outbound_weather_data  = destinations.flyzone_outbound.get_weather_data_departure_to_date
     @outbound_weather_ok    = destinations.flyzone_outbound.weather_departure_to_date_ok?
     @inbound_weather_data   = destinations.flyzone_inbound.get_weather_data_departure_to_date

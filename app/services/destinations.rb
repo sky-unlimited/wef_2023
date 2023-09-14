@@ -4,7 +4,8 @@ require 'rgeo/geos'
 class Destinations
 
   attr_reader  :airports_matching_criterias, :airports_flyzone,
-               :flyzone_outbound, :flyzone_inbound, :flyzone_common_polygons
+               :flyzone_outbound, :flyzone_inbound, :flyzone_common_polygons,
+               :top_destinations
 
   def initialize(trip_request)
     @trip_request = trip_request
@@ -13,7 +14,7 @@ class Destinations
     @flyzone_common_polygons = nil
     @airports_matching_criterias = []
     @airports_flyzone = []
-    @airports_top_destinations = []
+    @top_destinations = []
 
     create_flyzones
     get_airports_matching_criterias
@@ -143,6 +144,35 @@ class Destinations
 
   def get_top_destinations
     #TODO: Of course, the algo needs further analysis. Issue github to come
-    @airports_top_destinations = @airports_flyzone.first(5)
+    @airports_flyzone.each do |airport|
+      flight_track = FlightTrack.new( @trip_request.airport.lonlat, 
+                                    airport.lonlat,
+                                    @trip_request.user.pilot_pref.average_true_airspeed,
+                                    @flyzone_common_polygons)
+      top_destinations << {:airport => airport, :flight_track => flight_track }
+    end
+    # Rejection rules
+    # 1. Flight Time less than 30 minutes
+    rejected_destinations = top_destinations.reject do |destination|
+      destination[:flight_track].average_flight_time_min < 30
+    end
+
+    # Sorting rules:
+    # 1.  We first sort records by prioritizing direct flights. It means destinations
+    #     for which the flight track is 100% within the flyzone (good weather zone)
+    # 2. The distance from departure airport
+    sorted_destinations = rejected_destinations.sort_by do |destination|
+      flight_track = destination[:flight_track]
+      # rule 1
+      is_in_flyzone = flight_track.is_in_flyzone ? 0 : 1
+      # rule 2
+      distance = flight_track.distance_km
+
+      [is_in_flyzone, distance]
+    end
+    @top_destinations = sorted_destinations.first(5)
+
+    #NOTE: %w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3) {|group| p group}
+    # https://www.rubydoc.info/docs/rails/Array
   end
 end
