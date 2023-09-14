@@ -1,0 +1,21 @@
+.collapse{
+  display: none;
+}
+.collapse-marker{
+  cursor: pointer;
+  text-decoration: none;
+}
+.show{
+  display: block;
+}
+
+/*
+<-- how to use it !->
+<div data-controller="collapse">
+  <span class="collapse-marker" data-action="click->collapse#toggle">▶</span>
+  <span>title...</span>
+  <div id="unique_id" class="collapse" data-collapse-target="content">
+    content...
+  </div>
+</div>
+*/

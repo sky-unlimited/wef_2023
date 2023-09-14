@@ -33,6 +33,11 @@ en:
     abbr_month_names:
       [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    today: Today
+    tomorrow: Tomorrow
+    days:
+      one: "in one day"
+      other: "in %{count} days"
   shared:
     sign_in:
     sign_out:
