@@ -18,7 +18,7 @@ class FlightTrack
 
     @line = create_line
     @line_geojson = RGeo::GeoJSON.encode(@line)
-    @bearing = calculate_bearing(start_point, end_point)
+    @bearing = calculate_bearing(start_point, end_point).round(0)
     @is_in_flyzone = is_in_flyzone?(flyzone)
     @warnings = []
 
@@ -32,15 +32,11 @@ class FlightTrack
     factory.line_string([start_point, end_point])
   end
 
-  def calculate_bearing(start_point, end_point)
-    # Extract start and end coordinates
-    start_coords =  @line.coordinates[0]
-    end_coords =    @line.coordinates[-1]
-
-    lat1 = radians(start_coords[1])
-    lon1 = radians(start_coords[0])
-    lat2 = radians(end_coords[1])
-    lon2 = radians(end_coords[0])
+  def calculate_bearing(start_coords, end_coords)
+    lat1 = radians(start_coords.latitude)
+    lon1 = radians(start_coords.longitude)
+    lat2 = radians(end_coords.latitude)
+    lon2 = radians(end_coords.longitude)
 
     delta_lon = lon2 - lon1
 
@@ -48,9 +44,9 @@ class FlightTrack
     x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(delta_lon)
 
     initial_bearing = Math.atan2(y, x)
-    initial_bearing = (initial_bearing + 360) % 360 # Normalize to [0, 360] degrees
+    initial_bearing = (initial_bearing * 180.0 / Math::PI + 360) % 360 # Normalize to [0, 360] degrees
 
-    initial_bearing.round(0)
+    return initial_bearing
   end
 
   def radians(degrees)
