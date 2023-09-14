@@ -86,3 +86,8 @@ en:
       title: Top Destinations
       summary: Summary
       flyzone_map:  Flyzone Map
+      flight_track: Flight Track
+      distance: Distance
+      flight_time: Flight Time
+      bearing: "True Bearing"
+      warnings: Warnings

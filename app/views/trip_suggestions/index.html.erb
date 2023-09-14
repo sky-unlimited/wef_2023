@@ -32,21 +32,21 @@
         </div>
         <div class="top_destinations__flight_track" data-controller="collapse">
           <span class="collapse-marker" data-action="click->collapse#toggle">▼</span>
-          <span><b>Flight track</b></span>
+          <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
           <div  id="flight_track_<%= index + 1 %>" 
                 class="collapse show bg-light px-5 border-radius" 
                 data-collapse-target="content">
             <ul>
-              <li><%= "Distance: #{destination[:flight_track].distance_km}km (#{destination[:flight_track].distance_nm}nm)" %></li>
-              <li><%= "Flight time: #{destination[:flight_track].average_flight_time_min}min" %></li>
-              <li><%= "Bearing: #{destination[:flight_track].bearing}°" %></li>
+              <li><%= "#{t('trip_suggestions.index.distance')}: #{destination[:flight_track].distance_km}km (#{destination[:flight_track].distance_nm}nm)" %></li>
+              <li><%= "#{t('trip_suggestions.index.flight_time')}: #{destination[:flight_track].average_flight_time_min}min" %></li>
+              <li><%= "#{t('trip_suggestions.index.bearing')}: #{destination[:flight_track].bearing}°" %></li>
           </div>
         </div>
         <div class="top_destinations__poi" data-controller="collapse">
           <% poi_count_group = poi_count_groups(destination[:airport], @trip_request) %>
           <% total_poi_sum = poi_count_group.values.sum %>
           <span class="collapse-marker" data-action="click->collapse#toggle">▶</span>
-          <span><b><%= "Point of interests near Aiport (#{total_poi_sum})" %></b></span>
+          <span><b><%= "#{t('trip_request.poi')} (#{total_poi_sum})" %></b></span>
           <div id="group_pois_<%= index + 1 %>" class="collapse bg-light px-5 border-radius" data-collapse-target="content">
             <ul>
               <% poi_count_group.each do |key,value| %>
@@ -57,7 +57,7 @@
         </div>
         <div class="top_destinations__warnings" data-controller="collapse">
           <span class="collapse-marker" data-action="click->collapse#toggle">▶</span>
-          <span><b><%= "Warnings (#{destination[:flight_track].warnings.count})" %></b></span>
+          <span><b><%= "#{t('trip_suggestions.index.warnings')} (#{destination[:flight_track].warnings.count})" %></b></span>
           <div id="warning_<%= index + 1 %>" class="collapse bg-warning px-5 border-radius" data-collapse-target="content">
             <ul>
               <% destination[:flight_track].warnings.each do |warning| %>

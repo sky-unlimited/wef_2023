@@ -87,3 +87,8 @@ fr:
       title: Top Destinations
       summary: Sommaire
       flyzone_map:  Carte Météo Favorable
+      flight_track: Trajectoire de vol
+      distance: Distance
+      flight_time: Durée de vol
+      bearing: "Route vrai"
+      warnings: Alertes
