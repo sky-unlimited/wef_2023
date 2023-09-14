@@ -25,9 +25,16 @@
     <div>
       <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5 border-radius"> 
         <div class="top_desinations__airport">
-          <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{destination[:airport].city} (#{destination[:airport].country.name})" %></h3>
-          <p><%= "#{destination[:airport].name} (#{destination[:airport].icao})" %>
-          <span class="tag-outline-dark ml-5"><%= destination[:airport].airport_type %></span>
+          <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{destination[:airport].city} (#{destination[:airport].country.name})" %>
+          <%= image_tag('alert-triangle.svg') if destination[:flight_track].warnings.count > 0 %>
+          </h3>
+          <p><b><%= "✈️  #{destination[:airport].name} (#{destination[:airport].icao})" %></b>
+            <span class="tag-outline-dark ml-5"><%= destination[:airport].airport_type %></span>
+            <% unless destination[:airport].url.nil? %>
+            <span class="tag-outline-dark ml-5">
+              <a class="color-dark" target="_blank" href="<%= destination[:airport].url %>">www</a>
+            </span>
+          <% end %>
           </p>
         </div>
         <div class="top_destinations__flight_track" data-controller="collapse">
