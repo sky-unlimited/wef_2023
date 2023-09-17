@@ -19,29 +19,62 @@ class TripSuggestionsController < ApplicationController
 
     # We load departure airport information for map display
     @departure_airport = []
-    @departure_airport.push( { :name => @trip_request.airport.name,
-                               :icao => @trip_request.airport.icao,
-                               :airport_type => @trip_request.airport.airport_type,
-                               :geojson => RGeo::GeoJSON.encode(@trip_request.airport.lonlat)
+    @departure_airport.push( {  :name => @trip_request.airport.name,
+                                :icao => @trip_request.airport.icao,
+                                :airport_type => @trip_request.airport.airport_type,
+                                :geojson => RGeo::GeoJSON.encode(@trip_request.airport.lonlat),
+                                :icon_url => helpers.image_url("departure_airport.png")
     })
 
     # We load airports with matching criterias for map display purpose
     @airports_matching_criterias_map = []
     destinations.airports_matching_criterias.each do |airport|
-      @airports_matching_criterias_map.push({ :name => airport.name,
-                                    :icao => airport.icao,
-                                    :airport_type => airport.airport_type,
-                                    :geojson => RGeo::GeoJSON.encode(airport.lonlat)
+      case airport.airport_type
+      when "small_airport"
+        icon_url = "small_airport.png"
+      when "medium_airport"
+        icon_url = "medium_airport.png"
+      when "large_airport"
+        icon_url = "large_airport.png"
+      end
+      @airports_matching_criterias_map.push({ :id => airport.id,
+                                              :name => airport.name,
+                                              :icao => airport.icao,
+                                              :airport_type => airport.airport_type,
+                                              :geojson => RGeo::GeoJSON.encode(airport.lonlat),
+                                              :icon_url => helpers.image_url(icon_url)
     })
     end
 
     # We load flyzone airports for map display purpose
     @airports_flyzone_map = []
     destinations.airports_flyzone.each do |airport|
-      @airports_flyzone_map.push({ :name => airport.name,
+      case airport.airport_type
+      when "small_airport"
+        icon_url = "small_airport.png"
+      when "medium_airport"
+        icon_url = "medium_airport.png"
+      when "large_airport"
+        icon_url = "large_airport.png"
+      end
+      @airports_flyzone_map.push({  :id => airport.id,
+                                    :name => airport.name,
                                     :icao => airport.icao,
                                     :airport_type => airport.airport_type,
-                                    :geojson => RGeo::GeoJSON.encode(airport.lonlat)
+                                    :geojson => RGeo::GeoJSON.encode(airport.lonlat),
+                                    :icon_url => helpers.image_url(icon_url)
+    })
+    end
+
+    # We load the destination airports in separate array to be displayed
+    @airports_destination_map = []
+    destinations.top_destinations.each_with_index do |destination, index|
+      @airports_destination_map.push({  :id => destination[:airport].id,
+                                    :name => destination[:airport].name,
+                                    :icao => destination[:airport].icao,
+                                    :airport_type => destination[:airport].airport_type,
+                                    :geojson => RGeo::GeoJSON.encode(destination[:airport].lonlat),
+                                    :icon_url => helpers.image_url("destination_#{index+1}.png")
     })
     end
 
