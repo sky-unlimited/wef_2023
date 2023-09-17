@@ -37,11 +37,12 @@ class TripSuggestionsController < ApplicationController
       when "large_airport"
         icon_url = "large_airport.png"
       end
-      @airports_matching_criterias_map.push({ :name => airport.name,
-                                    :icao => airport.icao,
-                                    :airport_type => airport.airport_type,
-                                    :geojson => RGeo::GeoJSON.encode(airport.lonlat),
-                                    :icon_url => helpers.image_url(icon_url)
+      @airports_matching_criterias_map.push({ :id => airport.id,
+                                              :name => airport.name,
+                                              :icao => airport.icao,
+                                              :airport_type => airport.airport_type,
+                                              :geojson => RGeo::GeoJSON.encode(airport.lonlat),
+                                              :icon_url => helpers.image_url(icon_url)
     })
     end
 
@@ -56,11 +57,24 @@ class TripSuggestionsController < ApplicationController
       when "large_airport"
         icon_url = "large_airport.png"
       end
-      @airports_flyzone_map.push({ :name => airport.name,
+      @airports_flyzone_map.push({  :id => airport.id,
+                                    :name => airport.name,
                                     :icao => airport.icao,
                                     :airport_type => airport.airport_type,
                                     :geojson => RGeo::GeoJSON.encode(airport.lonlat),
                                     :icon_url => helpers.image_url(icon_url)
+    })
+    end
+
+    # We load the destination airports in separate array to be displayed
+    @airports_destination_map = []
+    destinations.top_destinations.each_with_index do |destination, index|
+      @airports_destination_map.push({  :id => destination[:airport].id,
+                                    :name => destination[:airport].name,
+                                    :icao => destination[:airport].icao,
+                                    :airport_type => destination[:airport].airport_type,
+                                    :geojson => RGeo::GeoJSON.encode(destination[:airport].lonlat),
+                                    :icon_url => helpers.image_url("destination_#{index+1}.png")
     })
     end
 

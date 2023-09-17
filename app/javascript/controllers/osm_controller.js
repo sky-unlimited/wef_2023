@@ -13,6 +13,7 @@ export default class extends Controller {
     departureAirport: Object,
     airportsMatchingCriteriasMap: Array,
     airportsFlyzoneMap: Array,
+    airportsDestinationMap: Array,
     flyzoneCommonPolygon: Object,
     flyzoneOutbound: Object,
     flyzoneInbound: Object,
@@ -23,6 +24,7 @@ export default class extends Controller {
 
   connect() {
     console.log("Openstreetmap connected!");
+    console.log(this.airportsDestinationMapValue);
     this.displayMap();
   }
 
@@ -152,8 +154,18 @@ export default class extends Controller {
       // We add a popup to each marker
       marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br><em>" + size_text + "</em>");
 
-      // Creating a Layer Group of matching criterias airports
-      airportsFlyzoneGroup.addLayer(marker);
+      // Creating a Layer Group of matching criterias airports if not in top destinations (avoid overlays)
+      var isTopDestinationAirport = false;
+      this.airportsDestinationMapValue.forEach((top_airport) => {
+        if(top_airport.id == airport.id) {
+          isTopDestinationAirport = true;
+          return;
+        }
+      });
+      // We add the marker only if not part of top destination airport
+      if(!isTopDestinationAirport) {
+        airportsFlyzoneGroup.addLayer(marker);
+      }
     });
 
     /*
@@ -195,17 +207,41 @@ export default class extends Controller {
       // set the opacity of the marker
       marker.setOpacity(0.2);
 
-      // We add the marker to a table in order used to fit the view on the markers
-      //markersTable.push(marker);
-
       // We add a popup to each marker
-      //marker.bindPopup(airport.info_window).openPopup();
       marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br><em>" + size_text + "</em>");
 
       // Creating a Layer Group of matching criterias airports
       airportsMatchingCriteriasGroup.addLayer(marker);
     });
 
+    /*
+      ------------------------------------------------------ 
+      We display the top destinations airports
+      ------------------------------------------------------ 
+    */
+    var airportsDestinationGroup = L.layerGroup();
+
+    this.airportsDestinationMapValue.forEach((airport) => {
+      //TODO: We should not reload the airport if already present in airportsFlyzoneGroup
+      // We create a marker for each airport
+      var iconDestination = L.icon({
+      iconUrl: airport.icon_url,
+      iconSize:     [20, 20], // size of the icon
+      iconAnchor:   [10, 10],   // point of the icon which will correspond to marker's location
+      popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+      });
+
+      var marker = L.marker([airport.geojson.coordinates[1], airport.geojson.coordinates[0]], {icon: iconDestination});
+
+      // set the opacity of the marker
+      marker.setOpacity(1);
+
+      // We add a popup to each marker
+      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br>");
+
+      // Creating a Layer Group of matching criterias airports
+      airportsDestinationGroup.addLayer(marker);
+    });
     /*
       ------------------------------------------------------ 
       We display the flyzone departure
@@ -217,7 +253,7 @@ export default class extends Controller {
       fillColor: "green",
       weight: 0,
     };
-    var flyZoneOutbound = L.geoJSON(this.flyzoneOutboundValue, { style: myStyle }).addTo(this.map)
+    var flyZoneOutbound = L.geoJSON(this.flyzoneOutboundValue, { style: myStyle })
 
     /*
       ------------------------------------------------------ 
@@ -229,7 +265,7 @@ export default class extends Controller {
       fillColor: "green",
       weight: 0,
     };
-    var flyZoneInbound = L.geoJSON(this.flyzoneInboundValue, { style: myStyle }).addTo(this.map)
+    var flyZoneInbound = L.geoJSON(this.flyzoneInboundValue, { style: myStyle })
 
     /*
       ------------------------------------------------------ 
@@ -241,7 +277,7 @@ export default class extends Controller {
       fillColor: "green",
       weight: 0,
     };
-    var flyzoneCommonPolygon = L.geoJSON(this.flyzoneCommonPolygonValue, { style: myStyle }).addTo(this.map)
+    var flyzoneCommonPolygon = L.geoJSON(this.flyzoneCommonPolygonValue, { style: myStyle })
 
     /*
       ------------------------------------------------------ 
@@ -251,6 +287,8 @@ export default class extends Controller {
     // Adding the LayerGroup to the map
     airportsMatchingCriteriasGroup.addTo(this.map);
     airportsFlyzoneGroup.addTo(this.map);
+    airportsDestinationGroup.addTo(this.map);
+    flyzoneCommonPolygon.addTo(this.map);
 
     // Display a scale on the map
     L.control.scale({ imperial: false }).addTo(this.map);
@@ -261,13 +299,14 @@ export default class extends Controller {
       "OpenStreetMap": OpenStreetMap_Mapnik
     };
     var Overlays = {
-      "Fly Zone - Cumulative": flyzoneCommonPolygon,
+      "Fly Zone": flyzoneCommonPolygon,
       "Fly Zone - outbound": flyZoneOutbound,
       "Fly Zone - inbound": flyZoneInbound,
       "Airports matching criterias": airportsMatchingCriteriasGroup,
-      "Airports in flyzone": airportsFlyzoneGroup
+      "Airports in flyzone": airportsFlyzoneGroup,
+      "Destinations": airportsDestinationGroup
     };
-    L.control.layers(baseLayers, Overlays).addTo(this.map);
+    var layerControl = L.control.layers(baseLayers, Overlays).addTo(this.map);
 
   }
   disconnect(){
