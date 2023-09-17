@@ -74,7 +74,7 @@ export default class extends Controller {
         var myStyle = {
         opacity: 0.7,
         weight: 3,
-        color: "#198754"
+        color: "#FF00FF"
         }
       }
       else
@@ -82,7 +82,8 @@ export default class extends Controller {
         var myStyle = {
         opacity: 0.7,
         weight: 3,
-        color: "#dc3545"
+        color: "#FF00FF", // green: "#dc3545"
+        dashArray: "5,10",
         }
       };
     L.geoJSON(track.line_geojson, { style: myStyle }).addTo(this.map)});
@@ -108,38 +109,7 @@ export default class extends Controller {
     // Pop up information
     marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name);
 
-    // We display the flyzone departure
-    var myStyle = {
-      opacity: 0.3,
-      fillColor: "green",
-      weight: 0,
-    };
-    var flyZoneOutbound = L.geoJSON(this.flyzoneOutboundValue, { style: myStyle }).addTo(this.map)
-
-    /*
-      ------------------------------------------------------ 
-      We display the flyzone return
-      ------------------------------------------------------ 
-    */
-    var myStyle = {
-      opacity: 0.3,
-      fillColor: "green",
-      weight: 0,
-    };
-    var flyZoneInbound = L.geoJSON(this.flyzoneInboundValue, { style: myStyle }).addTo(this.map)
-
-    /*
-      ------------------------------------------------------ 
-      We display the destination return
-      ------------------------------------------------------ 
-    */
-    var myStyle = {
-      opacity: 0.3,
-      fillColor: "green",
-      weight: 0,
-    };
-    var flyzoneCommonPolygon = L.geoJSON(this.flyzoneCommonPolygonValue, { style: myStyle }).addTo(this.map)
-
+    
     /*
       ------------------------------------------------------ 
       We display the airports inside the flyzone
@@ -235,6 +205,43 @@ export default class extends Controller {
       // Creating a Layer Group of matching criterias airports
       airportsMatchingCriteriasGroup.addLayer(marker);
     });
+
+    /*
+      ------------------------------------------------------ 
+      We display the flyzone departure
+      ------------------------------------------------------ 
+    */
+    // We display the flyzone departure
+    var myStyle = {
+      opacity: 0.3,
+      fillColor: "green",
+      weight: 0,
+    };
+    var flyZoneOutbound = L.geoJSON(this.flyzoneOutboundValue, { style: myStyle }).addTo(this.map)
+
+    /*
+      ------------------------------------------------------ 
+      We display the flyzone return
+      ------------------------------------------------------ 
+    */
+    var myStyle = {
+      opacity: 0.3,
+      fillColor: "green",
+      weight: 0,
+    };
+    var flyZoneInbound = L.geoJSON(this.flyzoneInboundValue, { style: myStyle }).addTo(this.map)
+
+    /*
+      ------------------------------------------------------ 
+      We display the common flyzone -> destination flyzone
+      ------------------------------------------------------ 
+    */
+    var myStyle = {
+      opacity: 0.3,
+      fillColor: "green",
+      weight: 0,
+    };
+    var flyzoneCommonPolygon = L.geoJSON(this.flyzoneCommonPolygonValue, { style: myStyle }).addTo(this.map)
 
     /*
       ------------------------------------------------------ 
