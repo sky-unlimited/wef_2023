@@ -95,6 +95,7 @@ export default class extends Controller {
       We display the airport homebase marker
       ------------------------------------------------------ 
     */
+    var markersTable = [];  // Used to zoom map on those destination markers
     const airport = this.departureAirportValue
     var iconDeparture = L.icon({
     iconUrl: airport.icon_url,
@@ -110,6 +111,9 @@ export default class extends Controller {
 
     // Pop up information
     marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name);
+
+    // We add homebase marker to boundaries
+    markersTable.push(marker);
 
     
     /*
@@ -241,6 +245,7 @@ export default class extends Controller {
 
       // Creating a Layer Group of matching criterias airports
       airportsDestinationGroup.addLayer(marker);
+      markersTable.push(marker);
     });
     /*
       ------------------------------------------------------ 
@@ -307,6 +312,12 @@ export default class extends Controller {
       "Destinations": airportsDestinationGroup
     };
     var layerControl = L.control.layers(baseLayers, Overlays).addTo(this.map);
+
+    // We create a group representating the featureBounds object
+    var boundaryGroup = new L.featureGroup(markersTable);
+
+    // We adapt the zoom on the group
+    this.map.fitBounds(boundaryGroup.getBounds().pad(0.5));
 
   }
   disconnect(){
