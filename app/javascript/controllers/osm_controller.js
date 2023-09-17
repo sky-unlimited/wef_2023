@@ -95,9 +95,9 @@ export default class extends Controller {
     const airport = this.departureAirportValue
     var iconDeparture = L.icon({
     iconUrl: airport.icon_url,
-    iconSize:     [14, 14], // size of the icon
-    iconAnchor:   [7, 7],   // point of the icon which will correspond to marker's location
-    popupAnchor:  [0, -14] // point from which the popup should open relative to the iconAnchor
+    iconSize:     [20, 20], // size of the icon
+    iconAnchor:   [10, 10],   // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
     });
 
     var marker = L.marker([airport.geojson.coordinates[1], airport.geojson.coordinates[0]], {icon: iconDeparture}).addTo(this.map);
@@ -148,12 +148,30 @@ export default class extends Controller {
     var airportsFlyzoneGroup = L.layerGroup();
 
     this.airportsFlyzoneMapValue.forEach((airport) => {
+      // We define the size of icon // airport size
+      var size = 14
+      var size_text = ""
+      switch(airport.airport_type) {
+        case 'small_airport':
+          size = 10;
+          size_text = "small"
+          break;
+        case 'medium_airport':
+          size = 12;
+          size_text = "medium"
+          break;
+        case 'large_airport':
+          size = 14;
+          size_text = "large"
+          break;
+      }
+
       // We create a marker for each airport
       var iconDestination = L.icon({
       iconUrl: airport.icon_url,
-      iconSize:     [14, 14], // size of the icon
-      iconAnchor:   [7, 7],   // point of the icon which will correspond to marker's location
-      popupAnchor:  [0, -14] // point from which the popup should open relative to the iconAnchor
+      iconSize:     [size, size], // size of the icon
+      iconAnchor:   [size/2, size/2],   // point of the icon which will correspond to marker's location
+      popupAnchor:  [0, -size] // point from which the popup should open relative to the iconAnchor
       });
 
       var marker = L.marker([airport.geojson.coordinates[1], airport.geojson.coordinates[0]], {icon: iconDestination});
@@ -162,7 +180,7 @@ export default class extends Controller {
       marker.setOpacity(1);
 
       // We add a popup to each marker
-      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name);
+      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br><em>" + size_text + "</em>");
 
       // Creating a Layer Group of matching criterias airports
       airportsFlyzoneGroup.addLayer(marker);
@@ -176,6 +194,23 @@ export default class extends Controller {
     var airportsMatchingCriteriasGroup = L.layerGroup();
 
     this.airportsMatchingCriteriasMapValue.forEach((airport) => {
+      // We define the size of icon // airport size
+      var size = 14
+      var size_text = ""
+      switch(airport.airport_type) {
+        case 'small_airport':
+          size = 10;
+          size_text = "small"
+          break;
+        case 'medium_airport':
+          size = 12;
+          size_text = "medium"
+          break;
+        case 'large_airport':
+          size = 14;
+          size_text = "large"
+          break;
+      }
       //TODO: We should not reload the airport if already present in airportsFlyzoneGroup
       // We create a marker for each airport
       var iconDestination = L.icon({
@@ -195,7 +230,7 @@ export default class extends Controller {
 
       // We add a popup to each marker
       //marker.bindPopup(airport.info_window).openPopup();
-      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name);
+      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br><em>" + size_text + "</em>");
 
       // Creating a Layer Group of matching criterias airports
       airportsMatchingCriteriasGroup.addLayer(marker);
