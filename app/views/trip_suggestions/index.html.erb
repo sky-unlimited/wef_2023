@@ -25,7 +25,7 @@
     <div>
       <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5 border-radius"> 
         <div class="top_desinations__airport">
-          <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{destination[:airport].city} (#{destination[:airport].country.name})" %>
+          <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{index+1}. #{destination[:airport].city} (#{destination[:airport].country.name})" %>
           <%= image_tag('alert-triangle.svg') if destination[:flight_track].warnings.count > 0 %>
           </h3>
           <p><b><%= "✈️  #{destination[:airport].name} (#{destination[:airport].icao})" %></b>
@@ -90,6 +90,7 @@
         data-osm-target="map" \
         data-osm-airports-matching-criterias-map-value="<%= @airports_matching_criterias_map.to_json %>" \
         data-osm-airports-flyzone-map-value="<%= @airports_flyzone_map.to_json %>" \
+        data-osm-airports-destination-map-value="<%= @airports_destination_map.to_json %>" \
         data-osm-departure-airport-value="<%= @departure_airport.first.to_json %>" \
         data-osm-flyzone-common-polygon-value="<%= @flyzone_common_polygons %>" \
         data-osm-flyzone-outbound-value="<%= @flyzone_outbound %>" \
