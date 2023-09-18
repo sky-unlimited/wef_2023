@@ -13,6 +13,7 @@ class TripRequestsController < ApplicationController
         @trip_request.start_date = last_request.start_date
         @trip_request.end_date = last_request.end_date
       end
+      @trip_request.trip_mode             = last_request.trip_mode
       @trip_request.airport_id            = last_request.airport_id
       @trip_request.international_flight  = last_request.international_flight
       @trip_request.small_airport         = last_request.small_airport

@@ -30,12 +30,17 @@ en:
           custom: Custom Destination
           events: Event based Destinations
           suggested: Suggested Destinations
-        proxy_food: 🍔 Food
-        proxy_fuel: ⛽ Car Gas Stations
-        proxy_car_rental: 🚙 Car Rentals
-        proxy_bike_rental: 🚲 Bike Rentals
-        proxy_camp_site: 🏕️ Camp Sites
-        proxy_hotel: 🛏️ Accommodations
+        proxy_food: Food
+        proxy_beverage: Beverage
+        proxy_fuel_car: Car Gas Stations
+        proxy_fuel_plane: Refuelling Station
+        proxy_bike_rental: Bike Rentals
+        proxy_car_rental: Car Rental
+        proxy_camp_site: Camp Site
+        proxy_accommodation: Accommodation
+        proxy_shop: Shops
+        proxy_bus_station: Bus Station
+        proxy_train_station: Train Station
     errors:
       messages:
         in: must be in %{count}
