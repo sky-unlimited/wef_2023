@@ -322,8 +322,8 @@ export default class extends Controller {
     };
     var Overlays = {
       "Fly Zone": flyzoneCommonPolygon,
-      "Fly Zone - outbound": flyZoneOutbound,
-      "Fly Zone - inbound": flyZoneInbound,
+      [`Fly Zone outbound - ${this.dateToString(this.tripRequestValue.start_date)}`]: flyZoneOutbound,
+      [`Fly Zone inbound - ${this.dateToString(this.tripRequestValue.end_date)}`]: flyZoneInbound,
       "Airports matching criterias": airportsMatchingCriteriasGroup,
       "Airports in flyzone": airportsFlyzoneGroup,
       "Destinations": airportsDestinationGroup,
@@ -341,4 +341,19 @@ export default class extends Controller {
   disconnect(){
     this.map.remove()
   }
+
+  dateToString(my_date) {
+    const inputDateString = new Date(my_date);
+
+    // Extract day, month, and year components
+    const day = inputDateString.getDate().toString().padStart(2, '0');
+    const month = (inputDateString.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based, so we add 1.
+    const year = inputDateString.getFullYear();
+
+    // Format the components as "dd-MM-YYYY"
+    //const formattedDate = `${day}-${month}-${year}`; 
+    const formattedDate = `${day}-${month}`; 
+
+    return formattedDate;
+    }
 }
