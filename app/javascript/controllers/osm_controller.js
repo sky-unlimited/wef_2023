@@ -17,14 +17,15 @@ export default class extends Controller {
     flyzoneCommonPolygon: Object,
     flyzoneOutbound: Object,
     flyzoneInbound: Object,
-    flightTracks: Array
+    flightTracks: Array,
+    tripRequest: Object,
+    pilotPrefs: Object
   }
 
   static targets = [ 'map' ]
 
   connect() {
     console.log("Openstreetmap connected!");
-    console.log(this.airportsDestinationMapValue);
     this.displayMap();
   }
 
@@ -96,21 +97,21 @@ export default class extends Controller {
       ------------------------------------------------------ 
     */
     var markersTable = [];  // Used to zoom map on those destination markers
-    const airport = this.departureAirportValue
+    const airport_departure = this.departureAirportValue
     var iconDeparture = L.icon({
-    iconUrl: airport.icon_url,
+    iconUrl: airport_departure.icon_url,
     iconSize:     [20, 20], // size of the icon
     iconAnchor:   [10, 10],   // point of the icon which will correspond to marker's location
     popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
     });
 
-    var marker = L.marker([airport.geojson.coordinates[1], airport.geojson.coordinates[0]], {icon: iconDeparture}).addTo(this.map);
+    var marker = L.marker([airport_departure.geojson.coordinates[1], airport_departure.geojson.coordinates[0]], {icon: iconDeparture}).addTo(this.map);
 
     // set the opacity of the marker
     marker.setOpacity(1);
 
     // Pop up information
-    marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name);
+    marker.bindPopup("<b>" + airport_departure.icao + "</b></br>" + airport_departure.name);
 
     // We add homebase marker to boundaries
     markersTable.push(marker);
@@ -286,6 +287,22 @@ export default class extends Controller {
 
     /*
       ------------------------------------------------------ 
+      We display the distance/time circles 1 hour step
+      ------------------------------------------------------ 
+    */
+    var distanceCirclesGroup = L.layerGroup();
+    for (var i = 0; i < 5; i++) {
+      var circle = L.circle([airport_departure.geojson.coordinates[1], airport_departure.geojson.coordinates[0]], {
+          color: "#5EB1BF",
+          weight: 2,
+          fillOpacity: 0.1,
+          radius: ((i + 1) * ((this.pilotPrefsValue.average_true_airspeed) * 1.852) * 1000)
+        });
+      distanceCirclesGroup.addLayer(circle);
+    }
+
+    /*
+      ------------------------------------------------------ 
       LayerGroup, scale, controlsl layers, ...
       ------------------------------------------------------ 
     */
@@ -309,7 +326,8 @@ export default class extends Controller {
       "Fly Zone - inbound": flyZoneInbound,
       "Airports matching criterias": airportsMatchingCriteriasGroup,
       "Airports in flyzone": airportsFlyzoneGroup,
-      "Destinations": airportsDestinationGroup
+      "Destinations": airportsDestinationGroup,
+      "Time Radius Zones": distanceCirclesGroup
     };
     var layerControl = L.control.layers(baseLayers, Overlays).addTo(this.map);
 

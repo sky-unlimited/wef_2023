@@ -6,6 +6,9 @@ class TripSuggestionsController < ApplicationController
     # We load the current user last trip request
     @trip_request = TripRequest.where(user_id: current_user.id).order(id: :desc).first
 
+    # We load the pilot preferences
+    @pilot_prefs = PilotPref.find(@trip_request.user.id)
+
     # Instantiating Destinations class
     destinations = Destinations.new(@trip_request)
 
