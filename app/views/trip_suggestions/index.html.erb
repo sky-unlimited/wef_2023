@@ -57,7 +57,8 @@
           <div id="group_pois_<%= index + 1 %>" class="collapse bg-light px-5 border-radius" data-collapse-target="content">
             <ul>
               <% poi_count_group.each do |key,value| %>
-                <li><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]} (#{value})" %></li>
+                <li><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %>
+                <span class="tag-primary"><%= value %></span></li>
               <% end %>
             </ul>
           </div>
