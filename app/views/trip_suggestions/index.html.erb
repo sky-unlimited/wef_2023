@@ -37,8 +37,8 @@
           <% end %>
           </p>
         </div>
-        <div class="top_destinations__flight_track" data-controller="collapse">
-          <span class="collapse-marker" data-action="click->collapse#toggle">▼</span>
+        <div class="top_destinations__flight_track mt-5" data-controller="collapse">
+          <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
           <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
           <div  id="flight_track_<%= index + 1 %>" 
                 class="collapse show bg-light px-5 border-radius" 
@@ -49,22 +49,22 @@
               <li><%= "#{t('trip_suggestions.index.bearing')}: #{destination[:flight_track].bearing}°" %></li>
           </div>
         </div>
-        <div class="top_destinations__poi" data-controller="collapse">
+        <div class="top_destinations__poi mt-5" data-controller="collapse">
           <% poi_count_group = PoiCatalogue.count_groups_per_airport(destination[:airport]) %>
           <% total_poi_sum = poi_count_group.values.sum %>
-          <span class="collapse-marker" data-action="click->collapse#toggle">▶</span>
+          <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
           <span><b><%= "#{t('trip_request.poi')} (#{total_poi_sum})" %></b></span>
           <div id="group_pois_<%= index + 1 %>" class="collapse bg-light px-5 border-radius" data-collapse-target="content">
             <ul>
               <% poi_count_group.each do |key,value| %>
-                <li><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %>
+                <li class="p-5"><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %>
                 <span class="tag-primary"><%= value %></span></li>
               <% end %>
             </ul>
           </div>
         </div>
-        <div class="top_destinations__warnings" data-controller="collapse">
-          <span class="collapse-marker" data-action="click->collapse#toggle">▶</span>
+        <div class="top_destinations__warnings mt-5" data-controller="collapse">
+          <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
           <span><b><%= "#{t('trip_suggestions.index.warnings')} (#{destination[:flight_track].warnings.count})" %></b></span>
           <div id="warning_<%= index + 1 %>" class="collapse bg-warning px-5 border-radius" data-collapse-target="content">
             <ul>
