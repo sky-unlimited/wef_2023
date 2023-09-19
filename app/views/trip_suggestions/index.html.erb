@@ -50,14 +50,14 @@
           </div>
         </div>
         <div class="top_destinations__poi" data-controller="collapse">
-          <% poi_count_group = poi_count_groups(destination[:airport], @trip_request) %>
+          <% poi_count_group = PoiCatalogue.count_groups_per_airport(destination[:airport]) %>
           <% total_poi_sum = poi_count_group.values.sum %>
           <span class="collapse-marker" data-action="click->collapse#toggle">▶</span>
           <span><b><%= "#{t('trip_request.poi')} (#{total_poi_sum})" %></b></span>
           <div id="group_pois_<%= index + 1 %>" class="collapse bg-light px-5 border-radius" data-collapse-target="content">
             <ul>
               <% poi_count_group.each do |key,value| %>
-                <li><%= "#{get_group_icon(key)} #{key} (#{value})" %></li>
+                <li><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]} (#{value})" %></li>
               <% end %>
             </ul>
           </div>
