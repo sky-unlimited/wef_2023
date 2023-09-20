@@ -124,4 +124,51 @@ class PoiCatalogue
     airport_group_inventory.select { |key,value| value > 0 } #to retrieve not empty poi groups per airport
   end
 
+  def self.poi_per_group_and_airport(airport)
+    list_pois = {}
+    @@inventory.each_key do |group|
+      osm_points = OsmPoint.where(airport_id: airport)
+        .and(OsmPoint.where(amenity:      @@inventory[group][:amenities]))
+        .and(OsmPoint.where(category:     @@inventory[group][:categories]))
+      osm_lines = OsmLine.where(airport_id: airport)
+        .and(OsmLine.where(amenity:       @@inventory[group][:amenities]))
+        .and(OsmLine.where(category:      @@inventory[group][:categories]))
+      osm_polygones = OsmPolygone.where(airport_id: airport)
+        .and(OsmPolygone.where(amenity:   @@inventory[group][:amenities]))
+        .and(OsmPolygone.where(category:  @@inventory[group][:categories]))
+      
+      # Variables
+      points_array = []
+      lines_array = []
+      polygones_array = []
+    
+      # We iterate on each record to store what we need
+      osm_points.each do |point|
+        points_hash = {:name      => point.osm_name,
+                       #:tags      => point.tags,
+                       #:geojson   => point.way,
+                       :distance  => point.distance.to_i}
+        points_array.push(points_hash)
+      end
+      osm_lines.each do |line|
+        lines_hash = {:name       => line.osm_name,
+                       #:tags      => line.tags,
+                       #:geojson   => line.way,
+                      :distance  => line.distance.to_i}
+        lines_array.push(lines_hash)
+      end
+      osm_polygones.each do |polygone|
+        polygones_hash = {:name     => polygone.osm_name,
+                          #:tags     => polygone.tags,
+                          #:geojson  => polygone.way,
+                          :distance => polygone.distance.to_i}
+        polygones_array.push(polygones_hash)
+      end
+    pois_array = []
+    pois_array = (points_array + lines_array + polygones_array)
+    list_pois[group] = pois_array
+    end
+    return list_pois
+  end
+
 end
