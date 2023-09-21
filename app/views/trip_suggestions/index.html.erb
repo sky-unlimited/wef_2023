@@ -58,7 +58,7 @@
             <ul>
               <% poi_count_group.each do |key,value| %>
                 <li class="p-5"><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %>
-                <span class="tag-primary"><%= value %></span></li>
+                <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></li>
               <% end %>
             </ul>
           </div>
