@@ -144,24 +144,24 @@ class PoiCatalogue
     
       # We iterate on each record to store what we need
       osm_points.each do |point|
-        points_hash = {:name      => point.osm_name,
-                       :tags      => point.parsed_tags,
-                       #:geojson   => point.way,
-                       :distance  => point.distance.to_i}
+        points_hash = {     :name       => point.osm_name,
+                            :tags       => point.parsed_tags,
+                            :geojson    => RGeo::GeoJSON.encode(point.way).to_json,
+                            :distance   => point.distance.to_i}
         points_array.push(points_hash)
       end
       osm_lines.each do |line|
-        lines_hash = {:name       => line.osm_name,
-                       :tags      => line.parsed_tags,
-                       #:geojson   => line.way,
-                      :distance  => line.distance.to_i}
+        lines_hash = {      :name       => line.osm_name,
+                            :tags       => line.parsed_tags,
+                            :geojson    => RGeo::GeoJSON.encode(line.way).to_json,
+                            :distance   => line.distance.to_i}
         lines_array.push(lines_hash)
       end
       osm_polygones.each do |polygone|
-        polygones_hash = {:name     => polygone.osm_name,
-                          :tags     => polygone.parsed_tags,
-                          #:geojson  => polygone.way,
-                          :distance => polygone.distance.to_i}
+        polygones_hash = {  :name       => polygone.osm_name,
+                            :tags       => polygone.parsed_tags,
+                            :geojson    => RGeo::GeoJSON.encode(polygone.way).to_json,
+                            :distance   => polygone.distance.to_i}
         polygones_array.push(polygones_hash)
       end
     pois_array = []
