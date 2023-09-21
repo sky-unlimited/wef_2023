@@ -32,7 +32,7 @@
             <span class="tag-outline-dark ml-5"><%= destination[:airport].airport_type %></span>
             <% unless destination[:airport].url.nil? %>
             <span class="tag-outline-dark ml-5">
-              <a class="color-dark" target="_blank" href="<%= destination[:airport].url %>">www</a>
+              <a class="color-dark" target="_blank" href="<%= destination[:airport].url %>">web</a>
             </span>
           <% end %>
           </p>
@@ -55,7 +55,7 @@
           <% total_poi_sum = poi_count_group.values.sum %>
           <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
           <span><b><%= "#{t('trip_request.poi')} (#{total_poi_sum})" %></b></span>
-          <div id="group_pois_<%= index + 1 %>" class="collapse bg-light px-5 border-radius" data-collapse-target="content">
+          <div id="group_pois_<%= index + 1 %>" class="collapse bg-light p-10 border-radius mt-15" data-collapse-target="content">
 
               <!-- begin group poi content -->
               <% poi_count_group.each do |key,value| %>
@@ -66,7 +66,26 @@
                   <div  id="group_pois_<%= "#{index + 1}_#{key}" %>" 
                         class="collapse bg-light px-5 border-radius" data-collapse-target="content">
                     <!-- begin sub-group poi content -->
-                    hello
+                    <ul>
+                      <% PoiCatalogue.poi_per_group_and_airport(destination[:airport])[key].each do |group_detail|  %>
+                        <% unless group_detail[:name].nil? %>
+                          <li><%= group_detail[:name] %>
+                            <span> (<%= group_detail[:distance] %>m)</span>
+                            <!-- tags details -->
+                              <% unless group_detail[:tags]["website"].nil? %>
+                                <span class="ml-5">
+                                  <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["website"] %>">web</a>
+                                </span>
+                              <% end %>
+                            <!-- tags details -->
+                          </li>
+                        <% else %>
+                          <li class="color-danger">❌ No data available
+                            <span> (<%= group_detail[:distance] %>m)</span>
+                          </li>
+                        <% end %>
+                      <% end %>
+                    </ul>
                     <!-- end sub-group poi content -->
                   </div>
                 </div>
@@ -86,31 +105,6 @@
             </ul>
           </div>
         </div>
-        <!-- TEST -->
-        <div data-controller="collapse">
-          <span class="collapse-marker" data-action="click->collapse#toggle">+</span>
-          <span>Test</span>
-          <div id="test1" class="collapse" data-collapse-target="content">
-            <!-- Sub content 1 -->
-            <div data-controller="collapse ml-20">
-              <span class="collapse-marker" data-action="click->collapse#toggle">+</span>
-              <span>Sub-Test 1</span>
-              <div id="test11" class="collapse" data-collapse-target="content">
-                sub-content 1
-              </div>
-            </div>
-            <!-- Sub content 2 -->
-            <div data-controller="collapse ml-20">
-              <span class="collapse-marker" data-action="click->collapse#toggle">+</span>
-              <span>Sub-Test 2</span>
-              <div id="test12" class="collapse" data-collapse-target="content">
-                sub-content 2
-              </div>
-            </div>
-
-          </div>
-        </div>
-
       </div>
     </div>
   <% end %>

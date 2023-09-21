@@ -3,6 +3,9 @@ class OsmPolygone < ApplicationRecord
     # Assuming 'tags' column contains the string
     tags_str = self.tags
 
+    # Handle NULL value in 'tags' column
+    return {} if tags_str.nil?
+
     # Remove the surrounding curly braces and whitespace
     cleaned_tags_str = tags_str.gsub(/\A\{|\}\z/, '').strip
 
@@ -15,7 +18,11 @@ class OsmPolygone < ApplicationRecord
     # Iterate through the key-value pairs and add them to the hash
     tag_pairs.each do |pair|
       key, value = pair.split(/\s*=>\s*/)
-      parsed_tags[key.gsub(/\A"|"\z/, '')] = value.gsub(/\A"|"\z/, '')
+
+      # Check if key and value are not nil before adding to the hash
+      if key && value
+        parsed_tags[key.gsub(/\A"|"\z/, '')] = value.gsub(/\A"|"\z/, '')
+      end
     end
 
     # Return the parsed tags as a hash
