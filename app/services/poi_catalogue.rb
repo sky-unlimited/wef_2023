@@ -166,7 +166,12 @@ class PoiCatalogue
       end
     pois_array = []
     pois_array = (points_array + lines_array + polygones_array)
-    list_pois[group] = pois_array
+    
+    # We sort the poi's by distance
+    sorted_pois_array = pois_array.sort_by { |poi| poi[:distance] }
+
+    # We assign all pois per current group iteration
+    list_pois[group]  = sorted_pois_array
     end
     return list_pois
   end
