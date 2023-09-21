@@ -30,12 +30,17 @@ fr:
           custom: Destination Personnalisée
           events: Evennements intéressants
           suggested: Destinations conseillées
-        proxy_food: 🍔 Restauration
-        proxy_fuel: ⛽ Station Essence Voiture
-        proxy_car_rental: 🚙 Location Voiture
-        proxy_bike_rental: 🚲 Location Vélo
-        proxy_camp_site: 🏕️  Campings
-        proxy_hotel: 🛏️ Hébergements
+        proxy_food: Restauration
+        proxy_beverage: Boisson
+        proxy_fuel_car: Station Essence Voiture
+        proxy_fuel_plane: Station Avitaillement
+        proxy_bike_rental: Location Vélo
+        proxy_car_rental: Location Voiture
+        proxy_camp_site: Camping
+        proxy_accommodation: Hébergement
+        proxy_shop: Magasin
+        proxy_bus_station: Station de bus
+        proxy_train_station: Station de train
     errors:
       messages:
         in: doit être compris entre %{count}

@@ -2,37 +2,59 @@ class PoiCatalogue
   @@inventory = {
     :food => {
         :categories => ["amenity"],
-        :amenities => ["restaurant", "fast_food"]},
+        :amenities => ["restaurant", "fast_food"],
+        :icon => "🍔",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_food')},
     :beverage => {
         :categories => ["amenity"],
-        :amenities => ["bar", "cafe"]},
+        :amenities => ["bar", "cafe"],
+        :icon => "🥤",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_beverage')},
     :fuel_car => {
         :categories => ["amenity"],
-        :amenities => ["fuel"]},
+        :amenities => ["fuel"],
+        :icon => "⛽",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_fuel_car')},
     :fuel_plane => {
         :categories => ["aeroway"],
-        :amenities => ["fuel"]},
+        :amenities => ["fuel"],
+        :icon => "✈️",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_fuel_plane')},
     :bike_rental => {
         :categories => ["amenity"],
-        :amenities => ["bicycle_rental"]},
+        :amenities => ["bicycle_rental"],
+        :icon => "🚲",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_bike_rental')},
     :car_rental => {
         :categories => ["amenity"],
-        :amenities => ["car_rental"]},
+        :amenities => ["car_rental"],
+        :icon => "🚗",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_car_rental')},
     :camp_site => {
         :categories => ["tourism"],
-        :amenities => ["camp_site", "bivouac_site"]},
+        :amenities => ["camp_site", "bivouac_site"],
+        :icon => "⛺",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_camp_site')},
     :accommodation => {
         :categories => ["tourism"],
-        :amenities => ["hotel","chalet","guest_house","Gîte","hostel","motel"]},
+        :amenities => ["hotel","chalet","guest_house","Gîte","hostel","motel"],
+        :icon => "🏨",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_accommodation')},
     :shop => {
         :categories => ["shop"],
-        :amenities => ["bakery", "supermarket"]},
+        :amenities => ["bakery", "supermarket"],
+        :icon => "🛒",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_shop')},
     :bus_station => {
         :categories => ["highway", "amenity"],  #most are in highway
-        :amenities => ["bus_station", "bus_stop"]},
+        :amenities => ["bus_station", "bus_stop"],
+        :icon => "🚌",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_bus_station')},
     :train_station => {
         :categories => ["public_transport"],
-        :amenities => ["stop_station"]}
+        :amenities => ["stop_station"],
+        :icon => "🚆",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_train_station')},
   }
 
   def self.inventory
@@ -100,6 +122,58 @@ class PoiCatalogue
       airport_group_inventory[group] = counter 
     end
     airport_group_inventory.select { |key,value| value > 0 } #to retrieve not empty poi groups per airport
+  end
+
+  def self.poi_per_group_and_airport(airport)
+    list_pois = {}
+    @@inventory.each_key do |group|
+      osm_points = OsmPoint.where(airport_id: airport)
+        .and(OsmPoint.where(amenity:      @@inventory[group][:amenities]))
+        .and(OsmPoint.where(category:     @@inventory[group][:categories]))
+      osm_lines = OsmLine.where(airport_id: airport)
+        .and(OsmLine.where(amenity:       @@inventory[group][:amenities]))
+        .and(OsmLine.where(category:      @@inventory[group][:categories]))
+      osm_polygones = OsmPolygone.where(airport_id: airport)
+        .and(OsmPolygone.where(amenity:   @@inventory[group][:amenities]))
+        .and(OsmPolygone.where(category:  @@inventory[group][:categories]))
+      
+      # Variables
+      points_array = []
+      lines_array = []
+      polygones_array = []
+    
+      # We iterate on each record to store what we need
+      osm_points.each do |point|
+        points_hash = {     :name       => point.osm_name,
+                            :tags       => point.parsed_tags,
+                            :geojson    => RGeo::GeoJSON.encode(point.way).to_json,
+                            :distance   => point.distance.to_i}
+        points_array.push(points_hash)
+      end
+      osm_lines.each do |line|
+        lines_hash = {      :name       => line.osm_name,
+                            :tags       => line.parsed_tags,
+                            :geojson    => RGeo::GeoJSON.encode(line.way).to_json,
+                            :distance   => line.distance.to_i}
+        lines_array.push(lines_hash)
+      end
+      osm_polygones.each do |polygone|
+        polygones_hash = {  :name       => polygone.osm_name,
+                            :tags       => polygone.parsed_tags,
+                            :geojson    => RGeo::GeoJSON.encode(polygone.way).to_json,
+                            :distance   => polygone.distance.to_i}
+        polygones_array.push(polygones_hash)
+      end
+    pois_array = []
+    pois_array = (points_array + lines_array + polygones_array)
+    
+    # We sort the poi's by distance
+    sorted_pois_array = pois_array.sort_by { |poi| poi[:distance] }
+
+    # We assign all pois per current group iteration
+    list_pois[group]  = sorted_pois_array
+    end
+    return list_pois
   end
 
 end
