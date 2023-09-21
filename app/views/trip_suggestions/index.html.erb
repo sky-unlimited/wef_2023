@@ -47,6 +47,7 @@
               <li><%= "#{t('trip_suggestions.index.distance')}: #{destination[:flight_track].distance_km}km (#{destination[:flight_track].distance_nm}nm)" %></li>
               <li><%= "#{t('trip_suggestions.index.flight_time')}: #{destination[:flight_track].average_flight_time_min}min" %></li>
               <li><%= "#{t('trip_suggestions.index.bearing')}: #{destination[:flight_track].bearing}°" %></li>
+            </ul>
           </div>
         </div>
         <div class="top_destinations__poi mt-5" data-controller="collapse">
@@ -55,12 +56,23 @@
           <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
           <span><b><%= "#{t('trip_request.poi')} (#{total_poi_sum})" %></b></span>
           <div id="group_pois_<%= index + 1 %>" class="collapse bg-light px-5 border-radius" data-collapse-target="content">
-            <ul>
+
+              <!-- begin group poi content -->
               <% poi_count_group.each do |key,value| %>
-                <li class="p-5"><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %>
-                <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></li>
+                <div class="top_destinations__poi__details mt-5" data-controller="collapse">
+                  <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+                  <span><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %></span>
+                  <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></br>
+                  <div  id="group_pois_<%= "#{index + 1}_#{key}" %>" 
+                        class="collapse bg-light px-5 border-radius" data-collapse-target="content">
+                    <!-- begin sub-group poi content -->
+                    hello
+                    <!-- end sub-group poi content -->
+                  </div>
+                </div>
               <% end %>
-            </ul>
+              <!-- end group poi content -->
+
           </div>
         </div>
         <div class="top_destinations__warnings mt-5" data-controller="collapse">
@@ -74,6 +86,31 @@
             </ul>
           </div>
         </div>
+        <!-- TEST -->
+        <div data-controller="collapse">
+          <span class="collapse-marker" data-action="click->collapse#toggle">+</span>
+          <span>Test</span>
+          <div id="test1" class="collapse" data-collapse-target="content">
+            <!-- Sub content 1 -->
+            <div data-controller="collapse ml-20">
+              <span class="collapse-marker" data-action="click->collapse#toggle">+</span>
+              <span>Sub-Test 1</span>
+              <div id="test11" class="collapse" data-collapse-target="content">
+                sub-content 1
+              </div>
+            </div>
+            <!-- Sub content 2 -->
+            <div data-controller="collapse ml-20">
+              <span class="collapse-marker" data-action="click->collapse#toggle">+</span>
+              <span>Sub-Test 2</span>
+              <div id="test12" class="collapse" data-collapse-target="content">
+                sub-content 2
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
   <% end %>
