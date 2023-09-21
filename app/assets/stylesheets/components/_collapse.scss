@@ -12,10 +12,34 @@
 /*
 <-- how to use it !->
 <div data-controller="collapse">
-  <span class="collapse-marker" data-action="click->collapse#toggle">▶</span>
+  <span class="collapse-marker" data-action="click->collapse#toggle">+</span> // It needs to be "+" or "-" -> used in js
+  <span>title...</span>
+  <div id="unique_id" class="collapse" data-collapse-target="content">        // class="collapse show"
+    content...
+  </div>
+</div>
+
+<-- It can be nested ->
+<div data-controller="collapse">
+  <span class="collapse-marker" data-action="click->collapse#toggle">+</span>
   <span>title...</span>
   <div id="unique_id" class="collapse" data-collapse-target="content">
-    content...
+    
+    <div data-controller="collapse">
+      <span class="collapse-marker" data-action="click->collapse#toggle">+</span>
+      <span>sub-title-1</span>
+      <div id="unique_id" class="collapse" data-collapse-target="content">
+        sub-content-1
+      </div>
+    </div>
+    <div data-controller="collapse">
+      <span class="collapse-marker" data-action="click->collapse#toggle">+</span>
+      <span>sub-title-2</span>
+      <div id="unique_id" class="collapse" data-collapse-target="content">
+        sub-content-2
+      </div>
+    </div>
+  
   </div>
 </div>
 */
