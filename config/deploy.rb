@@ -2,7 +2,7 @@
 lock "~> 3.17.3"
 
 set :application, "wef_2023"
-set :repo_url, "git@github.com:alexstan67/wef_2023.git"
+set :repo_url, "git@github.com:sky-unlimited/wef_2023.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
