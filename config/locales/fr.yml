@@ -30,6 +30,7 @@ fr:
           custom: Destination Personnalisée
           events: Evennements intéressants
           suggested: Destinations conseillées
+        proxy_groups: Groupe d'intérêts
         proxy_food: Restauration
         proxy_beverage: Boisson
         proxy_fuel_car: Station Essence Voiture
@@ -49,6 +50,7 @@ fr:
         end_date_more_7_days: "ne peut être à plus de 7 jours dans le futur (Prévisions météo)"
         start_date_not_in_past: ne peut être dans le passé
         check_at_least_one_airport_type: Veuillez au moins choisir une taille d'aéroprt de destination
+        check_at_least_one_poi_selected: Veuillez en choisir au moins un
   forms:
     messages:
       errors:

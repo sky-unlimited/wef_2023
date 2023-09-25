@@ -12,6 +12,7 @@ class TripRequest < ApplicationRecord
   validate :start_date_cannot_be_in_the_past
   validate :end_date_no_longer_than_7_days
   validate :check_at_least_one_airport_type
+  validate :check_at_least_one_poi_selected
 
   private
 
@@ -34,6 +35,18 @@ class TripRequest < ApplicationRecord
   def check_at_least_one_airport_type
     if small_airport == false && medium_airport == false  && large_airport == false
       errors.add("Airport type:", I18n.t('activerecord.errors.messages.check_at_least_one_airport_type'))
+    end
+  end
+
+  def check_at_least_one_poi_selected
+    if  proxy_food == false &&
+        proxy_fuel == false &&
+        proxy_car_rental == false &&
+        proxy_bike_rental == false &&
+        proxy_camp_site == false &&
+        proxy_hotel == false
+      errors.add( I18n.t('activerecord.attributes.trip_request.proxy_groups'), 
+                  I18n.t('activerecord.errors.messages.check_at_least_one_poi_selected'))
     end
   end
 end
