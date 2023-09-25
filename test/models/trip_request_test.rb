@@ -24,4 +24,8 @@ class TripRequestTest < ActiveSupport::TestCase
   test "No selected airport type should not save" do
     assert_not trip_requests(:wrong_airport_type).save
   end
+
+  test "No poi selected should not save" do
+    assert_not trip_requests(:no_poi_selected).save
+  end
 end
