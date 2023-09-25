@@ -77,6 +77,11 @@
                                   <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["website"] %>">web</a>
                                 </span>
                               <% end %>
+                              <% unless group_detail[:tags]["contact:website"].nil? %>
+                                <span class="ml-5">
+                                  <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["contact:website"] %>">web</a>
+                                </span>
+                              <% end %>
                             <!-- tags details -->
                           </li>
                         <% else %>
