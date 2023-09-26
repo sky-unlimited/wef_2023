@@ -101,3 +101,20 @@ wrong_airport_type:
   proxy_bike_rental: false
   proxy_camp_site: false
   proxy_hotel: false
+
+no_poi_selected:
+  user: regular_user
+  airport: ellx
+  start_date: <%= Time.zone.now  %>
+  end_date: <%= Time.zone.now + 0.day %>
+  international_flight: false
+  small_airport: false
+  medium_airport: false
+  large_airport: false
+  trip_mode: 1
+  proxy_food: false
+  proxy_fuel: false
+  proxy_car_rental: false
+  proxy_bike_rental: false
+  proxy_camp_site: false
+  proxy_hotel: false

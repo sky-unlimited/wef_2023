@@ -30,12 +30,18 @@ fr:
           custom: Destination Personnalisée
           events: Evennements intéressants
           suggested: Destinations conseillées
-        proxy_food: 🍔 Restauration
-        proxy_fuel: ⛽ Station Essence Voiture
-        proxy_car_rental: 🚙 Location Voiture
-        proxy_bike_rental: 🚲 Location Vélo
-        proxy_camp_site: 🏕️  Campings
-        proxy_hotel: 🛏️ Hébergements
+        proxy_groups: Groupe d'intérêts
+        proxy_food: Restauration
+        proxy_beverage: Boisson
+        proxy_fuel_car: Station Essence Voiture
+        proxy_fuel_plane: Station Avitaillement
+        proxy_bike_rental: Location Vélo
+        proxy_car_rental: Location Voiture
+        proxy_camp_site: Camping
+        proxy_accommodation: Hébergement
+        proxy_shop: Magasin
+        proxy_bus_station: Station de bus
+        proxy_train_station: Station de train
     errors:
       messages:
         in: doit être compris entre %{count}
@@ -44,6 +50,7 @@ fr:
         end_date_more_7_days: "ne peut être à plus de 7 jours dans le futur (Prévisions météo)"
         start_date_not_in_past: ne peut être dans le passé
         check_at_least_one_airport_type: Veuillez au moins choisir une taille d'aéroprt de destination
+        check_at_least_one_poi_selected: Veuillez en choisir au moins un
   forms:
     messages:
       errors:

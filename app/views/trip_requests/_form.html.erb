@@ -80,27 +80,27 @@
       <div class="airport-select-proxies text-start">
         <div>
           <%= f.check_box :proxy_food %>
-          <%= f.label :proxy_food, class: "form-label" %>
+          <%= f.label :proxy_food, "#{displayIconAndLabel(:food)}", class: "form-label" %>
         </div>
         <div>
           <%= f.check_box :proxy_fuel %>
-          <%= f.label :proxy_fuel %>
+          <%= f.label :proxy_fuel_car, "#{displayIconAndLabel(:fuel_car)}" %>
         </div>
         <div>
           <%= f.check_box :proxy_car_rental %>
-          <%= f.label :proxy_car_rental %>
+          <%= f.label :proxy_car_rental, "#{displayIconAndLabel(:car_rental)}" %>
         </div>
         <div>
           <%= f.check_box :proxy_bike_rental %>
-          <%= f.label :proxy_bike_rental %>
+          <%= f.label :proxy_bike_rental , "#{displayIconAndLabel(:bike_rental)}"%>
         </div>
         <div>
           <%= f.check_box :proxy_camp_site %>
-          <%= f.label :proxy_camp_site %>
+          <%= f.label :proxy_camp_site, "#{displayIconAndLabel(:camp_site)}"%>
         </div>
         <div>
           <%= f.check_box :proxy_hotel %>
-          <%= f.label :proxy_hotel %>
+          <%= f.label :proxy_accommodation, "#{displayIconAndLabel(:accommodation)}" %>
         </div>
       </div>
     </div>

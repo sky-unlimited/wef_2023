@@ -30,12 +30,18 @@ en:
           custom: Custom Destination
           events: Event based Destinations
           suggested: Suggested Destinations
-        proxy_food: 🍔 Food
-        proxy_fuel: ⛽ Car Gas Stations
-        proxy_car_rental: 🚙 Car Rentals
-        proxy_bike_rental: 🚲 Bike Rentals
-        proxy_camp_site: 🏕️ Camp Sites
-        proxy_hotel: 🛏️ Accommodations
+        proxy_groups: Group of interests
+        proxy_food: Food
+        proxy_beverage: Beverage
+        proxy_fuel_car: Car Gas Stations
+        proxy_fuel_plane: Refuelling Station
+        proxy_bike_rental: Bike Rentals
+        proxy_car_rental: Car Rental
+        proxy_camp_site: Camp Site
+        proxy_accommodation: Accommodation
+        proxy_shop: Shops
+        proxy_bus_station: Bus Station
+        proxy_train_station: Train Station
     errors:
       messages:
         in: must be in %{count}
@@ -44,11 +50,12 @@ en:
         end_date_more_7_days: "can't have more than 7 days (No weather forecast)"
         start_date_not_in_past: can't be in the past
         check_at_least_one_airport_type: Please choose at least one airport type
+        check_at_least_one_poi_selected: Please select at least one
   forms:
     messages:
       errors:
-        one: Une erreur a été détectée
-        other: Plusieurs erreurs ont été détectées
+        one: An error has been found
+        other: Several errors have been found
   users:
     errors:
       file_type: The uploaded format is not an image 
