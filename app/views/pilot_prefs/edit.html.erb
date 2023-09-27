@@ -22,29 +22,14 @@
           </br><%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true, data: { airport_searcher_target: "airportId" }%>
         
           <div class="searcher">
-            <%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %>
-            <div class="group-searcher">
-            <%= text_field_tag "search", 
-                                @airport_full_name, 
-                                placeholder: t('trip_request.search_placeholder'), 
-                                size: 30, 
-                                data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, 
-                                class: "form-control form-searcher",
-                                required: true %>
-            <button type="button" 
-                    id="clear-search" 
-                    class="btn-round" 
-                    data-action="click->airport-searcher#clearSearcher">X
-            </button>
-            </div>
+            <%= text_field_tag "search" ,"", placeholder: t('trip_request.search_placeholder'), size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, class: "form-control form-searcher mt-20" %>
             <ul id="results" data-airport-searcher-target="resultList" class="form-searcher-ul" >
             </ul>
           </div>
 
-          <!--
           <div><%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %></div>
           <div><%= text_field_tag "airport_full_name", @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true, class: "form-control", data: { airport_searcher_target: "resultField" } %></div>
-          -->
+
         </div>
 
         <%= f.label :weather_profile,
@@ -73,13 +58,13 @@
                     class: "form-label mt-10" %>
         <%= f.number_field :average_true_airspeed, 
                            min: 0, max: 250,
-                           class: "form-control mb-15" %>
+                           class: "form-control" %>
 
         <%= f.label :min_runway_length,
                     class: "form-label mt-10" %>
         <%= f.number_field :min_runway_length, 
                            min: 150, max: 1500,
-                           class: "form-control mb-15" %>
+                           class: "form-control" %>
 
         <%= f.label :max_gnd_wind_speed,
                     class: "form-label" %>
