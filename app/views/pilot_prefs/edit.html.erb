@@ -42,10 +42,9 @@
             </ul>
           </div>
 
-          <!--
           <div><%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %></div>
           <div><%= text_field_tag "airport_full_name", @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true, class: "form-control", data: { airport_searcher_target: "resultField" } %></div>
-          -->
+
         </div>
 
         <%= f.label :weather_profile,
@@ -74,13 +73,13 @@
                     class: "form-label mt-10" %>
         <%= f.number_field :average_true_airspeed, 
                            min: 0, max: 250,
-                           class: "form-control mb-15" %>
+                           class: "form-control" %>
 
         <%= f.label :min_runway_length,
                     class: "form-label mt-10" %>
         <%= f.number_field :min_runway_length, 
                            min: 150, max: 1500,
-                           class: "form-control mb-15" %>
+                           class: "form-control" %>
 
         <%= f.label :max_gnd_wind_speed,
                     class: "form-label" %>
