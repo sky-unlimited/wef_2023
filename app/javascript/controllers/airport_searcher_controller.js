@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="airport-searcher"
 export default class extends Controller {
-  static targets = [ "searchbox", "resultList", "resultItem", "airportId" ];
+  static targets = [ "searchbox", "resultList", "resultItem", "resultField", "airportId" ];
 
   connect() {
     console.log("Airport searcher connected!");
@@ -33,18 +33,13 @@ export default class extends Controller {
     event.preventDefault(); // Prevent the default click behavior
     const resultItem = event.target;
     const selectedText = resultItem.textContent.trim();
-    this.searchboxTarget.value = selectedText;
+    this.resultFieldTarget.value = selectedText;
+    this.searchboxTarget.value = "";
     this.airportIdTarget.value = resultItem.id
     this.clearResults();
   }
 
   clearResults() {
     this.resultListTarget.innerHTML = "";
-  }
-
-  clearSearcher() {
-    this.searchboxTarget.value = "";
-    this.airportIdTarget.value = "";
-    this.searchboxTarget.focus();
   }
 }
