@@ -4,6 +4,10 @@
 
 weekend-fly is based on Rails framework helping General Aviation fellows to find a destination !
 
+Your Rules. Your Interests. Your Destination.🌴☀️🏕️
+
+One Community 💪
+
 # WEEKEND-FLY
 
 ## Features
@@ -40,6 +44,13 @@ rails import:countries
 rails import:airports
 rails import:runways
 rails db:seed
+````
+Import the point of interest tables (osm_points, osm_lines, osm_polygones). Should you need them, please ask for it: contact@sky-unlimited.lu
+````bash
+# Adapt to your PostgreSQL environment
+pg_restore -U $target_user --single-transaction --table=osm_points --data-only -h $target_host -d $target_database osm_points_backup.sql
+pg_restore -U $target_user --single-transaction --table=osm_lines --data-only -h $target_host -d $target_database osm_lines_backup.sql
+pg_restore -U $target_user --single-transaction --table=osm_polygones --data-only -h $target_host -d $target_database osm_polygones_backup.sql
 ````
 
 Launch local server:
