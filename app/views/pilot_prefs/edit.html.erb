@@ -19,10 +19,25 @@
         <% end %>
 
         <div data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
-          </br><%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true, data: { airport_searcher_target: "airportId" }%>
+          </br>
+          <%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true, data: { airport_searcher_target: "airportId" }%>
         
           <div class="searcher">
-            <%= text_field_tag "search" ,"", placeholder: t('trip_request.search_placeholder'), size: 30, data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, class: "form-control form-searcher mt-20" %>
+            <%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %>
+            <div class="group-searcher">
+              <%= text_field_tag "search", 
+                                  @airport_full_name, 
+                                  placeholder: t('trip_request.search_placeholder'), 
+                                  size: 30, 
+                                  data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, 
+                                  class: "form-control form-searcher",
+                                  required: true %>
+              <button type="button" 
+                      id="clear-search" 
+                      class="btn-round" 
+                      data-action="click->airport-searcher#clearSearcher">X
+              </button>
+            </div>
             <ul id="results" data-airport-searcher-target="resultList" class="form-searcher-ul" >
             </ul>
           </div>
