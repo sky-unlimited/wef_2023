@@ -1,0 +1,19 @@
+<section class="container-fluid bg-light d-flex flex-column py-20">
+  <h1 class="text-center"><%= t('pages.airport_searcher.find_airport') %></h1>
+  <div  data-controller="airport-searcher-url" 
+        data-airport-searcher-url-base-url-value  ="<%= @base_url %>"
+        data-airport-searcher-url-locale-value    ="<%= @locale %>"
+        >
+    <div class="text-center">
+    <input  type="text" 
+            class="m-auto form-control form-searcher w-50"
+            data-action="input->airport-searcher-url#eventKey" 
+            data-airport-searcher-url-target="searchbox"
+            placeholder="<%= t('trip_request.search_placeholder') %>">
+    </div>
+    <ul data-airport-searcher-url-target="resultList"
+        class="form-searcher-ul text-center">
+      <!-- Search results will be displayed here -->
+    </ul>
+  </div>
+</section>

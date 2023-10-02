@@ -18,6 +18,10 @@ class PagesController < ApplicationController
     @bike_rental_count = PoiCatalogue.count(:bike_rental)
     @camp_site_count = PoiCatalogue.count(:camp_site)
     @beverage_count = PoiCatalogue.count(:beverage)
+
+    # We set variables needed for airport searcher
+    @base_url = set_base_url
+    @locale   = set_locale
   end
 
   def console
@@ -35,5 +39,15 @@ class PagesController < ApplicationController
       format.xml  { head :not_found }
       format.any  { head :not_found }
     end
+  end
+
+  def set_base_url
+    url = request.url
+    uri = URI.parse(url)
+    @base_url = "#{uri.scheme}://#{uri.host}:#{uri.port}"
+  end
+
+  def set_locale
+    @locale = I18n.locale
   end
 end
