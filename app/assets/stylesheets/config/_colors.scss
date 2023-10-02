@@ -9,10 +9,8 @@ $warning: #ffc107;
 $warning_bis: darken($warning, 8%);
 $info: #0dcaf0;
 $info_bis: darken($info, 8%);
-//$light: #f8f9fa;
-$light: #CDEDF6;
+$light: #f8f9fa;
 $light_bis: darken($light, 8%);
-//$dark: #212529;
 $dark: #042A2B;
 $dark_bis: darken($dark, 8%);
 
@@ -26,7 +24,7 @@ $color2: #cdedf6; //light cyan
 $color2_bis: darken($color2, 8%);
 $color3: #5EB1BF; //moonstone (bleu)
 $color3_bis: darken($color3, 8%);
-$color4: #bdb246; //vert anis
+$color4: #CDEDF6; // light blue
 $color4_bis: darken($color4, 8%);
 
 $body-color: $color2;
