@@ -1,3 +1,13 @@
 <section class="container-fluid bg-light d-flex flex-column py-20">
   <h1 class="text-center">Find an airport</h1>
+  <div  data-controller="airport-searcher-url" 
+        data-airport-searcher-url-base-url-value  ="<%= @base_url %>"
+        data-airport-searcher-url-locale-value    ="<%= @locale %>">
+    <input  type="text" 
+            data-action="input->airport-searcher-url#eventKey" 
+            data-airport-searcher-url-target="searchbox">
+    <ul data-airport-searcher-url-target="resultList">
+      <!-- Search results will be displayed here -->
+    </ul>
+  </div>
 </section>
