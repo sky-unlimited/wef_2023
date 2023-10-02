@@ -20,8 +20,18 @@ class Airport < ApplicationRecord
     return if white_list.include?(icao)
 
     # We check if airport should be filtered or not
+    # Germany
     errors.add("Airport filter", "DE MIL Airports are not taken in scope") if icao.match?(/ET[A-Z]{2}/) # MIL DE
+    # France
     errors.add("Airport filter", "FR MIL Airports are not taken in scope") if name.match?(/(Air Base)/) # MIL FR
+    # Netherlands
+    exclusion_nl = ['EHDL','EHEH','EHGR','EHLW','EHVB','EHMC','EHML','EHSB','EHVK','EHDP','EHWO','EHAM'] # MIL NL 
+    errors.add("Airport filter", "NL MIL Airports are not taken in scope") if exclusion_nl.include?(icao)
+    exclusion_nl = ['EHAM']
+    errors.add("Airport filter", "NL Airports not suitable for GA") if exclusion_nl.include?(icao)
+    # Danemark
+    exclusion_dk = ['EKYT','EKKA','EKSP']
+    errors.add("Airport filter", "DK MIL Airports are not taken in scope") if exclusion_dk.include?(icao)
 
   end
 end
