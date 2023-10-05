@@ -35,17 +35,18 @@ en:
         proxy_beverage: Beverage
         proxy_fuel_car: Car Gas Stations
         proxy_fuel_plane: Refuelling Station
-        proxy_bike_rental: Bike Rentals
+        proxy_bike_rental: Bike Rental
         proxy_car_rental: Car Rental
         proxy_camp_site: Camp Site
         proxy_accommodation: Accommodation
         proxy_shop: Shops
         proxy_bus_station: Bus Station
-        proxy_train_station: Train Station
+        proxy_train_station: Train/Subway Station
         proxy_hiking_path: Hiking path
         proxy_biking_path: Biking path
         proxy_power_lines: Power Lines
         proxy_coastline: Coastline
+        proxy_lake: Lake
     errors:
       messages:
         in: must be in %{count}
@@ -94,7 +95,7 @@ en:
       not_compliant_with_weather: Weather not compliant with pilot's weather prefs
       title: Weather Outlook
     warnings:
-      direct_flight_outside_flyzone: One of the flight may be below weather limits
+      direct_flight_outside_flyzone: One of the flight may be not be possible on direct path
     index:
       title: Top Destinations
       summary: Summary

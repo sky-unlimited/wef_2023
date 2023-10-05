@@ -41,11 +41,12 @@ fr:
         proxy_accommodation: Hébergement
         proxy_shop: Magasin
         proxy_bus_station: Station de bus
-        proxy_train_station: Station de train
+        proxy_train_station: Station de train/métro
         proxy_hiking_path: Chemin de randonnées
         proxy_biking_path: Piste Cyclables
         proxy_power_lines: Ligne électriques
         proxy_coastline: Littoral
+        proxy_lake: Lac
     errors:
       messages:
         in: doit être compris entre %{count}
@@ -95,7 +96,7 @@ fr:
       not_compliant_with_weather: Météo non compatible avec préférences météo utilisateur
       title: Prévisions météorologiques
     warnings:
-      direct_flight_outside_flyzone: Un des vols pourrait être en dessous de vos limites météo
+      direct_flight_outside_flyzone: Un des vols pourrait ne pourrait être réalisé en direct.
     index:
       title: Top Destinations
       summary: Sommaire

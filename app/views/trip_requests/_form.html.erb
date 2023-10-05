@@ -78,6 +78,7 @@
       </div>
     </div>
 
+    <!--
     <p class="text-center mb-5"><%= t('activerecord.attributes.trip_request.trip_mode') %></p>
     <div class="d-flex flex-columns align-items-center p-10 border border-radius mb-20 bg-light color-dark">
       <%= f.collection_radio_buttons :trip_mode, TripRequest.trip_modes, :first, :first, class: "mr-5", 
@@ -85,33 +86,76 @@
           disabled: [I18n.t('activerecord.attributes.trip_request.trip_mode_options.events'), 
                      I18n.t('activerecord.attributes.trip_request.trip_mode_options.suggested')] %>
     </div>
-  
+    -->
+
     <p class="text-center mb-5"><%= t('trip_request.poi') %></p>
     <div style="width: fit-content; margin: auto;" class="border border-radius bg-dark color-light p-20">
       <div class="airport-select-proxies text-start">
-        <div>
-          <%= f.check_box :proxy_food %>
-          <%= f.label :proxy_food, "#{displayIconAndLabel(:food)}", class: "form-label" %>
+        <div class="border border-light border-radius p-15 mb-5">
+          <div>
+            <%= f.check_box :proxy_coastline %>
+            <%= f.label :proxy_coastline, "#{displayIconAndLabel(:coastline)}" %>
+          </div>
+          <div>
+            <%= f.check_box :proxy_lake %>
+            <%= f.label :proxy_lake, "#{displayIconAndLabel(:lake)}" %>
+          </div>
+          <div>
+            <%= f.check_box :proxy_hiking_path %>
+            <%= f.label :proxy_hiking_path, "#{displayIconAndLabel(:hiking_path)}" %>
+          </div>
         </div>
-        <div>
-          <%= f.check_box :proxy_fuel_car %>
-          <%= f.label :proxy_fuel_car, "#{displayIconAndLabel(:fuel_car)}" %>
+        <div class="border border-light border-radius p-15 mb-5">
+          <div>
+            <%= f.check_box :proxy_food %>
+            <%= f.label :proxy_food, "#{displayIconAndLabel(:food)}", class: "form-label" %>
+          </div>
+          <div>
+            <%= f.check_box :proxy_beverage %>
+            <%= f.label :proxy_beverage, "#{displayIconAndLabel(:beverage)}", class: "form-label" %>
+          </div>
+          <div>
+            <%= f.check_box :proxy_shop %>
+            <%= f.label :proxy_shop, "#{displayIconAndLabel(:shop)}"%>
+          </div>
         </div>
-        <div>
-          <%= f.check_box :proxy_car_rental %>
-          <%= f.label :proxy_car_rental, "#{displayIconAndLabel(:car_rental)}" %>
+        <div class="border border-light border-radius p-15 mb-5">
+          <div>
+            <%= f.check_box :proxy_camp_site %>
+            <%= f.label :proxy_camp_site, "#{displayIconAndLabel(:camp_site)}"%>
+          </div>
+          <div>
+            <%= f.check_box :proxy_accommodation %>
+            <%= f.label :proxy_accommodation, "#{displayIconAndLabel(:accommodation)}" %>
+          </div>
         </div>
-        <div>
-          <%= f.check_box :proxy_bike_rental %>
-          <%= f.label :proxy_bike_rental , "#{displayIconAndLabel(:bike_rental)}"%>
+        <div class="border border-light border-radius p-15 mb-5">
+          <div>
+            <%= f.check_box :proxy_fuel_car %>
+            <%= f.label :proxy_fuel_car, "#{displayIconAndLabel(:fuel_car)}" %>
+          </div>
+          <div>
+            <%= f.check_box :proxy_fuel_plane %>
+            <%= f.label :proxy_fuel_plane, "#{displayIconAndLabel(:fuel_plane)}" %>
+          </div>
         </div>
-        <div>
-          <%= f.check_box :proxy_camp_site %>
-          <%= f.label :proxy_camp_site, "#{displayIconAndLabel(:camp_site)}"%>
-        </div>
-        <div>
-          <%= f.check_box :proxy_hotel %>
-          <%= f.label :proxy_accommodation, "#{displayIconAndLabel(:accommodation)}" %>
+        <div class="border border-light border-radius p-15 mb-5">
+          <div>
+            <%= f.check_box :proxy_bike_rental %>
+            <%= f.label :proxy_bike_rental , "#{displayIconAndLabel(:bike_rental)}"%>
+          </div>
+          <div>
+            <%= f.check_box :proxy_car_rental %>
+            <%= f.label :proxy_car_rental, "#{displayIconAndLabel(:car_rental)}" %>
+          </div>
+          <div>
+            <%= f.check_box :proxy_bus_station %>
+            <%= f.label :proxy_bus_station, "#{displayIconAndLabel(:bus_station)}" %>
+          </div>
+          <div>
+            <%= f.check_box :proxy_train_station %>
+            <%= f.label :proxy_train_station, "#{displayIconAndLabel(:train_station)}" %>
+          </div>
         </div>
       </div>
     </div>
