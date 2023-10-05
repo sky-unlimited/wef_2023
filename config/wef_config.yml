@@ -6,6 +6,9 @@ development:
   airport_countries_to_import:
     - FR
     - LU
+    - DE
+    - NL
+    - DK
   airports_white_list:
     - LFJY
   default_weather_calls_validity_hours: 8
@@ -66,6 +69,9 @@ production:
   airport_countries_to_import:
     - FR
     - LU
+    - DE
+    - NL
+    - DK
   airports_white_list:
     - LFJY
   default_weather_calls_validity_hours: 8
@@ -96,6 +102,9 @@ staging:
   airport_countries_to_import:
     - FR
     - LU
+    - DE
+    - NL
+    - DK
   airports_white_list:
     - LFJY
   default_weather_calls_validity_hours: 8
