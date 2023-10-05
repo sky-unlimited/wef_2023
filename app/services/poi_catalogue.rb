@@ -51,10 +51,40 @@ class PoiCatalogue
         :icon => "🚌",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_bus_station')},
     :train_station => {
-        :categories => ["public_transport"],
-        :amenities => ["stop_station"],
+        :categories => ["railway"],
+        :amenities => ["station"],
         :icon => "🚆",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_train_station')},
+    :hiking_path => {
+        :categories => ["hiking","route"],
+        :amenities => ["hiking"],
+        :icon => "🥾",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_hiking_path')},
+    :biking_path => {
+        :categories => ["bicycle"],
+        :amenities => ["bicycle"],
+        :icon => "🚲",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_biking_path')},
+    :power_cable => {
+        :categories => ["power"],
+        :amenities => ["cable","line","minor_cable","minor_line"],
+        :icon => "⚡",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_power_lines')},
+    :coastline => {
+        :categories => ["natural"],
+        :amenities => ["coastline"],
+        :icon => "🏖️",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_coastline')},
+    :aerodrome_polygone => {
+        :categories => ["aeroway"],
+        :amenities => ["airstrip","aerodrome"],
+        :icon => "✈️",
+        :label => I18n.t('activerecord.attributes.trip_request.airport')},
+    :lake => {
+        :categories => ["natural"],
+        :amenities => ["water"],
+        :icon => "🛟",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_lake')},
   }
 
   def self.inventory
@@ -79,9 +109,17 @@ class PoiCatalogue
       amenities   += @@inventory[:food][:amenities]
       categories  += @@inventory[:food][:categories]
     end
-    if trip_request.proxy_fuel
+    if trip_request.proxy_beverage
+      amenities   += @@inventory[:beverage][:amenities]
+      categories  += @@inventory[:beverage][:categories]
+    end
+    if trip_request.proxy_fuel_car
       amenities   += @@inventory[:fuel_car][:amenities]
       categories  += @@inventory[:fuel_car][:categories]
+    end
+    if trip_request.proxy_fuel_plane
+      amenities   += @@inventory[:fuel_plane][:amenities]
+      categories  += @@inventory[:fuel_plane][:categories]
     end
     if trip_request.proxy_bike_rental
       amenities   += @@inventory[:bike_rental][:amenities]
@@ -95,9 +133,33 @@ class PoiCatalogue
       amenities   += @@inventory[:camp_site][:amenities]
       categories  += @@inventory[:camp_site][:categories]
     end
-    if trip_request.proxy_hotel
+    if trip_request.proxy_accommodation
       amenities   += @@inventory[:accommodation][:amenities]
       categories  += @@inventory[:accommodation][:categories]
+    end
+    if trip_request.proxy_shop
+      amenities   += @@inventory[:shop][:amenities]
+      categories  += @@inventory[:shop][:categories]
+    end
+    if trip_request.proxy_bus_station
+      amenities   += @@inventory[:bus_station][:amenities]
+      categories  += @@inventory[:bus_station][:categories]
+    end
+    if trip_request.proxy_train_station
+      amenities   += @@inventory[:train_station][:amenities]
+      categories  += @@inventory[:train_station][:categories]
+    end
+    if trip_request.proxy_hiking_path
+      amenities   += @@inventory[:hiking_path][:amenities]
+      categories  += @@inventory[:hiking_path][:categories]
+    end
+    if trip_request.proxy_coastline
+      amenities   += @@inventory[:coastline][:amenities]
+      categories  += @@inventory[:coastline][:categories]
+    end
+    if trip_request.proxy_lake
+      amenities   += @@inventory[:lake][:amenities]
+      categories  += @@inventory[:lake][:categories]
     end
     filters = {:amenities => amenities, :categories => categories}
   end
@@ -105,6 +167,7 @@ class PoiCatalogue
   def self.count_groups_per_airport(airport)
     airport_group_inventory = {}
     @@inventory.each_key do |group|
+      next if group == :aerodrome_polygone
       counter = 0
       counter += OsmPoint.where(airport_id: airport)
         .and(OsmPoint.where(amenity:  @@inventory[group][:amenities]))

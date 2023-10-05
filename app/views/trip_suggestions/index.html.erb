@@ -82,10 +82,15 @@
                                   <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["contact:website"] %>">web</a>
                                 </span>
                               <% end %>
+                              <% unless group_detail[:tags]["url"].nil? %>
+                                <span class="ml-5">
+                                  <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["url"] %>">web</a>
+                                </span>
+                              <% end %>
                             <!-- tags details -->
                           </li>
                         <% else %>
-                          <li class="color-danger">❌ No data available
+                          <li style="font-style: italic;">Data unavailable
                             <span> (<%= group_detail[:distance] %>m)</span>
                           </li>
                         <% end %>
