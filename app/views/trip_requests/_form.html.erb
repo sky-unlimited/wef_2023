@@ -89,9 +89,9 @@
     -->
 
     <p class="text-center mb-5"><%= t('trip_request.poi') %></p>
-    <div style="width: fit-content; margin: auto;" class="border border-radius bg-dark color-light p-20">
+    <div style="width: fit-content; margin: auto;" class="border border-radius color-light p-20">
       <div class="airport-select-proxies text-start">
-        <div class="border border-light border-radius p-15 mb-5">
+        <div class="border bg-dark border-radius p-15 mb-5">
           <div>
             <%= f.check_box :proxy_coastline %>
             <%= f.label :proxy_coastline, "#{displayIconAndLabel(:coastline)}" %>
@@ -105,7 +105,7 @@
             <%= f.label :proxy_hiking_path, "#{displayIconAndLabel(:hiking_path)}" %>
           </div>
         </div>
-        <div class="border border-light border-radius p-15 mb-5">
+        <div class="border bg-dark border-radius p-15 mb-5">
           <div>
             <%= f.check_box :proxy_food %>
             <%= f.label :proxy_food, "#{displayIconAndLabel(:food)}", class: "form-label" %>
@@ -119,7 +119,7 @@
             <%= f.label :proxy_shop, "#{displayIconAndLabel(:shop)}"%>
           </div>
         </div>
-        <div class="border border-light border-radius p-15 mb-5">
+        <div class="border bg-dark border-radius p-15 mb-5">
           <div>
             <%= f.check_box :proxy_camp_site %>
             <%= f.label :proxy_camp_site, "#{displayIconAndLabel(:camp_site)}"%>
@@ -129,7 +129,7 @@
             <%= f.label :proxy_accommodation, "#{displayIconAndLabel(:accommodation)}" %>
           </div>
         </div>
-        <div class="border border-light border-radius p-15 mb-5">
+        <div class="border bg-dark border-radius p-15 mb-5">
           <div>
             <%= f.check_box :proxy_fuel_car %>
             <%= f.label :proxy_fuel_car, "#{displayIconAndLabel(:fuel_car)}" %>
@@ -139,7 +139,7 @@
             <%= f.label :proxy_fuel_plane, "#{displayIconAndLabel(:fuel_plane)}" %>
           </div>
         </div>
-        <div class="border border-light border-radius p-15 mb-5">
+        <div class="border bg-dark border-radius p-15 mb-5">
           <div>
             <%= f.check_box :proxy_bike_rental %>
             <%= f.label :proxy_bike_rental , "#{displayIconAndLabel(:bike_rental)}"%>
