@@ -157,6 +157,10 @@ class PoiCatalogue
       amenities   += @@inventory[:coastline][:amenities]
       categories  += @@inventory[:coastline][:categories]
     end
+    if trip_request.proxy_lake
+      amenities   += @@inventory[:lake][:amenities]
+      categories  += @@inventory[:lake][:categories]
+    end
     filters = {:amenities => amenities, :categories => categories}
   end
 
