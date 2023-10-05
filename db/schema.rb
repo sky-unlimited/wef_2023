@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_23_115446) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_05_072113) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -151,7 +151,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_23_115446) do
     t.datetime "end_date"
     t.integer "trip_mode", null: false
     t.boolean "proxy_food", default: false, null: false
-    t.boolean "proxy_fuel", default: false, null: false
+    t.boolean "proxy_fuel_car", default: false, null: false
     t.boolean "proxy_car_rental", default: false, null: false
     t.boolean "proxy_bike_rental", default: false, null: false
     t.boolean "proxy_camp_site", default: false, null: false
@@ -162,6 +162,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_23_115446) do
     t.boolean "small_airport", default: false
     t.boolean "medium_airport", default: true
     t.boolean "large_airport", default: false
+    t.boolean "proxy_shop", default: false
+    t.boolean "proxy_bus_station", default: false
+    t.boolean "proxy_train_station", default: false
+    t.boolean "proxy_hiking_path", default: false
+    t.boolean "proxy_coastline", default: false
+    t.boolean "proxy_fuel_plane", default: false
     t.index ["airport_id"], name: "index_trip_requests_on_airport_id"
     t.index ["user_id"], name: "index_trip_requests_on_user_id"
   end

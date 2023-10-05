@@ -11,7 +11,7 @@ trip_request_correct:
   large_airport: false
   trip_mode: 2
   proxy_food: true
-  proxy_fuel: true
+  proxy_fuel_car: true
   proxy_car_rental: false
   proxy_bike_rental: false
   proxy_camp_site: false
@@ -28,7 +28,7 @@ start_date_in_past:
   large_airport: false
   trip_mode: 2
   proxy_food: true
-  proxy_fuel: true
+  proxy_fuel_car: true
   proxy_car_rental: false
   proxy_bike_rental: false
   proxy_camp_site: false
@@ -45,7 +45,7 @@ end_date_before_start_date:
   large_airport: false
   trip_mode: 2
   proxy_food: true
-  proxy_fuel: true
+  proxy_fuel_car: true
   proxy_car_rental: false
   proxy_bike_rental: false
   proxy_camp_site: false
@@ -62,7 +62,7 @@ wrong_enum:
   large_airport: false
   trip_mode: 99
   proxy_food: true
-  proxy_fuel: true
+  proxy_fuel_car: true
   proxy_car_rental: false
   proxy_bike_rental: false
   proxy_camp_site: false
@@ -79,7 +79,7 @@ end_date_more_7_days:
   large_airport: false
   trip_mode: 2
   proxy_food: true
-  proxy_fuel: true
+  proxy_fuel_car: true
   proxy_car_rental: false
   proxy_bike_rental: false
   proxy_camp_site: false
@@ -96,7 +96,7 @@ wrong_airport_type:
   large_airport: false
   trip_mode: 1
   proxy_food: true
-  proxy_fuel: true
+  proxy_fuel_car: true
   proxy_car_rental: false
   proxy_bike_rental: false
   proxy_camp_site: false
@@ -113,7 +113,7 @@ no_poi_selected:
   large_airport: false
   trip_mode: 1
   proxy_food: false
-  proxy_fuel: false
+  proxy_fuel_car: false
   proxy_car_rental: false
   proxy_bike_rental: false
   proxy_camp_site: false

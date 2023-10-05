@@ -42,6 +42,10 @@ fr:
         proxy_shop: Magasin
         proxy_bus_station: Station de bus
         proxy_train_station: Station de train
+        proxy_hiking_path: Chemin de randonnées
+        proxy_biking_path: Piste Cyclables
+        proxy_power_lines: Ligne électriques
+        proxy_coastline: Littoral
     errors:
       messages:
         in: doit être compris entre %{count}

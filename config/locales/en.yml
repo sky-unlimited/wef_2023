@@ -42,6 +42,10 @@ en:
         proxy_shop: Shops
         proxy_bus_station: Bus Station
         proxy_train_station: Train Station
+        proxy_hiking_path: Hiking path
+        proxy_biking_path: Biking path
+        proxy_power_lines: Power Lines
+        proxy_coastline: Coastline
     errors:
       messages:
         in: must be in %{count}

@@ -55,6 +55,31 @@ class PoiCatalogue
         :amenities => ["stop_station"],
         :icon => "🚆",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_train_station')},
+    :hiking_path => {
+        :categories => ["hiking","route"],
+        :amenities => ["hiking"],
+        :icon => "🥾",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_hiking_path')},
+    :biking_path => {
+        :categories => ["bicycle"],
+        :amenities => ["bicycle"],
+        :icon => "🚲",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_biking_path')},
+    :power_cable => {
+        :categories => ["power"],
+        :amenities => ["cable","line","minor_cable","minor_line"],
+        :icon => "⚡",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_power_lines')},
+    :coastlines => {
+        :categories => ["natural"],
+        :amenities => ["coastline"],
+        :icon => "🏖️",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_coastline')},
+    :aerodromes_polygone => {
+        :categories => ["aeroway"],
+        :amenities => ["airstrip","aerodrome"],
+        :icon => "✈️",
+        :label => I18n.t('activerecord.attributes.trip_request.airport')},
   }
 
   def self.inventory
@@ -79,7 +104,7 @@ class PoiCatalogue
       amenities   += @@inventory[:food][:amenities]
       categories  += @@inventory[:food][:categories]
     end
-    if trip_request.proxy_fuel
+    if trip_request.proxy_fuel_car
       amenities   += @@inventory[:fuel_car][:amenities]
       categories  += @@inventory[:fuel_car][:categories]
     end

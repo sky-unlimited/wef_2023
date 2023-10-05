@@ -20,7 +20,7 @@ class TripRequestsController < ApplicationController
       @trip_request.medium_airport        = last_request.medium_airport
       @trip_request.large_airport         = last_request.large_airport
       @trip_request.proxy_food            = last_request.proxy_food
-      @trip_request.proxy_fuel            = last_request.proxy_fuel
+      @trip_request.proxy_fuel_car        = last_request.proxy_fuel_car
       @trip_request.proxy_car_rental      = last_request.proxy_car_rental
       @trip_request.proxy_bike_rental     = last_request.proxy_bike_rental
       @trip_request.proxy_camp_site       = last_request.proxy_camp_site
@@ -63,7 +63,7 @@ class TripRequestsController < ApplicationController
   end
 
   def trip_request_params
-    params.require(:trip_request).permit(:user_id, :airport_id, :start_date, :end_date, :international_flight, :small_airport, :medium_airport, :large_airport, :trip_mode, :proxy_food, :proxy_fuel, :proxy_car_rental, :proxy_bike_rental, :proxy_camp_site, :proxy_hotel)
+    params.require(:trip_request).permit(:user_id, :airport_id, :start_date, :end_date, :international_flight, :small_airport, :medium_airport, :large_airport, :trip_mode, :proxy_food, :proxy_fuel_car, :proxy_car_rental, :proxy_bike_rental, :proxy_camp_site, :proxy_hotel)
   end
 
 end

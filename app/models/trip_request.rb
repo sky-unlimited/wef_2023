@@ -40,7 +40,7 @@ class TripRequest < ApplicationRecord
 
   def check_at_least_one_poi_selected
     if  proxy_food == false &&
-        proxy_fuel == false &&
+        proxy_fuel_car == false &&
         proxy_car_rental == false &&
         proxy_bike_rental == false &&
         proxy_camp_site == false &&
