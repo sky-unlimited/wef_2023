@@ -11,6 +11,12 @@ class AirportTest < ActiveSupport::TestCase
       assert_not record.save
     end
 
+    test "should not create a iglider field  airport" do
+      airport_hash = { icao: "ELUS", name: "Useldange Glider Field", city: "Useldange", country: countries(:luxembourg), latitude: 41.924400329589844, longitude: 9.406000137329102, altitude: 28, airport_type: "small_airport" }
+      record = Airport.new(airport_hash)
+      assert_not record.save
+    end
+
     test "should not create a heliport" do
       airport_hash = { icao: "LFPI", name: "Paris Issy-les-Moulineaux", city: "Paris", country: countries(:france), latitude: 48.833302, longitude: 2.27278, altitude: 112, airport_type: "heliport" }
       record = Airport.new(airport_hash)

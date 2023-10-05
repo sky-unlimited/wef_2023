@@ -20,18 +20,23 @@ class Airport < ApplicationRecord
     return if white_list.include?(icao)
 
     # We check if airport should be filtered or not
-    # General
-    errors.add("Airport filter", "ALL MIL Airports are not taken in scope") if name.match?(/(Air Base)/)
+    # General military airports
+    errors.add("Airport filter", "ALL MIL Airports are out of scope") if name.match?(/(Air Base)/i)
+
+    # General glider fields
+    errors.add("Airport filter", "Glider fields are out of scope") if name.match?(/(Glider)/i)
+
     # Germany
-    errors.add("Airport filter", "DE MIL Airports are not taken in scope") if icao.match?(/ET[A-Z]{2}/)
+    errors.add("Airport filter", "DE MIL Airport are out of scope") if icao.match?(/ET[A-Z]{2}/)
+
     # Netherlands
     exclusion_nl = ['EHDL','EHEH','EHGR','EHLW','EHVB','EHMC','EHML','EHSB','EHVK','EHDP','EHWO'] 
-    errors.add("Airport filter", "NL MIL Airports are not taken in scope") if exclusion_nl.include?(icao)
+    errors.add("Airport filter", "NL MIL Airport are out of scope") if exclusion_nl.include?(icao)
     exclusion_nl = ['EHAM']
-    errors.add("Airport filter", "NL Airports not suitable for GA") if exclusion_nl.include?(icao)
-    # Danemark
-    exclusion_dk = ['EKYT','EKKA','EKSP']
-    errors.add("Airport filter", "DK MIL Airports are not taken in scope") if exclusion_dk.include?(icao)
+    errors.add("Airport filter", "NL Airport not suitable for GA") if exclusion_nl.include?(icao)
 
+    # Denmark
+    exclusion_dk = ['EKYT','EKKA','EKSP']
+    errors.add("Airport filter", "DK MIL Airport are out of scope") if exclusion_dk.include?(icao)
   end
 end
