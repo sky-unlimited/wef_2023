@@ -75,7 +75,7 @@ class PoiCatalogue
         :amenities => ["coastline"],
         :icon => "🏖️",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_coastline')},
-    :aerodromes_polygone => {
+    :aerodrome_polygone => {
         :categories => ["aeroway"],
         :amenities => ["airstrip","aerodrome"],
         :icon => "✈️",
@@ -163,6 +163,7 @@ class PoiCatalogue
   def self.count_groups_per_airport(airport)
     airport_group_inventory = {}
     @@inventory.each_key do |group|
+      next if group == :aerodrome_polygone
       counter = 0
       counter += OsmPoint.where(airport_id: airport)
         .and(OsmPoint.where(amenity:  @@inventory[group][:amenities]))
