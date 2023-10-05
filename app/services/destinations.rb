@@ -119,6 +119,10 @@ class Destinations
 
     # We create an Airport object in order to retrieve all information
     @airports_matching_criterias = Airport.where(id: airports_array)
+
+    # TODO: We need to ensure the all filters are matching each airport!
+    # Make the test by selecting any filter + coastline...
+
   end
 
   def get_airports_flyzone

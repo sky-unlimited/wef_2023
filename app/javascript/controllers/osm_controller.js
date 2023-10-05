@@ -55,8 +55,19 @@ export default class extends Controller {
     {
   	  maxZoom: 19,
 	    attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
-	    apiKey: '<insert your api key here>',
+	    apikey: '<your apikey>',
 	    opacity: 0.5
+    });
+
+    // Tile Layer - CycloOSM
+    var CyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+	    maxZoom: 20,
+	    attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    // Tile Layer - Hiking
+    var MtbMap = L.tileLayer('http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png', {
+	    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &amp; USGS'
     });
 
     // We create the base layers and add default one to the map
@@ -318,7 +329,9 @@ export default class extends Controller {
     // Display the control layers
     var baseLayers = {
       "LightMap": Esri_WorldGrayCanvas,
-      "OpenStreetMap": OpenStreetMap_Mapnik
+      "OpenStreetMap": OpenStreetMap_Mapnik,
+      "Cyclo OSM": CyclOSM,
+      "Hiking/Rando": MtbMap
     };
     var Overlays = {
       "Fly Zone": flyzoneCommonPolygon,

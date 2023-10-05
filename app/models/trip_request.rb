@@ -40,11 +40,19 @@ class TripRequest < ApplicationRecord
 
   def check_at_least_one_poi_selected
     if  proxy_food == false &&
-        proxy_fuel == false &&
+        proxy_beverage == false &&
+        proxy_fuel_car == false &&
+        proxy_fuel_plane == false &&
         proxy_car_rental == false &&
         proxy_bike_rental == false &&
         proxy_camp_site == false &&
-        proxy_hotel == false
+        proxy_accommodation == false &&
+        proxy_shop == false &&
+        proxy_bus_station == false &&
+        proxy_train_station == false &&
+        proxy_hiking_path == false &&
+        proxy_coastline == false &&
+        proxy_lake == false
       errors.add( I18n.t('activerecord.attributes.trip_request.proxy_groups'), 
                   I18n.t('activerecord.errors.messages.check_at_least_one_poi_selected'))
     end
