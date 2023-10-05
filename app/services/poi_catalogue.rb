@@ -104,9 +104,17 @@ class PoiCatalogue
       amenities   += @@inventory[:food][:amenities]
       categories  += @@inventory[:food][:categories]
     end
+    if trip_request.beverage
+      amenities   += @@inventory[:beverage][:amenities]
+      categories  += @@inventory[:beverage][:categories]
+    end
     if trip_request.proxy_fuel_car
       amenities   += @@inventory[:fuel_car][:amenities]
       categories  += @@inventory[:fuel_car][:categories]
+    end
+    if trip_request.proxy_fuel_plane
+      amenities   += @@inventory[:fuel_plane][:amenities]
+      categories  += @@inventory[:fuel_plane][:categories]
     end
     if trip_request.proxy_bike_rental
       amenities   += @@inventory[:bike_rental][:amenities]
@@ -123,6 +131,26 @@ class PoiCatalogue
     if trip_request.proxy_hotel
       amenities   += @@inventory[:accommodation][:amenities]
       categories  += @@inventory[:accommodation][:categories]
+    end
+    if trip_request.proxy_shop
+      amenities   += @@inventory[:shop][:amenities]
+      categories  += @@inventory[:shop][:categories]
+    end
+    if trip_request.proxy_bus_station
+      amenities   += @@inventory[:bus_station][:amenities]
+      categories  += @@inventory[:bus_station][:categories]
+    end
+    if trip_request.proxy_train_station
+      amenities   += @@inventory[:train_station][:amenities]
+      categories  += @@inventory[:train_station][:categories]
+    end
+    if trip_request.proxy_hiking_path
+      amenities   += @@inventory[:hiking_path][:amenities]
+      categories  += @@inventory[:hiking_path][:categories]
+    end
+    if trip_request.proxy_coastline
+      amenities   += @@inventory[:coastline][:amenities]
+      categories  += @@inventory[:coastline][:categories]
     end
     filters = {:amenities => amenities, :categories => categories}
   end
