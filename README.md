@@ -32,8 +32,6 @@ OPENWEATHERMAP_API=your openweather api key
 ````
 We update airports data from: [https://github.com/davidmegginson/ourairports-data]()
 
-`git submodule update --init`
-
 `bundle`
 
 Database creation: (Follow this order 👇) 
@@ -54,6 +52,15 @@ pg_restore -U $target_user --single-transaction --table=osm_polygones --data-onl
 ````
 
 Launch local server:
+
 `rails s`
 
 Visit http://localhost:3000
+
+Update the project to latest stage ⚠️
+
+`git pull --recurse-submodules origin master`
+
+To update the submodule to latest stage:
+
+`git submodule update --init --recursive`
