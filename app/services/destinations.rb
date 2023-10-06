@@ -68,30 +68,31 @@ class Destinations
 
   def get_airports_matching_criterias
     airports_matching_criterias = Airport.all
-    # We apply the trip_request preferences on airport_type
-    # Build an array of selected airport types
+    # Apply the trip_request preferences on airport_type
     selected_airport_types = []
     selected_airport_types << "small_airport"   if @trip_request.small_airport
     selected_airport_types << "medium_airport"  if @trip_request.medium_airport
     selected_airport_types << "large_airport"   if @trip_request.large_airport
+
+    # Filter airports by selected airport types
     airports_matching_criterias = airports_matching_criterias.where(airport_type: selected_airport_types)
 
-    # We apply also filter on pilot preferences runway length
+    # Filter airports by runway length
     airports_matching_criterias = airports_matching_criterias.joins(:runways)
       .where('runways.length_meter >= ?', @trip_request.user.pilot_pref.min_runway_length)
 
-    # We filter airports not usable for PPL only
+    # Filter airports for PPL only
     airports_matching_criterias = airports_matching_criterias.where('length(icao) = 4') if @trip_request.user.pilot_pref.is_ultralight_pilot == false
  
-    # We filter also if destinations airports are outside departure country or not
+    # Filter airports based on international flight preference
     unless @trip_request.international_flight
       airports_matching_criterias = airports_matching_criterias.where(country_id: @trip_request.airport.country_id)
     end
 
-    # We take into account the points of interest per category depending user's choice
-    filters = PoiCatalogue.trip_request_filter(@trip_request)
+     # Apply points of interest filtering
+    filters = PoiCatalogue.trip_request_poi_filters(@trip_request)
 
-    # We filter the osm tables with filtered airports and poi's
+    # Filter the osm tables with filtered airports and poi's
     osm_points_airports     = []
     osm_lines_airports      = []
     osm_polygones_airports  = []
@@ -109,16 +110,14 @@ class Destinations
                                 .and(OsmPolygone.where(category: filters[:categories]))
                                 .pluck(:airport_id)
 
-    # We insert all airports in a single array
-    airports_array = []
-    airports_array += osm_points_airports + osm_lines_airports + osm_polygones_airports
-    airports_array = airports_array.uniq
+    # Combine the results from all three tables
+    airport_ids = (osm_points_airports + osm_lines_airports + osm_polygones_airports).uniq
 
-    # We delete of course the departure airport as it can't be a destination
-    airports_array.delete_if { |value| value == @trip_request.airport_id }
+    # Exclude the departure airport from the list of matching airports
+    airport_ids.delete(@trip_request.airport_id)
 
     # We create an Airport object in order to retrieve all information
-    @airports_matching_criterias = Airport.where(id: airports_array)
+    @airports_matching_criterias = Airport.where(id: airport_ids)
 
     # TODO: We need to ensure the all filters are matching each airport!
     # Make the test by selecting any filter + coastline...

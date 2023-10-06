@@ -93,8 +93,8 @@ class PoiCatalogue
 
   def self.count(group_name)
     counter = 0
-    amenities = @@inventory[group_name.to_sym][:amenities]
-    category  = @@inventory[group_name.to_sym][:categories]
+    amenities = @@inventory[group_name][:amenities]
+    category  = @@inventory[group_name][:categories]
     counter += OsmPoint.where(amenity: amenities).and(OsmPoint.where(category: category)).count
     counter += OsmLine.where(amenity: amenities).and(OsmLine.where(category: category)).count
     counter += OsmPolygone.where(amenity: amenities).and(OsmPolygone.where(category: category)).count
@@ -102,7 +102,7 @@ class PoiCatalogue
 
   # Depending pilot's choice of amenities, we sum all the poi
   # amenities and categories to query on
-  def self.trip_request_filter(trip_request)
+  def self.trip_request_poi_filters(trip_request)
     amenities   = []
     categories  = []
     if trip_request.proxy_food
@@ -161,7 +161,7 @@ class PoiCatalogue
       amenities   += @@inventory[:lake][:amenities]
       categories  += @@inventory[:lake][:categories]
     end
-    filters = {:amenities => amenities, :categories => categories}
+    filters = { :amenities => amenities, :categories => categories }
   end
 
   def self.count_groups_per_airport(airport)
