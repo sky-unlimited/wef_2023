@@ -32,7 +32,9 @@ OPENWEATHERMAP_API=your openweather api key
 ````
 We update airports data from: [https://github.com/davidmegginson/ourairports-data]()
 
-`bundle`
+`git submodule update --init --recursive`
+
+then, `bundle`
 
 Database creation: (Follow this order 👇) 
 ````bash
@@ -57,10 +59,16 @@ Launch local server:
 
 Visit http://localhost:3000
 
-Update the project to latest stage ⚠️
+PULL REQUEST the project ⚠️
 
 `git pull --recurse-submodules origin master`
 
 To update the submodule to latest stage:
-
-`git submodule update --init --recursive`
+````bash
+cd ourairports-data
+git pull origin main
+cd ..
+git commit -am"update ourairports-data"
+git push origin master
+# This way, the project will be associated to a defined version of the submodule
+````
