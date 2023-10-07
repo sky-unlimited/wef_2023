@@ -20,6 +20,7 @@
   </table>
 
   <h2><%= t('trip_suggestions.index.title') %></h2>
+  <p><b><%= t('trip_suggestions.index.airports_found', count: @airports_flyzone_map.count) %></b></p>
 
   <% @top_destinations.each_with_index do |destination,index| %>
     <div>
@@ -126,7 +127,6 @@
   <% else %>
     <p class="tag-success">real weather</p>
   <% end %>
-  <p><%= @airports_flyzone_map.count %> Airports found</p>
   <div class="map-container" \
         data-controller="osm" \
         data-osm-target="map" \
