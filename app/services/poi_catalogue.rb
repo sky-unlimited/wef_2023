@@ -52,7 +52,7 @@ class PoiCatalogue
         :label => I18n.t('activerecord.attributes.trip_request.proxy_bus_station')},
     :train_station => {
         :categories => ["railway"],
-        :amenities => ["station"],
+        :amenities => ["station", "stop_position"],
         :icon => "🚆",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_train_station')},
     :hiking_path => {
