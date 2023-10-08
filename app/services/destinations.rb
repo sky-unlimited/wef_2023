@@ -121,24 +121,57 @@ class Destinations
 
   def get_top_destinations
     #TODO: Of course, the algo needs further analysis. Issue github to come
+    destinations = []
+
     @airports_flyzone.each do |airport|
       flight_track = FlightTrack.new( @trip_request.airport.lonlat, 
                                     airport.lonlat,
                                     @trip_request.user.pilot_pref.average_true_airspeed,
                                     @flyzone_common_polygons)
-      top_destinations << {:airport => airport, :flight_track => flight_track }
-    end
-    # Rejection rules
-    # 1. Flight Time less than 30 minutes
-    rejected_destinations = top_destinations.reject do |destination|
-      destination[:flight_track].average_flight_time_min < 30
+
+      # Priority 1: Direct Flight
+      direct_flight = flight_track.is_in_flyzone ? 1 : 0
+
+      # Priority 2: Distance categories
+      distance_category =
+        if flight_track.average_flight_time_min < 120
+          "Flight Time < 120 mins"
+        elsif flight_track.average_flight_time_min < 180
+          "Flight Time < 180 mins"
+        else
+          "Flight Time > 180 mins"
+        end
+
+      # Priority 3: Heading groups
+      heading_category =
+        case flight_track.bearing
+        when 0..90
+          "NE Heading"
+        when 91..180
+          "SE Heading"
+        when 181..270
+          "SW Heading"
+        else
+          "NW Heading"
+        end
+
+      destinations << { :airport        => airport,
+                        :flight_track   => flight_track,
+                        :direct_flight  => direct_flight,
+                        :distance_group => distance_category,
+                        :heading_group  => heading_category }
     end
 
+    # Filtering rules
+    # 1. Flight Time more than 30 minutes
+    filtered_destinations = destinations.select { 
+      |destination| destination[:flight_track].average_flight_time_min >= 30 }
+    
     # Sorting rules:
     # 1.  We first sort records by prioritizing direct flights. It means destinations
     #     for which the flight track is 100% within the flyzone (good weather zone)
     # 2. The distance from departure airport
-    sorted_destinations = rejected_destinations.sort_by do |destination|
+    sorted_destinations = filtered_destinations.sort_by do |destination|
       flight_track = destination[:flight_track]
       # rule 1
       is_in_flyzone = flight_track.is_in_flyzone ? 0 : 1
