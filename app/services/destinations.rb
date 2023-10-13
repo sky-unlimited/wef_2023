@@ -190,6 +190,6 @@ class Destinations
     end
 
     # Send the airports in array
-    @top_destination_airports = top_destination_airports.first(5)
+    @top_destination_airports = top_destination_airports.first(10)
   end
 end
