@@ -100,13 +100,13 @@ fr:
     index:
       title: Top Destinations
       summary: Sommaire
+      selected_pois: Points d'intérêts
       flyzone_map:  Carte Météo Favorable
       flight_track: Trajectoire de vol
       distance: Distance
       flight_time: Durée de vol
       bearing: "Route vrai"
       warnings: Alertes
-      airports_found:
-        zero: Aucune destination trouvée correspondant à critères 🙄. Essayez avec autres critères! 
-        one: Une destination trouvée correspondant à vos critères 😅
-        other: "%{count} destinations trouvées correspondant à vos critères ! 🙂"
+      selection: Notre sélection
+      map: Carte
+      no_destinations: 🙄 Désolé, nous n'avons pas de destinations à vous proposer. Veuillez adapter vos critères!

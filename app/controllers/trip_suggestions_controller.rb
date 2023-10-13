@@ -71,23 +71,27 @@ class TripSuggestionsController < ApplicationController
 
     # We load the destination airports in separate array to be displayed
     @airports_destination_map = []
-    destinations.top_destinations.each_with_index do |destination, index|
-      @airports_destination_map.push({  :id => destination[:airport].id,
-                                    :name => destination[:airport].name,
-                                    :icao => destination[:airport].icao,
-                                    :airport_type => destination[:airport].airport_type,
-                                    :geojson => RGeo::GeoJSON.encode(destination[:airport].lonlat),
+    destinations.top_destination_airports.each_with_index do |destination, index|
+      @airports_destination_map.push({  :id => destination.id,
+                                    :name => destination.name,
+                                    :icao => destination.icao,
+                                    :airport_type => destination.airport_type,
+                                    :geojson => RGeo::GeoJSON.encode(destination.lonlat),
                                     :icon_url => helpers.image_url("destination_#{index+1}.png")
     })
     end
 
     # We load the top destinations
-    @top_destinations = destinations.top_destinations
+    @top_destination_airports = destinations.top_destination_airports
 
     # We load the flight tracks for front-end (javascript)
     @flight_tracks = []
-    @top_destinations.each do |destination|
-      @flight_tracks << destination[:flight_track]
+    @top_destination_airports.each do |airport|
+      flight_track = FlightTrack.new(@trip_request.airport.lonlat,
+                                     airport.lonlat,
+                                     @trip_request.user.pilot_pref.average_true_airspeed,
+                                     destinations.flyzone_common_polygons)
+      @flight_tracks << flight_track
     end
 
     # We load weather for outbound and inbound for front-end (javascript)

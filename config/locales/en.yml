@@ -33,7 +33,7 @@ en:
         proxy_groups: Group of interests
         proxy_food: Food
         proxy_beverage: Beverage
-        proxy_fuel_car: Car Gas Stations
+        proxy_fuel_car: Car Gas Station
         proxy_fuel_plane: Refuelling Station
         proxy_bike_rental: Bike Rental
         proxy_car_rental: Car Rental
@@ -99,13 +99,13 @@ en:
     index:
       title: Top Destinations
       summary: Summary
+      selected_pois: Selected poi's
       flyzone_map:  Flyzone Map
       flight_track: Flight Track
       distance: Distance
       flight_time: Flight Time
       bearing: "True Bearing"
       warnings: Warnings
-      airports_found:
-        zero: No destination found matching your criterias 🙄. Try with other criterias!
-        one: We found a destination matching your criterias 😅
-        other: "We found %{count} destinations matching your criterias! 🙂"
+      selection: Our selection
+      map: Map
+      no_destinations: 🙄 Sorry, we don't have any destinations to suggest you. Please adapt your criterias!

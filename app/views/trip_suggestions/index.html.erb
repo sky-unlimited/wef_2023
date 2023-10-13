@@ -17,130 +17,147 @@
       <td><b><%= t('activerecord.attributes.trip_request.end_date') %>:</b></td>
       <td><%= format_offset_date_human(@trip_request.end_date.to_date - Date.current) %></td>
     </tr>
+    <tr>
+      <td><b><%= t('trip_suggestions.index.selected_pois') %>:</b></td>
+      <td>
+        <% PoiCatalogue.get_pois_group_per_trip_request(@trip_request).map do |group| %>
+          <%= "#{group.values.first[:icon]} " %>
+        <% end %>
+      </td>
+    </tr>
   </table>
 
-  <h2><%= t('trip_suggestions.index.title') %></h2>
-  <p><b><%= t('trip_suggestions.index.airports_found', count: @airports_flyzone_map.count) %></b></p>
+  <% if @top_destination_airports.count == 0 %>
+    <p><%= t('trip_suggestions.index.no_destinations') %></p></br>
+  <% else %>
+    <div class="my-20">
+      <%= link_to t('trip_request.buttons.new_trip_request'), new_trip_request_path, class: "btn btn-secondary" %>
+      <%= link_to t('trip_suggestions.index.map'), "#map", class: "btn btn-secondary" %>
+    </div>
 
-  <% @top_destinations.each_with_index do |destination,index| %>
-    <div>
-      <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5 border-radius"> 
-        <div class="top_desinations__airport">
-          <h3 class="color-light"><%= "#{NormalizeCountry(destination[:airport].country.code, :to => :emoji)} #{index+1}. #{destination[:airport].city} (#{destination[:airport].country.name})" %>
-          <%= image_tag('alert-triangle.svg') if destination[:flight_track].warnings.count > 0 %>
-          </h3>
-          <p><b><%= "✈️  #{destination[:airport].name} (#{destination[:airport].icao})" %></b>
-            <span class="tag-outline-dark ml-5"><%= destination[:airport].airport_type %></span>
-            <% unless destination[:airport].url.nil? %>
-            <span class="tag-outline-dark ml-5">
-              <a class="color-dark" target="_blank" href="<%= destination[:airport].url %>">web</a>
-            </span>
-          <% end %>
-          </p>
-        </div>
-        <div class="top_destinations__flight_track mt-5" data-controller="collapse">
-          <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
-          <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
-          <div  id="flight_track_<%= index + 1 %>" 
-                class="collapse show bg-light px-5 border-radius" 
-                data-collapse-target="content">
-            <ul>
-              <li><%= "#{t('trip_suggestions.index.distance')}: #{destination[:flight_track].distance_km}km (#{destination[:flight_track].distance_nm}nm)" %></li>
-              <li><%= "#{t('trip_suggestions.index.flight_time')}: #{destination[:flight_track].average_flight_time_min}min" %></li>
-              <li><%= "#{t('trip_suggestions.index.bearing')}: #{destination[:flight_track].bearing}°" %></li>
-            </ul>
+    <h2><%= t('trip_suggestions.index.selection') %></h2>
+
+    <% @top_destination_airports.each_with_index do |airport,index| %>
+      <div>
+        <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5 border-radius"> 
+          <div class="top_desinations__airport">
+            <h3 class="color-light"><%= "#{NormalizeCountry(airport.country.code, :to => :emoji)} #{index+1}. #{airport.city} (#{airport.country.name})" %>
+            <%= image_tag('alert-triangle.svg') if @flight_tracks[index].warnings.count > 0 %>
+            </h3>
+            <p><b><%= "✈️  #{airport.name} (#{airport.icao})" %></b>
+              <span class="tag-outline-dark ml-5"><%= airport.airport_type %></span>
+              <% unless airport.url.nil? %>
+              <span class="tag-outline-dark ml-5">
+                <a class="color-dark" target="_blank" href="<%= airport.url %>">web</a>
+              </span>
+            <% end %>
+            </p>
           </div>
-        </div>
-        <div class="top_destinations__poi mt-5" data-controller="collapse">
-          <% poi_count_group = PoiCatalogue.count_groups_per_airport(destination[:airport]) %>
-          <% total_poi_sum = poi_count_group.values.sum %>
-          <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-          <span><b><%= "#{t('trip_request.poi')} (#{total_poi_sum})" %></b></span>
-          <div id="group_pois_<%= index + 1 %>" class="collapse bg-light p-10 border-radius mt-15" data-collapse-target="content">
+          <div class="top_destinations__flight_track mt-5" data-controller="collapse">
+            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
+            <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
+            <div  id="flight_track_<%= index + 1 %>" 
+                  class="collapse show bg-light px-5 border-radius" 
+                  data-collapse-target="content">
+              <ul>
+                <li><%= "#{t('trip_suggestions.index.distance')}: #{@flight_tracks[index].distance_km}km (#{@flight_tracks[index].distance_nm}nm)" %></li>
+                <li><%= "#{t('trip_suggestions.index.flight_time')}: #{format_time(@flight_tracks[index].average_flight_time_min)}" %></li>
+                <li><%= "#{t('trip_suggestions.index.bearing')}: #{@flight_tracks[index].bearing}°" %></li>
+              </ul>
+            </div>
+          </div>
+          <div class="top_destinations__poi mt-5" data-controller="collapse">
+            <% poi_count_group = PoiCatalogue.count_groups_per_airport(airport) %>
+            <% total_poi_sum = poi_count_group.values.sum %>
+            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+            <span><b><%= "#{t('trip_request.poi')} (#{total_poi_sum})" %></b></span>
+            <div id="group_pois_<%= index + 1 %>" class="collapse bg-light p-10 border-radius mt-15" data-collapse-target="content">
 
-              <!-- begin group poi content -->
-              <% poi_count_group.each do |key,value| %>
-                <div class="top_destinations__poi__details mt-5" data-controller="collapse">
-                  <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-                  <span><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %></span>
-                  <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></br>
-                  <div  id="group_pois_<%= "#{index + 1}_#{key}" %>" 
-                        class="collapse bg-light px-5 border-radius" data-collapse-target="content">
-                    <!-- begin sub-group poi content -->
-                    <ul>
-                      <% PoiCatalogue.poi_per_group_and_airport(destination[:airport])[key].each do |group_detail|  %>
-                        <% unless group_detail[:name].nil? %>
-                          <li><%= group_detail[:name] %>
-                            <span> (<%= group_detail[:distance] %>m)</span>
-                            <!-- tags details -->
-                              <% unless group_detail[:tags]["website"].nil? %>
-                                <span class="ml-5">
-                                  <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["website"] %>">web</a>
-                                </span>
-                              <% end %>
-                              <% unless group_detail[:tags]["contact:website"].nil? %>
-                                <span class="ml-5">
-                                  <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["contact:website"] %>">web</a>
-                                </span>
-                              <% end %>
-                              <% unless group_detail[:tags]["url"].nil? %>
-                                <span class="ml-5">
-                                  <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["url"] %>">web</a>
-                                </span>
-                              <% end %>
-                            <!-- tags details -->
-                          </li>
-                        <% else %>
-                          <li style="font-style: italic;">Data unavailable
-                            <span> (<%= group_detail[:distance] %>m)</span>
-                          </li>
+                <!-- begin group poi content -->
+                <% poi_count_group.each do |key,value| %>
+                  <div class="top_destinations__poi__details mt-5" data-controller="collapse">
+                    <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+                    <span><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %></span>
+                    <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></br>
+                    <div  id="group_pois_<%= "#{index + 1}_#{key}" %>" 
+                          class="collapse bg-light px-5 border-radius" data-collapse-target="content">
+                      <!-- begin sub-group poi content -->
+                      <ul>
+                        <% PoiCatalogue.poi_per_group_and_airport(airport)[key].each do |group_detail|  %>
+                          <% unless group_detail[:name].nil? %>
+                            <li><%= group_detail[:name] %>
+                              <span> (<%= group_detail[:distance] %>m)</span>
+                              <!-- tags details -->
+                                <% unless group_detail[:tags]["website"].nil? %>
+                                  <span class="ml-5">
+                                    <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["website"] %>">web</a>
+                                  </span>
+                                <% end %>
+                                <% unless group_detail[:tags]["contact:website"].nil? %>
+                                  <span class="ml-5">
+                                    <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["contact:website"] %>">web</a>
+                                  </span>
+                                <% end %>
+                                <% unless group_detail[:tags]["url"].nil? %>
+                                  <span class="ml-5">
+                                    <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["url"] %>">web</a>
+                                  </span>
+                                <% end %>
+                              <!-- tags details -->
+                            </li>
+                          <% else %>
+                            <li style="font-style: italic;">Data unavailable
+                              <span> (<%= group_detail[:distance] %>m)</span>
+                            </li>
+                          <% end %>
                         <% end %>
-                      <% end %>
-                    </ul>
-                    <!-- end sub-group poi content -->
+                      </ul>
+                      <!-- end sub-group poi content -->
+                    </div>
                   </div>
-                </div>
-              <% end %>
-              <!-- end group poi content -->
+                <% end %>
+                <!-- end group poi content -->
 
+            </div>
           </div>
-        </div>
-        <div class="top_destinations__warnings mt-5" data-controller="collapse">
-          <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-          <span><b><%= "#{t('trip_suggestions.index.warnings')} (#{destination[:flight_track].warnings.count})" %></b></span>
-          <div id="warning_<%= index + 1 %>" class="collapse bg-warning px-5 border-radius" data-collapse-target="content">
-            <ul>
-              <% destination[:flight_track].warnings.each do |warning| %>
-                <li class=""><%= warning %></li>
-              <% end %>
-            </ul>
+          <div class="top_destinations__warnings mt-5" data-controller="collapse">
+            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+            <span><b><%= "#{t('trip_suggestions.index.warnings')} (#{@flight_tracks[index].warnings.count})" %></b></span>
+            <div id="warning_<%= index + 1 %>" class="collapse bg-warning px-5 border-radius" data-collapse-target="content">
+              <ul>
+                <% @flight_tracks[index].warnings.each do |warning| %>
+                  <li class=""><%= warning %></li>
+                <% end %>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+    <% end %>
+
+
+    <h2><%= t('trip_suggestions.index.flyzone_map') %></h2>
+    <% if @fake_weather %>
+      <p class="tag-danger">fake weather</p>
+    <% else %>
+      <p class="tag-success">real weather</p>
+    <% end %>
+    <div class="map-container" \
+          id="map" \
+          data-controller="osm" \
+          data-osm-target="map" \
+          data-osm-airports-matching-criterias-map-value="<%= @airports_matching_criterias_map.to_json %>" \
+          data-osm-airports-flyzone-map-value="<%= @airports_flyzone_map.to_json %>" \
+          data-osm-airports-destination-map-value="<%= @airports_destination_map.to_json %>" \
+          data-osm-departure-airport-value="<%= @departure_airport.first.to_json %>" \
+          data-osm-flyzone-common-polygon-value="<%= @flyzone_common_polygons %>" \
+          data-osm-flyzone-outbound-value="<%= @flyzone_outbound %>" \
+          data-osm-flyzone-inbound-value="<%= @flyzone_inbound %>" \
+          data-osm-trip-request-value="<%= @trip_request.to_json %>" \
+          data-osm-pilot-prefs-value="<%= @pilot_prefs.to_json %>" \
+          data-osm-flight-tracks-value="<%= @flight_tracks.to_json %>" >
     </div>
   <% end %>
-
-
-  <h2><%= t('trip_suggestions.index.flyzone_map') %></h2>
-  <% if @fake_weather %>
-    <p class="tag-danger">fake weather</p>
-  <% else %>
-    <p class="tag-success">real weather</p>
-  <% end %>
-  <div class="map-container" \
-        data-controller="osm" \
-        data-osm-target="map" \
-        data-osm-airports-matching-criterias-map-value="<%= @airports_matching_criterias_map.to_json %>" \
-        data-osm-airports-flyzone-map-value="<%= @airports_flyzone_map.to_json %>" \
-        data-osm-airports-destination-map-value="<%= @airports_destination_map.to_json %>" \
-        data-osm-departure-airport-value="<%= @departure_airport.first.to_json %>" \
-        data-osm-flyzone-common-polygon-value="<%= @flyzone_common_polygons %>" \
-        data-osm-flyzone-outbound-value="<%= @flyzone_outbound %>" \
-        data-osm-flyzone-inbound-value="<%= @flyzone_inbound %>" \
-        data-osm-trip-request-value="<%= @trip_request.to_json %>" \
-        data-osm-pilot-prefs-value="<%= @pilot_prefs.to_json %>" \
-        data-osm-flight-tracks-value="<%= @flight_tracks.to_json %>" \>
-  </div>
 
   <div class="my-20">
     <%= link_to t('trip_request.buttons.new_trip_request'), new_trip_request_path, class: "btn btn-secondary" %>
