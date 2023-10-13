@@ -110,3 +110,4 @@ fr:
         zero: Aucune destination trouvée correspondant à critères 🙄. Essayez avec autres critères! 
         one: Une destination trouvée correspondant à vos critères 😅
         other: "%{count} destinations trouvées correspondant à vos critères ! 🙂"
+      selection: "👉 Voici notre séléction:"

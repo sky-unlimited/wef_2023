@@ -109,3 +109,4 @@ en:
         zero: No destination found matching your criterias 🙄. Try with other criterias!
         one: We found a destination matching your criterias 😅
         other: "We found %{count} destinations matching your criterias! 🙂"
+      selection: "👉 Here's our selection:"

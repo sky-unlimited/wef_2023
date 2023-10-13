@@ -21,6 +21,7 @@
 
   <h2><%= t('trip_suggestions.index.title') %></h2>
   <p><b><%= t('trip_suggestions.index.airports_found', count: @airports_flyzone_map.count) %></b></p>
+  <p><b><%= t('trip_suggestions.index.selection') %></b></p>
 
   <% @top_destination_airports.each_with_index do |airport,index| %>
     <div>
