@@ -15,4 +15,16 @@ module TripSuggestionsHelper
     end
   end
 
+  def format_time(time_in_minutes)
+    if time_in_minutes < 60
+      "#{time_in_minutes} min"
+    else
+      hours = time_in_minutes / 60
+      minutes = time_in_minutes % 60
+      time_str = "#{hours}h"
+      time_str += " #{minutes}min" if minutes > 0
+      time_str
+    end
+  end
+
 end

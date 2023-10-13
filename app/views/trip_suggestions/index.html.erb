@@ -20,8 +20,10 @@
   </table>
 
   <h2><%= t('trip_suggestions.index.title') %></h2>
-  <p><b><%= t('trip_suggestions.index.airports_found', count: @airports_flyzone_map.count) %></b></p>
-  <p><b><%= t('trip_suggestions.index.selection') %></b></p>
+  <!--
+  <p>< b><%= t('trip_suggestions.index.airports_found', count: @airports_flyzone_map.count) %></b></p>
+  -->
+  <p><%= t('trip_suggestions.index.selection') %></p>
 
   <% @top_destination_airports.each_with_index do |airport,index| %>
     <div>
@@ -47,7 +49,7 @@
                 data-collapse-target="content">
             <ul>
               <li><%= "#{t('trip_suggestions.index.distance')}: #{@flight_tracks[index].distance_km}km (#{@flight_tracks[index].distance_nm}nm)" %></li>
-              <li><%= "#{t('trip_suggestions.index.flight_time')}: #{@flight_tracks[index].average_flight_time_min}min" %></li>
+              <li><%= "#{t('trip_suggestions.index.flight_time')}: #{format_time(@flight_tracks[index].average_flight_time_min)}" %></li>
               <li><%= "#{t('trip_suggestions.index.bearing')}: #{@flight_tracks[index].bearing}°" %></li>
             </ul>
           </div>
