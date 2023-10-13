@@ -1,4 +1,5 @@
 class PoiCatalogue
+  # If new groups added to trip_requests, please update PoiCatalogue.get_pois_group_per_trip_request
   @@inventory = {
     :food => {
         :categories => ["amenity"],
@@ -104,14 +105,11 @@ class PoiCatalogue
   # matching ALL criterias (intersection)
   def self.airports_matching_pois(trip_request)
     airports_ids = []
-
-    if trip_request.proxy_food
+    selected_pois_group = get_pois_group_per_trip_request(trip_request)
+    
+    selected_pois_group.each do |group|
       # Get airports having poi group
-      airports_ids += get_airports_ids(:food)
-    end
-    if trip_request.proxy_beverage
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:beverage)
+      temp_airports_ids = get_airports_ids(group.keys.first)
 
       # We make an intersection to match all criterias
       if airports_ids.empty?
@@ -120,139 +118,6 @@ class PoiCatalogue
         airports_ids = airports_ids & temp_airports_ids
       end
     end
-    if trip_request.proxy_fuel_car
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:fuel_car)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_fuel_plane
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:fuel_plane)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_bike_rental
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:bike_rental)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_car_rental
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:car_rental)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_camp_site
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:camp_site)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_accommodation
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:accommodation)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_shop
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:shop)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_bus_station
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:bus_station)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_train_station
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:train_station)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_hiking_path
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:hiking_path)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_coastline
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:coastline)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-    if trip_request.proxy_lake
-      # Get airports having poi group
-      temp_airports_ids = get_airports_ids(:lake)
-
-      # We make an intersection to match all criterias
-      if airports_ids.empty?
-        airports_ids += temp_airports_ids
-      else
-        airports_ids = airports_ids & temp_airports_ids
-      end
-    end
-
     return Airport.where(id: airports_ids)
   end
 
@@ -331,6 +196,28 @@ class PoiCatalogue
     return list_pois
   end
 
+  def self.get_pois_group_per_trip_request(trip_request)
+    # Create an array of pois
+    pois_array = []
+
+    # Iteration on trip_request pois
+    pois_array << { :food           => @@inventory[:food] } if trip_request.proxy_food 
+    pois_array << { :beverage       => @@inventory[:beverage] } if trip_request.proxy_beverage
+    pois_array << { :fuel_car       => @@inventory[:fuel_car] } if trip_request.proxy_fuel_car
+    pois_array << { :fuel_plane     => @@inventory[:fuel_plane] } if trip_request.proxy_fuel_plane
+    pois_array << { :bike_rental    => @@inventory[:bike_rental] } if trip_request.proxy_bike_rental
+    pois_array << { :car_rental     => @@inventory[:car_rental] } if trip_request.proxy_car_rental
+    pois_array << { :camp_site      => @@inventory[:camp_site] } if trip_request.proxy_camp_site
+    pois_array << { :accommodation  => @@inventory[:accommodation] } if trip_request.proxy_accommodation
+    pois_array << { :shop           => @@inventory[:shop] } if trip_request.proxy_shop
+    pois_array << { :bus_station    => @@inventory[:bus_station] } if trip_request.proxy_bus_station
+    pois_array << { :train_station  => @@inventory[:train_station] } if trip_request.proxy_train_station
+    pois_array << { :hiking_path    => @@inventory[:hiking_path] } if trip_request.proxy_hiking_path
+    pois_array << { :coastline      => @@inventory[:coastline] } if trip_request.proxy_coastline
+    pois_array << { :lake           => @@inventory[:lake] } if trip_request.proxy_lake
+    return pois_array
+  end
+
   private
 
   def self.get_airports_ids(poi_group)
@@ -347,5 +234,4 @@ class PoiCatalogue
     # Combine the results from all three tables
     osm_airport_ids = (osm_points_airports + osm_lines_airports + osm_polygones_airports).uniq
   end
-
 end
