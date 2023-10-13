@@ -17,13 +17,22 @@
       <td><b><%= t('activerecord.attributes.trip_request.end_date') %>:</b></td>
       <td><%= format_offset_date_human(@trip_request.end_date.to_date - Date.current) %></td>
     </tr>
+    <tr>
+      <td><b><%= t('trip_suggestions.index.selected_pois') %>:</b></td>
+      <td>
+        <% PoiCatalogue.get_pois_group_per_trip_request(@trip_request).map do |group| %>
+          <%= "#{group.values.first[:icon]} " %>
+        <% end %>
+      </td>
+    </tr>
   </table>
 
-  <h2><%= t('trip_suggestions.index.title') %></h2>
-  <!--
-  <p>< b><%= t('trip_suggestions.index.airports_found', count: @airports_flyzone_map.count) %></b></p>
-  -->
-  <p><%= t('trip_suggestions.index.selection') %></p>
+  <div class="my-20">
+    <%= link_to t('trip_request.buttons.new_trip_request'), new_trip_request_path, class: "btn btn-secondary" %>
+    <%= link_to t('trip_suggestions.index.map'), "#map", class: "btn btn-secondary" %>
+  </div>
+
+  <h2><%= t('trip_suggestions.index.selection') %></h2>
 
   <% @top_destination_airports.each_with_index do |airport,index| %>
     <div>
@@ -131,6 +140,7 @@
     <p class="tag-success">real weather</p>
   <% end %>
   <div class="map-container" \
+        id="map" \
         data-controller="osm" \
         data-osm-target="map" \
         data-osm-airports-matching-criterias-map-value="<%= @airports_matching_criterias_map.to_json %>" \
