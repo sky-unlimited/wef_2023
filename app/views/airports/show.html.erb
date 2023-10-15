@@ -1,3 +1,52 @@
-<h1>Airports#show</h1>
-<p>Find me in app/views/airports/show.html.erb</p>
-<%= @airport.name %>
+<div class="container">
+
+  <h2><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %></h2>
+
+  <div data-controller="collapse">
+    <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
+    <span>Facility data</span>
+    <div id="unique_id" class="collapse show" data-collapse-target="content">
+      <table>
+        <tr>
+          <td><b>Location</b></td>
+          <td><%= @airport.city %></td>
+        </tr>
+        <tr>
+          <td><b>Local code</b></td>
+          <td><%= @airport.local_code %></td>
+        </tr>
+        <tr>
+          <td><b>IATA</b></td>
+          <td><%= @airport.iata %></td>
+        </tr>
+        <tr>
+          <td><b>Facility type</b></td>
+          <td><%= @airport.airport_type %></td>
+        </tr>
+        <tr>
+          <td><b>Coordinates</b></td>
+          <td><%= "#{@airport.latitude},#{@airport.longitude}" %>
+            <a class="tag-outline-primary" target="_blank" 
+                                  href="https://skyvector.com/?ll=<%= @airport.latitude %>,<%= @airport.longitude %>&chart=301&zoom=2">
+                                  chart
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Field elevation</b></td>
+          <td><%= "#{@airport.altitude} ft MSL" %></td>
+        </tr>
+        <tr>
+          <td><b>Web site</b></td>
+          <td>
+            <a class="color-dark" target="_blank" 
+                                  href="<%= @airport.url %>">
+                                  <%= @airport.url %>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
