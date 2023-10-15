@@ -5,8 +5,8 @@
   <div data-controller="collapse">
     <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
     <span>Facility data</span>
-    <div id="unique_id" class="collapse show" data-collapse-target="content">
-      <table>
+    <div id="facility" class="collapse show" data-collapse-target="content">
+      <table class="border p-5 mt-5">
         <tr>
           <td><b>Location</b></td>
           <td><%= @airport.city %></td>
@@ -48,5 +48,28 @@
       </table>
     </div>
   </div>
+
+  <div data-controller="collapse" class="mt-20">
+    <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
+    <span>Runways</span>
+    <div id="runways" class="collapse show" data-collapse-target="content">
+      <table class="border p-5 mt-5">
+        <% @runways.each do |runway| %>
+          <tr>
+            <td><b><%= "#{runway.le_ident} #{runway.he_ident}" %></b></td>
+            <td><%= "📐 #{runway.length_meter}m X #{runway.width_meter}m | " %>
+              <%= "🛠️ Surface #{runway.surface.capitalize}" %>
+              <% if runway.lighted %>
+                <%= " | 💡 Lighted" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+
+
 
 </div>

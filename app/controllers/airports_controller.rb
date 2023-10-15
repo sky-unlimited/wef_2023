@@ -7,5 +7,6 @@ class AirportsController < ApplicationController
   # GET /airports/1
   def show
     @airport = Airport.find(params[:id])
+    @runways = @airport.runways
   end
 end
