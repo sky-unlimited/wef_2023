@@ -4,9 +4,9 @@
 
   <div data-controller="collapse">
     <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
-    <span>Facility data</span>
+    <span><b>Facility data</b></span>
     <div id="facility" class="collapse show" data-collapse-target="content">
-      <table class="border p-5 mt-5">
+      <table class="table-bordered mt-5">
         <tr>
           <td><b>Location</b></td>
           <td><%= @airport.city %></td>
@@ -49,23 +49,82 @@
     </div>
   </div>
 
-  <div data-controller="collapse" class="mt-20">
+  <div data-controller="collapse" class="mt-20" >
     <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
-    <span>Runways</span>
+    <span><b>Runways</b></span>
     <div id="runways" class="collapse show" data-collapse-target="content">
-      <table class="border p-5 mt-5">
+      <table class="p-5 mt-5 table-bordered-dark">
         <% @runways.each do |runway| %>
           <tr>
             <td><b><%= "#{runway.le_ident} #{runway.he_ident}" %></b></td>
-            <td><%= "📐 #{runway.length_meter}m X #{runway.width_meter}m | " %>
-              <%= "🛠️ Surface #{runway.surface.capitalize}" %>
+            <td><%= "#{runway.length_meter}m X #{runway.width_meter}m" %></td>
+            <td><%= "Surface #{runway.surface.capitalize}" %></td>
+            <td>
               <% if runway.lighted %>
-                <%= " | 💡 Lighted" %>
+                <%= "💡 Lighted" %>
+              <% else %>
+                <%= "Not lighted" %>
               <% end %>
             </td>
           </tr>
         <% end %>
       </table>
+    </div>
+  </div>
+
+  <div class="top_destinations__poi mt-20" data-controller="collapse">
+    <% poi_count_group = PoiCatalogue.count_groups_per_airport(@airport) %>
+    <% total_poi_sum = poi_count_group.values.sum %>
+    <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+    <span><b><%= t('trip_request.poi') %></b></span>
+    <span class="avatar-badge bg-primary color-light fs-0-8"><%= total_poi_sum %></span>
+
+    <div id="group_pois" class="collapse p-10 border bg-light border-dark border-radius mt-15" data-collapse-target="content">
+        <!-- begin group poi content -->
+        <% poi_count_group.each do |key,value| %>
+          <div class="top_destinations__poi__details mt-5" data-controller="collapse">
+            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+            <span><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %></span>
+            <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></br>
+            <div  id="group_pois_<%= key %>" 
+                  class="collapse bg-light px-5 border-radius" data-collapse-target="content">
+              <!-- begin sub-group poi content -->
+              <ul>
+                <% PoiCatalogue.poi_per_group_and_airport(@airport)[key].each do |group_detail|  %>
+                  <% unless group_detail[:name].nil? %>
+                    <li><%= group_detail[:name] %>
+                      <span> (<%= group_detail[:distance] %>m)</span>
+                      <!-- tags details -->
+                        <% unless group_detail[:tags]["website"].nil? %>
+                          <span class="ml-5">
+                            <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["website"] %>">web</a>
+                          </span>
+                        <% end %>
+                        <% unless group_detail[:tags]["contact:website"].nil? %>
+                          <span class="ml-5">
+                            <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["contact:website"] %>">web</a>
+                          </span>
+                        <% end %>
+                        <% unless group_detail[:tags]["url"].nil? %>
+                          <span class="ml-5">
+                            <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["url"] %>">web</a>
+                          </span>
+                        <% end %>
+                      <!-- tags details -->
+                    </li>
+                  <% else %>
+                    <li style="font-style: italic;">Data unavailable
+                      <span> (<%= group_detail[:distance] %>m)</span>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+              <!-- end sub-group poi content -->
+            </div>
+          </div>
+        <% end %>
+        <!-- end group poi content -->
+
     </div>
   </div>
 
