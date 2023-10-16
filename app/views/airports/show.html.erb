@@ -1,6 +1,11 @@
 <div class="container">
 
-  <h2><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %></h2>
+  <h2><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %>
+    <% unless @vac_link.empty? %>
+      <a class="tag-outline-primary" target="_blank" 
+                            href="<%= @vac_link %>">VAC</a>
+    <% end %>
+  </h2>
 
   <div data-controller="collapse">
     <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
