@@ -1,7 +1,7 @@
 <div class="container">
 
   <h2><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %>
-    <% unless @vac_link.empty? %>
+    <% unless @vac_link.nil? %>
       <a class="tag-outline-primary" target="_blank" 
                             href="<%= @vac_link %>">VAC</a>
     <% end %>
@@ -133,7 +133,12 @@
     </div>
   </div>
 
-
-
+  <div class="map-container mt-20" \
+        id="map" \
+        data-controller="osm-details"  \
+        data-osm-details-target="map" \
+        data-osm-details-airport-value="<%= @airport.to_json %>"
+        data-osm-details-points-value="<%= @points_array.to_json %>">
+  </div>
 
 </div>
