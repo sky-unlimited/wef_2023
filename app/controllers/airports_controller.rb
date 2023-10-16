@@ -1,3 +1,6 @@
+require 'rgeo'
+require 'rgeo/proj4'
+
 class AirportsController < ApplicationController
   # GET /airports
   def index
@@ -20,11 +23,15 @@ class AirportsController < ApplicationController
     @points_array = []
     osm_points = OsmPoint.where(airport_id: @airport.id)
     osm_points.each do |osm_point|
-      #factory_4326 = RGeo::Geographic.spherical_factory(srid: 4326)
-      #point_4326 = RGeo::Feature.cast(osm_point.way, factory_4326)
-      point =  { :id => osm_point.id,
-                 :name => osm_point.osm_name,
-                 :geojson => RGeo::GeoJSON.encode(osm_point.way) }
+      # Convert projection to geography
+      geography = RGeo::CoordSys::Proj4.create(4326) #geography
+      projection = RGeo::CoordSys::Proj4.create(3857) #projection
+      x,y = RGeo::CoordSys::Proj4.transform_coords(projection, geography, osm_point.way.x, osm_point.way.y, nil)
+
+      point =  {  :id => osm_point.id,
+                  :name => osm_point.osm_name,
+                  :latitude => y,
+                  :longitude => x }
       @points_array << point
     end
   end

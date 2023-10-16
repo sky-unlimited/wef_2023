@@ -70,13 +70,12 @@ export default class extends Controller {
       ------------------------------------------------------ 
     */
     this.pointsValue.forEach((point) => {
-      // We create a marker for each osm point
-      console.log(point);
-      console.log(typeof(point));
-      console.log(point.geojson);
-      L.geoJSON(point.geojson).addTo(this.map)
+      // Create a marker for each osm point
+      var marker = L.marker([point.latitude, point.longitude]).addTo(this.map);
+
+      // Create popup
+      marker.bindPopup(point.name);
     });
-    console.log(this.map);
 
     /*
       ------------------------------------------------------ 
