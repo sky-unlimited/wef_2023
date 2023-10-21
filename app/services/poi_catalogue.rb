@@ -84,7 +84,7 @@ class PoiCatalogue
     :lake => {
         :categories => ["natural"],
         :amenities => ["water"],
-        :icon => "lake.png"
+        :icon => "lake.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_lake')},
   }
 

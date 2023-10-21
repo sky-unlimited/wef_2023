@@ -89,72 +89,86 @@
     -->
 
     <p class="text-center mb-5"><%= t('trip_request.poi') %></p>
-    <div style="width: fit-content; margin: auto;" class="border border-radius color-light p-20">
+    <div style="width: fit-content; margin: auto;" class="border border-radius bg-dark color-light p-20">
       <div class="airport-select-proxies text-start">
-        <div class="border bg-dark border-radius p-15 mb-5">
-          <div>
+        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_coastline %>
-            <%= f.label :proxy_coastline, "#{displayIconAndLabel(:coastline)}" %>
+            <%= image_tag(PoiCatalogue.inventory[:coastline][:icon], size: "24x24", alt:"coastline", class: "mr-10") %>
+            <%= f.label :proxy_coastline %>
           </div>
-          <div>
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_lake %>
-            <%= f.label :proxy_lake, "#{displayIconAndLabel(:lake)}" %>
+            <%= image_tag(PoiCatalogue.inventory[:lake][:icon], size: "24x24", alt:"lake", class: "mr-10") %>
+            <%= f.label :proxy_lake %>
           </div>
-          <div>
+          <div class="d-flex flex-row align-items-center">
             <%= f.check_box :proxy_hiking_path %>
-            <%= f.label :proxy_hiking_path, "#{displayIconAndLabel(:hiking_path)}" %>
+            <%= image_tag(PoiCatalogue.inventory[:hiking_path][:icon], size: "24x24", alt:"hiking_path", class: "mr-10") %>
+            <%= f.label :proxy_hiking_path %>
           </div>
         </div>
-        <div class="border bg-dark border-radius p-15 mb-5">
-          <div>
+        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_food %>
-            <%= f.label :proxy_food, "#{displayIconAndLabel(:food)}", class: "form-label" %>
+            <%= image_tag(PoiCatalogue.inventory[:food][:icon], size: "24x24", alt:"food", class: "mr-10") %>
+            <%= f.label :proxy_food %>
           </div>
-          <div>
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_beverage %>
-            <%= f.label :proxy_beverage, "#{displayIconAndLabel(:beverage)}", class: "form-label" %>
+            <%= image_tag(PoiCatalogue.inventory[:beverage][:icon], size: "24x24", alt:"beverage", class: "mr-10") %>
+            <%= f.label :proxy_beverage %>
           </div>
-          <div>
+          <div class="d-flex flex-row align-items-center">
             <%= f.check_box :proxy_shop %>
-            <%= f.label :proxy_shop, "#{displayIconAndLabel(:shop)}"%>
+            <%= image_tag(PoiCatalogue.inventory[:shop][:icon], size: "24x24", alt:"shop", class: "mr-10") %>
+            <%= f.label :proxy_shop %>
           </div>
         </div>
-        <div class="border bg-dark border-radius p-15 mb-5">
-          <div>
+        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_camp_site %>
-            <%= f.label :proxy_camp_site, "#{displayIconAndLabel(:camp_site)}"%>
+            <%= image_tag(PoiCatalogue.inventory[:camp_site][:icon], size: "24x24", alt:"camp_site", class: "mr-10") %>
+            <%= f.label :proxy_camp_site %>
           </div>
-          <div>
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_accommodation %>
-            <%= f.label :proxy_accommodation, "#{displayIconAndLabel(:accommodation)}" %>
+            <%= image_tag(PoiCatalogue.inventory[:accommodation][:icon], size: "24x24", alt:"accommodation", class: "mr-10") %>
+            <%= f.label :proxy_accommodation %>
           </div>
         </div>
-        <div class="border bg-dark border-radius p-15 mb-5">
-          <div>
+        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_fuel_car %>
-            <%= f.label :proxy_fuel_car, "#{displayIconAndLabel(:fuel_car)}" %>
+            <%= image_tag(PoiCatalogue.inventory[:fuel_car][:icon], size: "24x24", alt:"fuel_car", class: "mr-10") %>
+            <%= f.label :proxy_fuel_car %>
           </div>
-          <div>
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_fuel_plane %>
-            <%= f.label :proxy_fuel_plane, "#{displayIconAndLabel(:fuel_plane)}" %>
+            <%= image_tag(PoiCatalogue.inventory[:fuel_plane][:icon], size: "24x24", alt:"fuel_plane", class: "mr-10") %>
+            <%= f.label :proxy_fuel_plane %>
           </div>
         </div>
-        <div class="border bg-dark border-radius p-15 mb-5">
-          <div>
+        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_bike_rental %>
-            <%= f.label :proxy_bike_rental , "#{displayIconAndLabel(:bike_rental)}"%>
+            <%= image_tag(PoiCatalogue.inventory[:bike_rental][:icon], size: "24x24", alt:"bike_rental", class: "mr-10") %>
+            <%= f.label :proxy_bike_rental %>
           </div>
-          <div>
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_car_rental %>
-            <%= f.label :proxy_car_rental, "#{displayIconAndLabel(:car_rental)}" %>
+            <%= image_tag(PoiCatalogue.inventory[:car_rental][:icon], size: "24x24", alt:"car_rental", class: "mr-10") %>
+            <%= f.label :proxy_car_rental  %>
           </div>
-          <div>
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_bus_station %>
-            <%= f.label :proxy_bus_station, "#{displayIconAndLabel(:bus_station)}" %>
+            <%= image_tag(PoiCatalogue.inventory[:bus_station][:icon], size: "24x24", alt:"bus_station", class: "mr-10") %>
+            <%= f.label :proxy_bus_station %>
           </div>
-          <div>
+          <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :proxy_train_station %>
-            <%= f.label :proxy_train_station, "#{displayIconAndLabel(:train_station)}" %>
+            <%= image_tag(PoiCatalogue.inventory[:train_station][:icon], size: "24x24", alt:"train_station", class: "mr-10") %>
+            <%= f.label :proxy_train_station %>
           </div>
         </div>
       </div>
