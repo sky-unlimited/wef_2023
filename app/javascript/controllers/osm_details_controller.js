@@ -70,8 +70,16 @@ export default class extends Controller {
       ------------------------------------------------------ 
     */
     this.pointsValue.forEach((point) => {
+      // Create icon
+      var iconL = L.icon({
+      iconUrl:      point.icon_url,
+      iconSize:     [32, 32], // size of the icon
+      iconAnchor:   [16, 16],   // point of the icon which will correspond to marker's location
+      popupAnchor:  [0, -32] // point from which the popup should open relative to the iconAnchor
+      });
+
       // Create a marker for each osm point
-      var marker = L.marker([point.latitude, point.longitude]).addTo(this.map);
+      var marker = L.marker([point.latitude, point.longitude], {icon: iconL}).addTo(this.map);
 
       // Create popup
       marker.bindPopup(point.name);

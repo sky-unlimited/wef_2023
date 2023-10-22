@@ -32,7 +32,10 @@ class AirportsController < ApplicationController
       point =  {  :id => osm_point.id,
                   :name => osm_point.osm_name,
                   :latitude => y,
-                  :longitude => x }
+                  :longitude => x,
+                  :amenity => osm_point.amenity,
+                  :category => osm_point.category,
+                  :icon_url => helpers.image_url(get_icon(osm_point.amenity, osm_point.category))}
       @points_array << point
     end
 
@@ -51,8 +54,18 @@ class AirportsController < ApplicationController
       point =  {  :id => osm_polygone.id,
                   :name => osm_polygone.osm_name,
                   :latitude => y,
-                  :longitude => x }
+                  :longitude => x,
+                  :amenity => osm_polygone.amenity,
+                  :category => osm_polygone.category,
+                  :icon_url => helpers.image_url(get_icon(osm_polygone.amenity, osm_polygone.category))}
       @points_array << point
     end
+  end
+
+  private
+
+  def get_icon(amenity, category)
+    group = PoiCatalogue.get_group_from_amenity_and_category(amenity, category)
+    return PoiCatalogue.inventory[group.to_sym][:icon]
   end
 end
