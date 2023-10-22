@@ -1,8 +1,11 @@
 require 'rgeo'
 require 'rgeo/proj4'
 require 'rgeo-geojson'
+require 'uri'
 
 class AirportsController < ApplicationController
+  before_action :set_base_url, only: [:show]
+
   # GET /airports
   def index
     @airports = Airport.all
@@ -63,6 +66,12 @@ class AirportsController < ApplicationController
   end
 
   private
+
+  def set_base_url
+    url = request.url
+    uri = URI.parse(url)
+    @base_url = "#{uri.scheme}://#{uri.host}:#{uri.port}"
+  end
 
   def get_icon(amenity, category)
     group = PoiCatalogue.get_group_from_amenity_and_category(amenity, category)

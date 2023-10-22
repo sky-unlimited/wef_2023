@@ -1,7 +1,10 @@
 require 'rgeo'
 require 'json'
+require 'uri'
 
 class TripSuggestionsController < ApplicationController
+  before_action :set_base_url, only: [:index]
+
   def index
     # We load the current user last trip request
     @trip_request = TripRequest.where(user_id: current_user.id).order(id: :desc).first
@@ -45,7 +48,8 @@ class TripSuggestionsController < ApplicationController
                                               :icao => airport.icao,
                                               :airport_type => airport.airport_type,
                                               :geojson => RGeo::GeoJSON.encode(airport.lonlat),
-                                              :icon_url => helpers.image_url(icon_url)
+                                              :icon_url => helpers.image_url(icon_url),
+                                              :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
     })
     end
 
@@ -65,7 +69,8 @@ class TripSuggestionsController < ApplicationController
                                     :icao => airport.icao,
                                     :airport_type => airport.airport_type,
                                     :geojson => RGeo::GeoJSON.encode(airport.lonlat),
-                                    :icon_url => helpers.image_url(icon_url)
+                                    :icon_url => helpers.image_url(icon_url),
+                                    :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
     })
     end
 
@@ -77,7 +82,8 @@ class TripSuggestionsController < ApplicationController
                                     :icao => destination.icao,
                                     :airport_type => destination.airport_type,
                                     :geojson => RGeo::GeoJSON.encode(destination.lonlat),
-                                    :icon_url => helpers.image_url("destination_#{index+1}.png")
+                                    :icon_url => helpers.image_url("destination_#{index+1}.png"),
+                                    :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{destination.id}"
     })
     end
 
@@ -132,4 +138,13 @@ class TripSuggestionsController < ApplicationController
     end
 
   end
+
+  private
+
+  def set_base_url
+    url = request.url
+    uri = URI.parse(url)
+    @base_url = "#{uri.scheme}://#{uri.host}:#{uri.port}"
+  end
+
 end

@@ -62,7 +62,7 @@ export default class extends Controller {
     this.map = L.map(this.mapTarget, {
       center: [ this.airportValue.latitude, this.airportValue.longitude ],
       zoom: 13,
-      layers: [Esri_WorldGrayCanvas]
+      layers: [OpenStreetMap_Mapnik]
     });
     /*
       ------------------------------------------------------ 
@@ -95,7 +95,6 @@ export default class extends Controller {
     
     // Display the control layers
     var baseLayers = {
-      "LightMap": Esri_WorldGrayCanvas,
       "OpenStreetMap": OpenStreetMap_Mapnik,
       "Cyclo OSM": CyclOSM,
       "Hiking/Rando": MtbMap
