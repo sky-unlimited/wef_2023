@@ -86,6 +86,16 @@ class PoiCatalogue
         :amenities => ["water"],
         :icon => "lake.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_lake')},
+    :spa => {
+        :categories => ["amenity"],
+        :amenities => ["spa"],
+        :icon => "spa.png",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_spa')},
+    :lake => {
+        :categories => ["amenity"],
+        :amenities => ["atm"],
+        :icon => "atm.png",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_atm')},
   }
 
   def self.inventory
@@ -216,6 +226,17 @@ class PoiCatalogue
     pois_array << { :coastline      => @@inventory[:coastline] } if trip_request.proxy_coastline
     pois_array << { :lake           => @@inventory[:lake] } if trip_request.proxy_lake
     return pois_array
+  end
+
+  def self.get_group_from_amenity_and_category(amenity, category)
+    main_group = nil
+    self.inventory.each do |group, values|
+      if values[:categories].include?(category) && values[:amenities].include?(amenity)
+        main_group = group
+        break
+      end
+    end
+    return main_group
   end
 
   private
