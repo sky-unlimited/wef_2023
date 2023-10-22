@@ -91,7 +91,7 @@ class PoiCatalogue
         :amenities => ["spa"],
         :icon => "spa.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_spa')},
-    :lake => {
+    :atm => {
         :categories => ["amenity"],
         :amenities => ["atm"],
         :icon => "atm.png",
@@ -237,6 +237,16 @@ class PoiCatalogue
       end
     end
     return main_group
+  end
+
+  def self.get_relevant_poi_tags(osm_feature)
+    osm_feature.parsed_tags.select do |key,value|
+      key.match("website") ||
+      key.match("opening_hours") ||
+      key.match("email") ||
+      key.match("phone") ||
+      key.match("facebook")
+    end
   end
 
   private

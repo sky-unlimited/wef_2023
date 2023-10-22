@@ -81,8 +81,15 @@ export default class extends Controller {
       // Create a marker for each osm point
       var marker = L.marker([point.latitude, point.longitude], {icon: iconL}).addTo(this.map);
 
+      // Create tags list for popup
+      var tag_items = "";
+      console.log(point.tags);
+      Object.entries(point.tags).forEach(([key, value]) => {
+        tag_items = key + ":" + value;
+      });
+
       // Create popup
-      marker.bindPopup(point.name);
+      marker.bindPopup(point.name + "</br>" + tag_items);
     });
 
     /*

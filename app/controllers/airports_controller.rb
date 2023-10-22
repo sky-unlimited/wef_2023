@@ -33,11 +33,13 @@ class AirportsController < ApplicationController
       x,y = RGeo::CoordSys::Proj4.transform_coords(projection, geography, osm_point.way.x, osm_point.way.y, nil)
 
       point =  {  :id => osm_point.id,
+                  :osm_id => osm_point.osm_id,
                   :name => osm_point.osm_name,
                   :latitude => y,
                   :longitude => x,
                   :amenity => osm_point.amenity,
                   :category => osm_point.category,
+                  :tags => PoiCatalogue.get_relevant_poi_tags(osm_point),
                   :icon_url => helpers.image_url(get_icon(osm_point.amenity, osm_point.category))}
       @points_array << point
     end
@@ -55,11 +57,13 @@ class AirportsController < ApplicationController
       x,y = RGeo::CoordSys::Proj4.transform_coords(projection, geography, polygone_centroid.x, polygone_centroid.y, nil)
 
       point =  {  :id => osm_polygone.id,
+                  :osm_id => osm_polygone.osm_id,
                   :name => osm_polygone.osm_name,
                   :latitude => y,
                   :longitude => x,
                   :amenity => osm_polygone.amenity,
                   :category => osm_polygone.category,
+                  :tags => PoiCatalogue.get_relevant_poi_tags(osm_polygone),
                   :icon_url => helpers.image_url(get_icon(osm_polygone.amenity, osm_polygone.category))}
       @points_array << point
     end
