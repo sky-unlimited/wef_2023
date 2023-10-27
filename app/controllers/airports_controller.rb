@@ -17,10 +17,14 @@ class AirportsController < ApplicationController
     @runways = @airport.runways
 
     # Link to Visual Airport Chart if available
-    # France
+    # France icao
     if @airport.icao.match?(/^LF..$/) #VAC only for ICAO airports
       aip_cycle = WEF_CONFIG['sia_current_cycle'].freeze
       @vac_link = "https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_#{aip_cycle}/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.#{@airport.icao}.pdf"
+    end
+    # France baseulm (ultralight airfields)
+    if @airport.local_code.match?(/^LF....$/) #VAC only for ultrlights airports
+      @vac_link = "https://basulm.ffplum.fr/PDF/#{@airport.local_code}.pdf"
     end
 
     # Load the osm_points
