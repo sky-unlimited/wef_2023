@@ -82,14 +82,14 @@
     <% total_poi_sum = poi_count_group.values.sum %>
     <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
     <span><b><%= t('trip_request.poi') %></b></span>
-    <span class="avatar-badge bg-primary color-light fs-0-8"><%= total_poi_sum %></span>
 
     <div id="group_pois" class="collapse p-10 border bg-light border-dark border-radius mt-15" data-collapse-target="content">
         <!-- begin group poi content -->
         <% poi_count_group.each do |key,value| %>
+          <% next if key == :coastline %>
           <div class="top_destinations__poi__details mt-5" data-controller="collapse">
             <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-            <span><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %></span>
+            <span><%= "#{PoiCatalogue.inventory[key][:label]}" %></span>
             <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></br>
             <div  id="group_pois_<%= key %>" 
                   class="collapse bg-light px-5 border-radius" data-collapse-target="content">

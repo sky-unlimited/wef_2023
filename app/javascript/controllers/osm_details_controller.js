@@ -90,7 +90,10 @@ export default class extends Controller {
       });
 
       // Create popup
-      if (point.name != null && tag_items.length !== 0) {
+      //if (point.name != null && tag_items.length !== 0) {
+      if (point.name == null && tag_items.length === 0) {
+        // No popup
+      } else {
         var osm_link = `</br><a href="https://www.openstreetmap.org" 
                         target="_blank">https://www.openstreetmap.org/</a>
                         </br><b>osm_id:</b> ${point.osm_id }`

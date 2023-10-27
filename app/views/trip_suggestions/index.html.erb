@@ -21,7 +21,8 @@
       <td><b><%= t('trip_suggestions.index.selected_pois') %>:</b></td>
       <td>
         <% PoiCatalogue.get_pois_group_per_trip_request(@trip_request).map do |group| %>
-          <span class="mr-10"><%= image_tag(PoiCatalogue.inventory[group.keys[0]][:icon]) %></span>
+          <span class="mr-10"><%= image_tag(PoiCatalogue.inventory[group.keys[0]][:icon],
+                                            alt: PoiCatalogue.inventory[group.keys[0]][:label]) %></span>
         <% end %>
       </td>
     </tr>
@@ -83,7 +84,7 @@
             <% poi_count_group = PoiCatalogue.count_groups_per_airport(airport) %>
             <% total_poi_sum = poi_count_group.values.sum %>
             <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-            <span><b><%= "#{t('trip_request.poi')} (#{total_poi_sum})" %></b></span>
+            <span><b><%= "#{t('trip_request.poi')}" %></b></span>
             <div id="group_pois_<%= index + 1 %>" class="collapse bg-light p-10 border-radius mt-15" data-collapse-target="content">
 
                 <!-- begin group poi content -->
