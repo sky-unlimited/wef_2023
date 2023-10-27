@@ -7,6 +7,14 @@
     <% end %>
   </h2>
 
+  <div class="display_airport_poi mb-20 d-flex flex-column">
+    <div>
+      <% get_airport_poi_icons(@airport).each do |icon| %>
+        <span class="mr-10"><%= image_tag(icon) %></span>
+      <%end %>
+    </div>
+  </div>
+
   <div data-controller="collapse">
     <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
     <span><b>Facility data</b></span>
