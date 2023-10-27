@@ -240,13 +240,22 @@ class PoiCatalogue
   end
 
   def self.get_relevant_poi_tags(osm_feature)
-    osm_feature.parsed_tags.select do |key,value|
+    relevant_tags = osm_feature.parsed_tags.select do |key,value|
       key.match("website") ||
       key.match("opening_hours") ||
       key.match("email") ||
       key.match("phone") ||
+      key.match("cuisine") ||
+      key.match("rooms") ||
+      key.match("capacity") ||
+      key.match("stars") ||
+      key.match("description") ||
+      key.match("self_service") ||
+      key.match("outdoor_seating") ||
       key.match("facebook")
     end
+    return relevant_tags
+    #return osm_feature.parsed_tags #uncomment to display all tags
   end
 
   private

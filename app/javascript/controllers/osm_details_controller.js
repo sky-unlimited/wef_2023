@@ -13,8 +13,6 @@ export default class extends Controller {
   connect() {
     console.log("Openstreetmap airport details connected!");
     this.displayMap();
-    console.log(this.airportValue);
-    console.log(this.pointsValue);
   }
 
   displayMap() {
@@ -83,13 +81,25 @@ export default class extends Controller {
 
       // Create tags list for popup
       var tag_items = "";
-      console.log(point.tags);
       Object.entries(point.tags).forEach(([key, value]) => {
-        tag_items = key + ":" + value;
+        if (key.includes("website") || key.includes("facebook")) {
+          tag_items += `<b>${key}</b>: <a href="${value}" target="_blank">web</a></br>`;
+        } else {
+          tag_items += `<b>${key}</b>: ${value}</br>`;
+        }
       });
 
       // Create popup
-      marker.bindPopup(point.name + "</br>" + tag_items);
+      if (point.name != null && tag_items.length !== 0) {
+        var osm_link = `</br><a href="https://www.openstreetmap.org" 
+                        target="_blank">https://www.openstreetmap.org/</a>
+                        </br><b>osm_id:</b> ${point.osm_id }`
+        if (point.name == null) {
+          marker.bindPopup(`${tag_items}${osm_link}`)
+        } else {
+          marker.bindPopup(`<h2>${point.name}</h2>${tag_items}${osm_link}`)
+        }
+      }
     });
 
     /*
