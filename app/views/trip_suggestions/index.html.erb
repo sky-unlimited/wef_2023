@@ -53,6 +53,20 @@
             <% end %>
             </p>
           </div>
+
+          <div class="display_airport_poi mb-20 d-flex flex-column">
+            <div>
+              <% poi_groups = get_airport_poi_icons(airport) %>
+              <% poi_groups.each do |icon| %>
+                <span class="mr-10"><%= image_tag(icon) %></span>
+              <%end %>
+            </div>
+            <div class="my-20">
+              <%= link_to t('trip_suggestions.index.airport_detail'), airport_path(airport.id), 
+                  class: "btn btn-primary", target: "_blank" %>
+            </div>
+          </div>
+
           <div class="top_destinations__flight_track mt-5" data-controller="collapse">
             <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
             <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
@@ -77,7 +91,7 @@
                 <% poi_count_group.each do |key,value| %>
                   <div class="top_destinations__poi__details mt-5" data-controller="collapse">
                     <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-                    <span><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %></span>
+                    <span><%= "#{PoiCatalogue.inventory[key][:label]}" %></span>
                     <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></br>
                     <div  id="group_pois_<%= "#{index + 1}_#{key}" %>" 
                           class="collapse bg-light px-5 border-radius" data-collapse-target="content">
