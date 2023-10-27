@@ -19,6 +19,7 @@ class AirportsController < ApplicationController
     # Link to Visual Airport Chart if available
     # France icao
     if @airport.icao.match?(/^LF..$/) #VAC only for ICAO airports
+      #https://en.wikipedia.org/wiki/Aeronautical_Information_Publication
       aip_cycle = WEF_CONFIG['sia_current_cycle'].freeze
       @vac_link = "https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_#{aip_cycle}/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.#{@airport.icao}.pdf"
     end
