@@ -26,8 +26,6 @@ defaults: &defaults
         - 600
         - 803
         - 804
-  # Next cycle: 12_NOV_2023
-  sia_current_cycle: 05_OCT_2023
 
 development:
   <<: *defaults

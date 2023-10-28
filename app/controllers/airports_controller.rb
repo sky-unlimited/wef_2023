@@ -20,11 +20,11 @@ class AirportsController < ApplicationController
     # France icao
     if @airport.icao.match?(/^LF..$/) #VAC only for ICAO airports
       #https://en.wikipedia.org/wiki/Aeronautical_Information_Publication
-      aip_cycle = WEF_CONFIG['sia_current_cycle'].freeze
-      @vac_link = "https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_#{aip_cycle}/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.#{@airport.icao}.pdf"
+      airac_cycle = AiracCycle.new
+      @vac_link = "https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_#{airac_cycle.convert_to_sia_format}/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.#{@airport.icao}.pdf"
     end
     # France baseulm (ultralight airfields)
-    if @airport.local_code.match?(/^LF....$/) #VAC only for ultrlights airports
+    if !@airport.local_code.nil? && @airport.local_code.match?(/^LF....$/) #VAC only for ultrlights airports
       @vac_link = "https://basulm.ffplum.fr/PDF/#{@airport.local_code}.pdf"
     end
 
