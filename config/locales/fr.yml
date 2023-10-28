@@ -106,6 +106,7 @@ fr:
       airport_detail: Détails aéroport
       flyzone_map:  Carte Météo Favorable
       flight_track: Trajectoire de vol
+      forecast: Prévisions météo
       distance: Distance
       flight_time: Durée de vol
       bearing: "Route vrai"

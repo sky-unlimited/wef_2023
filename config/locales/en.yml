@@ -105,6 +105,7 @@ en:
       airport_detail: Airport details
       flyzone_map:  Flyzone Map
       flight_track: Flight Track
+      forecast: Weather forecast
       distance: Distance
       flight_time: Flight Time
       bearing: "True Bearing"

@@ -96,6 +96,9 @@ class AirportsController < ApplicationController
                            :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
       })
     end
+
+    # Load weather forecast of the airport
+    #@weather_array = WeatherService.forecast(current_user, @airport)
   end
 
   private
