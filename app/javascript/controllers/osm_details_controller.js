@@ -4,8 +4,9 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="osm-details"
 export default class extends Controller {
   static values = {
-    airport: Object,
-    points: Array
+    airports: Array,
+    airport:  Object,
+    points:   Array
   }
 
   static targets = [ 'map' ]
@@ -67,6 +68,7 @@ export default class extends Controller {
       We display the osm points
       ------------------------------------------------------ 
     */
+    var pointsInterestGroup = L.layerGroup();
     this.pointsValue.forEach((point) => {
       // Create icon
       var iconL = L.icon({
@@ -77,7 +79,8 @@ export default class extends Controller {
       });
 
       // Create a marker for each osm point
-      var marker = L.marker([point.latitude, point.longitude], {icon: iconL}).addTo(this.map);
+      //var marker = L.marker([point.latitude, point.longitude], {icon: iconL}).addTo(this.map);
+      var marker = L.marker([point.latitude, point.longitude], {icon: iconL});
 
       // Create tags list for popup
       var tag_items = "";
@@ -103,6 +106,39 @@ export default class extends Controller {
           marker.bindPopup(`<h2>${point.name}</h2>${tag_items}${osm_link}`)
         }
       }
+
+      // Creating a layer group with points of interest
+      pointsInterestGroup.addLayer(marker);
+    });
+
+    /*
+      ------------------------------------------------------ 
+      We display all airports
+      ------------------------------------------------------ 
+    */
+    var airportsGroup = L.layerGroup();
+    this.airportsValue.forEach((airport) => {
+      // Create icon
+      var iconAirport = L.icon({
+      iconUrl:      airport.icon_url,
+      iconSize:     [20, 20], // size of the icon
+      iconAnchor:   [10, 10],   // point of the icon which will correspond to marker's location
+      popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+      });
+
+      // Create a marker for each osm point
+      //var marker = L.marker([point.latitude, point.longitude], {icon: iconL}).addTo(this.map);
+      var marker = L.marker([airport.geojson.coordinates[1], airport.geojson.coordinates[0]], {icon: iconAirport});
+
+      // set the opacity of the marker
+      marker.setOpacity(1);
+
+      // We add a popup to each marker
+      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br>" + "<a href=" + 
+        airport.detail_link + " target='_blank'>Details</a>");
+
+      // Creating a Layer Group of all airports
+      airportsGroup.addLayer(marker);
     });
 
     /*
@@ -110,6 +146,9 @@ export default class extends Controller {
       LayerGroup, scale, controlsl layers, ...
       ------------------------------------------------------ 
     */
+    // Adding the LayerGroup to the map
+    pointsInterestGroup.addTo(this.map);
+
     // Display a scale on the map
     L.control.scale({ imperial: false }).addTo(this.map);
     
@@ -119,7 +158,11 @@ export default class extends Controller {
       "Cyclo OSM": CyclOSM,
       "Hiking/Rando": MtbMap
     };
-    var layerControl = L.control.layers(baseLayers).addTo(this.map);
+    var Overlays = {
+      "POI": pointsInterestGroup,
+      "Airports": airportsGroup
+    }
+    var layerControl = L.control.layers(baseLayers, Overlays).addTo(this.map);
   }
 
   disconnect(){

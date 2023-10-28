@@ -72,6 +72,30 @@ class AirportsController < ApplicationController
                   :icon_url => helpers.image_url(get_icon(osm_polygone.amenity, osm_polygone.category))}
       @points_array << point
     end
+
+    # All Airports to be displayed on map
+    airports = Airport.all
+    # We take out the airport we display
+    airports = airports.reject { |airport| airport == @airport }
+    @airports_map = []
+    airports.each do |airport|
+      case airport.airport_type
+      when "small_airport"
+        icon_url = "small_airport.png"
+      when "medium_airport"
+        icon_url = "medium_airport.png"
+      when "large_airport"
+        icon_url = "large_airport.png"
+      end
+      @airports_map.push({ :id => airport.id,
+                           :name => airport.name,
+                           :icao => airport.icao,
+                           :airport_type => airport.airport_type,
+                           :geojson => RGeo::GeoJSON.encode(airport.lonlat),
+                           :icon_url => helpers.image_url(icon_url),
+                           :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
+      })
+    end
   end
 
   private
