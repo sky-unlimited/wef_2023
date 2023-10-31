@@ -1,7 +1,10 @@
 require 'rgeo'
 require 'json'
+require 'uri'
 
 class TripSuggestionsController < ApplicationController
+  before_action :set_base_url, only: [:index]
+
   def index
     # We load the current user last trip request
     @trip_request = TripRequest.where(user_id: current_user.id).order(id: :desc).first
@@ -45,7 +48,8 @@ class TripSuggestionsController < ApplicationController
                                               :icao => airport.icao,
                                               :airport_type => airport.airport_type,
                                               :geojson => RGeo::GeoJSON.encode(airport.lonlat),
-                                              :icon_url => helpers.image_url(icon_url)
+                                              :icon_url => helpers.image_url(icon_url),
+                                              :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
     })
     end
 
@@ -65,20 +69,26 @@ class TripSuggestionsController < ApplicationController
                                     :icao => airport.icao,
                                     :airport_type => airport.airport_type,
                                     :geojson => RGeo::GeoJSON.encode(airport.lonlat),
-                                    :icon_url => helpers.image_url(icon_url)
+                                    :icon_url => helpers.image_url(icon_url),
+                                    :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
     })
     end
 
     # We load the destination airports in separate array to be displayed
-    @airports_destination_map = []
+    @weather_destination_array  = []
+    @airports_destination_map   = []
     destinations.top_destination_airports.each_with_index do |destination, index|
       @airports_destination_map.push({  :id => destination.id,
                                     :name => destination.name,
                                     :icao => destination.icao,
                                     :airport_type => destination.airport_type,
                                     :geojson => RGeo::GeoJSON.encode(destination.lonlat),
-                                    :icon_url => helpers.image_url("destination_#{index+1}.png")
-    })
+                                    :icon_url => helpers.image_url("destination_#{index+1}.png"),
+                                    :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{destination.id}"
+      })
+      
+      # We load the forecast of outbound airport
+      @weather_destination_array << WeatherService.forecast(current_user, destination)
     end
 
     # We load the top destinations
@@ -103,28 +113,8 @@ class TripSuggestionsController < ApplicationController
     # If weather on departure airport not ok for outbound or inbound flight, we display a specific page
     if  destinations.flyzone_outbound.weather_departure_to_date_ok?  == false || 
         destinations.flyzone_inbound.weather_departure_to_date_ok? == false 
-      # We load the forecast of outbound airport based on coordinates of origin tile
-      weather_call_id = WeatherService::get_weather(destinations.flyzone_outbound.origin_tile.lat_center,
-                                                    destinations.flyzone_outbound.origin_tile.lon_center)
-
-      # We retrieve weather information from that id
-      weather_data = JSON.parse(WeatherCall.find(weather_call_id).json)
-
-      # We load the data in an array
-      @weather_array = []
-      hash = {}
-      (0..7).each do |index|
-        weather_ok = WeatherService::is_weather_ok?( current_user, weather_data["daily"][index])
-
-        hash = { "id"           => weather_data["daily"][index]["weather"][0]["id"],
-                 "description"  => weather_data["daily"][index]["weather"][0]["description"],
-                 "icon"         => weather_data["daily"][index]["weather"][0]["icon"],
-                 "wind_speed"   => weather_data["daily"][index]["wind_speed"].round(0),
-                 "wind_deg"     => weather_data["daily"][index]["wind_deg"].round(0),
-                 "weather_ok"   => weather_ok
-        }
-        @weather_array.push(hash)
-      end
+      # We load the weather for departure airport in order to retrieve the forecast
+      @weather_departure_array = WeatherService.forecast(current_user, @trip_request.airport)
       
       # We render the bad weather specific page
       flash.notice = t('trip_suggestions.notices.bad_weather', airport: @trip_request.airport.name)
@@ -132,4 +122,13 @@ class TripSuggestionsController < ApplicationController
     end
 
   end
+
+  private
+
+  def set_base_url
+    url = request.url
+    uri = URI.parse(url)
+    @base_url = "#{uri.scheme}://#{uri.host}:#{uri.port}"
+  end
+
 end

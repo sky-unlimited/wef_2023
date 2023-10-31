@@ -1,6 +1,6 @@
 # INTRODUCTION
 
-<img src="https://github.com/alexstan67/wef_2023/blob/master/app/assets/images/full-logo-beta-dark.png" width="200" />
+<img src="https://github.com/alexstan67/wef_2023/blob/master/app/assets/images/full-logo-early-dark.png" width="200" />
 
 weekend-fly is based on Rails framework helping General Aviation fellows to find a destination !
 
@@ -19,7 +19,7 @@ TODO
 * bundler 2.4.10
 
 ## Installation
-To run weekend-fly locally, follow those steps:
+To run weekend-fly localy, follow those steps:
 
 Ensure to have a ".env" file at root directory containing devise confirmable email settings:
 ````bash

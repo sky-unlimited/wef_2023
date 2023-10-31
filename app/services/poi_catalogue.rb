@@ -4,88 +4,98 @@ class PoiCatalogue
     :food => {
         :categories => ["amenity"],
         :amenities => ["restaurant", "fast_food"],
-        :icon => "🍔",
+        :icon => "food.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_food')},
     :beverage => {
         :categories => ["amenity"],
         :amenities => ["bar", "cafe"],
-        :icon => "🥤",
+        :icon => "beverage.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_beverage')},
     :fuel_car => {
         :categories => ["amenity"],
         :amenities => ["fuel"],
-        :icon => "⛽",
+        :icon => "fuel_car.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_fuel_car')},
     :fuel_plane => {
         :categories => ["aeroway"],
         :amenities => ["fuel"],
-        :icon => "✈️",
+        :icon => "fuel_plane",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_fuel_plane')},
     :bike_rental => {
         :categories => ["amenity"],
         :amenities => ["bicycle_rental"],
-        :icon => "🚲",
+        :icon => "bike_rental.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_bike_rental')},
     :car_rental => {
         :categories => ["amenity"],
         :amenities => ["car_rental"],
-        :icon => "🚗",
+        :icon => "car_rental",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_car_rental')},
     :camp_site => {
         :categories => ["tourism"],
         :amenities => ["camp_site", "bivouac_site"],
-        :icon => "⛺",
+        :icon => "camp_site.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_camp_site')},
     :accommodation => {
         :categories => ["tourism"],
         :amenities => ["hotel","chalet","guest_house","Gîte","hostel","motel"],
-        :icon => "🏨",
+        :icon => "accommodation.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_accommodation')},
     :shop => {
         :categories => ["shop"],
         :amenities => ["bakery", "supermarket"],
-        :icon => "🛒",
+        :icon => "shop.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_shop')},
     :bus_station => {
         :categories => ["highway", "amenity"],  #most are in highway
         :amenities => ["bus_station", "bus_stop"],
-        :icon => "🚌",
+        :icon => "bus_station.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_bus_station')},
     :train_station => {
         :categories => ["railway"],
         :amenities => ["station", "stop_position"],
-        :icon => "🚆",
+        :icon => "train_station.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_train_station')},
     :hiking_path => {
         :categories => ["hiking","route"],
         :amenities => ["hiking"],
-        :icon => "🥾",
+        :icon => "hiking_path.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_hiking_path')},
     :biking_path => {
         :categories => ["bicycle"],
         :amenities => ["bicycle"],
-        :icon => "🚲",
+        :icon => "biking_path.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_biking_path')},
     :power_cable => {
         :categories => ["power"],
         :amenities => ["cable","line","minor_cable","minor_line"],
-        :icon => "⚡",
+        :icon => "power_cable.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_power_lines')},
     :coastline => {
         :categories => ["natural"],
         :amenities => ["coastline"],
-        :icon => "🏖️",
+        :icon => "coastline.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_coastline')},
     :aerodrome_polygone => {
         :categories => ["aeroway"],
         :amenities => ["airstrip","aerodrome"],
-        :icon => "✈️",
+        :icon => "aerodrome.png",
         :label => I18n.t('activerecord.attributes.trip_request.airport')},
     :lake => {
         :categories => ["natural"],
         :amenities => ["water"],
-        :icon => "🛟",
+        :icon => "lake.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_lake')},
+    :spa => {
+        :categories => ["amenity"],
+        :amenities => ["spa"],
+        :icon => "spa.png",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_spa')},
+    :atm => {
+        :categories => ["amenity"],
+        :amenities => ["atm"],
+        :icon => "atm.png",
+        :label => I18n.t('activerecord.attributes.trip_request.proxy_atm')},
   }
 
   def self.inventory
@@ -216,6 +226,36 @@ class PoiCatalogue
     pois_array << { :coastline      => @@inventory[:coastline] } if trip_request.proxy_coastline
     pois_array << { :lake           => @@inventory[:lake] } if trip_request.proxy_lake
     return pois_array
+  end
+
+  def self.get_group_from_amenity_and_category(amenity, category)
+    main_group = nil
+    self.inventory.each do |group, values|
+      if values[:categories].include?(category) && values[:amenities].include?(amenity)
+        main_group = group
+        break
+      end
+    end
+    return main_group
+  end
+
+  def self.get_relevant_poi_tags(osm_feature)
+    relevant_tags = osm_feature.parsed_tags.select do |key,value|
+      key.match("website") ||
+      key.match("opening_hours") ||
+      key.match("email") ||
+      key.match("phone") ||
+      key.match("cuisine") ||
+      key.match("rooms") ||
+      key.match("capacity") ||
+      key.match("stars") ||
+      key.match("description") ||
+      key.match("self_service") ||
+      key.match("outdoor_seating") ||
+      key.match("facebook")
+    end
+    return relevant_tags
+    #return osm_feature.parsed_tags #uncomment to display all tags
   end
 
   private

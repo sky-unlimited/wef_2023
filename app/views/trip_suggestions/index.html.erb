@@ -21,7 +21,8 @@
       <td><b><%= t('trip_suggestions.index.selected_pois') %>:</b></td>
       <td>
         <% PoiCatalogue.get_pois_group_per_trip_request(@trip_request).map do |group| %>
-          <%= "#{group.values.first[:icon]} " %>
+          <span class="mr-10"><%= image_tag(PoiCatalogue.inventory[group.keys[0]][:icon],
+                                            alt: PoiCatalogue.inventory[group.keys[0]][:label]) %></span>
         <% end %>
       </td>
     </tr>
@@ -53,6 +54,19 @@
             <% end %>
             </p>
           </div>
+
+          <div class="display_airport_poi mb-20 d-flex flex-column">
+            <div>
+              <% get_airport_poi_icons(airport).each do |icon| %>
+                <span class="mr-10"><%= image_tag(icon) %></span>
+              <%end %>
+            </div>
+            <div class="my-20">
+              <%= link_to t('trip_suggestions.index.airport_detail'), airport_path(airport.id), 
+                  class: "btn btn-primary", target: "_blank" %>
+            </div>
+          </div>
+
           <div class="top_destinations__flight_track mt-5" data-controller="collapse">
             <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
             <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
@@ -66,18 +80,58 @@
               </ul>
             </div>
           </div>
+
+          <div class="weather_forecast mt-5" data-controller="collapse">
+            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
+            <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
+            <div  id="weather_forecast_<%= index + 1 %>" 
+                  class="collapse show bg-color3 px-5 border-radius m-20" 
+                  data-collapse-target="content">
+              <table class="table-bordered-light">
+                <tr>
+                  <% @weather_destination_array[index].each_with_index do |weather, i| %>
+                    <td class="text-center"><%= "#{(Date.current + i).day}/#{(Date.current + i).month}" %></td>
+                  <% end %>
+                </tr>
+                <tr>
+                  <% @weather_destination_array[index].each do |weather| %>
+                    <td>
+                      <img  src="https://openweathermap.org/img/wn/<%= weather["icon"] %>.png" 
+                            alt="<%= weather["description"] %>">
+                    </td>
+                  <% end %>
+                </tr>
+                <tr>
+                  <% @weather_destination_array[index].each do |weather| %>
+                    <td>
+                      <%= "#{weather["wind_deg"]}°/#{weather["wind_speed"]}" %>
+                    </td>
+                  <% end %>
+                </tr>
+                <tr>
+                  <% @weather_destination_array[index].each do |weather| %>
+                    <td class="text-center">
+                      <%= weather["weather_ok"] ? "✅" : "❌"  %>
+                    </td>
+                  <% end %>
+                </tr>
+              </table>
+            </div>
+          </div>
+
           <div class="top_destinations__poi mt-5" data-controller="collapse">
             <% poi_count_group = PoiCatalogue.count_groups_per_airport(airport) %>
             <% total_poi_sum = poi_count_group.values.sum %>
             <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-            <span><b><%= "#{t('trip_request.poi')} (#{total_poi_sum})" %></b></span>
+            <span><b><%= "#{t('trip_request.poi')}" %></b></span>
             <div id="group_pois_<%= index + 1 %>" class="collapse bg-light p-10 border-radius mt-15" data-collapse-target="content">
 
                 <!-- begin group poi content -->
                 <% poi_count_group.each do |key,value| %>
+                  <% next if key == :coastline %>
                   <div class="top_destinations__poi__details mt-5" data-controller="collapse">
                     <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-                    <span><%= "#{PoiCatalogue.inventory[key][:icon]} #{PoiCatalogue.inventory[key][:label]}" %></span>
+                    <span><%= "#{PoiCatalogue.inventory[key][:label]}" %></span>
                     <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></br>
                     <div  id="group_pois_<%= "#{index + 1}_#{key}" %>" 
                           class="collapse bg-light px-5 border-radius" data-collapse-target="content">

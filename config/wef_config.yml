@@ -1,4 +1,4 @@
-development:
+defaults: &defaults
   airport_types_to_import:
     - small_airport
     - medium_airport
@@ -11,118 +11,46 @@ development:
     - DK
   airports_white_list:
     - LFJY
+  weather_profiles:
+    - safe:
+        - 210
+        - 800
+        - 801
+        - 802
+    - adventurous:
+        - 300
+        - 310
+        - 500
+        - 501
+        - 520
+        - 600
+        - 803
+        - 804
+
+development:
+  <<: *defaults
   default_weather_calls_validity_hours: 8
   default_weather_tile_precision: 1
   default_weather_tile_depth: 6
-  weather_profiles:
-    - safe:
-        - 210
-        - 800
-        - 801
-        - 802
-    - adventurous:
-        - 300
-        - 310
-        - 500
-        - 501
-        - 520
-        - 600
-        - 803
-        - 804
   fake_weather: true
 
 test:
-  airport_types_to_import:
-    - small_airport
-    - medium_airport
-    - large_airport
-  airport_countries_to_import:
-    - FR
-    - LU
-  airports_white_list:
-    - LFJY
+  <<: *defaults
   default_weather_calls_validity_hours: 8
   default_weather_tile_precision: 1
   default_weather_tile_depth: 4
-  weather_profiles:
-    - safe:
-        - 210
-        - 800
-        - 801
-        - 802
-    - adventurous:
-        - 300
-        - 310
-        - 500
-        - 501
-        - 520
-        - 600
-        - 803
-        - 804
   fake_weather: true
 
 production:
-  airport_types_to_import:
-    - small_airport
-    - medium_airport
-    - large_airport
-  airport_countries_to_import:
-    - FR
-    - LU
-    - DE
-    - NL
-    - DK
-  airports_white_list:
-    - LFJY
+  <<: *defaults
   default_weather_calls_validity_hours: 8
   default_weather_tile_precision: 1
   default_weather_tile_depth: 4
-  weather_profiles:
-    - safe:
-        - 210
-        - 800
-        - 801
-        - 802
-    - adventurous:
-        - 300
-        - 310
-        - 500
-        - 501
-        - 520
-        - 600
-        - 803
-        - 804
   fake_weather: false
 
 staging:
-  airport_types_to_import:
-    - small_airport
-    - medium_airport
-    - large_airport
-  airport_countries_to_import:
-    - FR
-    - LU
-    - DE
-    - NL
-    - DK
-  airports_white_list:
-    - LFJY
-  default_weather_calls_validity_hours: 8
+  <<: *defaults
+  default_weather_calls_validity_hours: 2
   default_weather_tile_precision: 1
-  default_weather_tile_depth: 3
-  weather_profiles:
-    - safe:
-        - 210
-        - 800
-        - 801
-        - 802
-    - adventurous:
-        - 300
-        - 310
-        - 500
-        - 501
-        - 520
-        - 600
-        - 803
-        - 804
+  default_weather_tile_depth: 4
   fake_weather: false

@@ -47,6 +47,8 @@ fr:
         proxy_power_lines: Ligne électriques
         proxy_coastline: Littoral
         proxy_lake: Lac
+        proxy_spa: Spa
+        proxy_atm: Distributeur billets
     errors:
       messages:
         in: doit être compris entre %{count}
@@ -101,8 +103,10 @@ fr:
       title: Top Destinations
       summary: Sommaire
       selected_pois: Points d'intérêts
+      airport_detail: Détails aéroport
       flyzone_map:  Carte Météo Favorable
       flight_track: Trajectoire de vol
+      forecast: Prévisions météo
       distance: Distance
       flight_time: Durée de vol
       bearing: "Route vrai"

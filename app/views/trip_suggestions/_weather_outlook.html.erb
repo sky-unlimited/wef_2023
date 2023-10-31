@@ -1,7 +1,7 @@
 <div class="container-sm bg-color3 border border-radius border-color2 d-flex flex-column">
   <h2 class="text-center color-light"><%= t('trip_suggestions.weather_outlook.title') %></h2>
   <table class="mb-10 align-center">
-    <% @weather_array.each_with_index do |record, index| %>
+    <% @weather_departure_array.each_with_index do |record, index| %>
       <% next if index.zero? %>
       <tr>
         <td><% record_date = Date.current + index.day %></td>

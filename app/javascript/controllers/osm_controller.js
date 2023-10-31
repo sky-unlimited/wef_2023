@@ -168,7 +168,8 @@ export default class extends Controller {
       marker.setOpacity(1);
 
       // We add a popup to each marker
-      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br><em>" + size_text + "</em>");
+      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br><em>" + size_text + "</em></br>"
+      + "<a href=" + airport.detail_link + " target='_blank'>Details</a>" );
 
       // Creating a Layer Group of matching criterias airports if not in top destinations (avoid overlays)
       var isTopDestinationAirport = false;
@@ -224,7 +225,8 @@ export default class extends Controller {
       marker.setOpacity(0.2);
 
       // We add a popup to each marker
-      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br><em>" + size_text + "</em>");
+      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br><em>" + size_text + "</em></br>"
+      + "<a href=" + airport.detail_link + " target='_blank'>Details</a>" );
 
       // Creating a Layer Group of matching criterias airports
       airportsMatchingCriteriasGroup.addLayer(marker);
@@ -253,7 +255,8 @@ export default class extends Controller {
       marker.setOpacity(1);
 
       // We add a popup to each marker
-      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br>");
+      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br>" + "<a href=" + 
+        airport.detail_link + " target='_blank'>Details</a>");
 
       // Creating a Layer Group of matching criterias airports
       airportsDestinationGroup.addLayer(marker);

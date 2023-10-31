@@ -115,6 +115,38 @@ class WeatherService
     end
   end
 
+  # We require current_user because weather is interpretated following pilot's weather preferences
+  def self.forecast(current_user, airport)
+    # Variables init
+    weather_array = []
+    precision  = WEF_CONFIG['default_weather_tile_precision'].to_f
+
+    # We load a Tile in order to retrieve weather information at tile center, not airport coordinates
+    tile = WeatherTile.new(current_user, Date.today, precision, nil, nil, airport)
+    
+    # We load the forecast of outbound airport based on coordinates of origin tile
+    weather_call_id = WeatherService::get_weather(tile.lat_center, tile.lon_center)
+
+    # We retrieve weather information from that id
+    weather_data = JSON.parse(WeatherCall.find(weather_call_id).json)
+
+    # We load the data in an array
+    hash = {}
+    (0..7).each do |index|
+      weather_ok = WeatherService::is_weather_ok?( current_user, weather_data["daily"][index])
+
+      hash = { "id"           => weather_data["daily"][index]["weather"][0]["id"],
+               "description"  => weather_data["daily"][index]["weather"][0]["description"],
+               "icon"         => weather_data["daily"][index]["weather"][0]["icon"],
+               "wind_speed"   => weather_data["daily"][index]["wind_speed"].round(0),
+               "wind_deg"     => weather_data["daily"][index]["wind_deg"].round(0),
+               "weather_ok"   => weather_ok
+      }
+      weather_array.push(hash)
+    end
+    return weather_array
+  end
+
   private
 
   def self.random_bad_weather()

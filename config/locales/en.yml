@@ -47,6 +47,8 @@ en:
         proxy_power_lines: Power Lines
         proxy_coastline: Coastline
         proxy_lake: Lake
+        proxy_spa: Spa
+        proxy_atm: ATM
     errors:
       messages:
         in: must be in %{count}
@@ -100,8 +102,10 @@ en:
       title: Top Destinations
       summary: Summary
       selected_pois: Selected poi's
+      airport_detail: Airport details
       flyzone_map:  Flyzone Map
       flight_track: Flight Track
+      forecast: Weather forecast
       distance: Distance
       flight_time: Flight Time
       bearing: "True Bearing"

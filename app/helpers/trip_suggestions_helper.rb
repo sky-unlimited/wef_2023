@@ -27,4 +27,13 @@ module TripSuggestionsHelper
     end
   end
 
+  def get_airport_poi_icons(airport)
+    icons_array = []
+    groups = PoiCatalogue.count_groups_per_airport(airport)
+      groups.each do |key,value|
+        icons_array << PoiCatalogue.inventory[key][:icon]
+      end
+    return icons_array
+  end
+
 end
