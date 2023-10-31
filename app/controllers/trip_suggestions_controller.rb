@@ -113,6 +113,8 @@ class TripSuggestionsController < ApplicationController
     # If weather on departure airport not ok for outbound or inbound flight, we display a specific page
     if  destinations.flyzone_outbound.weather_departure_to_date_ok?  == false || 
         destinations.flyzone_inbound.weather_departure_to_date_ok? == false 
+      # We load the weather for departure airport in order to retrieve the forecast
+      @weather_departure_array = WeatherService.forecast(current_user, @trip_request.airport)
       
       # We render the bad weather specific page
       flash.notice = t('trip_suggestions.notices.bad_weather', airport: @trip_request.airport.name)
