@@ -75,7 +75,8 @@ class TripSuggestionsController < ApplicationController
     end
 
     # We load the destination airports in separate array to be displayed
-    @airports_destination_map = []
+    @weather_destination_array  = []
+    @airports_destination_map   = []
     destinations.top_destination_airports.each_with_index do |destination, index|
       @airports_destination_map.push({  :id => destination.id,
                                     :name => destination.name,
@@ -84,7 +85,10 @@ class TripSuggestionsController < ApplicationController
                                     :geojson => RGeo::GeoJSON.encode(destination.lonlat),
                                     :icon_url => helpers.image_url("destination_#{index+1}.png"),
                                     :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{destination.id}"
-    })
+      })
+      
+      # We load the forecast of outbound airport
+      @weather_destination_array << WeatherService.forecast(current_user, destination)
     end
 
     # We load the top destinations
@@ -105,9 +109,6 @@ class TripSuggestionsController < ApplicationController
     @outbound_weather_ok    = destinations.flyzone_outbound.weather_departure_to_date_ok?
     @inbound_weather_data   = destinations.flyzone_inbound.get_weather_data_departure_to_date
     @inbound_weather_ok     = destinations.flyzone_inbound.weather_departure_to_date_ok?
-
-    # We load the forecast of outbound airport
-    @weather_array = WeatherService.forecast(current_user, @trip_request.airport)
 
     # If weather on departure airport not ok for outbound or inbound flight, we display a specific page
     if  destinations.flyzone_outbound.weather_departure_to_date_ok?  == false || 

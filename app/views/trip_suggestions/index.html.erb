@@ -81,7 +81,6 @@
             </div>
           </div>
 
-
           <div class="weather_forecast mt-5" data-controller="collapse">
             <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
             <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
@@ -90,12 +89,12 @@
                   data-collapse-target="content">
               <table class="table-bordered-light">
                 <tr>
-                  <% @weather_array.each_with_index do |weather, index| %>
-                    <td class="text-center"><%= "#{(Date.current + index).day}/#{(Date.current + index).month}" %></td>
+                  <% @weather_destination_array[index].each_with_index do |weather, i| %>
+                    <td class="text-center"><%= "#{(Date.current + i).day}/#{(Date.current + i).month}" %></td>
                   <% end %>
                 </tr>
                 <tr>
-                  <% @weather_array.each do |weather| %>
+                  <% @weather_destination_array[index].each do |weather| %>
                     <td>
                       <img  src="https://openweathermap.org/img/wn/<%= weather["icon"] %>.png" 
                             alt="<%= weather["description"] %>">
@@ -103,14 +102,14 @@
                   <% end %>
                 </tr>
                 <tr>
-                  <% @weather_array.each do |weather| %>
+                  <% @weather_destination_array[index].each do |weather| %>
                     <td>
                       <%= "#{weather["wind_deg"]}°/#{weather["wind_speed"]}" %>
                     </td>
                   <% end %>
                 </tr>
                 <tr>
-                  <% @weather_array.each do |weather| %>
+                  <% @weather_destination_array[index].each do |weather| %>
                     <td class="text-center">
                       <%= weather["weather_ok"] ? "✅" : "❌"  %>
                     </td>
@@ -119,9 +118,6 @@
               </table>
             </div>
           </div>
-
-
-
 
           <div class="top_destinations__poi mt-5" data-controller="collapse">
             <% poi_count_group = PoiCatalogue.count_groups_per_airport(airport) %>
