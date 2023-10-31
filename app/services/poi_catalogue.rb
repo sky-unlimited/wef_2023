@@ -19,7 +19,7 @@ class PoiCatalogue
     :fuel_plane => {
         :categories => ["aeroway"],
         :amenities => ["fuel"],
-        :icon => "fuel_plane",
+        :icon => "fuel_plane.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_fuel_plane')},
     :bike_rental => {
         :categories => ["amenity"],
@@ -29,7 +29,7 @@ class PoiCatalogue
     :car_rental => {
         :categories => ["amenity"],
         :amenities => ["car_rental"],
-        :icon => "car_rental",
+        :icon => "car_rental.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_car_rental')},
     :camp_site => {
         :categories => ["tourism"],
