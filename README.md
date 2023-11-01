@@ -59,11 +59,23 @@ Launch local server:
 
 Visit http://localhost:3000
 
-PULL REQUEST the project ⚠️
+## How to contribute
+
+### Pull the code from master ⚠️
 
 `git pull --recurse-submodules origin master`
 
-To update the submodule to latest stage:
+### Create a new branch
+Always work on branches that are linked to an issue.
+1. Create or work on an existing issue that you assign yourself
+2. Create a branch from github directly in order to retrieve a standardized branch name
+3. To close a ticket, add "closes#xxx" in the issue when the PR is merged.
+
+### Create a pull request
+1. `git push origin <branch>`
+2. Merge the pull request
+
+### Update submodules
 ````bash
 cd ourairports-data
 git pull origin main
@@ -71,4 +83,6 @@ cd ..
 git commit -am"update ourairports-data"
 git push origin master
 # This way, the project will be associated to a defined version of the submodule
+rails import:airports
+rails import:runways
 ````

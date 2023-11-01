@@ -8,6 +8,8 @@ class Api::V1::AirportsController < ApplicationController
       OR local_code ILIKE :query
     SQL
 
-    render json: Airport.where(sql_query, query: "%#{params[:query]}%").limit(10)
+    render json: Airport.where(sql_query, query: "%#{params[:query]}%")
+                        .where(actif: true)
+                        .limit(10)
   end
 end
