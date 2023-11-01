@@ -8,7 +8,7 @@ class AirportsController < ApplicationController
 
   # GET /airports
   def index
-    @airports = Airport.all
+    @airports = Airport.all.where(actif: true)
   end
 
   # GET /airports/1
@@ -74,7 +74,7 @@ class AirportsController < ApplicationController
     end
 
     # All Airports to be displayed on map
-    airports = Airport.all
+    airports = Airport.all.where(actif: true)
     # We take out the airport we display
     airports = airports.reject { |airport| airport == @airport }
     @airports_map = []

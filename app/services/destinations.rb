@@ -79,6 +79,9 @@ class Destinations
     # Filter airports by selected airport types
     airports_matching_criterias = airports_matching_criterias.where(airport_type: selected_airport_types)
 
+    # Filter actif airports
+    airports_matching_criterias = airports_matching_criterias.where(actif: true)
+
     # Filter airports by runway length
     airports_matching_criterias = airports_matching_criterias.joins(:runways)
       .where('runways.length_meter >= ?', @trip_request.user.pilot_pref.min_runway_length).distinct
