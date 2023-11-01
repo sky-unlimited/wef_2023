@@ -65,13 +65,15 @@ Visit http://localhost:3000
 
 `git pull --recurse-submodules origin master`
 
-### Create a pull request
+### Create a new branch
 Always work on branches that are linked to an issue.
 1. Create or work on an existing issue that you assign yourself
 2. Create a branch from github directly in order to retrieve a standardized branch name
 3. To close a ticket, add "closes#xxx" in the issue when the PR is merged.
-4. `git push origin <branch>`
-5. Merge the pull request
+
+### Create a pull request
+1. `git push origin <branch>`
+2. Merge the pull request
 
 ### Update submodules
 ````bash
