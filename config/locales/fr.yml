@@ -49,6 +49,10 @@ fr:
         proxy_lake: Lac
         proxy_spa: Spa
         proxy_atm: Distributeur billets
+      subscriber:
+        name: "Prénom"
+        email: "Courriel"
+        accept_private_data_policy: "Politique de confidentialité:"
     errors:
       messages:
         in: doit être compris entre %{count}
@@ -114,3 +118,19 @@ fr:
       selection: Notre sélection
       map: Carte
       no_destinations: 🙄 Désolé, nous n'avons pas de destinations à vous proposer. Veuillez adapter vos critères!
+    subscribers:
+      flash:
+        register_ok: "Vous êtes bien enregistré à la Newsletter!"
+        register_nok: "Echec de l'enregistrement à la newsletter. Veuillez compléter tous les champs."
+      form:
+        acceptation: "En cochant vous acceptez de recevoir des courriels conformément à notre "
+        subscribe: "Abonnez-vous à la Newsletter!"
+        thanks_sign_up: "Merci de vous être inscris à la Newsletter!"
+        submit: "Soumettre"
+        privacy_policy: "Politique de confidentialité"
+      unsubscribe:
+        email_unsubscribe: "a été désinscrit de la Newsletter."
+        see_you: "A bienttôt de la part de toute l'équipe!"
+    subscribers_mailer:
+      subscribed:
+        subject: "Vous êtes bien enregistré à la Newsletter!"
