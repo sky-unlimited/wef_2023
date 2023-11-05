@@ -2,7 +2,7 @@
 
 <img src="https://github.com/alexstan67/wef_2023/blob/master/app/assets/images/full-logo-early-dark.png" width="200" />
 
-weekend-fly is based on Rails framework helping General Aviation fellows to find a destination !
+Weekend-Fly is based on Rails framework helping General Aviation fellows to find a destination !
 
 Your Rules. Your Interests. Your Destination.🌴☀️🏕️
 
@@ -19,16 +19,12 @@ TODO
 * bundler 2.4.10
 
 ## Installation
-To run weekend-fly localy, follow those steps:
+To run Weekend-Fly localy, follow those steps:
 
 Ensure to have a ".env" file at root directory containing devise confirmable email settings:
 ````bash
-MAIL_USERNAME=noreply
-MAIL_PASSWORD=password
-MAIL_DOMAIN=example.com
-MAIL_SMTP_SERVER=example.com
-MAIL_SMTP_PORT=465
 OPENWEATHERMAP_API=your openweather api key
+POSTMARK_SERVER_API=your postmark Server API
 ````
 We update airports data from: [https://github.com/davidmegginson/ourairports-data]()
 
