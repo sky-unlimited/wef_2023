@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_01_171342) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_05_203330) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -143,6 +143,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_171342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["airport_id"], name: "index_runways_on_airport_id"
+  end
+
+  create_table "subscribers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.boolean "accept_private_data_policy"
+    t.string "unsubscribe_hash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "trip_requests", force: :cascade do |t|

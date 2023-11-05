@@ -1,0 +1,8 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+subscriber_one:
+  name: John
+  email: john.smith@examples.com
+  accept_private_data_policy: true
+  unsubscribe_hash: <%= SecureRandom.hex %>
+
