@@ -1,0 +1,28 @@
+<section class="container-fluid bg-primary d-flex flex-column py-20">
+  <div class="container-sm d-flex flex-column align-items-center">
+    <% if cookies[:saved_subscriber] %>
+      <p><%= t('subscribers.form.thanks_sign_up')%></p>
+    <% else %>
+      <h1 class="text-center"><%= t('subscribers.form.subscribe') %></h1>
+
+      <%= form_with model: @subscriber, url: root_path, data: { turbo: false } do |f| %>
+        <div class="form-inputs">
+          <%= f.text_field :name,
+                            placeholder: t('activerecord.attributes.subscriber.name'),
+                            class: "form-control mb-10" %>
+          <%= f.email_field :email,
+                            placeholder: t('activerecord.attributes.subscriber.email'),
+                            class: "form-control mb-10" %>
+          <%= f.label :accept_private_data_policy,
+                       t("subscribers.form.acceptation") %>
+          <%= link_to t('subscribers.form.privacy_policy'), privacy_policy_index_path, class: "link-light" %>
+          <%= f.check_box :accept_private_data_policy %>
+
+          <div class="form-actions mt-15">
+            <%= f.submit t('subscribers.form.submit'), class:"btn btn-dark" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</section>

@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users
     get 'pages/console'
+    get 'subscribers/index'
+    get 'privacy_policy/index'
+    post '/', to: 'subscribers#create'
+    get 'subscribers/unsubscribe/:unsubscribe_hash', to: 'subscribers#unsubscribe', as: 'unsubscribe'
     resources :pilot_prefs,       only: [ :edit, :update ]
     resources :trip_requests,     only: [ :new, :create, :edit, :update ]
     resources :trip_suggestions,  only: [ :index ]
