@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Hello <%= @subscriber.name %>!</h1>
-    <p>We confirm your subscription to our Newsletter 📢!</p>
-    <a href="<%= @link_root %>">Our website</a>
-    <a href="<%= @link_unsubscribe %>">Unsubscribe</a>
-  </body>
-</html>
+<h1 class="color-blue-dark">Hi <%= @subscriber.name %>!</h1>
+<p>We are glad to confirm your subscription to our Newsletter 📢</p>
+</br>
+Don't wait anymore, and
+<a href="<%= @link_root %>">Find your next destination!</a></br></br>
+You'll also find hereunder your unsubscribe link, please keep it:</br>
+<a href="<%= @link_unsubscribe %>">Unsubscribe</a>
