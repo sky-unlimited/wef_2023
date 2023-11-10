@@ -4,16 +4,16 @@
     <section class="widget-exports">
       <h1><%= t('pages.console.export_title') %></h1>
       <div class="console-export-content mb-5">
-        <p><%#= link_to t('pages.console.export_button'), subscribers_index_path(format: :csv), class: "btn btn-primary" %></p>
+        <p><%= link_to t('pages.console.export_button'), subscribers_index_path(format: :csv), class: "btn btn-primary" %></p>
         <p class="ml-10"><%= t('pages.console.export_subscribers') %></p>
       </div>
       <div class="console-export-content mb-5">
         <p><%#= link_to t('pages.console.export_button'), contacts_path(format: :csv), class: "btn btn-primary" %></p>
-        <p class="ml-10"><%= t('pages.console.export_contacts') %></p>
+        <p class="ml-10"><%#= t('pages.console.export_contacts') %></p>
       </div>
       <div class="console-export-content mb-5">
         <p><%#= link_to t('pages.console.export_button'), blog_views_index_path(format: :csv), class: "btn btn-primary" %></p>
-        <p class="ml-10"><%= t('pages.console.export_blog_views') %></p>
+        <p class="ml-10"><%#= t('pages.console.export_blog_views') %></p>
       </div>
     </section>
     <section class="widget-blog-views">

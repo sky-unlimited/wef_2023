@@ -49,6 +49,11 @@ en:
         proxy_lake: Lake
         proxy_spa: Spa
         proxy_atm: ATM
+      subscriber:
+        name: "Name"
+        email: "Email"
+        accept_private_data_policy: "Privacy policy:"
+
     errors:
       messages:
         in: must be in %{count}
@@ -113,3 +118,19 @@ en:
       selection: Our selection
       map: Map
       no_destinations: 🙄 Sorry, we don't have any destinations to suggest you. Please adapt your criterias!
+  subscribers:
+    flash:
+      register_ok: "You successfully subscribed to the Newsletter!"
+      register_nok: "A problem occured while Newsletter subscription. Please complete all fields."
+    form:
+      acceptation: "By checking this box, I agree with the privacy policy of this website"
+      subscribe: "Subscribe to the Newsletter!"
+      thanks_sign_up: "Thanks having subscribed to the Newsletter!"
+      submit: "Submit"
+      privacy_policy: "Privacy Policy"
+    unsubscribe:
+      email_unsubscribe: "has been unsubscribed from the Newsletter."
+      see_you: "Hope to see you soon again!"
+  subscribers_mailer:
+    subscribed:
+      subject: "You are registered to the Newsletter!"
