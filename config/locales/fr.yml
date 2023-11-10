@@ -10,7 +10,7 @@ fr:
           safe: Prudent
           adventurous: Aventureux
         airport: Aérodrome d'attache
-        average_true_airspeed: Vitesse Propre Moyenne
+        average_true_airspeed: Vitesse Propre Moyenne (kts)
         min_runway_length: Longueur de piste minimale (m)
         max_gnd_wind_speed: Vitesse de vent au sol maximale (kts)
         is_ultralight_pilot: Pilote ULM

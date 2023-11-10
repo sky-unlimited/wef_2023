@@ -10,7 +10,7 @@ en:
           safe: Safe
           adventurous: Adventurous
         airport: Home Base Airport
-        average_true_airspeed: Average True Airspeed
+        average_true_airspeed: Average True Airspeed (kts)
         min_runway_length: Minimun runway length (m)
         max_gnd_wind_speed: Maximum ground wind speed (kts)
         is_ultralight_pilot: Ultralight Pilot
