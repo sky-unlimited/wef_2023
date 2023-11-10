@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+      /* Email styles need to be inline */
+      body {
+        font-family: "Ubuntu", "Helvetica", "sans-serif";
+        background-color: white;
+        padding: 20px;
+      }
+      .container {
+        background-color: #CDEDF6;
+        max-width: 600px;
+        margin: 0 auto;
+        border-radius: 4px;
+        padding: 40px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .color-blue-dark {
+        color: #042A2B; 
+      }
+      .color-blue-medium {
+        color: #5EB1BF;
+      }
+      .color-blue-light {
+        color: #CDEDF6;
+      } 
+      .color-primary {
+        color: #D84727;
+      }
+      .signature {
+        margin-top: 40px;
+        font-weight: bold;
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
