@@ -39,7 +39,14 @@
 
   <body>
     <div class="container">
+    <%= image_tag(attachments["full-logo-early-dark.png"].url, alt: "Weekend-Fly logo", height: "64px") %>
+
       <%= yield %>
+
+      <div class="signature">
+        <p>Happy Flyings,</p>
+        <p>Your Weekend-Fly Team</p>
+      </div>
     </div>
   </body>
 </html>

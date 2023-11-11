@@ -17,7 +17,7 @@ class PagesController < ApplicationController
     @bus_station_count = PoiCatalogue.count(:bus_station)
     @bike_rental_count = PoiCatalogue.count(:bike_rental)
     @camp_site_count = PoiCatalogue.count(:camp_site)
-    @beverage_count = PoiCatalogue.count(:beverage)
+    @car_rental_count = PoiCatalogue.count(:car_rental)
 
     # We set variables needed for airport searcher
     @base_url = set_base_url

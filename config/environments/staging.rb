@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: "http://early.weekend-fly.com", port: 80 }
+  config.action_mailer.default_url_options = { host: "http://staging.weekend-fly.com", port: 80 }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

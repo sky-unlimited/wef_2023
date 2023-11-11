@@ -9,7 +9,7 @@ class TestMailer < ApplicationMailer
   default from: 'team@weekend-fly.com'
 
   # layout default wef
-  layout 'default_wef'
+  #layout 'default_wef'
 
   def hello
     # Attach image
@@ -18,7 +18,7 @@ class TestMailer < ApplicationMailer
     # Send email
     mail(
       subject: 'Test from Weekend Fly!',
-      to: 'team@weekend-fly.com',
+      to: 'alex@sky-unlimited.lu',
       #html_body: '<strong>Hello</strong> dear Postmark user.',
       track_opens: 'true',
       message_stream: 'outbound') do |format|
