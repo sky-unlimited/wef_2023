@@ -121,7 +121,9 @@ en:
   subscribers:
     flash:
       register_ok: "You successfully subscribed to the Newsletter!"
-      register_nok: "A problem occured while Newsletter subscription. Please complete all fields."
+      register_nok: "A problem occured while Newsletter subscription."
+    errors:
+      accept_private_data_policy: Please accept the privacy policy terms
     form:
       acceptation: "By checking this box, I agree with the privacy policy of this website"
       subscribe: "Subscribe to the Newsletter!"

@@ -1,11 +1,16 @@
 require 'csv'
 
 class Subscriber < ApplicationRecord
-  before_create :add_unsubscribe_hash
+  attr_accessor :request
 
-  validates :name, :email, presence: true
+  before_create :add_unsubscribe_hash
+  before_create :add_ip_address
+  before_validation :check_timelapse_before_last_attempt, on: :create
+
+  validates :name,  presence: true
+  validates :email, presence: true, uniqueness: true
   validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
-  validates_inclusion_of :accept_private_data_policy, in: [ true ]
+  validates :accept_private_data_policy, acceptance: { message: I18n.t('subscribers.errors.accept_private_data_policy') }
 
   def self.to_csv
     attributes = %w[id name email created_at]
@@ -21,5 +26,22 @@ class Subscriber < ApplicationRecord
 
   def add_unsubscribe_hash
     self.unsubscribe_hash = SecureRandom.hex
+  end
+
+  def add_ip_address
+    # Assuming your web server is behind a proxy like Nginx or Apache
+    # Use request.headers["X-Forwarded-For"] to get the real IP address
+    # If not using a proxy, you can use request.remote_ip directly
+    self.ip_address = request.headers["X-Forwarded-For"] || request.remote_ip
+  end
+
+  def check_timelapse_before_last_attempt
+    # In order to prevent mass injections, we ensure that for the same last ip_address
+    # a period of 30 seconds has elapsed
+    last_attempt = Subscriber.where(ip_address: ip_address).order(created_at: :desc).first
+
+    if last_attempt && (Time.current - last_attempt.created_at) < 30.seconds
+      errors.add(:created_at, "Too many attempts. Please wait before trying again.")
+    end
   end
 end

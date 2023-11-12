@@ -3,13 +3,14 @@ class SubscribersController < ApplicationController
 
   def create
     @subscriber = Subscriber.new(subscriber_input_params)
+    @subscriber.request = request  # Pass the request object to the model
     if @subscriber.save
       cookies[:saved_subscriber] = true
       flash.notice = t("subscribers.flash.register_ok")
       SubscribersMailer.with(subscriber: @subscriber, link: unsubscribe_url(@subscriber.unsubscribe_hash)).subscribed.deliver_later
       redirect_to root_path
     else
-      flash.alert = t("subscribers.flash.register_nok")
+      flash.alert = "#{t("subscribers.flash.register_nok")}: #{@subscriber.errors.first.full_message}"
       redirect_to root_path
     end
   end

@@ -121,7 +121,9 @@ fr:
   subscribers:
     flash:
       register_ok: "Vous êtes bien enregistré à la Newsletter!"
-      register_nok: "Echec de l'enregistrement à la newsletter. Veuillez compléter tous les champs."
+      register_nok: "Echec de l'enregistrement à la newsletter."
+    errors:
+      accept_private_data_policy: Veuillez accepter les termes de la vie privée 
     form:
       acceptation: "En cochant vous acceptez de recevoir des courriels conformément à notre "
       subscribe: "Abonnez-vous à la Newsletter!"
