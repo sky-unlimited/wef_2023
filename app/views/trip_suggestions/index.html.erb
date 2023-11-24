@@ -82,40 +82,12 @@
           </div>
 
           <div class="weather_forecast mt-5" data-controller="collapse">
-            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
+            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
             <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
             <div  id="weather_forecast_<%= index + 1 %>" 
-                  class="collapse show bg-color3 px-5 border-radius m-20 overflow-auto" 
+                  class="collapse bg-color3 border-radius" 
                   data-collapse-target="content">
-              <table class="table-bordered-light">
-                <tr>
-                  <% @weather_destination_array[index].each_with_index do |weather, i| %>
-                    <td class="text-center"><%= "#{(Date.current + i).day}/#{(Date.current + i).month}" %></td>
-                  <% end %>
-                </tr>
-                <tr>
-                  <% @weather_destination_array[index].each do |weather| %>
-                    <td>
-                      <img  src="https://openweathermap.org/img/wn/<%= weather["icon"] %>.png" 
-                            alt="<%= weather["description"] %>">
-                    </td>
-                  <% end %>
-                </tr>
-                <tr>
-                  <% @weather_destination_array[index].each do |weather| %>
-                    <td>
-                      <%= "#{weather["wind_deg"]}°/#{weather["wind_speed"]}" %>
-                    </td>
-                  <% end %>
-                </tr>
-                <tr>
-                  <% @weather_destination_array[index].each do |weather| %>
-                    <td class="text-center">
-                      <%= weather["weather_ok"] ? "✅" : "❌"  %>
-                    </td>
-                  <% end %>
-                </tr>
-              </table>
+              <%= render partial: "airports/forecast", locals: { weather_array: @weather_destination_array[index] } %>
             </div>
           </div>
 
