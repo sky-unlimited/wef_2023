@@ -169,11 +169,13 @@ class WeatherService
     # We load the data in an array
     hash = {}
     (0..7).each do |index|
-      weather_ok = WeatherService::is_weather_pilot_compliant?( current_user, weather_data["daily"][index])
+      weather_ok    = WeatherService::is_weather_pilot_compliant?( current_user, weather_data["daily"][index])
+      weather_id    = weather_data["daily"][index]["weather"][0]["id"]
+      weather_hash  = WeatherService.weather_conditions.find { |weather| weather["id"] == weather_id }
 
-      hash = { "id"           => weather_data["daily"][index]["weather"][0]["id"],
-               "description"  => weather_data["daily"][index]["weather"][0]["description"],
-               "icon"         => weather_data["daily"][index]["weather"][0]["icon"],
+      hash = { "id"           => weather_id,
+               "description"  => weather_hash["description"],
+               "icon"         => weather_hash["icon"],
                "wind_speed"   => weather_data["daily"][index]["wind_speed"].round(0),
                "wind_deg"     => weather_data["daily"][index]["wind_deg"].round(0),
                "weather_ok"   => weather_ok
