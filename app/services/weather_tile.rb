@@ -46,10 +46,10 @@ class WeatherTile
     get_weather_data
   end
 
-  def is_weather_ok?
+  def is_weather_pilot_compliant?
     # Depend on the pilot weather profile, we deduct if the tile asociated weather is ok or nok
     # We check if weather code belongs to pilot's preference
-    WeatherService::is_weather_ok?(@user, @weather_data)
+    WeatherService::is_weather_pilot_compliant?(@user, @weather_data)
   end
 
   private

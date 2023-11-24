@@ -33,7 +33,7 @@ class WeatherFlyzone
 
   # We check that the weather is ok on the initial tile
   def weather_departure_to_date_ok?
-    @origin_tile.is_weather_ok?
+    @origin_tile.is_weather_pilot_compliant?
   end
 
   # We retrieve weather data from the original tile (departure airport)
@@ -131,7 +131,7 @@ class WeatherFlyzone
                                   nil)
           @tiles.push(tile) unless (x == x_grid_init && y == y_grid_init) # origin tile already pushed
 
-          if tile.is_weather_ok?
+          if tile.is_weather_pilot_compliant?
            grid[y][x] = 2   # cell is good weather
           else 
             grid[y][x] = 1  # cell was visited
