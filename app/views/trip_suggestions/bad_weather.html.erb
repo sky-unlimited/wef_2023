@@ -25,4 +25,7 @@
   <%= link_to t('forms.back'), new_trip_request_path, class: "btn btn-primary my-10" %>
 </div>
 
-<%= render "weather_outlook" %>
+<div class="container-sm bg-color3 border border-radius border-color2 d-flex flex-column p-5">
+  <h2 class="text-center color-light"><%= t('trip_suggestions.weather_outlook.title') %></h2>
+  <%= render partial: "airports/forecast", locals: { weather_array: @weather_departure_array } %>
+</div>

@@ -18,7 +18,7 @@
   <div data-controller="collapse">
     <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
     <span><b>Facility data</b></span>
-    <div id="facility" class="collapse show" data-collapse-target="content">
+    <div id="facility" class="collapse show overflow-auto" data-collapse-target="content">
       <table class="table-bordered mt-5">
         <tr>
           <td><b>Location</b></td>
@@ -86,40 +86,12 @@
   </div>
 
   <div class="weather_forecast mt-20" data-controller="collapse">
-    <span class="collapse-marker avatar-badge bg-dark color-light mb-5" data-action="click->collapse#toggle">-</span>
+    <span class="collapse-marker avatar-badge bg-dark color-light mb-5" data-action="click->collapse#toggle">+</span>
     <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
     <div  id="weather_forecast" 
-          class="collapse show bg-color3 px-5 border-radius p-10 overflow-auto" 
+          class="collapse bg-color3 border-radius p-10" 
           data-collapse-target="content">
-      <table class="table-bordered-light">
-        <tr>
-          <% @weather_airport_array.each_with_index do |weather, i| %>
-            <td class="text-center"><%= "#{(Date.current + i).day}/#{(Date.current + i).month}" %></td>
-          <% end %>
-        </tr>
-        <tr>
-          <% @weather_airport_array.each do |weather| %>
-            <td>
-              <img  src="https://openweathermap.org/img/wn/<%= weather["icon"] %>.png" 
-                    alt="<%= weather["description"] %>">
-            </td>
-          <% end %>
-        </tr>
-        <tr>
-          <% @weather_airport_array.each do |weather| %>
-            <td>
-              <%= "#{weather["wind_deg"]}°/#{weather["wind_speed"]}" %>
-            </td>
-          <% end %>
-        </tr>
-        <tr>
-          <% @weather_airport_array.each do |weather| %>
-            <td class="text-center">
-              <%= weather["weather_ok"] ? "✅" : "❌"  %>
-            </td>
-          <% end %>
-        </tr>
-      </table>
+      <%= render partial: "forecast", locals: { weather_array: @weather_airport_array } %>
     </div>
   </div>
 

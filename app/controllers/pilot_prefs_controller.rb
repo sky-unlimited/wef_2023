@@ -47,10 +47,10 @@ class PilotPrefsController < ApplicationController
     @array_profile_adventurous = []
 
     profiles_safe.each do |weather_code|
-      @array_profile_safe.push(WeatherService.find_weather_description_by_id(weather_code))
+      @array_profile_safe.push(WeatherService.weather_conditions.find { |weather| weather["id"] == weather_code })
     end
     profiles_adventurous.each do |weather_code|
-      @array_profile_adventurous.push(WeatherService.find_weather_description_by_id(weather_code))
+      @array_profile_adventurous.push(WeatherService.weather_conditions.find { |weather| weather["id"] == weather_code })
     end
   end
 end
