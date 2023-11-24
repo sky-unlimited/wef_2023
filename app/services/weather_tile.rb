@@ -136,15 +136,10 @@ class WeatherTile
     # Openweather API provides daily forecast for 7 days
     day_offset = (@effective_date.to_date - Date.current ).to_i
 
-    # We read and assign the corresponding weather info
-    #   Exemple: {"id"=>502, "main"=>"Rain", "description"=>"heavy intensity rain", "icon"=>"10d"}
-    if WEF_CONFIG['fake_weather'] == true
-      @weather_data = WeatherService::get_fake_weather
-    else
-      # We retrieve the WeatherCall id
-      weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
-      # We read database
-      @weather_data   =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_offset]
-    end
+    # We retrieve the WeatherCall id
+    weather_record_id = WeatherService::get_weather(@lat_center, @lon_center)
+
+    # We get the weather details
+    @weather_data =  JSON.parse(WeatherCall.find(weather_record_id).json)["daily"][day_offset]
   end
 end
