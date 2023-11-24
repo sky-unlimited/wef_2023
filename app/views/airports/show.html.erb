@@ -89,7 +89,7 @@
     <span class="collapse-marker avatar-badge bg-dark color-light mb-5" data-action="click->collapse#toggle">+</span>
     <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
     <div  id="weather_forecast" 
-          class="collapse bg-color3 px-5 border-radius p-10 overflow-auto" 
+          class="collapse bg-color3 border-radius p-10" 
           data-collapse-target="content">
       <%= render partial: "forecast", locals: { weather_array: @weather_airport_array } %>
     </div>
