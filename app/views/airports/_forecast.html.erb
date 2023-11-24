@@ -9,7 +9,7 @@
       </td>
       <td><%= "#{record["wind_deg"]}°#{winds_ms_to_kts(record["wind_speed"])} kts" %></td>
       <td><%= record["description"] %></td>
-      <td title="<%= record["weather_ok"] ? t('trip_suggestions.weather_outlook.compliant_with_weather') : t('trip_suggestions.weather_outlook.not_compliant_with_weather')%>"><%= record["weather_ok"] ? "✅" : "❌" %></td>
+      <td title="<%= record["weather_ok"] ? t('trip_suggestions.weather_outlook.compliant_with_weather') : t('trip_suggestions.weather_outlook.not_compliant_with_weather')%>"><%= record["weather_ok"] ? image_tag("fly_ok.png") : image_tag("fly_nok.png") %></td>
     </tr>
   <% end %>
 </table>

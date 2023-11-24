@@ -16,15 +16,15 @@
       <% @array_profile_safe.each do |profile| %>
         <tr>
           <td><%= profile["description"] %></td>
-          <td class="text-center">✅</td>
-          <td class="text-center">✅</td>
+          <td class="text-center"><%= image_tag("fly_ok.png") %></td>
+          <td class="text-center"><%= image_tag("fly_ok.png") %></td>
         </tr>
       <% end %>
       <% @array_profile_adventurous.each do |profile| %>
         <tr>
           <td><%= profile["description"] %></td>
-          <td class="text-center">❌</td>
-          <td class="text-center">✅</td>
+          <td class="text-center"><%= image_tag("fly_nok.png") %></td>
+          <td class="text-center"><%= image_tag("fly_ok.png") %></td>
         </tr>
       <% end %>
     </table>
