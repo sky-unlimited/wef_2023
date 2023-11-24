@@ -3,16 +3,56 @@ require 'rest-client'
 class WeatherService
 
   @@weather_conditions = [
+    { "id" => 200, "main" => "Thunderstorm", "description" => I18n.t('weather.200'), "icon" => "11d" },
+	  { "id" => 201, "main" => "Thunderstorm", "description" => I18n.t('weather.201'), "icon" => "11d" },
+	  { "id" => 202, "main" => "Thunderstorm", "description" => I18n.t('weather.202'), "icon" => "11d" },
     { "id" => 210, "main" => "Thunderstorm", "description" => I18n.t('weather.210'), "icon" => "11d" },
+	  { "id" => 211, "main" => "Thunderstorm", "description" => I18n.t('weather.211'), "icon" => "11d" },
     { "id" => 212, "main" => "Thunderstorm", "description" => I18n.t('weather.212'), "icon" => "11d" },
+	  { "id" => 221, "main" => "Thunderstorm", "description" => I18n.t('weather.221'), "icon" => "11d" },
+	  { "id" => 230, "main" => "Thunderstorm", "description" => I18n.t('weather.230'), "icon" => "11d" },
+	  { "id" => 231, "main" => "Thunderstorm", "description" => I18n.t('weather.231'), "icon" => "11d" },
+	  { "id" => 232, "main" => "Thunderstorm", "description" => I18n.t('weather.232'), "icon" => "11d" },
     { "id" => 300, "main" => "Drizzle", "description" => I18n.t('weather.300'), "icon" => "09d" },
+	  { "id" => 301, "main" => "Drizzle", "description" => I18n.t('weather.301'), "icon" => "09d" },
+	  { "id" => 302, "main" => "Drizzle", "description" => I18n.t('weather.302'), "icon" => "09d" },
     { "id" => 310, "main" => "Drizzle", "description" => I18n.t('weather.310'), "icon" => "09d" },
+	  { "id" => 311, "main" => "Drizzle", "description" => I18n.t('weather.311'), "icon" => "09d" },
+	  { "id" => 312, "main" => "Drizzle", "description" => I18n.t('weather.312'), "icon" => "09d" },
+	  { "id" => 313, "main" => "Drizzle", "description" => I18n.t('weather.313'), "icon" => "09d" },
+	  { "id" => 314, "main" => "Drizzle", "description" => I18n.t('weather.314'), "icon" => "09d" },
+	  { "id" => 321, "main" => "Drizzle", "description" => I18n.t('weather.321'), "icon" => "09d" },
     { "id" => 500, "main" => "Rain", "description" => I18n.t('weather.500'), "icon" => "10d" },
     { "id" => 501, "main" => "Rain", "description" => I18n.t('weather.501'), "icon" => "10d" },
+	  { "id" => 502, "main" => "Rain", "description" => I18n.t('weather.502'), "icon" => "10d" },
     { "id" => 503, "main" => "Rain", "description" => I18n.t('weather.503'), "icon" => "10d" },
+	  { "id" => 504, "main" => "Rain", "description" => I18n.t('weather.504'), "icon" => "10d" },
+	  { "id" => 511, "main" => "Rain", "description" => I18n.t('weather.511'), "icon" => "13d" },
     { "id" => 520, "main" => "Rain", "description" => I18n.t('weather.520'), "icon" => "09d" },
+	  { "id" => 521, "main" => "Rain", "description" => I18n.t('weather.521'), "icon" => "09d" },
+	  { "id" => 522, "main" => "Rain", "description" => I18n.t('weather.522'), "icon" => "09d" },
+	  { "id" => 531, "main" => "Rain", "description" => I18n.t('weather.531'), "icon" => "09d" },
     { "id" => 600, "main" => "Snow", "description" => I18n.t('weather.600'), "icon" => "13d" },
+	  { "id" => 601, "main" => "Snow", "description" => I18n.t('weather.601'), "icon" => "13d" },
     { "id" => 602, "main" => "Snow", "description" => I18n.t('weather.602'), "icon" => "13d" },
+	  { "id" => 611, "main" => "Snow", "description" => I18n.t('weather.611'), "icon" => "13d" },
+	  { "id" => 612, "main" => "Snow", "description" => I18n.t('weather.612'), "icon" => "13d" },
+	  { "id" => 613, "main" => "Snow", "description" => I18n.t('weather.613'), "icon" => "13d" },
+	  { "id" => 615, "main" => "Snow", "description" => I18n.t('weather.615'), "icon" => "13d" },
+	  { "id" => 616, "main" => "Snow", "description" => I18n.t('weather.616'), "icon" => "13d" },
+	  { "id" => 620, "main" => "Snow", "description" => I18n.t('weather.620'), "icon" => "13d" },
+	  { "id" => 621, "main" => "Snow", "description" => I18n.t('weather.621'), "icon" => "13d" },
+	  { "id" => 622, "main" => "Snow", "description" => I18n.t('weather.622'), "icon" => "13d" },
+	  { "id" => 701, "main" => "Mist", "description" => I18n.t('weather.701'), "icon" => "50d" },
+	  { "id" => 711, "main" => "Smoke", "description" => I18n.t('weather.711'), "icon" => "50d" },
+	  { "id" => 721, "main" => "Haze", "description" => I18n.t('weather.701'), "icon" => "50d" },
+	  { "id" => 731, "main" => "Dust", "description" => I18n.t('weather.731'), "icon" => "50d" },
+	  { "id" => 741, "main" => "Fog", "description" => I18n.t('weather.741'), "icon" => "50d" },
+	  { "id" => 751, "main" => "Sand", "description" => I18n.t('weather.751'), "icon" => "50d" },
+	  { "id" => 761, "main" => "Dust", "description" => I18n.t('weather.761'), "icon" => "50d" },
+	  { "id" => 762, "main" => "Ash", "description" => I18n.t('weather.701'), "icon" => "50d" },
+	  { "id" => 771, "main" => "Squalls", "description" => I18n.t('weather.711'), "icon" => "50d" },
+	  { "id" => 781, "main" => "Tornado", "description" => I18n.t('weather.781'), "icon" => "50d" },
     { "id" => 800, "main" => "Clear", "description" => I18n.t('weather.800'), "icon" => "01d" },
     { "id" => 801, "main" => "Clouds", "description" => I18n.t('weather.801'), "icon" => "02d" },
     { "id" => 802, "main" => "Clouds", "description" => I18n.t('weather.802'), "icon" => "03d" },
@@ -197,24 +237,36 @@ class WeatherService
     # We gather all available weather codes
     weather_codes_all = @@weather_conditions.map { |weather_condition| weather_condition["id"] }
     
-    # We pick a random weather
-    random_weather_id = weather_codes_all.sample
+    # Variable init
+    random_daily_weather_array = []
 
+    # Create a hash containing today's weather and 7 days forecast
+    8.times do |time|
+      # Random weather
+      random_weather_id = weather_codes_all.sample
+
+      # Load weather description for a given weather id
+      weather_description_hash = @@weather_conditions.find { |weather_condition| weather_condition["id"] == random_weather_id }
+
+      # Array of hash
+      hash = {
+              "wind_speed"  => rand(5..30),
+              "wind_deg"    => rand(0..359),
+              "weather"     =>  [
+                                  { "id"          => random_weather_id,
+                                    "main"        => weather_description_hash["main"],
+                                    "description" => weather_description_hash["description"],
+                                    "icon"        => weather_description_hash["icon"]
+                                  }
+                                ]
+             }
+      random_daily_weather_array << hash
+    end
+    
     # We build a json following OpenWeather API 3.0 specs
-    weather_description_hash = @@weather_conditions.find { |weather_condition| weather_condition["id"] == random_weather_id }
-
-    # TODO: The hash should be looped 7 times with different weather conditions for each day!
     hash = {  "lat" => lat,
               "lon" => lon,
-              "daily" => [
-                {
-                  "wind_speed"  => rand(5..30),
-                  "wind_deg"    => rand(0..360)
-                }
-              ] }
-
-    return hash
-
+              "daily" => random_daily_weather_array
+           }
   end
-
 end

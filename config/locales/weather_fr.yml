@@ -1,17 +1,57 @@
-fr:
-  weather:
-    210: faible orage
-    212: orage violent
-    300: bruine de faible intensité
-    310: bruine de faible intensité pluie 
-    500: pluie légère
-    501: pluie modérée
-    503: pluie très forte
-    520: légère averse de pluie
-    600: neige légère
-    602: neige très abondante
-    800: ciel clair (SKC)
-    801: quelques nuages (FEW)
-    802: nuages épars (SCT)
-    803: nuages fragmentés (BKN)
-    804: couvert (OVC)
+  fr:
+    weather:
+      200: orage avec pluie légère
+      201: orage avec pluie
+      202: orage avec fortes pluies
+      210: orage léger
+      211: orage
+      212: orage intense
+      221: orage déchiqueté
+      230: orage avec bruine légère
+      231: orage avec bruine
+      232: orage avec forte bruine
+      300: bruine légère
+      301: bruine
+      302: forte bruine
+      310: bruine légère avec pluie
+      311: pluie et bruine
+      312: forte pluie et bruine
+      313: pluie et bruine
+      314: forte pluie et bruine
+      321: bruine déchiquetée
+      500: pluie légère
+      501: pluie modérée
+      502: pluie forte
+      503: pluie très forte
+      504: pluie extrême
+      511: pluie verglaçante
+      520: pluie légère avec averse
+      521: averse de pluie
+      522: forte averse de pluie
+      531: averse de pluie déchiquetée
+      600: neige légère
+      601: neige
+      602: neige très forte
+      611: grésil
+      612: légère averse de grésil
+      613: averse de grésil
+      615: pluie légère et neige
+      616: pluie et neige
+      620: légère averse de neige
+      621: averse de neige
+      622: forte averse de neige
+      701: brume
+      711: fumée
+      721: brume sèche
+      731: tourbillons de sable/poussière
+      741: brouillard
+      751: sable
+      761: poussière
+      762: cendres volcaniques
+      771: rafales
+      781: tornade
+      800: ciel dégagé (SKC)
+      801: quelques nuages (FEW)
+      802: nuages dispersés (SCT)
+      803: nuages épars (BKN)
+      804: ciel couvert (OVC)
