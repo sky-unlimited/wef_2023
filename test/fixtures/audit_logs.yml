@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+audit_1_ok:
+  user: regular_user
+  target_id: 1
+  target_type: 0
+  action: 0
