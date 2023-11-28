@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_080934) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_28_142536) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -81,6 +81,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_080934) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_countries_on_id", unique: true
+  end
+
+  create_table "fuel_stations", force: :cascade do |t|
+    t.bigint "airport_id", null: false
+    t.integer "provider", null: false
+    t.integer "status", null: false
+    t.boolean "fuel_avgas_100ll"
+    t.boolean "fuel_avgas_91ul"
+    t.boolean "fuel_mogas"
+    t.boolean "charging_station"
+    t.string "email"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airport_id"], name: "index_fuel_stations_on_airport_id"
   end
 
   create_table "osm_lines", force: :cascade do |t|
@@ -235,6 +250,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_080934) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "airports", "countries"
   add_foreign_key "audit_logs", "users"
+  add_foreign_key "fuel_stations", "airports"
   add_foreign_key "pilot_prefs", "airports"
   add_foreign_key "pilot_prefs", "users"
   add_foreign_key "runways", "airports"
