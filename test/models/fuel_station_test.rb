@@ -10,7 +10,7 @@ class FuelStationTest < ActiveSupport::TestCase
     hash = { airport: airports(:ellx),
             provider: 0,
             status: 0,
-            fuel_avgas_100ll: true }
+            fuel_avgas_100ll: 2 }
     fs = FuelStation.create(hash)
     assert_not fs.save
   end
@@ -19,7 +19,7 @@ class FuelStationTest < ActiveSupport::TestCase
     hash = { airport: airports(:lfsw),
             provider: 0,
             status: 0,
-            fuel_avgas_100ll: true }
+            fuel_avgas_100ll: 2 }
     fs = FuelStation.create(hash)
     assert fs.save
   end
@@ -28,7 +28,7 @@ class FuelStationTest < ActiveSupport::TestCase
     hash = { airport: airports(:lfsw),
             provider: 0,
             status: 0,
-            fuel_avgas_100ll: true,
+            fuel_avgas_100ll: 2,
             email: "test@example.com" }
     fs = FuelStation.create(hash)
     assert fs.save

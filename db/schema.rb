@@ -87,10 +87,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_142536) do
     t.bigint "airport_id", null: false
     t.integer "provider", null: false
     t.integer "status", null: false
-    t.boolean "fuel_avgas_100ll"
-    t.boolean "fuel_avgas_91ul"
-    t.boolean "fuel_mogas"
-    t.boolean "charging_station"
+    t.integer "fuel_avgas_100ll"
+    t.integer "fuel_avgas_91ul"
+    t.integer "fuel_mogas"
+    t.integer "charging_station"
     t.string "email"
     t.string "phone"
     t.datetime "created_at", null: false

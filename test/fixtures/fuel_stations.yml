@@ -4,9 +4,9 @@ fs_ellx:
   airport: ellx
   provider: 0
   status: 0
-  fuel_avgas_100ll: true
-  fuel_avgas_91ul: false
-  fuel_mogas: false
-  charging_station: false
+  fuel_avgas_100ll: 2
+  fuel_avgas_91ul: 0
+  fuel_mogas: 0
+  charging_station: 0
   email: "ellx@ask-fuel.lu"
   phone: "003520010001"

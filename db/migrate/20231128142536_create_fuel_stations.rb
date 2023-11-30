@@ -4,12 +4,12 @@ class CreateFuelStations < ActiveRecord::Migration[7.0]
       t.references :airport, null: false, foreign_key: true
       t.integer :provider, null: false
       t.integer :status, null: false
-      t.boolean :fuel_avgas_100ll
-      t.boolean :fuel_avgas_91ul
-      t.boolean :fuel_mogas
-      t.boolean :charging_station
-      t.string :email
-      t.string :phone
+      t.integer :fuel_avgas_100ll
+      t.integer :fuel_avgas_91ul
+      t.integer :fuel_mogas
+      t.integer :charging_station
+      t.string  :email
+      t.string  :phone
 
       t.timestamps
     end
