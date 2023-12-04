@@ -11,6 +11,7 @@ defaults: &defaults
     - DK
   airports_white_list:
     - LFJY
+    - LFPM
   weather_profiles:
     - safe:
         - 210

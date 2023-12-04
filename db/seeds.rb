@@ -6,6 +6,12 @@ require 'csv'
 puts "Cleaning databases..."
 PilotPref.destroy_all
 User.destroy_all
+FuelStation.destroy_all
+
+# ############################################
+# FUEL STATIONS
+# ############################################
+Rake::Task['import:fuel_stations'].invoke
 
 # ############################################
 # USERS
