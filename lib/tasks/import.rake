@@ -32,7 +32,7 @@ namespace :import do
   desc "Import countries from csv file"
   task countries: :environment do
     filepath = "ourairports-data/countries.csv"
-    puts "⏱️  Reading #{filepath}. Please wait..."
+    puts "👉 Reading #{filepath}. Please wait..."
     counter_created = 0
     counter_rejected = 0
     CSV.foreach(filepath, headers: :first_row) do |row|
@@ -47,7 +47,7 @@ namespace :import do
     include ImportHelpers
 
     filepath = "ourairports-data/airports.csv"
-    puts "Reading #{filepath}..."
+    puts "👉 Reading #{filepath}..."
     counter_rejected  = 0
     counter_updated   = 0
     counter_created   = 0
@@ -133,7 +133,7 @@ namespace :import do
     include ImportHelpers
 
     filepath = "ourairports-data/runways.csv"
-    puts "Reading #{filepath}..."
+    puts "👉 Reading #{filepath}..."
     counter_rejected  = 0
     counter_updated   = 0
     counter_created   = 0
@@ -176,7 +176,7 @@ namespace :import do
     include ImportHelpers
 
     filepath = "db/seeds_data/fuel_stations.csv"
-    puts "Reading #{filepath}..."
+    puts "👉 Reading #{filepath}..."
     counter_rejected  = 0
     counter_updated   = 0
     counter_created   = 0

@@ -3,21 +3,29 @@ require 'csv'
 # ############################################
 # CLEANING
 # ############################################
-puts "Cleaning databases..."
+puts "👉 Cleaning databases..."
 PilotPref.destroy_all
 User.destroy_all
+Country.destroy_all
+Runway.destroy_all
+Airport.destroy_all
 FuelStation.destroy_all
 
+puts "-------------------------------"
+puts "All environments seeds"
+puts "-------------------------------"
+
 # ############################################
-# FUEL STATIONS
+# IMPORT TASKS
 # ############################################
+Rake::Task['import:countries'].invoke
+Rake::Task['import:airports'].invoke
+Rake::Task['import:runways'].invoke
 Rake::Task['import:fuel_stations'].invoke
 
 # ############################################
 # USERS
 # ############################################
-# Deleting current users
-
 # Create an admin user
 user = User.new
 user.first_name = "Alexandre"
@@ -34,8 +42,11 @@ pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: false)
 puts "Admin user alex created"
 puts "Pilot pref alex created"
 
-# Create an user
+# Create users
 if Rails.env.development? || Rails.env.staging?
+  puts "-------------------------------"
+  puts "development & staging seeds"
+  puts "-------------------------------"
   user = User.new
   user.first_name = "Rachel"
   user.last_name = "Muller"
@@ -48,8 +59,8 @@ if Rails.env.development? || Rails.env.staging?
   user.save
   pilot_pref = PilotPref.find_by(user_id: user.id)
   pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: true)
-  puts "User rachel created in dev"
-  puts "Pilot pref rachel created"
+  puts "rachel user created"
+  puts "rachel pilot prefs created"
 
   user = User.new
   user.first_name = "Margaux"
@@ -63,6 +74,6 @@ if Rails.env.development? || Rails.env.staging?
   user.save
   pilot_pref = PilotPref.find_by(user_id: user.id)
   pilot_pref.update(airport: Airport.find_by(icao: "LFQA"), is_ultralight_pilot: false, is_private_pilot: true)
-  puts "User margaux created in dev"
-  puts "Pilot pref margaux created"
+  puts "margaux user created"
+  puts "margaux pilot prefs created"
 end
