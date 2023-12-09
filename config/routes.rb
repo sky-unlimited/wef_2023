@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users
-    get 'pages/console'
+    get 'console/index'
     get 'subscribers/index'
     get 'privacy_policy/index'
     post '/', to: 'subscribers#create'
