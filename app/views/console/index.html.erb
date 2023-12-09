@@ -1,37 +1,37 @@
 <main class="container-fluid">
-  <h1 class="text-center"><%= t('pages.console.title') %></h1>
+  <h1 class="text-center"><%= t('console.title') %></h1>
   <div class="d-flex flex-wrap">
     <section class="d-flex flex-column bg-light m-20 p-20">
-      <h2><%= t('pages.console.export_title') %></h2>
+      <h2><%= t('console.export_title') %></h2>
       <div>
         <div class="mb-30">
-          <%= link_to t('pages.console.export_button'), subscribers_index_path(format: :csv), class: "btn btn-primary" %>
-          <%= t('pages.console.export_subscribers') %>
+          <%= link_to t('console.export_button'), subscribers_index_path(format: :csv), class: "btn btn-primary" %>
+          <%= t('console.export_subscribers') %>
         </div>
         <div class="mb-30">
-          <%= link_to t('pages.console.export_button'), fuel_stations_index_path(format: :csv), class: "btn btn-primary" %>
+          <%= link_to t('console.export_button'), fuel_stations_index_path(format: :csv), class: "btn btn-primary" %>
           Export fuel stations
         </div>
       </div>
       <div class="console-export-content mb-5">
-        <p><%#= link_to t('pages.console.export_button'), contacts_path(format: :csv), class: "btn btn-primary" %></p>
-        <p class="ml-10"><%#= t('pages.console.export_contacts') %></p>
+        <p><%#= link_to t('console.export_button'), contacts_path(format: :csv), class: "btn btn-primary" %></p>
+        <p class="ml-10"><%#= t('console.export_contacts') %></p>
       </div>
       <div class="console-export-content mb-5">
-        <p><%#= link_to t('pages.console.export_button'), blog_views_index_path(format: :csv), class: "btn btn-primary" %></p>
-        <p class="ml-10"><%#= t('pages.console.export_blog_views') %></p>
+        <p><%#= link_to t('console.export_button'), blog_views_index_path(format: :csv), class: "btn btn-primary" %></p>
+        <p class="ml-10"><%#= t('console.export_blog_views') %></p>
       </div>
     </section>
     <section class="d-flex flex-column bg-light m-20 p-20">
-      <h2><%= t('pages.console.blog_views_title') %></h2>
+      <h2><%= t('console.blog_views_title') %></h2>
       <%#= area_chart BlogView.group_by_month(:created_at).count, colors: ["#ca2e55", "#666"] %>
     </section>
     <section class="d-flex flex-column bg-light m-20 p-20">
-      <h2><%= t('pages.console.contacts_count_title') %></h2>
+      <h2><%= t('console.contacts_count_title') %></h2>
       <%#= area_chart Contact.group_by_month(:created_at).count, colors: ["#bdb246", "#666"] %>
     </section>
     <section class="d-flex flex-column bg-light m-20 p-20">
-      <h2><%= t('pages.console.contacts_category_title') %></h2>
+      <h2><%= t('console.contacts_category_title') %></h2>
       <%#= pie_chart Contact.group(:category).count, colors: ["#8a6552", "#462521", "#ca2e55", "#bdb246"] %>
     </section>
   </div>
