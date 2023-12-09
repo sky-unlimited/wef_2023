@@ -17,4 +17,14 @@ class FuelStation < ApplicationRecord
   validates :status, presence: true
   validates :airport_id, uniqueness: true
 
+  def self.to_csv
+    attributes = %w[id airport_id provider status fuel_avgas_100ll fuel_avgas_91ll fuel_mogas charging_station email phone]
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.each do |fuel_station|
+        csv << fuel_station.attributes.values_at(*attributes)
+      end
+    end
+  end
+
 end
