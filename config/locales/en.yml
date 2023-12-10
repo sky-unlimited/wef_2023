@@ -3,6 +3,7 @@ en:
     models:
       pilot_pref: Pilot preferences
       trip_request: Trip Organization
+      fuel_station: Fuel Station
     attributes:
       pilot_pref:
         weather_profile: Weather Profile
@@ -53,7 +54,15 @@ en:
         name: "Name"
         email: "Email"
         accept_private_data_policy: "Privacy policy:"
-
+      fuel_station:
+        provider: Provider
+        status: Status
+        fuel_avgas_100ll: Avgas 100LL
+        fuel_avgas_91ul: Avgas 91UL
+        fuel_mogas: Mogas
+        charging_station: Charging station
+        email: Email
+        phone: Phone
     errors:
       messages:
         in: must be in %{count}
@@ -136,3 +145,10 @@ en:
   subscribers_mailer:
     subscribed:
       subject: "You are registered to the Newsletter!"
+  fuel_station:
+    manager: Fuel Station Manager
+    back_airport: Back to airport
+    form:
+      submit: Submit
+    flash:
+      update_ok: Fuel Station has been updated!

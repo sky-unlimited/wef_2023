@@ -3,6 +3,7 @@ fr:
     models:
       pilot_pref: Préférences pilote
       trip_request: Organisation Voyage
+      fuel_station: Stations d'avitaillement
     attributes:
       pilot_pref:
         weather_profile: Profile météo
@@ -53,6 +54,15 @@ fr:
         name: "Prénom"
         email: "Courriel"
         accept_private_data_policy: "Politique de confidentialité:"
+      fuel_station:
+        provider: Fournisseur
+        status: Statut
+        fuel_avgas_100ll: Avgas 100LL
+        fuel_avgas_91ul: Avgas 91UL
+        fuel_mogas: Essence
+        charging_station: Station chargement
+        email: Email
+        phone: Téléphone
     errors:
       messages:
         in: doit être compris entre %{count}
@@ -136,3 +146,10 @@ fr:
   subscribers_mailer:
     subscribed:
       subject: "Vous êtes bien enregistré à la Newsletter!"
+  fuel_station:
+    manager: Gestionnaire Station d'Avitaillement
+    back_airport: Retour Aéroport
+    form:
+      submit: Mise à jour
+    flash:
+      update_ok: Station d'avitaillement mise à jour!

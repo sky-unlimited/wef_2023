@@ -1,0 +1,11 @@
+<div class="container-md d-flex flex-column align-items-center">
+  <h1 class="text-center"><%= t('fuel_station.manager') %></h1>
+  <div class="mb-20">
+    <%= link_to t('fuel_station.back_airport'), airport_path(@airport), class: "btn btn-secondary" %>
+  </div>
+</div>
+<div class="container-md">
+  <div class="form-wrapper card-product border-radius bg-color3">
+    <%= render "form" %>
+  </div>
+</div>
