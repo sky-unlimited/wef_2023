@@ -1,3 +1,5 @@
+require 'csv'
+
 class FuelStation < ApplicationRecord
   belongs_to :airport
 
