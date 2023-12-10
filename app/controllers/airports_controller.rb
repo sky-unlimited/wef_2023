@@ -99,6 +99,20 @@ class AirportsController < ApplicationController
 
     # Load weather forecast of the airport
     @weather_airport_array = WeatherService.forecast(current_user, @airport)
+
+    # Load the fuel station logo
+    if @airport.fuel_station.nil?
+      @fuel_provider_logo = "fuel_plane.png"
+    else
+      case @airport.fuel_station.provider
+        when FuelStation.providers.keys[1]
+          @fuel_provider_logo = "logo_total_small.png"
+        when FuelStation.providers.keys[2]
+          @fuel_provider_logo = "logo_airbp_small.png"
+        else
+        @fuel_provider_logo = "fuel_plane.png"
+      end
+    end
   end
 
   private
