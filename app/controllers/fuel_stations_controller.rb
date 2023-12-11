@@ -24,7 +24,7 @@ class FuelStationsController < ApplicationController
       flash.notice = t('fuel_station.flash.update_ok')
       render "edit"
     else
-     render "edit", status: :unprocessable_entity
+      render "edit", status: :unprocessable_entity
     end 
   end
 

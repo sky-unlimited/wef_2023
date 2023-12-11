@@ -113,8 +113,10 @@
           </div>
           <p>
             <%= @airport.fuel_station.phone %>
-            <% unless @airport.fuel_station.email.empty? %>
-              <%= "| #{@airport.fuel_station.email}" %>
+            <% unless @airport.fuel_station.email.nil?
+                 unless @airport.fuel_station.email.empty? %>
+                  <%= "| #{@airport.fuel_station.email}" %>
+                <% end %>
             <% end %>
           </p>
           <table class="mb-10">
@@ -187,11 +189,13 @@
             <%= link_to t('airport.show..edit'), edit_fuel_station_path(@airport.fuel_station), class: "link-light" %>
           </div>
 
-          <span class="fs-0-8">
-            <%= " #{t('airport.show.last_update_by')} #{@audit_log_fuel_station.user.username}, 
+          <% unless @audit_log_fuel_station.nil? %>
+            <span class="fs-0-8">
+              <%= " #{t('airport.show.last_update_by')} #{@audit_log_fuel_station.user.username}, 
                   #{l @audit_log_fuel_station.updated_at, format: :date_short} ,
                   #{extract_time_from_date(@audit_log_fuel_station.updated_at)}" %>
-          </span>
+            </span>
+          <% end %>
 
         </div>
       <% end %>

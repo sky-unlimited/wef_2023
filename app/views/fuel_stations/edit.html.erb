@@ -1,5 +1,6 @@
 <div class="container-md d-flex flex-column align-items-center">
-  <h1 class="text-center"><%= t('fuel_station.manager') %></h1>
+  <h1 class="text-center m-0"><%= t('fuel_station.manager') %></h1>
+  <h2 class="text-center"><%= "#{@airport.name} (#{@airport.icao})"  %></h2>
   <div class="mb-20">
     <%= link_to t('fuel_station.back_airport'), airport_path(@airport), class: "btn btn-secondary" %>
   </div>
