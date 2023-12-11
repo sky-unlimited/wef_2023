@@ -149,7 +149,11 @@ fr:
   fuel_station:
     manager: Gestionnaire Station d'Avitaillement
     back_airport: Retour Aéroport
+    edit: Editer
     form:
       submit: Mise à jour
     flash:
       update_ok: Station d'avitaillement mise à jour!
+  airport:
+    show:
+      edit: Editer

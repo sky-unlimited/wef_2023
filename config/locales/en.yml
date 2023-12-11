@@ -152,3 +152,6 @@ en:
       submit: Submit
     flash:
       update_ok: Fuel Station has been updated!
+  airport:
+    show:
+      edit: Edit
