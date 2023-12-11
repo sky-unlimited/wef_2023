@@ -20,6 +20,7 @@ class FuelStationsController < ApplicationController
     @fuel_station = FuelStation.find(params[:id])
     @airport = Airport.find(@fuel_station.airport_id)
     if @fuel_station.update(fuel_station_params)
+      @fuel_station.save_with_user(current_user, :updated)
       flash.notice = t('fuel_station.flash.update_ok')
       render "edit"
     else

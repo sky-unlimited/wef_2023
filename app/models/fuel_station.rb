@@ -3,6 +3,8 @@ require 'csv'
 class FuelStation < ApplicationRecord
   belongs_to :airport
 
+  #around_save :populate_audit_logs
+
   enum provider: { "Other" => 0, "Total Energies" => 1, "Air BP" => 2 } 
   enum status: { active: 0, unserviceable: 1, closed: 2 }
   # We prefix the methods name because rails generates conflicts in associated methods name
@@ -20,13 +22,24 @@ class FuelStation < ApplicationRecord
   validates :airport_id, uniqueness: true
 
   def self.to_csv
-    attributes = %w[id airport_id provider status fuel_avgas_100ll fuel_avgas_91ll fuel_mogas charging_station email phone]
+    attributes = %w[id airport_id provider status fuel_avgas_100ll fuel_avgas_91ul fuel_mogas charging_station email phone]
     CSV.generate(headers: true) do |csv|
       csv << attributes
       all.each do |fuel_station|
         csv << fuel_station.attributes.values_at(*attributes)
       end
     end
+  end
+
+  def save_with_user(current_user, action)
+    self.populate_audit_logs(current_user, self.id, action)
+  end
+
+  private
+
+  def populate_audit_logs(current_user, target_id, action)
+    record = AuditLog.new(user_id: current_user.id, target_id: target_id, target_type: :fuel_station, action: action) 
+    record.save
   end
 
 end
