@@ -113,6 +113,15 @@ class AirportsController < ApplicationController
         @fuel_provider_logo = "fuel_plane.png"
       end
     end
+
+    # Load the Audit Logs of fuel station if available
+    unless @airport.fuel_station.nil?
+      @audit_log_fuel_station = AuditLog.where(target_type: :fuel_station)
+                                        .where(target_id: @airport.fuel_station.id)
+                                        .order(:updated_at)
+                                        .last
+
+    end
   end
 
   private
