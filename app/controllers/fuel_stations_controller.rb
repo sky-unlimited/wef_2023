@@ -10,6 +10,22 @@ class FuelStationsController < ApplicationController
       render_404
     end
   end
+  
+  def new
+    @fuel_station = FuelStation.new
+    @airport = Airport.find(params[:airport_id])
+    @fuel_station.airport_id = @airport.id
+  end
+
+  def create
+    @fuel_station = FuelStation.new(fuel_station_params)
+    @airport = Airport.find(@fuel_station.airport_id)
+    if @fuel_station.save
+      redirect_to airport_path(@fuel_station.airport_id)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   def edit
     @fuel_station = FuelStation.find(params[:id])
@@ -22,7 +38,7 @@ class FuelStationsController < ApplicationController
     if @fuel_station.update(fuel_station_params)
       @fuel_station.save_with_user(current_user, :updated)
       flash.notice = t('fuel_station.flash.update_ok')
-      render "edit"
+      redirect_to airport_path(@airport)
     else
       render "edit", status: :unprocessable_entity
     end 
@@ -39,6 +55,6 @@ class FuelStationsController < ApplicationController
   end
 
   def fuel_station_params
-    params.require(:fuel_station).permit(:provider, :status, :fuel_avgas_100ll, :fuel_avgas_91ul, :charging_station, :email, :phone)
+    params.require(:fuel_station).permit(:airport_id, :provider, :status, :fuel_avgas_100ll, :fuel_avgas_91ul, :fuel_mogas, :charging_station, :email, :phone)
   end
 end

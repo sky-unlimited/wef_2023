@@ -148,6 +148,9 @@ en:
   fuel_station:
     manager: Fuel Station Manager
     back_airport: Back to airport
+    edit: Edit
+    new_fuel_station: New Fuel Station
+    update_fuel_station: Update Fuel Station
     form:
       submit: Submit
     flash:

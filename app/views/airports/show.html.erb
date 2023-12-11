@@ -94,7 +94,7 @@
           data-collapse-target="content">
       <% if @airport.fuel_station.nil? %>
         <p>No fuel station known</p>
-        <%= link_to 'Register New', new_fuel_station_path, class: "link-primary" %>
+        <%= link_to 'Register New', new_fuel_station_path(airport_id: @airport), class: "link-primary" %>
       <% else %>
         <div>
           <div class="d-flex align-items-center mb-15">

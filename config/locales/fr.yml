@@ -150,6 +150,8 @@ fr:
     manager: Gestionnaire Station d'Avitaillement
     back_airport: Retour Aéroport
     edit: Editer
+    new_fuel_station: Nouvelle Station d'Avitaillement
+    update_fuel_station: Modifier Station d'Avitaillement
     form:
       submit: Mise à jour
     flash:
