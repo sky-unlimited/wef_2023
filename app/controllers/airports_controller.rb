@@ -102,7 +102,7 @@ class AirportsController < ApplicationController
 
     # Load the fuel station logo
     if @airport.fuel_station.nil?
-      @fuel_provider_logo = "fuel_plane.png"
+      @fuel_provider_logo = "fuel_100ll.png"
     else
       case @airport.fuel_station.provider
         when FuelStation.providers.keys[1]
@@ -110,7 +110,7 @@ class AirportsController < ApplicationController
         when FuelStation.providers.keys[2]
           @fuel_provider_logo = "logo_airbp_small.png"
         else
-        @fuel_provider_logo = "fuel_plane.png"
+        @fuel_provider_logo = "fuel_100ll.png"
       end
     end
 

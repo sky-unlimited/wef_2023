@@ -32,10 +32,18 @@ class TripRequestsController < ApplicationController
       @trip_request.proxy_hiking_path     = last_request.proxy_hiking_path
       @trip_request.proxy_coastline       = last_request.proxy_coastline
       @trip_request.proxy_lake            = last_request.proxy_lake
+      @trip_request.fuel_station_100ll    = last_request.fuel_station_100ll
+      @trip_request.fuel_station_91ul    = last_request.fuel_station_91ul
+      @trip_request.fuel_station_mogas   = last_request.fuel_station_mogas
+      @trip_request.charging_station     = last_request.charging_station
+
     end
 
     @trip_request.user_id = current_user.id
     set_airport_details unless @trip_request.airport_id.nil?
+
+    # In order to avoid displaying useless fuel options for private pilots
+    @is_ultralight_pilot = User.find(current_user.id).pilot_pref.is_ultralight_pilot
   end
 
   def create
@@ -47,12 +55,6 @@ class TripRequestsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit
-  end
-
-  def update
   end
 
   private

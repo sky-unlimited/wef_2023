@@ -19,7 +19,7 @@ class PoiCatalogue
     :fuel_plane => {
         :categories => ["aeroway"],
         :amenities => ["fuel"],
-        :icon => "fuel_plane.png",
+        :icon => "fuel_100ll.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_fuel_plane')},
     :bike_rental => {
         :categories => ["amenity"],
@@ -69,7 +69,7 @@ class PoiCatalogue
     :power_cable => {
         :categories => ["power"],
         :amenities => ["cable","line","minor_cable","minor_line"],
-        :icon => "power_cable.png",
+        :icon => "power.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_power_lines')},
     :coastline => {
         :categories => ["natural"],

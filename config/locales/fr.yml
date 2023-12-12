@@ -35,7 +35,10 @@ fr:
         proxy_food: Restauration
         proxy_beverage: Boisson
         proxy_fuel_car: Station Essence Voiture
-        proxy_fuel_plane: Station Avitaillement
+        fuel_station_100ll: Avgas 100LL
+        fuel_station_91ul: Avgas 91UL
+        fuel_station_mogas: Essence
+        charging_station: Recharges Electriques
         proxy_bike_rental: Location Vélo
         proxy_car_rental: Location Voiture
         proxy_camp_site: Camping
@@ -60,7 +63,7 @@ fr:
         fuel_avgas_100ll: Avgas 100LL
         fuel_avgas_91ul: Avgas 91UL
         fuel_mogas: Essence
-        charging_station: Station chargement
+        charging_station: Station Chargement
         email: Email
         phone: Téléphone
     errors:
