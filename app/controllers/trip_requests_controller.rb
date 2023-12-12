@@ -71,7 +71,7 @@ class TripRequestsController < ApplicationController
   end
 
   def trip_request_params
-    params.require(:trip_request).permit(:user_id, :airport_id, :start_date, :end_date, :international_flight, :small_airport, :medium_airport, :large_airport, :trip_mode, :proxy_food, :proxy_beverage, :proxy_fuel_car, :proxy_fuel_plane, :proxy_car_rental, :proxy_bike_rental, :proxy_camp_site, :proxy_accommodation, :proxy_shop, :proxy_bus_station, :proxy_train_station, :proxy_hiking_path, :proxy_coastline, :proxy_lake)
+    params.require(:trip_request).permit(:user_id, :airport_id, :start_date, :end_date, :international_flight, :small_airport, :medium_airport, :large_airport, :trip_mode, :proxy_food, :proxy_beverage, :proxy_fuel_car, :fuel_station_100ll, :fuel_station_91ul, :fuel_station_mogas, :charging_station, :proxy_car_rental, :proxy_bike_rental, :proxy_camp_site, :proxy_accommodation, :proxy_shop, :proxy_bus_station, :proxy_train_station, :proxy_hiking_path, :proxy_coastline, :proxy_lake)
   end
 
 end

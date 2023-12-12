@@ -42,7 +42,10 @@ class TripRequest < ApplicationRecord
     if  proxy_food == false &&
         proxy_beverage == false &&
         proxy_fuel_car == false &&
-        proxy_fuel_plane == false &&
+        fuel_station_100ll == false &&
+        fuel_station_91ul == false &&
+        fuel_station_mogas == false &&
+        charging_station == false &&
         proxy_car_rental == false &&
         proxy_bike_rental == false &&
         proxy_camp_site == false &&

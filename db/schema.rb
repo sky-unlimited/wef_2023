@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_12_072519) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_12_114349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -204,9 +204,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_12_072519) do
     t.boolean "proxy_train_station", default: false
     t.boolean "proxy_hiking_path", default: false
     t.boolean "proxy_coastline", default: false
-    t.boolean "proxy_fuel_plane", default: false
+    t.boolean "fuel_station_100ll", default: false
     t.boolean "proxy_beverage", default: false
     t.boolean "proxy_lake", default: false
+    t.boolean "fuel_station_91ul", default: false
+    t.boolean "fuel_station_mogas", default: false
+    t.boolean "charging_station", default: false
     t.index ["airport_id"], name: "index_trip_requests_on_airport_id"
     t.index ["user_id"], name: "index_trip_requests_on_user_id"
   end
