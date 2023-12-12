@@ -10,4 +10,5 @@ class AuditLog < ApplicationRecord
   validates :target_id, presence: true
   validates :target_type, presence: true
   validates :action, presence: true
+
 end

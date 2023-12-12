@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_142536) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_12_072519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_142536) do
     t.integer "action", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ip_address", default: "::1", null: false
     t.index ["user_id"], name: "index_audit_logs_on_user_id"
   end
 

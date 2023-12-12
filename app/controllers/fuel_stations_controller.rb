@@ -21,6 +21,7 @@ class FuelStationsController < ApplicationController
     @fuel_station = FuelStation.new(fuel_station_params)
     @airport = Airport.find(@fuel_station.airport_id)
     if @fuel_station.save
+      @fuel_station.save_with_user(current_user, :created, request)
       redirect_to airport_path(@fuel_station.airport_id)
     else
       render :new, status: :unprocessable_entity
@@ -36,7 +37,7 @@ class FuelStationsController < ApplicationController
     @fuel_station = FuelStation.find(params[:id])
     @airport = Airport.find(@fuel_station.airport_id)
     if @fuel_station.update(fuel_station_params)
-      @fuel_station.save_with_user(current_user, :updated)
+      @fuel_station.save_with_user(current_user, :updated, request)
       flash.notice = t('fuel_station.flash.update_ok')
       redirect_to airport_path(@airport)
     else

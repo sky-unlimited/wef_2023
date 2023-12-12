@@ -3,8 +3,6 @@ require 'csv'
 class FuelStation < ApplicationRecord
   belongs_to :airport
 
-  #around_save :populate_audit_logs
-
   enum provider: { "Other" => 0, "Total Energies" => 1, "Air BP" => 2 } 
   enum status: { active: 0, unserviceable: 1, closed: 2 }
   # We prefix the methods name because rails generates conflicts in associated methods name
@@ -31,14 +29,15 @@ class FuelStation < ApplicationRecord
     end
   end
 
-  def save_with_user(current_user, action)
-    self.populate_audit_logs(current_user, self.id, action)
+  def save_with_user(current_user, action, request)
+    self.populate_audit_logs(current_user, self.id, action, request)
   end
 
   private
 
-  def populate_audit_logs(current_user, target_id, action)
-    record = AuditLog.new(user_id: current_user.id, target_id: target_id, target_type: :fuel_station, action: action) 
+  def populate_audit_logs(current_user, target_id, action, request)
+    ip_address = request.headers["X-Forwarded-For"] || request.remote_ip
+    record = AuditLog.new(user_id: current_user.id, target_id: target_id, target_type: :fuel_station, action: action, ip_address: ip_address) 
     record.save
   end
 

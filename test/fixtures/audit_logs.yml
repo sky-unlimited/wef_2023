@@ -5,3 +5,4 @@ audit_1_ok:
   target_id: 1
   target_type: 0
   action: 0
+  ip_address: 192.168.1.10

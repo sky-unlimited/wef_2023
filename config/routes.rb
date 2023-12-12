@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :trip_requests,     only: [ :new, :create, :edit, :update ]
     resources :trip_suggestions,  only: [ :index ]
     resources :airports,          only: [ :index, :show ]
-    resources :fuel_stations,     only: [ :index, :new, :create, :show, :edit, :update ]
+    resources :fuel_stations,     only: [ :index, :new, :create, :edit, :update ]
     root to: 'pages#home'
   end
 end
