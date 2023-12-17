@@ -68,7 +68,44 @@ class Destinations
 
   def get_airports_matching_criterias
     # Filter per users's selected poi's
-    airports_matching_criterias = PoiCatalogue.airports_matching_pois(@trip_request)
+    airports_matching_criterias_ids = PoiCatalogue.airports_matching_pois(@trip_request)
+
+    # Filter on expected fuel services
+    if @trip_request.fuel_station_100ll
+      ids_100ll = FuelStation.where.not(fuel_avgas_100ll: :no).pluck(:airport_id)
+      if airports_matching_criterias_ids.empty?
+        airports_matching_criterias_ids = ids_100ll
+      else
+        airports_matching_criterias_ids = airports_matching_criterias_ids.intersection(ids_100ll)
+      end
+    end
+    if @trip_request.fuel_station_91ul
+      ids_91ul = FuelStation.where.not(fuel_avgas_91ul: :no).pluck(:airport_id) 
+      if airports_matching_criterias_ids.empty?
+        airports_matching_criterias_ids = ids_91ul
+      else
+        airports_matching_criterias_ids = airports_matching_criterias_ids.intersection(ids_91ul)
+      end
+    end
+    if @trip_request.fuel_station_mogas
+      ids_mogas = FuelStation.where.not(fuel_mogas: :no).pluck(:airport_id) 
+      if airports_matching_criterias_ids.empty?
+        airports_matching_criterias_ids = ids_mogas
+      else
+        airports_matching_criterias_ids = airports_matching_criterias_ids.intersection(ids_mogas)
+      end
+    end
+    if @trip_request.charging_station
+      ids_charging = FuelStation.where.not(charging_station: :no).pluck(:airport_id) 
+      if airports_matching_criterias_ids.empty?
+        airports_matching_criterias_ids = ids_charging
+      else
+        airports_matching_criterias_ids = airports_matching_criterias_ids.intersection(ids_charging)
+      end
+    end
+
+    # Load corresponding airports instances
+    airports_matching_criterias = Airport.where(id: airports_matching_criterias_ids)
 
     # Apply the trip_request preferences on airport_type
     selected_airport_types = []
@@ -97,7 +134,7 @@ class Destinations
     # Exclude the departure airport from the list of matching airports
     airports_matching_criterias = airports_matching_criterias.where.not(id: @trip_request.airport.id)
 
-    # We create an Airport object in order to retrieve all information
+    # We create an Airport object in order to retrieve all information to the view
     @airports_matching_criterias = airports_matching_criterias
   end
 

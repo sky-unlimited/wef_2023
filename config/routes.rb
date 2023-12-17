@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'fuel_stations/index'
   namespace :api do
     namespace :v1 do
       get "/airports/find", to: "airports#find"
@@ -17,7 +16,7 @@ Rails.application.routes.draw do
     resources :trip_requests,     only: [ :new, :create, :edit, :update ]
     resources :trip_suggestions,  only: [ :index ]
     resources :airports,          only: [ :index, :show ]
-    resources :fuel_stations,     only: [ :index, :new, :create ]
+    resources :fuel_stations,     only: [ :index, :new, :show, :edit, :update, :create ]
     root to: 'pages#home'
   end
 end

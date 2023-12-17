@@ -111,7 +111,7 @@ class PoiCatalogue
     counter += OsmPolygone.where(amenity: amenities).and(OsmPolygone.where(category: category)).count
   end
 
-  # Depending pilot's choice of amenities, we list all airports
+  # Depending pilot's choice of amenities, we list all airports ids
   # matching ALL criterias (intersection)
   def self.airports_matching_pois(trip_request)
     airports_ids = []
@@ -128,7 +128,8 @@ class PoiCatalogue
         airports_ids = airports_ids & temp_airports_ids
       end
     end
-    return Airport.where(id: airports_ids)
+    #return Airport.where(id: airports_ids)
+    return airports_ids
   end
 
   def self.count_groups_per_airport(airport)
