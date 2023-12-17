@@ -20,6 +20,11 @@
     <tr>
       <td><b><%= t('trip_suggestions.index.selected_pois') %>:</b></td>
       <td>
+        <span>
+          <% get_trip_request_fuel_stations_icons(@trip_request.airport).each do |fuel_type| %>
+            <%= image_tag(fuel_type, alt: fuel_type) %> 
+          <% end %>
+        </span>
         <% PoiCatalogue.get_pois_group_per_trip_request(@trip_request).map do |group| %>
           <span class="mr-10"><%= image_tag(PoiCatalogue.inventory[group.keys[0]][:icon],
                                             alt: PoiCatalogue.inventory[group.keys[0]][:label]) %></span>
@@ -57,9 +62,14 @@
 
           <div class="display_airport_poi mb-20 d-flex flex-column">
             <div>
-              <% get_airport_poi_icons(airport).each do |icon| %>
-                <span class="mr-10"><%= image_tag(icon) %></span>
-              <%end %>
+              <span>
+                <% airport_fuel_types_icons(airport).each do |icon| %>
+                  <span class="mr-10"><%= image_tag(icon) %></span>
+                <%end %>
+                <% get_airport_poi_icons(airport).each do |icon| %>
+                  <span class="mr-10"><%= image_tag(icon) %></span>
+                <%end %>
+              </span>
             </div>
             <div class="my-20">
               <%= link_to t('trip_suggestions.index.airport_detail'), airport_path(airport.id), 

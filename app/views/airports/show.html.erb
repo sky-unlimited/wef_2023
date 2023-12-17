@@ -9,7 +9,9 @@
 
   <div class="display_airport_poi mb-20 d-flex flex-column">
     <div>
-      <span class="mr-10"><%= image_tag(@fuel_provider_logo) %></span>
+      <% airport_fuel_types_icons(@airport).each do |icon| %>
+        <span class="mr-10"><%= image_tag(icon) %></span>
+      <%end %>
       <% get_airport_poi_icons(@airport).each do |icon| %>
         <span class="mr-10"><%= image_tag(icon) %></span>
       <%end %>
@@ -98,7 +100,7 @@
       <% else %>
         <div>
           <div class="d-flex align-items-center mb-15">
-            <span><%= image_tag(@fuel_provider_logo, class: "mr-10") %></span>
+            <span><%= image_tag(display_fuel_provider_logo(@airport), class: "mr-10") %></span>
             <span><b class="fs-1-2"><%= @airport.fuel_station.provider %></b></span>
             <span class="ml-20">
               <% case @airport.fuel_station.status %>

@@ -140,18 +140,18 @@
         <div class="border bg-color3 color-dark border-radius p-15 mb-5">
           <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :fuel_station_100ll %>
-            <%= image_tag('fuel_100ll.png', size: "24x24", alt:"fuel_100ll", class: "mr-10") %>
+            <%= image_tag(FuelStation.inventory[:fuel_types][:fuel_avgas_100ll][:icon], size: "24x24", alt:"fuel_100ll", class: "mr-10") %>
             <%= f.label :fuel_station_100ll %>
           </div>
           <div class="d-flex flex-row align-items-center mb-5">
             <%= f.check_box :fuel_station_91ul %>
-            <%= image_tag('fuel_91ul.png', size: "24x24", alt:"fuel_91ul", class: "mr-10") %>
+            <%= image_tag(FuelStation.inventory[:fuel_types][:fuel_avgas_91ul][:icon], size: "24x24", alt:"fuel_91ul", class: "mr-10") %>
             <%= f.label :fuel_station_91ul %>
           </div>
           <% if @is_ultralight_pilot %>
             <div class="d-flex flex-row align-items-center mb-5">
               <%= f.check_box :fuel_station_mogas %>
-              <%= image_tag(PoiCatalogue.inventory[:fuel_car][:icon], size: "24x24", alt:"fuel_car", class: "mr-10") %>
+              <%= image_tag(FuelStation.inventory[:fuel_types][:fuel_mogas][:icon], size: "24x24", alt:"fuel_car", class: "mr-10") %>
               <%= f.label :fuel_station_mogas %>
             </div>
             <div class="d-flex flex-row align-items-center mb-5">
@@ -161,7 +161,7 @@
             </div>
             <div class="d-flex flex-row align-items-center mb-5">
               <%= f.check_box :charging_station %>
-              <%= image_tag('power.png', size: "24x24", alt:"charging_station", class: "mr-10") %>
+              <%= image_tag(FuelStation.inventory[:fuel_types][:charging_station][:icon], size: "24x24", alt:"charging_station", class: "mr-10") %>
               <%= f.label :charging_station %>
             </div>
           <% end %>

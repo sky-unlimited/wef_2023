@@ -100,28 +100,6 @@ class AirportsController < ApplicationController
     # Load weather forecast of the airport
     @weather_airport_array = WeatherService.forecast(current_user, @airport)
 
-    # Load the fuel station logo
-    if @airport.fuel_station.nil?
-      @fuel_provider_logo = "fuel_100ll.png"
-    else
-      case @airport.fuel_station.provider
-        when FuelStation.providers.keys[1]
-          @fuel_provider_logo = "logo_total_small.png"
-        when FuelStation.providers.keys[2]
-          @fuel_provider_logo = "logo_airbp_small.png"
-        else
-        @fuel_provider_logo = "fuel_100ll.png"
-      end
-    end
-
-    # Load the Audit Logs of fuel station if available
-    unless @airport.fuel_station.nil?
-      @audit_log_fuel_station = AuditLog.where(target_type: :fuel_station)
-                                        .where(target_id: @airport.fuel_station.id)
-                                        .order(:updated_at)
-                                        .last
-
-    end
   end
 
   private

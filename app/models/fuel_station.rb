@@ -19,6 +19,24 @@ class FuelStation < ApplicationRecord
   validates :status, presence: true
   validates :airport_id, uniqueness: true
 
+  @@inventory = {
+    :fuel_types => {
+      :fuel_avgas_100ll =>  {:icon => "fuel_100ll.png" },
+      :fuel_avgas_91ul  =>  {:icon => "fuel_91ul.png" },
+      :fuel_mogas       =>  {:icon => "fuel_mogas.png" },
+      :charging_station =>  {:icon => "power.png" }
+    },
+    :fuel_providers => {
+      :other          => {:icon => "fuel.png" },
+      :total_energies => {:icon => "logo_total_small.png" },
+      :air_bp         => {:icon => "logo_airbp_small.png" }
+    }
+  }
+
+  def self.inventory
+    @@inventory
+  end
+
   def self.to_csv
     attributes = %w[id airport_id provider status fuel_avgas_100ll fuel_avgas_91ul fuel_mogas charging_station email phone]
     CSV.generate(headers: true) do |csv|
