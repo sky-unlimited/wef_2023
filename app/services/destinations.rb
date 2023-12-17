@@ -208,15 +208,26 @@ class Destinations
           3
         end
 
+      # Priority 4: Matching fuel card provider
+      fuel_cards = []
+      fuel_cards << "Air BP" if @trip_request.user.pilot_pref.fuel_card_bp
+      fuel_cards << "Total Energies" if @trip_request.user.pilot_pref.fuel_card_total
+      if fuel_cards.include?(destination[:airport].fuel_station.provider)
+        fuel_card_category = 0
+      else
+        fuel_card_category = 1
+      end
+
       airports_priority_groups << { :airport_id       => destination[:airport].id,
                                     :direct_flight    => direct_flight,
                                     :distance_group   => distance_category,
-                                    :heading_group    => heading_category }
+                                    :heading_group    => heading_category,
+                                    :fuel_card_group  => fuel_card_category }
     end
     
     # Sorting rules
     sorted_destinations = airports_priority_groups.sort_by do |hash|
-      [hash[:direct_flight], hash[:distance_group], hash[:heading_group]]
+      [hash[:direct_flight], hash[:distance_group], hash[:heading_group], hash[:fuel_card_group]]
     end
 
     # Unique destinations - avoid having airports in same 3 groups
