@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users
-    get 'pages/console'
+    get 'console/index'
     get 'subscribers/index'
     get 'privacy_policy/index'
     post '/', to: 'subscribers#create'
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :trip_requests,     only: [ :new, :create, :edit, :update ]
     resources :trip_suggestions,  only: [ :index ]
     resources :airports,          only: [ :index, :show ]
+    resources :fuel_stations,     only: [ :index, :new, :show, :edit, :update, :create ]
     root to: 'pages#home'
   end
 end

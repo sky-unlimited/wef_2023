@@ -20,6 +20,11 @@
     <tr>
       <td><b><%= t('trip_suggestions.index.selected_pois') %>:</b></td>
       <td>
+        <span>
+          <% get_trip_request_fuel_stations_icons(@trip_request.airport).each do |fuel_type| %>
+            <%= image_tag(fuel_type, alt: fuel_type) %> 
+          <% end %>
+        </span>
         <% PoiCatalogue.get_pois_group_per_trip_request(@trip_request).map do |group| %>
           <span class="mr-10"><%= image_tag(PoiCatalogue.inventory[group.keys[0]][:icon],
                                             alt: PoiCatalogue.inventory[group.keys[0]][:label]) %></span>
@@ -57,9 +62,14 @@
 
           <div class="display_airport_poi mb-20 d-flex flex-column">
             <div>
-              <% get_airport_poi_icons(airport).each do |icon| %>
-                <span class="mr-10"><%= image_tag(icon) %></span>
-              <%end %>
+              <span>
+                <% airport_fuel_types_icons(airport).each do |icon| %>
+                  <span class="mr-10"><%= image_tag(icon) %></span>
+                <%end %>
+                <% get_airport_poi_icons(airport).each do |icon| %>
+                  <span class="mr-10"><%= image_tag(icon) %></span>
+                <%end %>
+              </span>
             </div>
             <div class="my-20">
               <%= link_to t('trip_suggestions.index.airport_detail'), airport_path(airport.id), 
@@ -68,7 +78,7 @@
           </div>
 
           <div class="top_destinations__flight_track mt-5" data-controller="collapse">
-            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
+            <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
             <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
             <div  id="flight_track_<%= index + 1 %>" 
                   class="collapse show bg-light px-5 border-radius" 
@@ -82,7 +92,7 @@
           </div>
 
           <div class="weather_forecast mt-5" data-controller="collapse">
-            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+            <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
             <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
             <div  id="weather_forecast_<%= index + 1 %>" 
                   class="collapse bg-color3 border-radius p-10" 
@@ -94,7 +104,7 @@
           <div class="top_destinations__poi mt-5" data-controller="collapse">
             <% poi_count_group = PoiCatalogue.count_groups_per_airport(airport) %>
             <% total_poi_sum = poi_count_group.values.sum %>
-            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+            <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
             <span><b><%= "#{t('trip_request.poi')}" %></b></span>
             <div id="group_pois_<%= index + 1 %>" class="collapse bg-light p-10 border-radius mt-15" data-collapse-target="content">
 
@@ -102,9 +112,9 @@
                 <% poi_count_group.each do |key,value| %>
                   <% next if key == :coastline %>
                   <div class="top_destinations__poi__details mt-5" data-controller="collapse">
-                    <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+                    <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
                     <span><%= "#{PoiCatalogue.inventory[key][:label]}" %></span>
-                    <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></br>
+                    <span class="badge bg-primary color-light fs-0-8"><%= value %></span></br>
                     <div  id="group_pois_<%= "#{index + 1}_#{key}" %>" 
                           class="collapse bg-light px-5 border-radius" data-collapse-target="content">
                       <!-- begin sub-group poi content -->
@@ -147,7 +157,7 @@
             </div>
           </div>
           <div class="top_destinations__warnings mt-5" data-controller="collapse">
-            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+            <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
             <span><b><%= "#{t('trip_suggestions.index.warnings')} (#{@flight_tracks[index].warnings.count})" %></b></span>
             <div id="warning_<%= index + 1 %>" class="collapse bg-warning px-5 border-radius" data-collapse-target="content">
               <ul>

@@ -99,6 +99,7 @@ class AirportsController < ApplicationController
 
     # Load weather forecast of the airport
     @weather_airport_array = WeatherService.forecast(current_user, @airport)
+
   end
 
   private

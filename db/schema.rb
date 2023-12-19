@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_12_165758) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_12_114349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -64,6 +64,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_165758) do
     t.index ["id"], name: "index_airports_on_id", unique: true
   end
 
+  create_table "audit_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "target_id", null: false
+    t.integer "target_type", null: false
+    t.integer "action", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ip_address", default: "::1", null: false
+    t.index ["user_id"], name: "index_audit_logs_on_user_id"
+  end
+
   create_table "countries", force: :cascade do |t|
     t.string "code", null: false
     t.string "name"
@@ -71,6 +82,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_165758) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_countries_on_id", unique: true
+  end
+
+  create_table "fuel_stations", force: :cascade do |t|
+    t.bigint "airport_id", null: false
+    t.integer "provider", null: false
+    t.integer "status", null: false
+    t.integer "fuel_avgas_100ll"
+    t.integer "fuel_avgas_91ul"
+    t.integer "fuel_mogas"
+    t.integer "charging_station"
+    t.string "email"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airport_id"], name: "index_fuel_stations_on_airport_id"
   end
 
   create_table "osm_lines", force: :cascade do |t|
@@ -178,9 +204,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_165758) do
     t.boolean "proxy_train_station", default: false
     t.boolean "proxy_hiking_path", default: false
     t.boolean "proxy_coastline", default: false
-    t.boolean "proxy_fuel_plane", default: false
+    t.boolean "fuel_station_100ll", default: false
     t.boolean "proxy_beverage", default: false
     t.boolean "proxy_lake", default: false
+    t.boolean "fuel_station_91ul", default: false
+    t.boolean "fuel_station_mogas", default: false
+    t.boolean "charging_station", default: false
     t.index ["airport_id"], name: "index_trip_requests_on_airport_id"
     t.index ["user_id"], name: "index_trip_requests_on_user_id"
   end
@@ -224,6 +253,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_12_165758) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "airports", "countries"
+  add_foreign_key "audit_logs", "users"
+  add_foreign_key "fuel_stations", "airports"
   add_foreign_key "pilot_prefs", "airports"
   add_foreign_key "pilot_prefs", "users"
   add_foreign_key "runways", "airports"

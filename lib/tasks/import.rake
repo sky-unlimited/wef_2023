@@ -13,13 +13,26 @@ module ImportHelpers
     # We instanciate a runway entry from the csv row
     runway_hash = { airport: airport, internal_id: row['id'], length_meter: (row['length_ft'].to_f * 0.3).to_i, width_meter: (row['width_ft'].to_f * 0.3).to_i, surface: row['surface'], le_ident: row['le_ident'], he_ident: row['he_ident'], le_heading_degT: row['le_heading_degT'], he_heading_degT: row['he_heading_degT'], lighted: row['lighted'] }
   end
+
+  def csv_to_fuel_stations(row, airport)
+    # We instanciate a fuel station entry from the csv row
+    fuel_station_hash = { airport: airport, 
+                          provider: row['provider'].to_i, 
+                          status: row['status'].to_i, 
+                          fuel_avgas_100ll: row['fuel_avgas_100ll'].to_i,
+                          fuel_avgas_91ul: row['fuel_avgas_91ul'].to_i,
+                          fuel_mogas: row['fuel_mogas'].to_i,
+                          charging_station: row['charging_station'].to_i,
+                          phone: row['phone'],
+                          email: row['email'] }
+  end
 end
 
 namespace :import do
   desc "Import countries from csv file"
   task countries: :environment do
     filepath = "ourairports-data/countries.csv"
-    puts "⏱️  Reading #{filepath}. Please wait..."
+    puts "👉 Reading #{filepath}. Please wait..."
     counter_created = 0
     counter_rejected = 0
     CSV.foreach(filepath, headers: :first_row) do |row|
@@ -34,7 +47,7 @@ namespace :import do
     include ImportHelpers
 
     filepath = "ourairports-data/airports.csv"
-    puts "Reading #{filepath}..."
+    puts "👉 Reading #{filepath}..."
     counter_rejected  = 0
     counter_updated   = 0
     counter_created   = 0
@@ -45,8 +58,8 @@ namespace :import do
     country_list = WEF_CONFIG['airport_countries_to_import']
 
     # Accepted countries
-    puts "✈️  from #{country_list} are being imported:"
-    puts "⏱️  Please wait..."
+    puts "✈️  #{country_list} are being imported:"
+    puts "⏱️  Import process, please wait..."
     
     # We iterate through the csv file
     CSV.foreach(filepath, headers: :first_row) do |row|
@@ -120,13 +133,13 @@ namespace :import do
     include ImportHelpers
 
     filepath = "ourairports-data/runways.csv"
-    puts "Reading #{filepath}..."
+    puts "👉 Reading #{filepath}..."
     counter_rejected  = 0
     counter_updated   = 0
     counter_created   = 0
 
     # Information about the process
-    puts "⏱️  Runways will be imported, please wait..."
+    puts "⏱️  Import process, please wait..."
     
     # We iterate through the csv file
     CSV.foreach(filepath, headers: :first_row) do |row|
@@ -156,5 +169,45 @@ namespace :import do
     puts "✨ Created #{counter_created} / #{counter_created + counter_updated + counter_rejected} runways!"
     puts "✨ Updated #{counter_updated} / #{counter_created + counter_updated + counter_rejected} runways!"
 
+  end
+
+  desc "Import fuel stations from csv file"
+  task fuel_stations: :environment do
+    include ImportHelpers
+
+    filepath = "db/seeds_data/fuel_stations.csv"
+    puts "👉 Reading #{filepath}..."
+    counter_rejected  = 0
+    counter_updated   = 0
+    counter_created   = 0
+
+    # Information about the process
+    puts "⏱️  Import process, please wait..."
+    
+    # We iterate through the csv file
+    CSV.foreach(filepath, headers: :first_row) do |row|
+      # We first check that the airport is existing in our database
+      if Airport.find_by(icao: row['icao']).nil?
+        # Airport not existing in our database, we jump to the next csv record
+        counter_rejected += 1
+        puts "#{row['icao']}: not found in database!"
+        next
+      else
+        # CREATE
+        airport_csv = Airport.find_by(icao: row['icao'])
+        fuel_station_hash = csv_to_fuel_stations(row, airport_csv)
+        fuel_station = FuelStation.create(fuel_station_hash)
+        if fuel_station.persisted?
+          counter_created += 1
+        else
+          counter_rejected += 1
+          fuel_station.errors.full_messages.each do |attribute, message|
+            puts "#{airport_csv.icao}: Validation error on #{attribute}: #{message}"
+          end
+        end
+      end
+    end
+
+    puts "✨ Created #{counter_created} / #{counter_created + counter_rejected} fuel stations!"
   end
 end

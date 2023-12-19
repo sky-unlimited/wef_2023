@@ -1,0 +1,12 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+fs_ellx:
+  airport: ellx
+  provider: 0
+  status: 0
+  fuel_avgas_100ll: 2
+  fuel_avgas_91ul: 0
+  fuel_mogas: 0
+  charging_station: 0
+  email: "ellx@ask-fuel.lu"
+  phone: "003520010001"

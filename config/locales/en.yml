@@ -3,6 +3,7 @@ en:
     models:
       pilot_pref: Pilot preferences
       trip_request: Trip Organization
+      fuel_station: Fuel Station
     attributes:
       pilot_pref:
         weather_profile: Weather Profile
@@ -34,7 +35,10 @@ en:
         proxy_food: Food
         proxy_beverage: Beverage
         proxy_fuel_car: Car Gas Station
-        proxy_fuel_plane: Refuelling Station
+        fuel_station_100ll: Avgas 100LL
+        fuel_station_91ul: Avgas 91UL
+        fuel_station_mogas: Mogas
+        charging_station: Charging Station
         proxy_bike_rental: Bike Rental
         proxy_car_rental: Car Rental
         proxy_camp_site: Camp Site
@@ -53,7 +57,15 @@ en:
         name: "Name"
         email: "Email"
         accept_private_data_policy: "Privacy policy:"
-
+      fuel_station:
+        provider: Provider
+        status: Status
+        fuel_avgas_100ll: Avgas 100LL
+        fuel_avgas_91ul: Avgas 91UL
+        fuel_mogas: Mogas
+        charging_station: Charging Station
+        email: Email
+        phone: Phone
     errors:
       messages:
         in: must be in %{count}
@@ -136,3 +148,17 @@ en:
   subscribers_mailer:
     subscribed:
       subject: "You are registered to the Newsletter!"
+  fuel_station:
+    manager: Fuel Station Manager
+    back_airport: Back to airport
+    edit: Edit
+    new_fuel_station: New Fuel Station
+    update_fuel_station: Update Fuel Station
+    form:
+      submit: Submit
+    flash:
+      update_ok: Fuel Station has been updated!
+  airport:
+    show:
+      edit: Edit
+      last_update_by: Updated last by

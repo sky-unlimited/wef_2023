@@ -10,11 +10,4 @@ class TripRequestsControllerTest < ActionDispatch::IntegrationTest
     get new_trip_request_url
     assert_response :success
   end
-
-  test "should get edit" do
-    login_as users(:regular_user)
-    get edit_trip_request_url(locale: I18n.default_locale, id: @trip_request)
-    assert_response :success
-  end
-
 end

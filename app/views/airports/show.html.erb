@@ -9,6 +9,9 @@
 
   <div class="display_airport_poi mb-20 d-flex flex-column">
     <div>
+      <% airport_fuel_types_icons(@airport).each do |icon| %>
+        <span class="mr-10"><%= image_tag(icon) %></span>
+      <%end %>
       <% get_airport_poi_icons(@airport).each do |icon| %>
         <span class="mr-10"><%= image_tag(icon) %></span>
       <%end %>
@@ -16,7 +19,7 @@
   </div>
 
   <div data-controller="collapse">
-    <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
+    <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
     <span><b>Facility data</b></span>
     <div id="facility" class="collapse show overflow-auto" data-collapse-target="content">
       <table class="table-bordered mt-5">
@@ -63,7 +66,7 @@
   </div>
 
   <div data-controller="collapse" class="mt-20" >
-    <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
+    <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
     <span><b>Runways</b></span>
     <div id="runways" class="collapse show" data-collapse-target="content">
       <table class="p-5 mt-5 table-bordered-dark">
@@ -85,8 +88,124 @@
     </div>
   </div>
 
+  <div class="fuel_station mt-20" data-controller="collapse">
+    <span class="collapse-marker badge bg-dark color-light mb-5" data-action="click->collapse#toggle">+</span>
+    <span><b><%= t('activerecord.models.fuel_station') %></b></span>
+    <div  id="fuel_station" 
+          class="collapse bg-color3 border-radius p-10" 
+          data-collapse-target="content">
+      <% if @airport.fuel_station.nil? %>
+        <p>No fuel station known</p>
+        <%= link_to 'Register New', new_fuel_station_path(airport_id: @airport), class: "link-primary" %>
+      <% else %>
+        <div>
+          <div class="d-flex align-items-center mb-15">
+            <span><%= image_tag(display_fuel_provider_logo(@airport), class: "mr-10") %></span>
+            <span><b class="fs-1-2"><%= @airport.fuel_station.provider %></b></span>
+            <span class="ml-20">
+              <% case @airport.fuel_station.status %>
+              <% when FuelStation.statuses.keys[0] %>
+                <span class="badge-status-green ml-5"> </span>
+              <% when FuelStation.statuses.keys[1] %>
+                <span class="badge-status-yellow ml-5"> </span>
+              <% when FuelStation.statuses.keys[2] %>
+                <span class="badge-status-red ml-5"> </span>
+              <% end %>
+            </span>
+          </div>
+          <p>
+            <%= @airport.fuel_station.phone %>
+            <% unless @airport.fuel_station.email.nil?
+                 unless @airport.fuel_station.email.empty? %>
+                  <%= "| #{@airport.fuel_station.email}" %>
+                <% end %>
+            <% end %>
+          </p>
+          <table class="mb-10">
+            <tr>
+              <td><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_100ll') %> </b></td>
+              <td class="text-center">
+                <% case @airport.fuel_station.fuel_avgas_100ll %>
+                <% when FuelStation.fuel_avgas_100lls.keys[0] %>
+                  <span><%= image_tag('circle-cross.png') %>
+                <% else %>
+                  <span><%= image_tag('circle-checked.png') %>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <% if @airport.fuel_station.fuel_avgas_100ll == FuelStation.fuel_avgas_100lls.keys[2] %>
+                  <span class="tag-success"><%= @airport.fuel_station.fuel_avgas_100ll %></span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_91ul') %> </b></td>
+              <td class="text-center">
+                <% case @airport.fuel_station.fuel_avgas_91ul %>
+                <% when FuelStation.fuel_avgas_91uls.keys[0] %>
+                  <span><%= image_tag('circle-cross.png') %>
+                <% else %>
+                  <span><%= image_tag('circle-checked.png') %>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <% if @airport.fuel_station.fuel_avgas_91ul == FuelStation.fuel_avgas_91uls.keys[2] %>
+                  <span class="tag-success"><%= @airport.fuel_station.fuel_avgas_91ul %></span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td><b><%= t('activerecord.attributes.fuel_station.fuel_mogas') %> </b></td>
+              <td class="text-center">
+                <% case @airport.fuel_station.fuel_mogas %>
+                <% when FuelStation.fuel_mogas.keys[0] %>
+                  <span><%= image_tag('circle-cross.png') %>
+                <% else %>
+                  <span><%= image_tag('circle-checked.png') %>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <% if @airport.fuel_station.fuel_mogas == FuelStation.fuel_mogas.keys[2] %>
+                  <span class="tag-success"><%= @airport.fuel_station.fuel_mogas %></span>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td><b><%= t('activerecord.attributes.fuel_station.charging_station') %> </b></td>
+              <td class="text-center">
+                <% case @airport.fuel_station.charging_station %>
+                <% when FuelStation.charging_stations.keys[0] %>
+                  <span><%= image_tag('circle-cross.png') %>
+                <% else %>
+                  <span><%= image_tag('circle-checked.png') %>
+                <% end %>
+              </td>
+              <td class="text-center">
+                <% if @airport.fuel_station.charging_station == FuelStation.charging_stations.keys[2] %>
+                  <span class="tag-light"><%= @airport.fuel_station.charging_station %></span>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+          <div class="ml-5 mb-15">
+            <%= link_to t('airport.show..edit'), edit_fuel_station_path(@airport.fuel_station), class: "link-light" %>
+          </div>
+
+          <% unless @audit_log_fuel_station.nil? %>
+            <span class="fs-0-8">
+              <%= " #{t('airport.show.last_update_by')} #{@audit_log_fuel_station.user.username}, 
+                  #{l @audit_log_fuel_station.updated_at, format: :date_short} ,
+                  #{extract_time_from_date(@audit_log_fuel_station.updated_at)}" %>
+            </span>
+          <% end %>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <div class="weather_forecast mt-20" data-controller="collapse">
-    <span class="collapse-marker avatar-badge bg-dark color-light mb-5" data-action="click->collapse#toggle">+</span>
+    <span class="collapse-marker badge bg-dark color-light mb-5" data-action="click->collapse#toggle">+</span>
     <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
     <div  id="weather_forecast" 
           class="collapse bg-color3 border-radius p-10" 
@@ -98,7 +217,7 @@
   <div class="top_destinations__poi mt-20" data-controller="collapse">
     <% poi_count_group = PoiCatalogue.count_groups_per_airport(@airport) %>
     <% total_poi_sum = poi_count_group.values.sum %>
-    <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+    <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
     <span><b><%= t('trip_request.poi') %></b></span>
 
     <div id="group_pois" class="collapse p-10 border bg-light border-dark border-radius mt-15" data-collapse-target="content">
@@ -106,9 +225,9 @@
         <% poi_count_group.each do |key,value| %>
           <% next if key == :coastline %>
           <div class="top_destinations__poi__details mt-5" data-controller="collapse">
-            <span class="collapse-marker avatar-badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+            <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
             <span><%= "#{PoiCatalogue.inventory[key][:label]}" %></span>
-            <span class="avatar-badge bg-primary color-light fs-0-8"><%= value %></span></br>
+            <span class="badge bg-primary color-light fs-0-8"><%= value %></span></br>
             <div  id="group_pois_<%= key %>" 
                   class="collapse bg-light px-5 border-radius" data-collapse-target="content">
               <!-- begin sub-group poi content -->

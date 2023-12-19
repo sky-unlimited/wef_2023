@@ -19,7 +19,7 @@ class PoiCatalogue
     :fuel_plane => {
         :categories => ["aeroway"],
         :amenities => ["fuel"],
-        :icon => "fuel_plane.png",
+        :icon => "fuel_100ll.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_fuel_plane')},
     :bike_rental => {
         :categories => ["amenity"],
@@ -69,7 +69,7 @@ class PoiCatalogue
     :power_cable => {
         :categories => ["power"],
         :amenities => ["cable","line","minor_cable","minor_line"],
-        :icon => "power_cable.png",
+        :icon => "power.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_power_lines')},
     :coastline => {
         :categories => ["natural"],
@@ -111,7 +111,7 @@ class PoiCatalogue
     counter += OsmPolygone.where(amenity: amenities).and(OsmPolygone.where(category: category)).count
   end
 
-  # Depending pilot's choice of amenities, we list all airports
+  # Depending pilot's choice of amenities, we list all airports ids
   # matching ALL criterias (intersection)
   def self.airports_matching_pois(trip_request)
     airports_ids = []
@@ -128,7 +128,8 @@ class PoiCatalogue
         airports_ids = airports_ids & temp_airports_ids
       end
     end
-    return Airport.where(id: airports_ids)
+    #return Airport.where(id: airports_ids)
+    return airports_ids
   end
 
   def self.count_groups_per_airport(airport)
@@ -214,7 +215,7 @@ class PoiCatalogue
     pois_array << { :food           => @@inventory[:food] } if trip_request.proxy_food 
     pois_array << { :beverage       => @@inventory[:beverage] } if trip_request.proxy_beverage
     pois_array << { :fuel_car       => @@inventory[:fuel_car] } if trip_request.proxy_fuel_car
-    pois_array << { :fuel_plane     => @@inventory[:fuel_plane] } if trip_request.proxy_fuel_plane
+    #pois_array << { :fuel_plane     => @@inventory[:fuel_plane] } if trip_request.proxy_fuel_plane
     pois_array << { :bike_rental    => @@inventory[:bike_rental] } if trip_request.proxy_bike_rental
     pois_array << { :car_rental     => @@inventory[:car_rental] } if trip_request.proxy_car_rental
     pois_array << { :camp_site      => @@inventory[:camp_site] } if trip_request.proxy_camp_site

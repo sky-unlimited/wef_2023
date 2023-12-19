@@ -32,10 +32,18 @@ class TripRequestsController < ApplicationController
       @trip_request.proxy_hiking_path     = last_request.proxy_hiking_path
       @trip_request.proxy_coastline       = last_request.proxy_coastline
       @trip_request.proxy_lake            = last_request.proxy_lake
+      @trip_request.fuel_station_100ll    = last_request.fuel_station_100ll
+      @trip_request.fuel_station_91ul    = last_request.fuel_station_91ul
+      @trip_request.fuel_station_mogas   = last_request.fuel_station_mogas
+      @trip_request.charging_station     = last_request.charging_station
+
     end
 
     @trip_request.user_id = current_user.id
     set_airport_details unless @trip_request.airport_id.nil?
+
+    # In order to avoid displaying useless fuel options for private pilots
+    @is_ultralight_pilot = User.find(current_user.id).pilot_pref.is_ultralight_pilot
   end
 
   def create
@@ -47,12 +55,6 @@ class TripRequestsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit
-  end
-
-  def update
   end
 
   private
@@ -71,7 +73,7 @@ class TripRequestsController < ApplicationController
   end
 
   def trip_request_params
-    params.require(:trip_request).permit(:user_id, :airport_id, :start_date, :end_date, :international_flight, :small_airport, :medium_airport, :large_airport, :trip_mode, :proxy_food, :proxy_beverage, :proxy_fuel_car, :proxy_fuel_plane, :proxy_car_rental, :proxy_bike_rental, :proxy_camp_site, :proxy_accommodation, :proxy_shop, :proxy_bus_station, :proxy_train_station, :proxy_hiking_path, :proxy_coastline, :proxy_lake)
+    params.require(:trip_request).permit(:user_id, :airport_id, :start_date, :end_date, :international_flight, :small_airport, :medium_airport, :large_airport, :trip_mode, :proxy_food, :proxy_beverage, :proxy_fuel_car, :fuel_station_100ll, :fuel_station_91ul, :fuel_station_mogas, :charging_station, :proxy_car_rental, :proxy_bike_rental, :proxy_camp_site, :proxy_accommodation, :proxy_shop, :proxy_bus_station, :proxy_train_station, :proxy_hiking_path, :proxy_coastline, :proxy_lake)
   end
 
 end

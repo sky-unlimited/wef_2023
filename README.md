@@ -36,9 +36,6 @@ Database creation: (Follow this order 👇)
 ````bash
 rails db:create
 rails db:migrate
-rails import:countries
-rails import:airports
-rails import:runways
 rails db:seed
 ````
 Import the point of interest tables (osm_points, osm_lines, osm_polygones). Should you need them, please ask for it: contact@sky-unlimited.lu

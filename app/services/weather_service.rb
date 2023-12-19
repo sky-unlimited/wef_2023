@@ -197,7 +197,11 @@ class WeatherService
     # Create a hash containing today's weather and 7 days forecast
     8.times do |time|
       # Random weather
-      random_weather_id = weather_codes_all.sample
+      random_weather_1_id = weather_codes_all.sample
+
+      # We cheat by giving a probability of 66% of good weather to be able to the application with more destnation choices
+      random_weather_id = [800,800,random_weather_1_id].sample  # Code 800 = Clear weather
+      #random_weather_id = 800 #uncomment to force 100% good weather and comment line above
 
       # Load weather description for a given weather id
       weather_description_hash = @@weather_conditions.find { |weather_condition| weather_condition["id"] == random_weather_id }
