@@ -76,4 +76,19 @@ if Rails.env.development? || Rails.env.staging?
   pilot_pref.update(airport: Airport.find_by(icao: "LFQA"), is_ultralight_pilot: false, is_private_pilot: true)
   puts "margaux user created"
   puts "margaux pilot prefs created"
+
+  user = User.new
+  user.first_name = "Christina"
+  user.last_name = "Sugiono"
+  user.username = "chris_bali"
+  user.email = "christina.sugiono95@gmail.com"
+  user.role = "admin"
+  user.password = "christina.sugiono95@gmail.com"
+  user.confirmed_at = Time.zone.now - 1.hour
+  user.confirmation_sent_at = Time.zone.now - 2.hours
+  user.save
+  pilot_pref = PilotPref.find_by(user_id: user.id)
+  pilot_pref.update(airport: Airport.find_by(icao: "LFCL"), is_ultralight_pilot: true, is_private_pilot: true)
+  puts "christina user created"
+  puts "christina pilot prefs created"
 end

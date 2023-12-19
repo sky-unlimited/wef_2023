@@ -58,8 +58,8 @@ namespace :import do
     country_list = WEF_CONFIG['airport_countries_to_import']
 
     # Accepted countries
-    puts "✈️  from #{country_list} are being imported:"
-    puts "⏱️  Please wait..."
+    puts "✈️  #{country_list} are being imported:"
+    puts "⏱️  Import process, please wait..."
     
     # We iterate through the csv file
     CSV.foreach(filepath, headers: :first_row) do |row|
@@ -139,7 +139,7 @@ namespace :import do
     counter_created   = 0
 
     # Information about the process
-    puts "⏱️  Runways will be imported, please wait..."
+    puts "⏱️  Import process, please wait..."
     
     # We iterate through the csv file
     CSV.foreach(filepath, headers: :first_row) do |row|
@@ -182,7 +182,7 @@ namespace :import do
     counter_created   = 0
 
     # Information about the process
-    puts "⏱️  Fuel stations will be imported, please wait..."
+    puts "⏱️  Import process, please wait..."
     
     # We iterate through the csv file
     CSV.foreach(filepath, headers: :first_row) do |row|

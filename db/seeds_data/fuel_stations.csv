@@ -27,7 +27,6 @@ LFJY,1,0,2,0,0,0,,
 LFOR,1,0,2,0,0,0,,
 LFLX,1,0,2,0,0,0,,
 LFEJ,1,0,1,0,0,0,,
-LFMX,1,0,2,0,0,0,,
 LFPH,1,0,2,0,0,0,,
 LFLC,1,0,2,0,0,0,,
 LFPK,1,0,2,0,0,0,,
@@ -178,37 +177,35 @@ EDLT,1,0,1,0,1,0,,
 EDAZ,1,0,1,1,0,0,,
 EDGS,1,0,1,0,1,0,,
 LFPX,2,0,2,0,0,0,0033971504536032,airbpoutofhours@bp.com
-EKBI ,2,0,1,0,0,0,0045 75 33 14 02,br@brbillund.dk 
+EKBI,2,0,1,0,0,0,0045 75 33 14 02,br@brbillund.dk
 EKMB,2,0,1,0,0,0,004554606113,lfair@lolland.dk
-EKOD ,2,0,1,0,0,0,004565955072,fuel@hca-airport.dk
-LFPX ,2,0,2,0,0,0,00971504536032,airbpoutofhours@bp.com
-LFOQ ,2,0,2,0,0,0,0033642462062,aerodrome.bloislebreuil@bloislebreuil.fr 
+EKOD,2,0,1,0,0,0,004565955072,fuel@hca-airport.dk
+LFOQ,2,0,2,0,0,0,0033642462062,aerodrome.bloislebreuil@bloislebreuil.fr
 LFPZ,2,0,2,0,0,0,0033130451844,
 LFAV,2,0,1,0,0,0,003332720366,aerodromevalenciennes@wanadoo.fr
-LFMX ,2,0,2,0,0,0,0033492642971,airbpchateauarnoux@orange.f
+LFMX,2,0,2,0,0,0,0033492642971,airbpchateauarnoux@orange.f
 LFPP,2,0,2,0,0,0,0033344605349,aerodrome.plessis@wanadoo.fr
-LFFQ ,2,0,2,0,0,0,0033164575289,aerodrome.lffq@gmail.com
+LFFQ,2,0,2,0,0,0,0033164575289,aerodrome.lffq@gmail.com
 LFLG,2,0,1,2,0,0,0033 6 87 09 17 04,leversoud@grenoble.cci.fr
 LFKJ,2,0,2,0,0,0,0033495227981,airbp.ajaccio@orange.fr
-LFBU ,2,0,2,0,0,0,0033 5 45 69 47 12,didier.ausone@angouleme.aeroport.fr
+LFBU,2,0,2,0,0,0,0033 5 45 69 47 12,didier.ausone@angouleme.aeroport.fr
 LFKB,2,0,2,0,0,0,0033630670682,aer.bastia@orange.fr
-LFBZ ,2,0,2,0,0,0,0033621009039,
+LFBZ,2,0,2,0,0,0,0033621009039,
 LFSL,2,0,1,0,0,0,0033555224009,aviationgenerale@aeroportbrive-vallee-dordogne.com
-LFAQ ,2,0,2,1,0,0,,
-LFMK ,2,0,2,0,0,0,0033620484934,
+LFAQ,2,0,2,1,0,0,,
+LFMK,2,0,2,0,0,0,0033620484934,
 LFMD,2,0,1,0,0,0,0033677004583,
-LFRK ,2,0,2,0,0,0,0033231712015,
+LFRK,2,0,2,0,0,0,0033231712015,
 LFKC,2,0,1,0,0,0,0033495650545,
 LFLB,2,0,2,0,0,0,,
 LFGA,2,0,2,0,0,0,0033389202290,
 LFCK,2,0,2,0,0,0,,sol@aeroport81.fr
-LFGJ ,2,0,2,0,0,0,0033 3 84 72 18 53,
-LFRD ,2,0,2,0,0,0,0033299827348,
+LFGJ,2,0,2,0,0,0,0033 3 84 72 18 53,
+LFRD,2,0,2,0,0,0,0033299827348,
 LFRG,2,0,1,0,0,0,0033231656567,jfontaine@aeroportdeauville.com
 LFLS,2,0,1,0,0,0,0033476655517,soute@grenoble-airport.com
 LFRO,2,0,2,0,0,0,,
 LFBL,2,0,2,0,0,0,0033555433010,airbp.limoges@gmail.com
-LFLY,2,0,1,1,0,0,,
 LFLP,2,0,2,0,0,0,,
 LFQG,2,0,1,0,0,0,0033386570392,
 LFOZ,2,0,2,0,0,0,0033238463333,contact@orleans.aeroport.fr
@@ -231,16 +228,15 @@ EDSB,2,0,1,0,0,0,0049 7229 662326,
 EDXF,2,0,1,0,0,0,,
 EDJA,2,0,1,0,0,0,004983319725619,kevin.wenning@memmingenairport.com
 EDDG,2,0,1,1,0,0,00492571944801,bp-agentur@fmo.de
-EDDG,2,0,0,1,0,0,,
 EDBN,2,0,1,0,0,0,0049 395 4554150,
 EDDV,2,0,1,1,0,0,0049 511 9772347,
 EDDH,2,0,1,0,0,0,0049 40 59390340,
 EDHL,2,0,1,1,0,0,0049 451 31711100,
 EDDP,2,0,1,0,0,0,00493412241843,
-EDDN ,2,0,1,0,0,0,0049 911 9371940,
+EDDN,2,0,1,0,0,0,0049 911 9371940,
 EDMS,2,0,1,0,0,0,00499429308,
 EDDS,2,0,1,0,0,0,,
-EDWI ,2,0,1,0,0,0,,
+EDWI,2,0,1,0,0,0,,
 EDBM,2,0,1,0,0,0,,
 EHTE,2,0,1,0,0,0,,
 EHRD,2,0,1,0,0,0,,rtmfbo@jetaviation.com
