@@ -17,7 +17,7 @@ lfsw_runway_1:
   internal_id: 2
   length_meter: 1181
   width_meter: 49
-  surface: grass
+  surface: "grass"
   le_ident: 4
   he_ident: 22
   le_heading_degT:
@@ -29,7 +29,7 @@ lfsw_runway_2:
   internal_id: 2
   length_meter: 945
   width_meter: 49
-  surface: grass
+  surface: "grass"
   le_ident: 10
   he_ident: 28
   le_heading_degT: 
