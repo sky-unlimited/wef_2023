@@ -209,11 +209,15 @@ class Destinations
         end
 
       # Priority 4: Matching fuel card provider
-      fuel_cards = []
-      fuel_cards << "Air BP" if @trip_request.user.pilot_pref.fuel_card_bp
-      fuel_cards << "Total Energies" if @trip_request.user.pilot_pref.fuel_card_total
-      if fuel_cards.include?(destination[:airport].fuel_station.provider)
-        fuel_card_category = 0
+      unless destination[:airport].fuel_station.nil?
+        fuel_cards = []
+        fuel_cards << "Air BP" if @trip_request.user.pilot_pref.fuel_card_bp
+        fuel_cards << "Total Energies" if @trip_request.user.pilot_pref.fuel_card_total
+        if fuel_cards.include?(destination[:airport].fuel_station.provider)
+          fuel_card_category = 0
+        else
+          fuel_card_category = 1
+        end
       else
         fuel_card_category = 1
       end
