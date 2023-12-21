@@ -4,16 +4,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.5'
+gem 'rails', '~> 7.1.2'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.1'
+gem 'pg', '~> 1.5'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 6.4'
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'
@@ -67,7 +67,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara', '~> 3.39', '>= 3.39.2'
-  gem 'selenium-webdriver', '~> 4.10'
+  gem 'selenium-webdriver', '~> 4.16'
   gem 'webdrivers', '~> 5.2'
 end
 gem 'devise', '~> 4.9', '>= 4.9.2'
@@ -82,7 +82,7 @@ gem 'postmark-rails', '~> 0.22.1'
 
 
 # Geospatial queries
-gem 'activerecord-postgis-adapter', '~> 8.0', '>= 8.0.2'
+gem 'activerecord-postgis-adapter', '~> 9.0', '>= 8.0.2'
 gem 'rgeo', '~> 3.0'
 gem 'rgeo-geojson', '~> 2.1', '>= 2.1.1'
 gem 'rgeo-proj4', '~> 4.0'
