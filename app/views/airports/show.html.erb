@@ -20,27 +20,27 @@
 
   <div data-controller="collapse">
     <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
-    <span><b>Facility data</b></span>
+    <span><b><%= t('airport.show.facility_data') %></b></span>
     <div id="facility" class="collapse show overflow-auto" data-collapse-target="content">
       <table class="table-bordered mt-5">
         <tr>
-          <td><b>Location</b></td>
+          <td><b><%= t('airport.show.location') %></b></td>
           <td><%= @airport.city %></td>
         </tr>
         <tr>
-          <td><b>Local code</b></td>
+          <td><b><%= t('airport.show.local_code') %></b></td>
           <td><%= @airport.local_code %></td>
         </tr>
         <tr>
-          <td><b>IATA</b></td>
+          <td><b><%= t('airport.show.iata') %></b></td>
           <td><%= @airport.iata %></td>
         </tr>
         <tr>
-          <td><b>Facility type</b></td>
+          <td><b><%= t('airport.show.facility_type') %></b></td>
           <td><%= @airport.airport_type %></td>
         </tr>
         <tr>
-          <td><b>Coordinates</b></td>
+          <td><b><%= t('airport.show.coordinates') %></b></td>
           <td><%= "#{@airport.latitude},#{@airport.longitude}" %>
             <a class="tag-outline-primary" target="_blank" 
                                   href="https://skyvector.com/?ll=<%= @airport.latitude %>,<%= @airport.longitude %>&chart=301&zoom=2">
@@ -49,11 +49,11 @@
           </td>
         </tr>
         <tr>
-          <td><b>Field elevation</b></td>
+          <td><b><%= t('airport.show.field_elevation') %></b></td>
           <td><%= "#{@airport.altitude} ft MSL" %></td>
         </tr>
         <tr>
-          <td><b>Web site</b></td>
+          <td><b><%= t('airport.show.website') %></b></td>
           <td>
             <a class="color-dark" target="_blank" 
                                   href="<%= @airport.url %>">
@@ -67,7 +67,7 @@
 
   <div data-controller="collapse" class="mt-20" >
     <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
-    <span><b>Runways</b></span>
+    <span><b><%= t('airport.show.runways') %></b></span>
     <div id="runways" class="collapse show" data-collapse-target="content">
       <table class="p-5 mt-5 table-bordered-dark">
         <% @runways.each do |runway| %>

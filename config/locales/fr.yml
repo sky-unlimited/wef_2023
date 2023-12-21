@@ -163,3 +163,15 @@ fr:
     show:
       edit: Editer
       last_update_by: Dernière modification par
+      facility_data: Données sur installation 
+      location: Lieu
+      local_code: Code local
+      iata: IATA
+      facility_type: Type d'installation
+      coordinates: Coordonnées
+      field_elevation: Altitude
+      website: Site web
+      runways: Pistes
+      fuel_station: Station d'avitaillement
+      weather_forecast: Prévisions météo
+      pois: Points d'intérêts SUR/PRES aérodrome

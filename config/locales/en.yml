@@ -162,3 +162,16 @@ en:
     show:
       edit: Edit
       last_update_by: Updated last by
+      facility_data: Facility data
+      location: Location
+      local_code: Local code
+      iata: IATA
+      facility_type: Facility type
+      coordinates: Coordinates
+      field_elevation: Field elevation
+      website: Web site
+      runways: Runways
+      fuel_station: Fuel station
+      weather_forecast: Weather forecast
+      pois: Points of interest ON/NEAR airport
+

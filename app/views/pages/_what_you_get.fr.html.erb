@@ -1,12 +1,12 @@
 <section class="container-fluid bg-color2 d-flex flex-column py-20">
-  <h1 class="text-center">What you'll get</h1>
+  <h1 class="text-center">Ce que vous obtiendrez</h1>
   <div class="d-flex flex-row justify-content-around flex-wrap">
     <div class="d-flex flex-column align-items-center m-15 card-small">
       <div><%= image_tag("globe.svg", style: "height:100px; width:auto") %></div>
-      <h2 class="color-dark">Coverage</h2>
+      <h2 class="color-dark">Couverture</h2>
       <p class="text-center lh-base">
-      We are travel focus. There are treasures all around Europe ✨. We'll progressively extend the point of interests <b class="color-primary">near airports</b> over all Europe.</br>
-      <p class="text-center text-decoration-underline">Currently covered</p>
+      Nous sommes axés sur les voyages. On trouve des trésors partout en Europe ✨. Nous allons progressivement étendre les points d'intérêts à <b class="color-primary"> proximité</b>  des aéroports sur toute l'Europe.</br>
+      <p class="text-center text-decoration-underline">Actuellement couvers</p>
       <p class="text-center m-0"> 
       <% @countries_array.each do |country| %>
         <%= NormalizeCountry(country, :to => :emoji) %>
@@ -15,9 +15,9 @@
     </div>
     <div class="d-flex flex-column align-items-center m-15 card-small">
       <div><%= image_tag("map-pin.svg", style: "height:100px; width:auto") %></div>
-      <h2 class="color-dark">Point of interests</h2>
+      <h2 class="color-dark">Points d'intérêts</h2>
       <p class="text-center lh-base">
-        A sample of what you'll be able to access:
+        Un échantillon de ce à quoi vous aurez accès:
       <p>
       <table>
         <tr>
@@ -44,7 +44,7 @@
       <div><%= image_tag("inbox.svg", style: "height:100px; width:auto") %></div>
       <h2 class="color-dark">Newsletter</h2>
       <p class="text-center lh-base">
-      Don't know what's going on this weekend? Receive every Wednesday <b class="color-primary">tailer-made</b> suggestions on upcoming week end! Short trips, longer one, events and more! But only where weather will be flyable! 🔆</p>
+      Vous ne savez pas ce qui se passe ce week-end? Recevez tous les mercredis des suggestions <b class="color-primary">individualisées</b> sur le week-end à venir! Des voyages courts , des voyages plus longs, des évennements et plus encore! Mais seulement là ou le temps permet de voler! 🔆</p>
     </div>
   </div>
 </section>
