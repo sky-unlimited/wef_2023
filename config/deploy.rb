@@ -38,6 +38,6 @@ set :keep_releases, 3
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
-set :deploy_to, "/home/deploy/#{fetch :application}"
+set :deploy_to, "/var/www/#{fetch :application}"
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
 append :linked_files, 'config/master.key'
