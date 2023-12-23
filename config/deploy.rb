@@ -40,4 +40,4 @@ set :keep_releases, 3
 
 set :deploy_to, "/home/deploy/#{fetch :application}"
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
-append :linked_files, ".env.staging"
+append :linked_files, 'config/master.key'
