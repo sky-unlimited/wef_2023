@@ -89,7 +89,7 @@ production:
   username: wef_2023
   password: <%= ENV["WEF_DATABASE_PASSWORD"] %>
 
-statging:
+staging:
   <<: *default
   database: wef_2023_staging
   username: rubyuser

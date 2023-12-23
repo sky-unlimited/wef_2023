@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.17.3"
+lock "~> 3.18"
 
 set :application, "wef_2023"
 set :repo_url, "git@github.com:sky-unlimited/wef_2023.git"

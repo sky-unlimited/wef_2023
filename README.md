@@ -15,8 +15,13 @@ TODO
 
 ## Requirements
 * ruby 3.2.2
-* rails 7.0.5
+* rails 7.1.2
 * bundler 2.4.10
+* postgresql-14 with `rubyuser` granted with SUPERUSER (to install postgis extension)
+
+## Required packages
+On Linux machines:
+`sudo apt install postgresql-14-postgis-3 libproj-dev proj-bin`
 
 ## Installation
 To run Weekend-Fly localy, follow those steps:
@@ -48,7 +53,7 @@ pg_restore -U $target_user --single-transaction --table=osm_polygones --data-onl
 
 Launch local server:
 
-`rails s`
+`passenger start`
 
 Visit http://localhost:3000
 
