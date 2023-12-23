@@ -20,17 +20,23 @@ TODO
 * postgresql-14 with `rubyuser` granted with SUPERUSER (to install postgis extension)
 
 ## Required packages
-On Linux machines:
-`sudo apt install postgresql-14-postgis-3 libproj-dev proj-bin`
+On Debian distributions:
+
+`sudo apt install postgresql-14-postgis-3 libproj-dev proj-bin libpq-dev`
 
 ## Installation
 To run Weekend-Fly localy, follow those steps:
 
-Ensure to have a ".env" file at root directory containing devise confirmable email settings:
+Store following secrets in `config/credentials.yml.enc` by using: `EDITOR=vim rails credentials:edit`
 ````bash
-OPENWEATHERMAP_API=your openweather api key
-POSTMARK_SERVER_API=your postmark Server API
+openweathermap:
+  app_id: your_secret_key
+
+postmark:
+  server_api: your_secret_key
 ````
+Should you work in the team, ask for the encryption file `master.key`
+ 
 We update airports data from: [https://github.com/davidmegginson/ourairports-data]()
 
 `git submodule update --init --recursive`

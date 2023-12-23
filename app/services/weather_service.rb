@@ -88,7 +88,7 @@ class WeatherService
                                 {params: 
                                          {lat: lat, 
                                           lon: lon, 
-                                          appid: ENV["OPENWEATHERMAP_API"],
+                                          appid: Rails.application.credentials.openweathermap.app_id,
                                           exclude: "current,hourly,minutely",
                                           units: "metric"}
                                 }
