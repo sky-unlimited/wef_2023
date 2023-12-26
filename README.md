@@ -17,7 +17,7 @@ TODO
 * ruby 3.2.2
 * rails 7.1.2
 * bundler 2.4.10
-* postgresql-14 with `rubyuser` granted with SUPERUSER (to install postgis extension)
+* postgresql-14
 
 ## Required packages
 On Debian distributions:
@@ -46,6 +46,7 @@ Should you work in the team, ask for the encryption file `master.key`
 ### Secrets - Database
 Copy the file `config/database.yml.example` and rename it `config/database.yml` that will be git ignored.
 Make your own modifications inside it.
+
 ⚠️  Caution:
 - Database user needs to be SUPERUSER at least to run the first migration
 ````bash
@@ -54,7 +55,7 @@ sudo su postgres
 psql
 ALTER USER rubyuser WITH SUPERUSER;
 ````
-- Take care to use `postgis` adapter instead of `postgres`
+- Take care to use `postgis` adapter instead of `postgres` in `config/database.yml`
 
 ### Install all of the required gems 
 `bundle install`
