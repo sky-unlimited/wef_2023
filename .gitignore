@@ -30,6 +30,9 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# Ignore database.yml file.
+/config/database.yml
+
 # AS-Consult specific
 /node_modules
 /public/sitemap.xml.gz
