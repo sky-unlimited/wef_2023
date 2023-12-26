@@ -57,7 +57,7 @@ gem 'passenger', '~> 6.0', '>= 6.0.19'
 
 # Project related additionnal gems
 gem 'devise', '~> 4.9', '>= 4.9.2'
-gem 'dotenv-rails', '~> 2.8', '>= 2.8.1'
+#gem 'dotenv-rails', '~> 2.8', '>= 2.8.1'
 gem 'sass-rails', '~> 6.0'
 gem 'ed25519', '~> 1.3'
 gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
@@ -90,7 +90,7 @@ group :development do
   
   # Capistrano is a utility and framework for executing commands in parallel on multiple remote machines, via SSH.
   gem 'capistrano-rake', require: false
-  gem 'capistrano', '~> 3.17', '>= 3.17.3'
+  gem 'capistrano', '~> 3.17', '>= 3.17.3', require: false
   gem 'capistrano-rails', '~> 1.4'
   gem 'capistrano-passenger', '~> 0.2.0'
   gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'

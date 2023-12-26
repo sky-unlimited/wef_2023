@@ -27,6 +27,12 @@ On Debian distributions:
 ## Installation
 To run Weekend-Fly localy, follow those steps:
 
+### ourairports.com sub-module
+We update airports data from: [https://github.com/davidmegginson/ourairports-data]()
+
+`git submodule update --init --recursive`
+
+### Secrets - Credentials
 Store following secrets in `config/credentials.yml.enc` by using: `EDITOR=vim rails credentials:edit`
 ````bash
 openweathermap:
@@ -36,12 +42,24 @@ postmark:
   server_api: your_secret_key
 ````
 Should you work in the team, ask for the encryption file `master.key`
- 
-We update airports data from: [https://github.com/davidmegginson/ourairports-data]()
 
-`git submodule update --init --recursive`
+### Secrets - Database
+Copy the file `config/database.yml.example` and rename it `config/database.yml` that will be git ignored.
+Make your own modifications inside it.
+⚠️  Caution:
+- Database user needs to be SUPERUSER at least to run the first migration
+````bash
+# Give superuser to rubyuser to install postgis extension
+sudo su postgres
+psql
+ALTER USER rubyuser WITH SUPERUSER;
+````
+- Take care to use `postgis` adapter instead of `postgres`
 
-then, `bundle`
+### Install all of the required gems 
+`bundle install`
+
+### Run migrations
 
 Database creation: (Follow this order 👇) 
 ````bash
@@ -57,7 +75,7 @@ pg_restore -U $target_user --single-transaction --table=osm_lines --data-only -h
 pg_restore -U $target_user --single-transaction --table=osm_polygones --data-only -h $target_host -d $target_database osm_polygones_backup.sql
 ````
 
-Launch local server:
+### Launch local server
 
 `passenger start`
 
