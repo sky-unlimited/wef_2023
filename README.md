@@ -38,8 +38,12 @@ Store following secrets in `config/credentials.yml.enc` by using: `EDITOR=vim ra
 openweathermap:
   app_id: your_secret_key
 
-postmark:
-  server_api: your_secret_key
+action_mailer:
+  mail_smtp_server: your_server
+  mail_smtp_port: your_port
+  mail_domain:  your_domain
+  mail_login: your_login
+  mail_password: your_password
 ````
 Should you work in the team, ask for the encryption file `master.key`
 
