@@ -1,7 +1,7 @@
 require 'uri'
 
 class PilotPrefsController < ApplicationController
-  before_action :set_base_url, only: [:new, :create, :edit, :update]
+  before_action :set_base_url, only: [:edit, :update]
   before_action :load_weather_profiles, only: [ :edit]
 
   def edit

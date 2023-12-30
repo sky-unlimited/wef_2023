@@ -16,11 +16,6 @@ class PoiCatalogue
         :amenities => ["fuel"],
         :icon => "fuel_car.png",
         :label => I18n.t('activerecord.attributes.trip_request.proxy_fuel_car')},
-    :fuel_plane => {
-        :categories => ["aeroway"],
-        :amenities => ["fuel"],
-        :icon => "fuel_100ll.png",
-        :label => I18n.t('activerecord.attributes.trip_request.proxy_fuel_plane')},
     :bike_rental => {
         :categories => ["amenity"],
         :amenities => ["bicycle_rental"],

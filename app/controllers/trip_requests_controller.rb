@@ -1,7 +1,7 @@
 require 'uri'
 
 class TripRequestsController < ApplicationController
-  before_action :set_base_url, only: [:new, :create, :edit, :update]
+  before_action :set_base_url, only: [:new, :create]
 
   def new
     @trip_request = TripRequest.new
