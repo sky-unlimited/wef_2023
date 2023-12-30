@@ -144,8 +144,8 @@ fr:
       submit: "Soumettre"
       privacy_policy: "Politique de confidentialité"
     unsubscribe:
+      title: "Désinscription"
       email_unsubscribe: "a été désinscrit de la Newsletter."
-      see_you: "A bienttôt de la part de toute l'équipe!"
   subscribers_mailer:
     subscribed:
       subject: "Vous êtes bien enregistré à la Newsletter!"

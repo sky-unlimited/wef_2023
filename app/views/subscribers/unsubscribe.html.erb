@@ -1,2 +1,7 @@
-<h1><%= "#{@email} #{t('subscribers.unsubscribe.email_unsubscribe')}" %></h1>
-<p><%= t('subscribers.unsubscribe.see_you') %></p>
+<div class="container-md">
+  <h2><%= t('subscribers.unsubscribe.title') %></h2>
+  <p><b><%= @email %></b> <%= t('subscribers.unsubscribe.email_unsubscribe') %></p>
+  <div class="mt-20">
+    <%= link_to 'Back', root_path, class: "btn btn-secondary" %>
+  </div>
+</div>

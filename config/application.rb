@@ -12,15 +12,6 @@ module Wef
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    # Configuration for the application, engines, and railties goes here.
-    config.action_mailer.delivery_method = :postmark
-
-    config.action_mailer.postmark_settings = {
-      api_token: Rails.application.credentials.postmark.server_api
-    }
-
-
-    #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
