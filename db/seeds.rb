@@ -50,7 +50,7 @@ if Rails.env.development? || Rails.env.staging?
   user = User.new
   user.first_name = "Rachel"
   user.last_name = "Muller"
-  user.username = "rachmu57"
+  user.username = "rachel"
   user.email = "rachel@sky-unlimited.lu"
   user.role = "admin"
   user.password = "rachel@sky-unlimited.lu"
