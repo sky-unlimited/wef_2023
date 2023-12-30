@@ -5,7 +5,7 @@ require_relative "application"
 Rails.application.initialize!
 
 # ActionMailer setup
-Rails.application.config.assets.paths << Rails.root.join("node_modules")
+#Rails.application.config.assets.paths << Rails.root.join("node_modules")
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.smtp_settings = {

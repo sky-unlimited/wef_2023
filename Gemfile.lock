@@ -203,6 +203,8 @@ GEM
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
+    puma (6.4.0)
+      nio4r (~> 2.0)
     racc (1.7.3)
     rack (3.0.8)
     rack-cors (2.0.1)
@@ -351,6 +353,7 @@ DEPENDENCIES
   normalize_country (~> 0.3.2)
   passenger (~> 6.0, >= 6.0.19)
   pg (~> 1.5.4)
+  puma (~> 6.4)
   rack-cors (~> 2.0, >= 2.0.1)
   rails (~> 7.1.2)
   rest-client (~> 2.1)
