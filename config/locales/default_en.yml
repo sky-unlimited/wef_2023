@@ -39,12 +39,13 @@ en:
       one: "in one day"
       other: "in %{count} days"
   shared:
-    sign_in:
-    sign_out:
-    sign_up:
-    account:
-    console:
-    legal_mentions:
+    home: Home
+    sign_in: Sign in
+    sign_out: Sign out
+    sign_up: Sign up
+    account: Account
+    console: Console
+    legal_mentions: legal terms
     privacy_policy:
     copyright: "All rights reserved"
   console:

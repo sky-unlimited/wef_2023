@@ -39,6 +39,7 @@ fr:
       one: "dans un jour"
       other: "dans %{count} jours"
   shared:
+    home: "Accueil"
     sign_in: "S'identifier"
     sign_out: "Déconnexion"
     sign_up: "S'inscrire"
