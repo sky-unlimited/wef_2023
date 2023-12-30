@@ -143,8 +143,8 @@ en:
       submit: "Submit"
       privacy_policy: "Privacy Policy"
     unsubscribe:
+      title: "Unsubscribe"
       email_unsubscribe: "has been unsubscribed from the Newsletter."
-      see_you: "Hope to see you soon again!"
   subscribers_mailer:
     subscribed:
       subject: "You are registered to the Newsletter!"
