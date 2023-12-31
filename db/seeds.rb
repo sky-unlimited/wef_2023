@@ -6,10 +6,10 @@ require 'csv'
 puts "👉 Cleaning databases..."
 PilotPref.destroy_all
 User.destroy_all
-Country.destroy_all
 Runway.destroy_all
-Airport.destroy_all
 FuelStation.destroy_all
+Airport.destroy_all
+Country.destroy_all
 
 puts "-------------------------------"
 puts "All environments seeds"
