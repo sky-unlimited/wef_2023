@@ -85,6 +85,7 @@ fr:
     errors:
       file_type: Le format soumit n'est pas une image 
       image_size: La taille de l'image dépasse 2MB
+      password_policy: Le mot de passe doit comprendre au moins une lettre minuscule, une lettre majuscule et un chiffre.
   pages:
     home:
       hero_one: Nous aidons les pilotes à trouver la meilleure destination 🌴

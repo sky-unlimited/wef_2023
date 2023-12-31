@@ -84,6 +84,7 @@ en:
     errors:
       file_type: The uploaded format is not an image 
       image_size: Image size greater than 2MB
+      password_policy: Password must include at least one lowercase letter, one uppercase letter, and one digit
   pages:
     home:
       hero_one: We help pilots find best destinations 🌴
