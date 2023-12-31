@@ -4,6 +4,7 @@ require 'csv'
 # CLEANING
 # ############################################
 puts "👉 Cleaning databases..."
+AuditLog.destroy_all
 PilotPref.destroy_all
 User.destroy_all
 Runway.destroy_all
@@ -53,7 +54,7 @@ if Rails.env.development? || Rails.env.staging?
   user.username = "rachel"
   user.email = "rachel@sky-unlimited.lu"
   user.role = "admin"
-  user.password = "rachel@sky-unlimited.lu"
+  user.password = "Default2024"
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
@@ -68,7 +69,7 @@ if Rails.env.development? || Rails.env.staging?
   user.username = "marnou01"
   user.email = "margaux@sky-unlimited.lu"
   user.role = "user"
-  user.password = "margaux@sky-unlimited.lu"
+  user.password = "Default2024"
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
@@ -83,7 +84,7 @@ if Rails.env.development? || Rails.env.staging?
   user.username = "chris_bali"
   user.email = "christina.sugiono95@gmail.com"
   user.role = "admin"
-  user.password = "christina.sugiono95@gmail.com"
+  user.password = "Default2024"
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save

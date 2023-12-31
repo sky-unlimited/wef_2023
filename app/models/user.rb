@@ -48,7 +48,7 @@ class User < ApplicationRecord
   end
 
   def password_complexity
-    if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d). /)
+    if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
       errors.add(:password, I18n.t('users.errors.password_policy'))
     end
   end
