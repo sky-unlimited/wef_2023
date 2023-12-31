@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validate :picture_format
+  validate :password_complexity
 
   private
 
@@ -43,6 +44,12 @@ class User < ApplicationRecord
         is_private_pilot: true,
         airport_id: Airport.find_by(icao: "ELLX").id
       )
+    end
+  end
+
+  def password_complexity
+    if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d). /)
+      errors.add(:password, I18n.t('users.errors.password_policy'))
     end
   end
 
