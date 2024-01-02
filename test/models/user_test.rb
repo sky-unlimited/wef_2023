@@ -7,22 +7,19 @@ class UserTest < ActiveSupport::TestCase
     assert user.save
   end
 
-  test "user missing last_name should not save" do
-    assert_not User.new(email: "test@as-consult.io", password: "123456", username: "josmith11", first_name: "First name").save
-  end
-
-  test "user missing first_name should not save" do
-    assert_not User.new(email: "test@as-consult.io", password: "123456", username: "username1", last_name: "last name").save
-  end
-
   test "new created user should have a role" do
-    user = User.new(email: "test@as-consult.io", password: "123456", username: "username2", last_name: "last name", first_name: "first name")
+    user = User.new(email: "test@as-consult.io", password: "Hello123", )
     user.save!
     assert_equal user.role.nil?, false
   end
 
+  test "new created user should icomply with password policy" do
+    user = User.new(email: "test@as-consult.io", password: "hello123", )
+    assert_not user.save
+  end
+
   test "user invalid email should not save" do
-    assert_not User.new(email: "wrong_email", password: "123456", last_name: "last name", first_name: "first name").save
+    assert_not User.new(email: "wrong_email", password: "Hello123", username: "testtest").save
   end
 
   test "New user should have default pilot preferences" do
@@ -31,6 +28,6 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "already taken username should not save" do
-    assert_not User.new(email: "test2@as-consult.io", password: "123456", username: "josmith66", first_name: "First name").save
+    assert_not User.new(email: "test2@as-consult.io", password: "Hello123", username: "josmith66").save
   end
 end
