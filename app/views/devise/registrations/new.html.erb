@@ -10,14 +10,14 @@
         <%= f.label           :picture,
                               class: "form-label" %>
         <%= f.file_field      :picture, 
-                              class: "form-control" %>
+                              class: "form-control mb-10" %>
 
         <%= f.label           :username,
                               class: "form-label" %>
         <%= f.text_field      :username,
                               autofocus: true,
                               autocomplete: "username",
-                              class: "form-control",
+                              class: "form-control mb-10",
                               placeholder: "e.g. josmith123" %>
 
         <%= f.label           :email,
@@ -25,33 +25,21 @@
         <%= f.email_field     :email,
                               autofocus: true,
                               autocomplete: "email",
-                              class: "form-control",
+                              class: "form-control mb-10",
                               placeholder: "e.g. john.smith@email.com" %>
 
-        <%= f.label           :last_name,
-                              class: "form-label" %>
-        <%= f.text_field      :last_name,
-                              class: "form-control",
-                              placeholder: "e.g. Smith" %>
-
-        <%= f.label           :first_name,
-                              class: "form-label" %>
-        <%= f.text_field      :first_name,
-                              class: "form-control",
-                              placeholder: "e.g. John" %>
-      
         <%= f.label           :password,
                               class: "form-label" %>
         <%= f.password_field  :password,
                               autocomplete: "new-password",
-                              class: "form-control",
+                              class: "form-control mb-10",
                               placeholder: t('devise.shared.minimum_password_length',
                                            count: @minimum_password_length) %>
 
         <%= f.label           :password_confirmation %>
         <%= f.password_field  :password_confirmation,
                               autocomplete: "new-password",
-                              class: "form-control",
+                              class: "form-control mb-10",
                               placeholder: t('devise.shared.minimum_password_length',
                                            count: @minimum_password_length) %>
       </div>
