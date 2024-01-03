@@ -81,6 +81,8 @@ fr:
         one: Une erreur a été détectée
         other: Plusieurs erreurs ont été détectées
         confirmation: Olala
+    devise_custom:
+      sign_up_tip: "💡 Conseil: une fois votre compte confirmé, veuillez mettre à jour vos préfèrences pilote!"
   users:
     errors:
       file_type: Le format soumit n'est pas une image 

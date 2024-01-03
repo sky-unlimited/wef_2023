@@ -80,6 +80,8 @@ en:
       errors:
         one: An error has been found
         other: Several errors have been found
+    devise_custom:
+      sign_up_tip: "💡 Tip: Once confirmed, update your pilot preferences in the account menu!"
   users:
     errors:
       file_type: The uploaded format is not an image 
