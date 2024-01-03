@@ -23,9 +23,6 @@ class SubscribersMailerTest < ActionMailer::TestCase
     # Check that the email is sent to the correct address
     assert_equal [subscriber.email], email.to
 
-    # Check that the email body contains the subscriber's name
-    assert_match /#{subscriber.name}/, email.html_part.body.to_s
-
     # Check that the email body contains the unsubscribe link
     assert_match /unsubscribe_link/, email.html_part.body.to_s
 

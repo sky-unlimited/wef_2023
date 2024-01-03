@@ -7,8 +7,8 @@ class Subscriber < ApplicationRecord
   before_create :add_ip_address
   before_validation :check_timelapse_before_last_attempt, on: :create
 
-  validates :name,  presence: true
   validates :email, presence: true, uniqueness: true
+  validates :email, uniqueness: true
   validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
   validates :accept_private_data_policy, acceptance: { message: I18n.t('subscribers.errors.accept_private_data_policy') }
 

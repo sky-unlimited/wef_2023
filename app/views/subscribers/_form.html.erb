@@ -1,14 +1,11 @@
-<section class="container-fluid bg-primary d-flex flex-column py-20">
+<section class="container-fluid bg-primary d-flex flex-column py-10">
   <% if cookies[:saved_subscriber] %>
     <p class="text-center"><%= t('subscribers.form.thanks_sign_up')%></p>
   <% else %>
-    <h1 class="text-center"><%= t('subscribers.form.subscribe') %></h1>
+    <h1 class="text-center mb-10"><%= t('subscribers.form.subscribe') %></h1>
     <div class="container-sm d-flex flex-column align-items-center">
       <%= form_with model: @subscriber, url: root_path, data: { turbo: false } do |f| %>
         <div class="form-inputs">
-          <%= f.text_field :name,
-                            placeholder: t('activerecord.attributes.subscriber.name'),
-                            class: "form-control mb-10" %>
           <%= f.email_field :email,
                             placeholder: t('activerecord.attributes.subscriber.email'),
                             class: "form-control mb-10" %>

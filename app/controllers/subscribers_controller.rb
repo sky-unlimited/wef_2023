@@ -35,6 +35,6 @@ class SubscribersController < ApplicationController
   private
 
   def subscriber_input_params
-    params.permit(:name, :email, :accept_private_data_policy, :unsubscribe_hash)
+    params.permit(:email, :accept_private_data_policy, :unsubscribe_hash)
   end
 end
