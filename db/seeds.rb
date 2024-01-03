@@ -29,8 +29,6 @@ Rake::Task['import:fuel_stations'].invoke
 # ############################################
 # Create an admin user
 user = User.new
-user.first_name = "Alexandre"
-user.last_name = "Stanescot"
 user.username = "alexstan57"
 user.email = "alex@sky-unlimited.lu"
 user.role = "admin"
@@ -49,8 +47,6 @@ if Rails.env.development? || Rails.env.staging?
   puts "development & staging seeds"
   puts "-------------------------------"
   user = User.new
-  user.first_name = "Rachel"
-  user.last_name = "Muller"
   user.username = "rachel"
   user.email = "rachel@sky-unlimited.lu"
   user.role = "admin"
@@ -64,23 +60,6 @@ if Rails.env.development? || Rails.env.staging?
   puts "rachel pilot prefs created"
 
   user = User.new
-  user.first_name = "Margaux"
-  user.last_name = "Arnould"
-  user.username = "marnou01"
-  user.email = "margaux@sky-unlimited.lu"
-  user.role = "user"
-  user.password = "Default2024"
-  user.confirmed_at = Time.zone.now - 1.hour
-  user.confirmation_sent_at = Time.zone.now - 2.hours
-  user.save
-  pilot_pref = PilotPref.find_by(user_id: user.id)
-  pilot_pref.update(airport: Airport.find_by(icao: "LFQA"), is_ultralight_pilot: false, is_private_pilot: true)
-  puts "margaux user created"
-  puts "margaux pilot prefs created"
-
-  user = User.new
-  user.first_name = "Christina"
-  user.last_name = "Sugiono"
   user.username = "chris_bali"
   user.email = "christina.sugiono95@gmail.com"
   user.role = "admin"

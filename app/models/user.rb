@@ -12,8 +12,6 @@ class User < ApplicationRecord
   enum role: [ :user, :admin ]
   after_initialize :set_default_role, if: :new_record?
   after_save :create_default_pilot_preferences
-  validates :last_name, presence: true
-  validates :first_name, presence: true
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validate :picture_format
   validate :password_complexity

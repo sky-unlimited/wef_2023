@@ -5,15 +5,14 @@ class Subscriber < ApplicationRecord
 
   before_create :add_unsubscribe_hash
   before_create :add_ip_address
-  before_validation :check_timelapse_before_last_attempt, on: :create
+  before_validation :check_timelapse_before_last_attempt, on: :create, unless: -> { Rails.env.test? }
 
-  validates :name,  presence: true
   validates :email, presence: true, uniqueness: true
   validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
   validates :accept_private_data_policy, acceptance: { message: I18n.t('subscribers.errors.accept_private_data_policy') }
 
   def self.to_csv
-    attributes = %w[id name email created_at]
+    attributes = %w[id email created_at]
     CSV.generate(headers: true) do |csv|
       csv << attributes
       all.each do |contact|

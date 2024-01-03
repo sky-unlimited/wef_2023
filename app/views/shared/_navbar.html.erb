@@ -25,9 +25,7 @@
           <% if current_user.picture.attached? %>
             <%= image_tag(current_user.picture.variant(:thumb), class: "nav-account avatar-medium") %>
           <% else %>
-            <% first_name_initial = current_user.first_name[0] %>
-            <% last_name_initial = current_user.last_name[0] %>
-            <% initials = first_name_initial + last_name_initial %>
+            <% initials = current_user.username[0] %>
             <p class="avatar-fake m-5 bg-color1 color-light"><%= initials.upcase %></p>
           <% end %>
         <% else %>

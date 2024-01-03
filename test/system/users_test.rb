@@ -10,7 +10,7 @@ class UsersTest < ApplicationSystemTestCase
     user = users(:regular_user)
     visit user_session_url
     fill_in "Email", with: user.email
-    fill_in "Password", with: "123456"
+    fill_in "Password", with: "Hello123"
     click_on "Log in"
     assert_selector ".alerts", text: "Signed in successfully."
   end
@@ -24,15 +24,6 @@ class UsersTest < ApplicationSystemTestCase
     assert_selector ".alerts", text: "Invalid Email or password."
   end
 
-  test "A user can modify his first name in account" do
-    sign_in users(:regular_user)
-    visit edit_user_registration_url
-    fill_in "First name", with: "Joe"
-    fill_in "Current password", with: "123456"
-    click_on "Update"
-    assert_selector ".alerts", text: "Your account has been updated successfully."
-  end
-
   test "A user can require a new password" do
     visit user_session_url
     click_on "Forgot your password?"
@@ -42,11 +33,9 @@ class UsersTest < ApplicationSystemTestCase
   test "A user can sign-up" do
     visit new_user_registration_url
     fill_in "Email", with: "hannibal.smith@email.com"
-    fill_in "Last name", with: "Smith"
-    fill_in "First name", with: "Hannibal"
     fill_in "Username", with: "username1"
-    fill_in "Password", with: "123456"
-    fill_in "Password confirmation", with: "123456"
+    fill_in "Password", with: "Hello123"
+    fill_in "Password confirmation", with: "Hello123"
     click_on "Sign up"
     assert_selector ".alerts", text: "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
   end

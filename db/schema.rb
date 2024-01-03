@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_30_144414) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_03_070050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -172,7 +172,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_30_144414) do
   end
 
   create_table "subscribers", force: :cascade do |t|
-    t.string "name", null: false
     t.string "email", null: false
     t.boolean "accept_private_data_policy"
     t.string "unsubscribe_hash"
@@ -221,8 +220,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_30_144414) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "role"
-    t.string "first_name"
-    t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "sign_in_count"
