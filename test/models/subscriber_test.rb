@@ -6,9 +6,8 @@ class SubscriberTest < ActiveSupport::TestCase
     assert subscribers(:subscriber_one).save
   end
 
-  test "Too many attempts on same ip address should not save" do
-    Subscriber.new(email: "test@exmple.com", accept_private_data_policy: true).save
-    assert_not Subscriber.new(email: "test2@exmple.com", accept_private_data_policy: true).save
+  test "Already registered email should not save" do
+    assert_not Subscriber.new(email: "john.smith@example.com", accept_private_data_policy: true).save
   end
 
   test "Wrong email should not save" do
