@@ -83,6 +83,8 @@ fr:
         confirmation: Olala
     devise_custom:
       sign_up_tip: "💡 Conseil: une fois votre compte confirmé, veuillez mettre à jour vos préfèrences pilote!"
+      accept_terms: En vous enregistrant sur Weekend-Fly, vous acceptez la
+      and: ainsi que les
   users:
     errors:
       file_type: Le format soumit n'est pas une image 
@@ -178,3 +180,6 @@ fr:
       fuel_station: Station d'avitaillement
       weather_forecast: Prévisions météo
       pois: Points d'intérêts SUR/PRES aérodrome
+  legal:
+    privacy_policy: Politique de Confidentialité
+    terms_and_conditions: Termes et Conditions

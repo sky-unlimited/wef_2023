@@ -11,7 +11,7 @@
                             class: "form-control mb-10" %>
           <%= f.label :accept_private_data_policy,
                        t("subscribers.form.acceptation") %>
-          <%= link_to t('subscribers.form.privacy_policy'), privacy_policy_index_path, class: "link-light" %>
+          <%= link_to t('subscribers.form.privacy_policy'), legal_privacy_path, class: "link-light", target: "_blank" %>
           <%= f.check_box :accept_private_data_policy %>
 
           <div class="form-actions mt-15">

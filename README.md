@@ -51,13 +51,13 @@ Should you work in the team, ask for the encryption file `master.key`
 Copy the file `config/database.yml.example` and rename it `config/database.yml` that will be git ignored.
 Make your own modifications inside it.
 
-⚠️  Caution:
-- Database user needs to be SUPERUSER at least to run the first migration
 ````bash
-# Give superuser to rubyuser to install postgis extension
-sudo su postgres
-psql
-ALTER USER rubyuser WITH SUPERUSER;
+# let's assume your database user is rubyuser:
+sudo su - postgres
+createuser --pwprompt rubyuser
+createdb -O rubyuser wef_2023_development
+alter user rubyuser with superuser;
+create extension postgis;
 ````
 - Take care to use `postgis` adapter instead of `postgres` in `config/database.yml`
 

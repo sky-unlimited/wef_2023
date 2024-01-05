@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     devise_for :users
     get 'console/index'
     get 'subscribers/index'
-    get 'privacy_policy/index'
+    get 'legal/privacy'
+    get 'legal/terms_and_conditions'
     post '/', to: 'subscribers#create'
     get 'subscribers/unsubscribe/:unsubscribe_hash', to: 'subscribers#unsubscribe', as: 'unsubscribe'
     resources :pilot_prefs,       only: [ :edit, :update ]
