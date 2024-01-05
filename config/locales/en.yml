@@ -82,6 +82,8 @@ en:
         other: Several errors have been found
     devise_custom:
       sign_up_tip: "💡 Tip: Once confirmed, update your pilot preferences in the account menu!"
+      accept_terms: By Signing up you agree to Weekend-Fly’s
+      and: and
   users:
     errors:
       file_type: The uploaded format is not an image 

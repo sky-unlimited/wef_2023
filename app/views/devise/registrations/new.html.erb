@@ -50,6 +50,17 @@
 
     <% end %>
 
+    <div class="bg-dark mb-15 border border-radius">
+      <p class="text-center color2"><%= t('forms.devise_custom.accept_terms') %> 
+        <%= link_to t('legal.privacy_policy'), legal_privacy_path, class: "link-primary", target: "_blank" %>
+        <%= t('forms.devise_custom.and') %>
+        <%= link_to t('legal.terms_and_conditions'),
+            legal_terms_and_conditions_path,
+            class: "link-primary",
+            target: "_blank" %>
+      </p>
+    </div>
+
     <%= render "devise/shared/links" %>
 
   </div>
