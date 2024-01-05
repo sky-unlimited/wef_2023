@@ -178,3 +178,6 @@ fr:
       fuel_station: Station d'avitaillement
       weather_forecast: Prévisions météo
       pois: Points d'intérêts SUR/PRES aérodrome
+  legal:
+    privacy_policy: Politique de Confidentialité
+    terms_and_conditions: Termes et Conditions

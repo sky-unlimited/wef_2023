@@ -1,9 +1,16 @@
-<footer class="container-fluid bg-dark d-flex flex-row justify-content-around py-20">
-  <div></div>
-  <div class="color-light d-flex flex-column align-items-center">
-    <p class="m-5">Sky Unlimited</p>
-    <p class="m-5">29, Boulevard Prince Henri</p>
-    <p class="m-5">L-1724 Luxembourg</p>
+<footer class="container-fluid bg-dark d-flex flex-column justify-content-around py-20">
+  <div class="d-flex justify-content-around py-10">
+    <%= link_to t('legal.privacy_policy'), legal_privacy_path, class: "link-light", target: "_blank" %>
+    <%= link_to t('legal.terms_and_conditions'), legal_terms_and_conditions_path, class: "link-light", target: "_blank" %>
   </div>
-  <div></div>
+  <div>
+    <hr>
+  </div>
+  <div class="bg-dark color-light d-flex flex-column align-items-center mb-0">
+    <p class="mb-0">Sky Unlimited</p>
+    <p class="">29, Boulevard Prince Henri | L-1724 Luxembourg</p>
+  </div> 
+  <div>
+    <p class="fs-0-8 text-center color-light mt-0">Build with ❤️ by <a href="https://www.as-consult.io?utm_source=sky-unlimited&utm_medium=wef&utm_campaign=2024" target="_blank" class="link-light">as-consult.io</a></p>
+  </div>
 </footer>
