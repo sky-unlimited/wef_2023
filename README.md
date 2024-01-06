@@ -25,6 +25,7 @@ One Community 💪
 
 ## Requirements
 * ruby 3.2.2
+* rbenv 1.2.0
 * rails 7.1.2
 * bundler 2.4.10
 * postgresql-14
