@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_03_070050) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_06_212623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -73,6 +73,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_070050) do
     t.datetime "updated_at", null: false
     t.string "ip_address", default: "::1", null: false
     t.index ["user_id"], name: "index_audit_logs_on_user_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "last_name"
+    t.string "first_name"
+    t.string "company"
+    t.string "email", null: false
+    t.string "phone"
+    t.integer "category", null: false
+    t.text "description", null: false
+    t.boolean "accept_privacy_policy"
+    t.string "ip_address", null: false
+    t.string "honey_pot"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "countries", force: :cascade do |t|
