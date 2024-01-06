@@ -11,7 +11,17 @@ One Community 💪
 # WEEKEND-FLY
 
 ## Features
-TODO
+- 5 countries covered (lu,fr,de,nl,dk)
+- User management
+- Pilot preferences
+- Airport searcher
+- Airport details
+- Fuel stations management
+- Trip request to find best destinations
+- Weather algorithm
+- Newsletter subscription
+- Legal terms
+- 2 languages support (fr/en)
 
 ## Requirements
 * ruby 3.2.2
@@ -52,7 +62,7 @@ Copy the file `config/database.yml.example` and rename it `config/database.yml` 
 Make your own modifications inside it.
 
 ````bash
-# let's assume your database user is rubyuser:
+# To create new db user, let's assume your database user is rubyuser:
 sudo su - postgres
 createuser --pwprompt rubyuser
 createdb -O rubyuser wef_2023_development
