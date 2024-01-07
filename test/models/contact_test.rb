@@ -12,7 +12,8 @@ class ContactTest < ActiveSupport::TestCase
       category: 0,
       description: "This is a full description of my usefull request",
       accept_privacy_policy: true,
-      honey_bot: ""
+      honey_bot: "",
+      ip_address: "127.0.0.1"
     }
     contact = Contact.new(hash)
     assert contact.save

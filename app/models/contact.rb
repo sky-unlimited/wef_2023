@@ -1,6 +1,7 @@
 class Contact < ApplicationRecord
-  #attr_accessor :request
-  before_create :add_ip_address
+  attr_accessor :request
+
+  before_create :add_ip_address, unless: -> { Rails.env.test? }
 
   CATEGORIES = [  I18n.t('activerecord.attributes.contact.categories.other'),
                 I18n.t('activerecord.attributes.contact.categories.privacy_policy'),
@@ -28,6 +29,9 @@ class Contact < ApplicationRecord
   private
 
   def add_ip_address
-    self.ip_address = "192.168.1.1"
+    # Assuming your web server is behind a proxy like Nginx or Apache
+    # Use request.headers["X-Forwarded-For"] to get the real IP address
+    # If not using a proxy, you can use request.remote_ip directly
+    self.ip_address = request.headers["X-Forwarded-For"] || request.remote_ip
   end
 end

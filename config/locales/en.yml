@@ -68,10 +68,11 @@ en:
         email: Email
         phone: Phone
       contact:
-        username: Username
+        username: Username (if you're registered)
         last_name: Last name
         first_name: First name 
         company: Company
+        phone: Phone
         description: Description
         category: Category
         categories:
@@ -81,8 +82,7 @@ en:
           improvement: Require an improvement
           partnership: Partnership
           other: Other
-        accept_privacy_policy: Accept privacy policy
-
+        accept_privacy_policy: Privacy policy
     errors:
       messages:
         in: must be in %{count}
@@ -92,6 +92,11 @@ en:
         start_date_not_in_past: can't be in the past
         check_at_least_one_airport_type: Please choose at least one airport type
         check_at_least_one_poi_selected: Please select at least one
+      models:
+        contact:
+          attributes:
+            accept_privacy_policy:
+              inclusion: Please read and accept
   forms:
     messages:
       errors:
@@ -101,6 +106,8 @@ en:
       sign_up_tip: "💡 Tip: Once confirmed, update your pilot preferences in the account menu!"
       accept_terms: By Signing up you agree to Weekend-Fly’s
       and: and
+    contact:
+      submit: Submit
   users:
     errors:
       file_type: The uploaded format is not an image 
@@ -199,4 +206,9 @@ en:
   legal:
     privacy_policy: Privacy Policy
     terms_and_conditions: Terms & Conditions
+  contact:
+    form:
+      accept_privacy_policy: By submitting this form, I accept our
+    notice:
+      form_sent: You successfully submitted the form
 
