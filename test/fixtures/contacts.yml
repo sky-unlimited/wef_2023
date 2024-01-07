@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 contact_ok:
+  username:
   last_name: lastname
   first_name: firstname
   company: company
@@ -13,6 +14,7 @@ contact_ok:
   honey_pot: MyString
 
 contact_bot:
+  username:
   last_name: lastname
   first_name: firstname
   company: company

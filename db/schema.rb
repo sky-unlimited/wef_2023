@@ -76,6 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_06_212623) do
   end
 
   create_table "contacts", force: :cascade do |t|
+    t.string "username"
     t.string "last_name"
     t.string "first_name"
     t.string "company"
@@ -85,7 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_06_212623) do
     t.text "description", null: false
     t.boolean "accept_privacy_policy"
     t.string "ip_address", null: false
-    t.string "honey_pot"
+    t.string "honey_bot"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

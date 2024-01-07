@@ -1,6 +1,7 @@
 class CreateContacts < ActiveRecord::Migration[7.1]
   def change
     create_table :contacts do |t|
+      t.string :username
       t.string :last_name
       t.string :first_name
       t.string :company
@@ -10,7 +11,7 @@ class CreateContacts < ActiveRecord::Migration[7.1]
       t.text :description, null:false
       t.boolean :accept_privacy_policy
       t.string :ip_address, null:false
-      t.string :honey_pot
+      t.string :honey_bot
 
       t.timestamps
     end

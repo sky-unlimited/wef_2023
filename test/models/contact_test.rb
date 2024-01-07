@@ -5,7 +5,7 @@ class ContactTest < ActiveSupport::TestCase
     assert contacts(:contact_ok).save 
   end
 
-  test "iThe bot fulfilling the hidden honeypot should be trapped" do
+  test "The bot fulfilling the hidden honeypot should be trapped" do
     assert_not contacts(:contact_bot).save 
   end
 
