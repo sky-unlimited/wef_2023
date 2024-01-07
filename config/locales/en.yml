@@ -4,6 +4,7 @@ en:
       pilot_pref: Pilot preferences
       trip_request: Trip Organization
       fuel_station: Fuel Station
+      contact: Contact Form
     attributes:
       pilot_pref:
         weather_profile: Weather Profile
@@ -66,6 +67,22 @@ en:
         charging_station: Charging Station
         email: Email
         phone: Phone
+      contact:
+        username: Username
+        last_name: Last name
+        first_name: First name 
+        company: Company
+        description: Description
+        category: Category
+        categories:
+          privacy_policy: Privacy policy
+          billing: Billing issue
+          problem: Report a problem
+          improvement: Require an improvement
+          partnership: Partnership
+          other: Other
+        accept_privacy_policy: Accept privacy policy
+
     errors:
       messages:
         in: must be in %{count}

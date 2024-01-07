@@ -7,21 +7,8 @@ contact_ok:
   company: company
   email: test@example.com
   phone: +352661466477
-  category: 1
+  category: 0
   description: This is a full description of my usefull request
   accept_privacy_policy: true
   ip_address: 141.94.17.140
-  honey_pot: MyString
-
-contact_bot:
-  username:
-  last_name: lastname
-  first_name: firstname
-  company: company
-  email: test@example.com
-  phone: +352661466477
-  category: 1
-  description: This is a full description of my usefull request
-  accept_privacy_policy: true
-  ip_address: 141.94.17.140
-  honey_pot: The bot has been trapped
+  honey_bot: 

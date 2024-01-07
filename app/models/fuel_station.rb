@@ -13,7 +13,7 @@ class FuelStation < ApplicationRecord
   enum charging_station:  { "no" => 0, "yes" => 1, "automate" => 2 }, _prefix: :charging_station
   
   validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP, allow_blank: true
-  validates_format_of :phone, with: /\A(?:\+|00)[1-9][0-9 \-\(\)\.]{7,32}\z/, allow_blank: true # begin with "+" or "00" as we require international format
+  #validates_format_of :phone, with: /\A(?:\+|00)[1-9][0-9 \-\(\)\.]{7,32}\z/, allow_blank: true # begin with "+" or "00" as we require international format, however a number like '+352661477661' doesn't validate. #TODO: Improve later the phone validation
 
   validates :provider, presence: true
   validates :status, presence: true

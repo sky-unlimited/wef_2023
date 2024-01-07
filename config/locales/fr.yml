@@ -4,6 +4,7 @@ fr:
       pilot_pref: Préférences pilote
       trip_request: Organisation Voyage
       fuel_station: Stations d'avitaillement
+      contact: Formulaire de contact
     attributes:
       pilot_pref:
         weather_profile: Profile météo
@@ -66,6 +67,21 @@ fr:
         charging_station: Station Chargement
         email: Email
         phone: Téléphone
+      contact:
+        username: Identifiant
+        last_name: Nom
+        first_name: Prénom 
+        company: Société
+        description: Description
+        category: Categorie
+        categories:
+          privacy_policy: Vie privée
+          billing: Facturation
+          problem: Signaler un problème
+          improvement: Suggérer une amélioration
+          partnership: Partenariat
+          other: Autre
+        accept_privacy_policy: Accepter politique de confidentialité
     errors:
       messages:
         in: doit être compris entre %{count}

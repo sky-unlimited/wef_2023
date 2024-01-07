@@ -8,7 +8,8 @@ class Subscriber < ApplicationRecord
   before_validation :check_timelapse_before_last_attempt, on: :create, unless: -> { Rails.env.test? }
 
   validates :email, presence: true, uniqueness: true
-  validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
+  #validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP  #not strict
+  validates :email, email: true
   validates :accept_private_data_policy, acceptance: { message: I18n.t('subscribers.errors.accept_private_data_policy') }
 
   def self.to_csv
