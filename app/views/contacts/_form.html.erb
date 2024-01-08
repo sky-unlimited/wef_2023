@@ -15,6 +15,7 @@
                           class: "form-label" %>
     <%= f.text_field      :username, 
                           class: "form-control mb-10",
+                          readonly: @is_session ? "readonly" : nil,
                           placeholder: "e.g. Birdy001" %>
 
     <%= f.label           :last_name,
@@ -39,6 +40,7 @@
                           class: "form-label" %>
     <%= f.email_field      :email,
                           class: "form-control mb-10",
+                          readonly: @is_session ? "readonly" : nil,
                           placeholder: "e.g. john.smith@example.com" %>
 
     <%= f.label           :phone,

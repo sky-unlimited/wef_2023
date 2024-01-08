@@ -6,6 +6,7 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
+    @is_session = current_user.nil? ? false : true
     unless current_user.nil?
       @contact.email    = current_user.email
       @contact.username = current_user.username
