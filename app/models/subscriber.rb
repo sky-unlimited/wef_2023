@@ -4,7 +4,8 @@ class Subscriber < ApplicationRecord
   attr_accessor :request
 
   before_create :add_unsubscribe_hash
-  before_create :add_ip_address
+  #before_validation :add_ip_address
+  before_validation :add_ip_address, unless: -> { Rails.env.test? }
   before_validation :check_timelapse_before_last_attempt, on: :create, unless: -> { Rails.env.test? }
 
   validates :email, presence: true, uniqueness: true
