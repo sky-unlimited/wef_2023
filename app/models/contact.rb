@@ -1,7 +1,8 @@
 class Contact < ApplicationRecord
   attr_accessor :request
 
-  before_create :add_ip_address, unless: -> { Rails.env.test? }
+  before_validation :add_ip_address, unless: -> { Rails.env.test? }
+  before_validation :check_timelapse_before_last_attempt, on: :create, unless: -> { Rails.env.test? }
 
   CATEGORIES = [  I18n.t('activerecord.attributes.contact.categories.other'),
                 I18n.t('activerecord.attributes.contact.categories.privacy_policy'),
@@ -33,5 +34,15 @@ class Contact < ApplicationRecord
     # Use request.headers["X-Forwarded-For"] to get the real IP address
     # If not using a proxy, you can use request.remote_ip directly
     self.ip_address = request.headers["X-Forwarded-For"] || request.remote_ip
+  end
+  
+  def check_timelapse_before_last_attempt
+    # In order to prevent mass injections, we ensure that for the same last ip_address
+    # a period of 15 seconds has elapsed
+    last_attempt = Contact.where(ip_address: ip_address).order(created_at: :desc).first
+
+    if last_attempt && (Time.current - last_attempt.created_at) < 15.seconds
+      errors.add(:created_at, "Too many attempts. Please wait before trying again.")
+    end
   end
 end
