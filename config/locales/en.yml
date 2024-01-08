@@ -73,6 +73,7 @@ en:
         first_name: First name 
         company: Company
         phone: Phone
+        email: Email
         description: Description
         category: Category
         categories:
@@ -83,6 +84,8 @@ en:
           partnership: Partnership
           other: Other
         accept_privacy_policy: Privacy policy
+        created_at: Created at
+        ip_address: IP Address
     errors:
       messages:
         in: must be in %{count}
@@ -211,4 +214,9 @@ en:
       accept_privacy_policy: By submitting this form, I accept our
     notice:
       form_sent: You successfully submitted the form
+  contact_mailer:
+    new_submission:
+      subject: "WEF Contact Form - [%{category}]"
+      title: "📢 New Contact Form Submission!"
+ 
 

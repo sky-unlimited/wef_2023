@@ -73,6 +73,7 @@ fr:
         first_name: Prénom 
         company: Société
         phone: Téléphone
+        email: Email
         description: Description
         category: Catégorie
         categories:
@@ -83,6 +84,8 @@ fr:
           partnership: Partenariat
           other: Autre
         accept_privacy_policy: Politique de confidentialité
+        created_at: Crée le
+        ip_address: Addresse IP
     errors:
       messages:
         in: doit être compris entre %{count}
@@ -212,3 +215,7 @@ fr:
       accept_privacy_policy: En soumettant ce formulaire vous acceptez notre
     notice:
       form_sent: Vous nous avez transmis le formulaire avec succès
+  contact_mailer:
+    new_submission:
+      subject: "WEF Formulaire de contact - [%{category}]"
+      title: "📢 Nouvelle soumission de formulaire!"

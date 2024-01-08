@@ -15,7 +15,9 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
     @contact.request = request  # Pass the request object to the model
+
     if @contact.save
+      ContactMailer.with(contact: @contact, recipient: WEF_CONFIG["contact_form_recipient"]).new_submission.deliver_later
       flash.notice = t('contact.notice.form_sent')
       redirect_to root_path
     else
