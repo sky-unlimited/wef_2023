@@ -13,7 +13,6 @@ class ContactTest < ActiveSupport::TestCase
       description: "This is a full description of my usefull request",
       accept_privacy_policy: true,
       honey_bot: "",
-      ip_address: "127.0.0.1"
     }
     contact = Contact.new(hash)
     assert contact.save
@@ -31,7 +30,6 @@ class ContactTest < ActiveSupport::TestCase
       description: "This is a full description of my usefull request",
       accept_privacy_policy: true,
       honey_bot: "Will the bot be trapped??",
-      ip_address: "127.0.0.1"
     }
     contact = Contact.new(hash)
     assert_not contact.save
@@ -47,7 +45,6 @@ class ContactTest < ActiveSupport::TestCase
              description: "This ...",
              accept_privacy_policy: true,
              honey_bot: "",
-             ip_address: "127.0.0.1"
     }
     contact = Contact.new(hash)
     assert_not contact.save
@@ -63,7 +60,6 @@ class ContactTest < ActiveSupport::TestCase
              description: "This is a usefull description of my problem",
              accept_privacy_policy: true,
              honey_bot: "", 
-             ip_address: "127.0.0.1"
     }
     contact = Contact.new(hash)
     assert_not contact.save

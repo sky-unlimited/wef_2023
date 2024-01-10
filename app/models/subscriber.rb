@@ -4,8 +4,7 @@ class Subscriber < ApplicationRecord
   attr_accessor :request
 
   before_create :add_unsubscribe_hash
-  #before_validation :add_ip_address
-  before_validation :add_ip_address, unless: -> { Rails.env.test? }
+  before_validation :add_ip_address
   before_validation :check_timelapse_before_last_attempt, on: :create, unless: -> { Rails.env.test? }
 
   validates :email, presence: true, uniqueness: true
@@ -33,7 +32,11 @@ class Subscriber < ApplicationRecord
     # Assuming your web server is behind a proxy like Nginx or Apache
     # Use request.headers["X-Forwarded-For"] to get the real IP address
     # If not using a proxy, you can use request.remote_ip directly
-    self.ip_address = request.headers["X-Forwarded-For"] || request.remote_ip
+    if Rails.env.test?
+      self.ip_address = '127.0.0.1'
+    else
+      self.ip_address = request.headers["X-Forwarded-For"] || request.remote_ip
+    end
   end
 
   def check_timelapse_before_last_attempt
