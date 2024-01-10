@@ -1,0 +1,77 @@
+<%= form_with model: @contact, data: { turbo: false } do |f| %>
+  <div class="form-inputs">
+    <% if @contact.errors.any? %>
+      <div class="alert-danger">
+        <p><%=  t("forms.messages.errors", count: @contact.errors.count) %> </p>
+        <ul>
+          <% @contact.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.label           :username,
+                          class: "form-label" %>
+    <%= f.text_field      :username, 
+                          class: "form-control mb-10",
+                          readonly: @is_session ? "readonly" : nil,
+                          placeholder: "e.g. Birdy001" %>
+
+    <%= f.label           :last_name,
+                          class: "form-label" %>
+    <%= f.text_field      :last_name,
+                          class: "form-control mb-10",
+                          placeholder: "e.g. Smith" %>
+
+    <%= f.label           :first_name,
+                          class: "form-label" %>
+    <%= f.text_field      :first_name,
+                          class: "form-control mb-10",
+                          placeholder: "e.g. John" %>
+
+    <%= f.label           :company,
+                          class: "form-label" %>
+    <%= f.text_field      :company,
+                          class: "form-control mb-10",
+                          placeholder: "e.g. my company" %>
+
+    <%= f.label           :email,
+                          class: "form-label" %>
+    <%= f.email_field      :email,
+                          class: "form-control mb-10",
+                          readonly: @is_session ? "readonly" : nil,
+                          placeholder: "e.g. john.smith@example.com" %>
+
+    <%= f.label           :phone,
+                          class: "form-label" %>
+    <%= f.phone_field     :phone,
+                          class: "form-control mb-10",
+                          placeholder: "e.g. +352 123 123 123" %>
+
+    <%= f.text_field     :honey_bot, hidden: true %>
+
+    <%= f.label           :category, class: "form-label" %>
+    <div class="mb-15 form-select">
+      <%= f.select        :category,
+                          Contact::CATEGORIES,
+                          class: "form-select" %>
+    </div>
+
+    <%= f.label           :description,
+                          class: "form-label" %>
+    <%= f.text_area       :description,
+                          class: "form-control mb-10",
+                          placeholder: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                          size: "50x10" %>
+
+    <%= f.check_box       :accept_privacy_policy %>
+    <%= f.label           t('contact.form.accept_privacy_policy') %>
+    <%= link_to t('legal.privacy_policy'), legal_privacy_path, class: "link-light", target: "_blank" %>
+                          
+
+  </div>
+  <div class="form-actions d-flex justify-content-center my-20">
+    <%= f.submit t('forms.contact.submit'), class: "btn btn-primary" %>
+  </div>
+<% end %>

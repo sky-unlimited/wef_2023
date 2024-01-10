@@ -4,6 +4,7 @@ en:
       pilot_pref: Pilot preferences
       trip_request: Trip Organization
       fuel_station: Fuel Station
+      contact: Contact Form
     attributes:
       pilot_pref:
         weather_profile: Weather Profile
@@ -66,6 +67,25 @@ en:
         charging_station: Charging Station
         email: Email
         phone: Phone
+      contact:
+        username: Username (if you're registered)
+        last_name: Last name
+        first_name: First name 
+        company: Company
+        phone: Phone
+        email: Email
+        description: Description
+        category: Category
+        categories:
+          privacy_policy: Privacy policy
+          billing: Billing issue
+          problem: Report a problem
+          improvement: Require an improvement
+          partnership: Partnership
+          other: Other
+        accept_privacy_policy: Privacy policy
+        created_at: Created at
+        ip_address: IP Address
     errors:
       messages:
         in: must be in %{count}
@@ -75,6 +95,11 @@ en:
         start_date_not_in_past: can't be in the past
         check_at_least_one_airport_type: Please choose at least one airport type
         check_at_least_one_poi_selected: Please select at least one
+      models:
+        contact:
+          attributes:
+            accept_privacy_policy:
+              inclusion: Please read and accept
   forms:
     messages:
       errors:
@@ -84,6 +109,8 @@ en:
       sign_up_tip: "💡 Tip: Once confirmed, update your pilot preferences in the account menu!"
       accept_terms: By Signing up you agree to Weekend-Fly’s
       and: and
+    contact:
+      submit: Submit
   users:
     errors:
       file_type: The uploaded format is not an image 
@@ -182,4 +209,14 @@ en:
   legal:
     privacy_policy: Privacy Policy
     terms_and_conditions: Terms & Conditions
+  contact:
+    form:
+      accept_privacy_policy: By submitting this form, I accept our
+    notice:
+      form_sent: You successfully submitted the form
+  contact_mailer:
+    new_submission:
+      subject: "WEF Contact Form - [%{category}]"
+      title: "📢 New Contact Form Submission!"
+ 
 

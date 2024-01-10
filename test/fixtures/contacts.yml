@@ -1,0 +1,14 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+contact_ok:
+  username:
+  last_name: lastname
+  first_name: firstname
+  company: company
+  email: test@example.com
+  phone: +352661466477
+  category: 0
+  description: This is a full description of my usefull request
+  accept_privacy_policy: true
+  ip_address: 141.94.17.140
+  honey_bot: 

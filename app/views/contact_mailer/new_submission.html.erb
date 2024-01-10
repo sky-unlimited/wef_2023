@@ -1,0 +1,12 @@
+<h1><%= t('contact_mailer.new_submission.title') %></h1>
+<h3><%= t('activerecord.attributes.contact.category') %>: <%= @contact.category %></h3>
+<p><b><%= t('activerecord.attributes.contact.email') %></b>: <%= @contact.email %></p>
+<p><b><%= t('activerecord.attributes.contact.created_at') %></b>: <%= l @contact.created_at, format: :short %></p>
+<p><b><%= t('activerecord.attributes.contact.ip_address') %></b>: <%= @contact.ip_address %></p>
+<p><b><%= t('activerecord.attributes.contact.last_name') %></b>: <%= @contact.last_name %></p>
+<p><b><%= t('activerecord.attributes.contact.first_name') %></b>: <%= @contact.first_name %></p>
+<p><b><%= t('activerecord.attributes.contact.username') %></b>: <%= @contact.username %></p>
+<p><b><%= t('activerecord.attributes.contact.phone')%></b>: <%= @contact.phone %></p>
+<p><b><%= t('activerecord.attributes.contact.company') %></b>: <%= @contact.company %></p>
+<p><b><%= t('activerecord.attributes.contact.description') %></b>: </p>
+<p><%= @contact.description %></p>

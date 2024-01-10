@@ -4,6 +4,7 @@ fr:
       pilot_pref: Préférences pilote
       trip_request: Organisation Voyage
       fuel_station: Stations d'avitaillement
+      contact: Formulaire de contact
     attributes:
       pilot_pref:
         weather_profile: Profile météo
@@ -66,6 +67,25 @@ fr:
         charging_station: Station Chargement
         email: Email
         phone: Téléphone
+      contact:
+        username: Identifiant (Si vous êtes enregistré)
+        last_name: Nom
+        first_name: Prénom 
+        company: Société
+        phone: Téléphone
+        email: Email
+        description: Description
+        category: Catégorie
+        categories:
+          privacy_policy: Vie privée
+          billing: Facturation
+          problem: Signaler un problème
+          improvement: Suggérer une amélioration
+          partnership: Partenariat
+          other: Autre
+        accept_privacy_policy: Politique de confidentialité
+        created_at: Crée le
+        ip_address: Addresse IP
     errors:
       messages:
         in: doit être compris entre %{count}
@@ -75,6 +95,11 @@ fr:
         start_date_not_in_past: ne peut être dans le passé
         check_at_least_one_airport_type: Veuillez au moins choisir une taille d'aéroprt de destination
         check_at_least_one_poi_selected: Veuillez en choisir au moins un
+      models:
+        contact:
+          attributes:
+            accept_privacy_policy:
+              inclusion: Veuillez lire et accepter
   forms:
     messages:
       errors:
@@ -85,6 +110,8 @@ fr:
       sign_up_tip: "💡 Conseil: une fois votre compte confirmé, veuillez mettre à jour vos préfèrences pilote!"
       accept_terms: En vous enregistrant sur Weekend-Fly, vous acceptez la
       and: ainsi que les
+    contact:
+      submit: Envoyez
   users:
     errors:
       file_type: Le format soumit n'est pas une image 
@@ -183,3 +210,12 @@ fr:
   legal:
     privacy_policy: Politique de Confidentialité
     terms_and_conditions: Termes et Conditions
+  contact:
+    form:
+      accept_privacy_policy: En soumettant ce formulaire vous acceptez notre
+    notice:
+      form_sent: Vous nous avez transmis le formulaire avec succès
+  contact_mailer:
+    new_submission:
+      subject: "WEF Formulaire de contact - [%{category}]"
+      title: "📢 Nouvelle soumission de formulaire!"
