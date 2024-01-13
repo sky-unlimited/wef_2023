@@ -20,6 +20,7 @@ One Community 💪
 - Trip request to find best destinations
 - Weather algorithm
 - Newsletter subscription
+- Contact form
 - Legal terms
 - 2 languages support (fr/en)
 
