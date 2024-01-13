@@ -15,7 +15,7 @@ class AirportsController < ApplicationController
   def show
     @airport = Airport.find(params[:id])
     @runways = @airport.runways
-    @audit_log_fuel_station = AuditLog.where(target_type: 0).last
+    @audit_log_fuel_station = AuditLog.where(target_controller: 0).last
 
     # Link to Visual Airport Chart if available
     # France icao
