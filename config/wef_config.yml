@@ -44,10 +44,10 @@ test:
 production:
   <<: *defaults
   contact_form_recipient: contact@sky-unlimited.lu
-  default_weather_calls_validity_hours: 8
+  default_weather_calls_validity_hours: 2
   default_weather_tile_precision: 1
-  default_weather_tile_depth: 4
-  fake_weather: true
+  default_weather_tile_depth: 6
+  fake_weather: false
 
 staging:
   <<: *defaults
