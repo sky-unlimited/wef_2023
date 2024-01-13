@@ -1,3 +1,5 @@
+require 'csv'
+
 class Contact < ApplicationRecord
   attr_accessor :request
 
@@ -28,6 +30,16 @@ class Contact < ApplicationRecord
   validates :category, inclusion: { in: CATEGORIES }
   validates :honey_bot, length: { is: 0 }
   #validates_format_of :phone, with: /\A(?:\+|00)[1-9][0-9 \-\(\)\.]{7,32}\z/, allow_blank: true # begin with "+" or "00" as we require international format, however a number like '+352661477661' doesn't validate. #TODO: Improve later the phone validation
+
+  def self.to_csv
+    attributes = %w[id username last_name first_name company email phone category description ip_address created_at]
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.each do |contact|
+        csv << contact.attributes.values_at(*attributes)
+      end
+    end
+  end
 
   private
 

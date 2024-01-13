@@ -5,6 +5,7 @@ fr:
       trip_request: Organisation Voyage
       fuel_station: Stations d'avitaillement
       contact: Formulaire de contact
+      subscriber: Souscription newsletter
     attributes:
       pilot_pref:
         weather_profile: Profile météo
