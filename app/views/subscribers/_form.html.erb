@@ -14,6 +14,8 @@
           <%= link_to t('subscribers.form.privacy_policy'), legal_privacy_path, class: "link-light", target: "_blank" %>
           <%= f.check_box :accept_private_data_policy %>
 
+          <%= f.text_field     :honey_bot, hidden: true %>
+
           <div class="form-actions mt-15">
             <%= f.submit t('subscribers.form.submit'), class:"btn btn-dark" %>
           </div>
