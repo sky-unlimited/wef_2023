@@ -47,16 +47,4 @@ class FuelStation < ApplicationRecord
     end
   end
 
-  def save_with_user(current_user, action, request)
-    self.populate_audit_logs(current_user, self.id, action, request)
-  end
-
-  private
-
-  def populate_audit_logs(current_user, target_id, action, request)
-    ip_address = request.headers["X-Forwarded-For"] || request.remote_ip
-    record = AuditLog.new(user_id: current_user.id, target_id: target_id, target_type: :fuel_station, action: action, ip_address: ip_address) 
-    record.save
-  end
-
 end

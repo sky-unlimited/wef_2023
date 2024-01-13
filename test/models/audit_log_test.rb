@@ -12,7 +12,7 @@ class AuditLogTest < ActiveSupport::TestCase
   end
 
   test "Missing target_id should not save" do
-    audit = AuditLog.new(user: users(:regular_user), target_type: :fuel_station, action: :created) 
+    audit = AuditLog.new(user: users(:regular_user), target_type: :fuel_stations, action: :created) 
     assert_not audit.save
   end
 
@@ -22,7 +22,7 @@ class AuditLogTest < ActiveSupport::TestCase
   end
 
   test "Missing action should not save" do
-    audit = AuditLog.new(user: users(:regular_user), target_id: 0, target_type: :fuel_station) 
+    audit = AuditLog.new(user: users(:regular_user), target_id: 0, target_type: :fuel_stations) 
     assert_not audit.save
   end
 end

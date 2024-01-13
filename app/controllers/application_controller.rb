@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     protected
   
     def configure_permitted_parameters
-      attributes = [ :last_name, :first_name, :username, :picture ]
+      attributes = [ :username, :picture ]
       devise_parameter_sanitizer.permit(:account_update, keys: attributes)
       devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
     end
@@ -30,5 +30,16 @@ class ApplicationController < ActionController::Base
       else
         store_location_for(resource) || request.referer || root_path
       end
+    end
+
+    def audit_log
+      action = params[:action] = "create" ? 0 : 1 # we can't keep AudotLog method names as :create or :update
+      @audit_log = AuditLog.new(
+        action: action,
+        target_type: params[:controller].to_sym,
+        user_id: current_user.id,
+        target_id: params[:id]
+      ) 
+      @audit_log.save
     end
 end
