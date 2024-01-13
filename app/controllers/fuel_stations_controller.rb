@@ -1,5 +1,5 @@
 class FuelStationsController < ApplicationController
-  before_action :audit_log, only: [ :create, :update ]
+  after_action :audit_log, only: [ :create, :update ]
 
   def index
     if current_user.role == "admin"

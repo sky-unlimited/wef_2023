@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   skip_before_action :authenticate_user!, :except => :index
+  after_action :audit_log, only: [ :create ]
 
   def index
   end
@@ -15,7 +16,7 @@ class ContactsController < ApplicationController
 
   def create
     @contact = Contact.new(contact_params)
-    @contact.request = request  # Pass the request object to the model
+    @contact.request = request  # Pass the request object to the model in order to retrieve ip_address
 
     if @contact.save
       ContactMailer.with(contact: @contact, recipient: WEF_CONFIG["contact_form_recipient"]).new_submission.deliver_later

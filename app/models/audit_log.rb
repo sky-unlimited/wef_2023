@@ -3,8 +3,8 @@
 class AuditLog < ApplicationRecord
   belongs_to :user
 
-  enum :action, { :created => 0, :updated =>1 }
-  enum :target_type, { :fuel_stations => 0 }
+  enum :action, { "created" => 0, "updated" => 1 }
+  enum :target_type, { "fuel_stations" => 0 , "contacts" => 1 }
 
   validates :user, presence: true
   validates :target_id, presence: true

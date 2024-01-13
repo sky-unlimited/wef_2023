@@ -33,13 +33,23 @@ class ApplicationController < ActionController::Base
     end
 
     def audit_log
-      action = params[:action] = "create" ? 0 : 1 # we can't keep AudotLog method names as :create or :update
-      @audit_log = AuditLog.new(
-        action: action,
-        target_type: params[:controller].to_sym,
-        user_id: current_user.id,
-        target_id: params[:id]
-      ) 
-      @audit_log.save
+      # in case of create action, the target_id is not provided in params, we have to determine it
+      # OPTIMIZE: Maybe improve this code
+      if params[:id].nil?
+        object_id = @fuel_station.id  unless @fuel_station.nil?
+        object_id = @contact.id       unless @contact.nil?
+      else
+        object_id = params[:id]
+      end
+      action = params[:action] == "create" ? 0 : 1 # we can't keep AudotLog method names as :create or :update
+      unless current_user.nil? #Example: no audit log if contact form submission without being logged in
+        @audit_log = AuditLog.new(
+          action: action,
+          target_type: params[:controller],
+          user_id: current_user.id,
+          target_id: object_id
+        ) 
+        @audit_log.save
+      end
     end
 end
