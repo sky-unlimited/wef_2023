@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
       unless current_user.nil? #Example: no audit log if contact form submission without being logged in
         @audit_log = AuditLog.new(
           action: action,
-          target_type: params[:controller],
+          target_controller: params[:controller],
           user_id: current_user.id,
           target_id: object_id
         ) 
