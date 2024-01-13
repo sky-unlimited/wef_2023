@@ -11,6 +11,7 @@ class Subscriber < ApplicationRecord
   #validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP  #not strict
   validates :email, email: true
   validates :accept_private_data_policy, acceptance: { message: I18n.t('subscribers.errors.accept_private_data_policy') }
+  validates :honey_bot, length: { is: 0 }
 
   def self.to_csv
     attributes = %w[id email created_at]

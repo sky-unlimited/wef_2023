@@ -5,4 +5,4 @@ subscriber_one:
   accept_private_data_policy: true
   unsubscribe_hash: <%= SecureRandom.hex %>
   ip_address: 10.10.10.1
-
+  honey_bot: ""

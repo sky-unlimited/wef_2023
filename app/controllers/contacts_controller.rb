@@ -23,6 +23,7 @@ class ContactsController < ApplicationController
       flash.notice = t('contact.notice.form_sent')
       redirect_to root_path
     else
+      logger.warn "#{Time.now} - [SECURITY] - Contact failure: #{request.remote_ip} | #{@contact.email}"
       render :new, status: :unprocessable_entity
     end
   end

@@ -11,6 +11,7 @@ class SubscribersController < ApplicationController
       redirect_to root_path
     else
       flash.alert = "#{t("subscribers.flash.register_nok")}: #{@subscriber.errors.first.full_message}"
+      logger.warn "#{Time.now} - [SECURITY] - Subscribers failure: #{request.remote_ip} | #{@subscriber.email}"
       redirect_to root_path
     end
   end
@@ -35,6 +36,6 @@ class SubscribersController < ApplicationController
   private
 
   def subscriber_input_params
-    params.permit(:email, :accept_private_data_policy, :unsubscribe_hash)
+    params.permit(:email, :accept_private_data_policy, :unsubscribe_hash, :honey_bot)
   end
 end

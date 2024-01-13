@@ -17,5 +17,9 @@ class SubscriberTest < ActiveSupport::TestCase
   test "Private policy not accepted should not save" do
     assert_not Subscriber.new(email: "test@example.com", accept_private_data_policy: false).save
   end
+
+  test "Filled honey bot field should not save" do
+    assert_not Subscriber.new(email: "test@example.com", accept_private_data_policy: true, honey_bot: "I'm trapped").save
+  end
 end
 
