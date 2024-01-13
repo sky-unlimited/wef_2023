@@ -3,6 +3,13 @@ class ContactsController < ApplicationController
   after_action :audit_log, only: [ :create ]
 
   def index
+    if current_user.role == "admin"
+      @contacts = Contact.all
+      respond_to do |format|
+        format.html
+        format.csv { send_data @contacts.to_csv, filename: "contacts-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"}
+      end
+    end
   end
 
   def new

@@ -14,11 +14,11 @@ class Subscriber < ApplicationRecord
   validates :honey_bot, length: { is: 0 }
 
   def self.to_csv
-    attributes = %w[id email created_at]
+    attributes = %w[id email ip_address created_at]
     CSV.generate(headers: true) do |csv|
       csv << attributes
-      all.each do |contact|
-        csv << contact.attributes.values_at(*attributes)
+      all.each do |subscription|
+        csv << subscription.attributes.values_at(*attributes)
       end
     end
   end

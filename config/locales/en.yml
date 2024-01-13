@@ -5,6 +5,7 @@ en:
       trip_request: Trip Organization
       fuel_station: Fuel Station
       contact: Contact Form
+      subscriber: Newsletter subscription
     attributes:
       pilot_pref:
         weather_profile: Weather Profile
@@ -83,6 +84,7 @@ en:
           improvement: Require an improvement
           partnership: Partnership
           other: Other
+          report_abuse: Report abuse
         accept_privacy_policy: Privacy policy
         created_at: Created at
         ip_address: IP Address
