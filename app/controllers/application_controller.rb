@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     protected
   
     def configure_permitted_parameters
-      attributes = [ :last_name, :first_name, :username, :picture ]
+      attributes = [ :username, :picture ]
       devise_parameter_sanitizer.permit(:account_update, keys: attributes)
       devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
     end
@@ -29,6 +29,27 @@ class ApplicationController < ActionController::Base
         super
       else
         store_location_for(resource) || request.referer || root_path
+      end
+    end
+
+    def audit_log
+      # in case of create action, the target_id is not provided in params, we have to determine it
+      # OPTIMIZE: Maybe improve this code
+      if params[:id].nil?
+        object_id = @fuel_station.id  unless @fuel_station.nil?
+        object_id = @contact.id       unless @contact.nil?
+      else
+        object_id = params[:id]
+      end
+      action = params[:action] == "create" ? 0 : 1 # we can't keep AudotLog method names as :create or :update
+      unless current_user.nil? #Example: no audit log if contact form submission without being logged in
+        @audit_log = AuditLog.new(
+          action: action,
+          target_controller: params[:controller],
+          user_id: current_user.id,
+          target_id: object_id
+        ) 
+        @audit_log.save
       end
     end
 end
