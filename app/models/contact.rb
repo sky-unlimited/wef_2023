@@ -9,13 +9,15 @@ class Contact < ApplicationRecord
                 I18n.t('activerecord.attributes.contact.categories.billing'),
                 I18n.t('activerecord.attributes.contact.categories.problem'),
                 I18n.t('activerecord.attributes.contact.categories.improvement'),
-                I18n.t('activerecord.attributes.contact.categories.partnership') ]
+                I18n.t('activerecord.attributes.contact.categories.partnership'),
+                I18n.t('activerecord.attributes.contact.categories.report_abuse') ]
   enum :category, { CATEGORIES[0] => 0,
                     CATEGORIES[1] => 10,
                     CATEGORIES[2] => 20,
                     CATEGORIES[3] => 30,
                     CATEGORIES[4] => 40,
-                    CATEGORIES[5] => 50
+                    CATEGORIES[5] => 50,
+                    CATEGORIES[6] => 60
                   }, _prefix: :category # OPTIMIZE: Improve this sentence, how to get ride of CATEGORIES constant?
 
   validates :email, presence: true
