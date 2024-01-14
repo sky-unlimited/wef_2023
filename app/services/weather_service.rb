@@ -88,7 +88,7 @@ class WeatherService
                                 {params: 
                                          {lat: lat, 
                                           lon: lon, 
-                                          appid: Rails.application.credentials.openweathermap.app_id,
+                                          appid: Rails.application.credentials.dig(Rails.env.to_sym).openweathermap.app_id,
                                           exclude: "current,hourly,minutely",
                                           units: "metric"}
                                 }

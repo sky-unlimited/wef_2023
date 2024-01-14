@@ -47,8 +47,9 @@ We update airports data from: [https://github.com/davidmegginson/ourairports-dat
 ### Secrets - Credentials
 Store following secrets in `config/credentials.yml.enc` by using: `EDITOR=vim rails credentials:edit`
 ````bash
-openweathermap:
-  app_id: your_secret_key
+development:
+  openweathermap:
+    app_id: your_secret_key
 
 action_mailer:
   mail_smtp_server: your_server
