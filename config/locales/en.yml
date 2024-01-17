@@ -6,6 +6,7 @@ en:
       fuel_station: Fuel Station
       contact: Contact Form
       subscriber: Newsletter subscription
+      user: User
     attributes:
       pilot_pref:
         weather_profile: Weather Profile

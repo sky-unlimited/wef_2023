@@ -6,6 +6,7 @@ fr:
       fuel_station: Stations d'avitaillement
       contact: Formulaire de contact
       subscriber: Souscription newsletter
+      user: Utilisateur
     attributes:
       pilot_pref:
         weather_profile: Profile météo

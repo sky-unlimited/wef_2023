@@ -4,19 +4,17 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: :home
   def home
     # We load the current covered countries (airport countries)
-    @countries_array = []
-    distinct_countries = Country.joins(:airports).distinct
-    distinct_countries.each do |country|
-      @countries_array.push country.code
-    end
+    @countries_array = WEF_CONFIG['airport_countries_to_import']
 
     # We count the number of amenities available in our database
-    @accomodation_count = PoiCatalogue.count(:accommodation)
-    @food_count = PoiCatalogue.count(:food) 
-    @bus_station_count = PoiCatalogue.count(:bus_station)
-    @bike_rental_count = PoiCatalogue.count(:bike_rental)
-    @camp_site_count = PoiCatalogue.count(:camp_site)
-    @car_rental_count = PoiCatalogue.count(:car_rental)
+    # Those counters are loaded only at server start and available
+    # through config/initializers/constants.rb
+    @accomodation_count = COUNT_ACCOMODATION
+    @food_count         = COUNT_FOOD 
+    @bus_station_count  = COUNT_BUS_STATION
+    @bike_rental_count  = COUNT_BIKE_RENTAL
+    @camp_site_count    = COUNT_CAMP_SITE
+    @car_rental_count   = COUNT_CAR_RENTAL
 
     # We set variables needed for airport searcher
     @base_url = set_base_url
