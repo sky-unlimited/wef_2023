@@ -44,6 +44,9 @@ We update airports data from: [https://github.com/davidmegginson/ourairports-dat
 
 `git submodule update --init --recursive`
 
+### Install all of the required gems 
+`bundle install`
+
 ### Secrets - Credentials
 Store following secrets in `config/credentials.yml.enc` by using: `EDITOR=vim rails credentials:edit`
 ````bash
@@ -74,9 +77,6 @@ create extension postgis;
 ````
 - Take care to use `postgis` adapter instead of `postgres` in `config/database.yml`
 
-### Install all of the required gems 
-`bundle install`
-
 ### Run migrations
 
 Database creation: (Follow this order 👇) 
@@ -88,9 +88,9 @@ rails db:seed
 Import the point of interest tables (osm_points, osm_lines, osm_polygones). Should you need them, please ask for it: contact@sky-unlimited.lu
 ````bash
 # Adapt to your PostgreSQL environment
-pg_restore -U $target_user --single-transaction --table=osm_points --data-only -h $target_host -d $target_database osm_points_backup.sql
-pg_restore -U $target_user --single-transaction --table=osm_lines --data-only -h $target_host -d $target_database osm_lines_backup.sql
-pg_restore -U $target_user --single-transaction --table=osm_polygones --data-only -h $target_host -d $target_database osm_polygones_backup.sql
+pg_restore -U rubyuser --single-transaction --table=osm_points --data-only -h localhost -d wef_2023_development osm_points_backup.sql
+pg_restore -U rubyuser --single-transaction --table=osm_lines --data-only -h localhost -d wef_2023_development osm_lines_backup.sql
+pg_restore -U rubyuser --single-transaction --table=osm_polygones --data-only -h localhost -d wef_2023_development osm_polygones_backup.sql
 ````
 
 ### Launch local server
