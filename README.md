@@ -34,7 +34,7 @@ One Community 💪
 ## Required packages
 On Debian distributions:
 
-`sudo apt install postgresql-14-postgis-3 libproj-dev proj-bin libpq-dev`
+`sudo apt install postgresql-14-postgis-3 libproj-dev proj-bin libpq-dev gh imagemagick libvips42`
 
 ## Installation
 To run Weekend-Fly localy, follow those steps:
