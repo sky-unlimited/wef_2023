@@ -44,8 +44,11 @@ We update airports data from: [https://github.com/davidmegginson/ourairports-dat
 
 `git submodule update --init --recursive`
 
-### Install all of the required gems 
-`bundle install`
+### Install all of the required gems
+````bash 
+gem install redis
+bundle install
+````
 
 ### Secrets - Credentials
 Store following secrets in `config/credentials.yml.enc` by using: `EDITOR=vim rails credentials:edit`
