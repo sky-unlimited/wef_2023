@@ -5,7 +5,10 @@
       <div><%= image_tag("globe.svg", style: "height:100px; width:auto") %></div>
       <h2 class="color-dark">Couverture</h2>
       <p class="text-center lh-base">
-      Nous sommes axés sur les voyages. On trouve des trésors partout en Europe ✨. Nous allons progressivement étendre les points d'intérêts à <b class="color-primary"> proximité</b>  des aéroports sur toute l'Europe.</br>
+      Nous sommes axés sur les voyages. On trouve des trésors partout en 
+      Europe ✨. Nous allons progressivement étendre les points d'intérêts à 
+      <b class="color-primary"> proximité</b>  des aéroports sur toute l'Europe
+      .</br>
       <p class="text-center text-decoration-underline">Actuellement couvert</p>
       <p class="text-center m-0"> 
       <% @countries_array.each do |country| %>
@@ -14,37 +17,75 @@
       </p>
     </div>
     <div class="d-flex flex-column align-items-center m-15 card-small">
-      <div><%= image_tag("map-pin.svg", style: "height:100px; width:auto") %></div>
+      <div>
+        <%= image_tag("map-pin.svg", style: "height:100px; width:auto") %>
+      </div>
       <h2 class="color-dark">Points d'intérêts</h2>
       <p class="text-center lh-base">
         Un échantillon de ce à quoi vous aurez accès:
       <p>
       <table>
         <tr>
-          <td style="min-width: 50px; text-align: center;"><%= image_tag(PoiCatalogue.inventory[:accommodation][:icon], style: "height:32px; width:auto") %></td>
-          <td class="color-primary text-center" style="font-size: 1.75em;"><%= "#{readable_number(@accomodation_count)}" %></td>
-          <td style="min-width: 50px; text-align: center;"><%= image_tag(PoiCatalogue.inventory[:food][:icon], style: "height:32px; width:auto") %></td>
-          <td class="color-primary" style="font-size: 1.75em;"><%= "#{readable_number(@food_count)}" %></td>
+          <td style="min-width: 50px; text-align: center;">
+            <%= image_tag(PoiCatalogue.inventory[:accommodation][:icon], 
+                          style: "height:32px; width:auto") %>
+          </td>
+          <td class="color-primary text-center" style="font-size: 1.75em;">
+            <%= "#{readable_number(@poi_counter[:accommodation])}" %>
+          </td>
+          <td style="min-width: 50px; text-align: center;">
+            <%= image_tag(PoiCatalogue.inventory[:food][:icon], 
+                          style: "height:32px; width:auto") %>
+          </td>
+          <td class="color-primary" style="font-size: 1.75em;">
+            <%= "#{readable_number(@poi_counter[:food])}" %>
+          </td>
         </tr>
         <tr>
-          <td style="min-width: 50px; text-align: center;"><%= image_tag(PoiCatalogue.inventory[:bus_station][:icon], style: "height:32px; width:auto") %></td>
-          <td class="color-primary" style="font-size: 1.75em;"><%= "#{readable_number(@bus_station_count)}" %></td>
-          <td style="min-width: 50px; text-align: center;"><%= image_tag(PoiCatalogue.inventory[:bike_rental][:icon], style: "height:32px; width:auto") %></td>
-          <td class="color-primary" style="font-size: 1.75em;"><%= "#{readable_number(@bike_rental_count)}" %></td>
+          <td style="min-width: 50px; text-align: center;">
+            <%= image_tag(PoiCatalogue.inventory[:bus_station][:icon], 
+                          style: "height:32px; width:auto") %>
+          </td>
+          <td class="color-primary" style="font-size: 1.75em;">
+            <%= "#{readable_number(@poi_counter[:bus_station])}" %>
+          </td>
+          <td style="min-width: 50px; text-align: center;">
+            <%= image_tag(PoiCatalogue.inventory[:bike_rental][:icon], 
+                          style: "height:32px; width:auto") %>
+          </td>
+          <td class="color-primary" style="font-size: 1.75em;">
+            <%= "#{readable_number(@poi_counter[:bike_rental])}" %>
+          </td>
         </tr>
         <tr>
-          <td style="min-width: 50px; text-align: center;"><%= image_tag(PoiCatalogue.inventory[:camp_site][:icon], style: "height:32px; width:auto") %></td>
-          <td class="color-primary" style="font-size: 1.75em;"><%= "#{readable_number(@camp_site_count)}" %></td>
-          <td style="min-width: 50px; text-align: center;"><%= image_tag(PoiCatalogue.inventory[:car_rental][:icon], style: "height:32px; width:auto") %></td>
-          <td class="color-primary" style="font-size: 1.75em;"><%= "#{readable_number(@car_rental_count)}" %></td>
+          <td style="min-width: 50px; text-align: center;">
+            <%= image_tag(PoiCatalogue.inventory[:camp_site][:icon], 
+                          style: "height:32px; width:auto") %>
+          </td>
+          <td class="color-primary" style="font-size: 1.75em;">
+            <%= "#{readable_number(@poi_counter[:camp_site])}" %>
+          </td>
+          <td style="min-width: 50px; text-align: center;">
+            <%= image_tag(PoiCatalogue.inventory[:car_rental][:icon], 
+                          style: "height:32px; width:auto") %>
+          </td>
+          <td class="color-primary" style="font-size: 1.75em;">
+            <%= "#{readable_number(@poi_counter[:car_rental])}" %>
+          </td>
         </tr>
       </table>
     </div>
     <div class="d-flex flex-column align-items-center m-15 card-small">
-      <div><%= image_tag("inbox.svg", style: "height:100px; width:auto") %></div>
+      <div>
+        <%= image_tag("inbox.svg", style: "height:100px; width:auto") %>
+      </div>
       <h2 class="color-dark">Bons plans du weekend</h2>
       <p class="text-center lh-base">
-      Vous ne savez pas ce qui se passe ce week-end? Recevez tous les mercredis des suggestions <b class="color-primary">individualisées</b> par email sur le week-end à venir! Des voyages courts , des voyages plus longs, des évennements et plus encore! Mais seulement là où le temps permet de voler! 🔆</p>
+      Vous ne savez pas ce qui se passe ce week-end? Recevez tous les mercredis 
+      des suggestions <b class="color-primary">individualisées</b> par email sur 
+      le week-end à venir! Des voyages courts , des voyages plus longs, des 
+      évennements et plus encore! Mais seulement là où le temps permet de voler! 
+      🔆</p>
     </div>
   </div>
 </section>

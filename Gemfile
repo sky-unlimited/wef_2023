@@ -53,7 +53,6 @@ gem 'passenger', '~> 6.0', '>= 6.0.19'
 
 # Project related additionnal gems
 gem 'devise', '~> 4.9', '>= 4.9.2'
-#gem 'dotenv-rails', '~> 2.8', '>= 2.8.1'
 gem 'sass-rails', '~> 6.0'
 gem 'ed25519', '~> 1.3'
 gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
@@ -61,8 +60,18 @@ gem 'rack-cors', '~> 2.0', '>= 2.0.1'
 gem 'rest-client', '~> 2.1'
 gem 'normalize_country', '~> 0.3.2'
 gem 'email_validator', '~> 2.2', '>= 2.2.4', require: 'email_validator/strict'
+
+# Charts js
 gem 'chartkick', '~> 5.0', '>= 5.0.5'
 gem 'groupdate', '~> 6.4'
+
+# Cache server
+gem 'redis', '~> 5.0', '>= 5.0.8'
+gem 'redis-rails', '~> 5.0', '>= 5.0.2'
+
+# Background jobs
+gem 'sidekiq', '~> 7.2'
+gem 'sidekiq-failures', '~> 1.0', '>= 1.0.4'
 
 # Geospatial queries
 gem 'activerecord-postgis-adapter', '~> 9.0', '>= 8.0.2'
