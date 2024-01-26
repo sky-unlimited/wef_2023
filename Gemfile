@@ -70,8 +70,9 @@ gem 'redis', '~> 5.0', '>= 5.0.8'
 gem 'redis-rails', '~> 5.0', '>= 5.0.2'
 
 # Background jobs
-gem 'sidekiq', '~> 7.2'
-gem 'sidekiq-failures', '~> 1.0', '>= 1.0.4'
+gem 'solid_queue', '~> 0.2.0'
+#gem 'sidekiq', '~> 7.2'
+#gem 'sidekiq-failures', '~> 1.0', '>= 1.0.4'
 
 # Geospatial queries
 gem 'activerecord-postgis-adapter', '~> 9.0', '>= 8.0.2'
