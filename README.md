@@ -30,11 +30,12 @@ One Community 💪
 * rails 7.1.2
 * bundler 2.4.10
 * postgresql-14
+* memcached 1.6.14
 
 ## Required packages
 On Debian distributions:
 
-`sudo apt install postgresql-14-postgis-3 libproj-dev proj-bin libpq-dev gh imagemagick libvips42`
+`sudo apt install postgresql-14-postgis-3 libproj-dev proj-bin libpq-dev gh memcached imagemagick libvips42`
 
 ## Installation
 To run Weekend-Fly localy, follow those steps:
@@ -46,7 +47,6 @@ We update airports data from: [https://github.com/davidmegginson/ourairports-dat
 
 ### Install all of the required gems
 ````bash 
-gem install redis
 bundle install
 ````
 

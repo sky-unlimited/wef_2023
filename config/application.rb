@@ -39,5 +39,8 @@ module Wef
     # this file):
     config.active_support.cache_format_version = 7.1
 
+    # Cache store
+    config.cache_store = :mem_cache_store
+
   end
 end

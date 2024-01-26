@@ -66,13 +66,10 @@ gem 'chartkick', '~> 5.0', '>= 5.0.5'
 gem 'groupdate', '~> 6.4'
 
 # Cache server
-gem 'redis', '~> 5.0', '>= 5.0.8'
-gem 'redis-rails', '~> 5.0', '>= 5.0.2'
+gem 'dalli', '~> 3.2', '>= 3.2.6'
 
 # Background jobs
 gem 'solid_queue', '~> 0.2.0'
-#gem 'sidekiq', '~> 7.2'
-#gem 'sidekiq-failures', '~> 1.0', '>= 1.0.4'
 
 # Geospatial queries
 gem 'activerecord-postgis-adapter', '~> 9.0', '>= 8.0.2'
