@@ -1,3 +1,4 @@
+# TODO: Convert into module and apply module_function
 class PoiCatalogue
   # If new groups added to trip_requests, please update PoiCatalogue.get_pois_group_per_trip_request
   @@inventory = {

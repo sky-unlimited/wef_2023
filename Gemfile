@@ -65,7 +65,7 @@ gem 'email_validator', '~> 2.2', '>= 2.2.4', require: 'email_validator/strict'
 gem 'chartkick', '~> 5.0', '>= 5.0.5'
 gem 'groupdate', '~> 6.4'
 
-# Cache server
+# Cache server memcached
 gem 'dalli', '~> 3.2', '>= 3.2.6'
 
 # Background jobs

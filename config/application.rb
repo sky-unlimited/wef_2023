@@ -40,7 +40,7 @@ module Wef
     config.active_support.cache_format_version = 7.1
 
     # Cache store
-    config.cache_store = :mem_cache_store
+    config.cache_store = :mem_cache_store # Will fallback to $MEMCACHE_SERVERS, then 127.0.0.1:11211
 
   end
 end
