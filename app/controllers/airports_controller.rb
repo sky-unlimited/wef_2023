@@ -111,24 +111,19 @@ class AirportsController < ApplicationController
     # @weather_airport_array = WeatherService.forecast(current_user, @airport)
     lat = @airport.latitude
     lon = @airport.longitude
-    forecast_array = Weather
-                     .read(WeatherTile.coordinates_to_tile_center(
-                       lat, lon
-                     )[:latitude],
-                           WeatherTile.coordinates_to_tile_center(
-                             lat, lon
-                           )[:longitude])
-
-    # We load the pilot preferences based on current_user
-    pilot_pref = PilotPref.find_by(user: current_user)
+    forecast_hash = Weather
+                    .read(WeatherTile.coordinates_to_tile_center(
+                      lat, lon
+                    )[:latitude],
+                          WeatherTile.coordinates_to_tile_center(
+                            lat, lon
+                          )[:longitude])
 
     # Add a tag  indiciating if weather condition compliant with
     #    pilot preferences
-    forecast_array['daily'].each do |weather|
-      weather['is_pilot_compliant'] =
-        pilot_pref.is_weather_pilot_compliant(weather)
-    end
-    @forecast_array = forecast_array
+    pilot_pref = PilotPref.find_by(user: current_user)
+    @forecast_hash  = pilot_pref.enrich_weather_forecast(forecast_hash)
+    @wind_limit     = pilot_pref.max_gnd_wind_speed
   end
 
   private

@@ -91,16 +91,6 @@
             </div>
           </div>
 
-          <div class="weather_forecast mt-5" data-controller="collapse">
-            <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-            <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
-            <div  id="weather_forecast_<%= index + 1 %>" 
-                  class="collapse bg-color3 border-radius p-10" 
-                  data-collapse-target="content">
-              <%= render partial: "airports/forecast", locals: { weather_array: @weather_destination_array[index] } %>
-            </div>
-          </div>
-
           <div class="top_destinations__poi mt-5" data-controller="collapse">
             <% poi_count_group = PoiCatalogue.count_groups_per_airport(airport) %>
             <% total_poi_sum = poi_count_group.values.sum %>

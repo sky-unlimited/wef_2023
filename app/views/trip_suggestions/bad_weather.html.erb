@@ -12,14 +12,34 @@
       <img src="https://openweathermap.org/img/wn/<%= @outbound_weather_data["weather"][0]["icon"] %>@2x.png" alt="weather icon">
       <p class="my-0"><%= @outbound_weather_ok ? "✅" : "❌" %></p>
       <p class="my-5"><%= @outbound_weather_data["weather"][0]["description"] %></p>
-      <p class="my-0"><%= "#{@outbound_weather_data["wind_deg"]}°#{winds_ms_to_kts(@outbound_weather_data["wind_speed"])} kts" %></p>
+      <p class="my-0"><%= "#{@outbound_weather_data["wind_deg"]}°" %>
+      <% if winds_ms_to_kts(@outbound_weather_data["wind_speed"]).to_f > @wind_limit %>
+        <span class="tag-primary mr-5">
+          <%= "#{winds_ms_to_kts(@outbound_weather_data["wind_speed"])}" %>
+        </span>kts
+      <% else %>
+        <span class="tag-success mr-5">
+          <%= "#{winds_ms_to_kts(@outbound_weather_data["wind_speed"])}" %>
+        </span>kts
+      <% end %>
+      </p>
     </div>
     <div class="d-flex flex-column align-items-center" >
       <p><b>inbound</b> <%= l @trip_request.end_date, format: :date_short %></p>
       <img src="https://openweathermap.org/img/wn/<%= @inbound_weather_data["weather"][0]["icon"] %>@2x.png" alt="weather icon">
       <p class="my-0"><%= @inbound_weather_ok ? "✅" : "❌" %></p>
       <p class="my-5"><%= @inbound_weather_data["weather"][0]["description"] %></p>
-      <p class="my-0"><%= "#{@inbound_weather_data["wind_deg"]}°#{winds_ms_to_kts(@inbound_weather_data["wind_speed"])} kts" %></p>
+      <p class="my-0"><%= "#{@inbound_weather_data["wind_deg"]}°" %>
+      <% if winds_ms_to_kts(@inbound_weather_data["wind_speed"]).to_f > @wind_limit %>
+        <span class="tag-primary mr-5">
+          <%= "#{winds_ms_to_kts(@inbound_weather_data["wind_speed"])}" %>
+        </span>kts
+      <% else %>
+        <span class="tag-success mr-5">
+          <%= "#{winds_ms_to_kts(@inbound_weather_data["wind_speed"])}" %>
+        </span>kts
+      <% end %>
+      </p>
     </div>
   </div>
   <%= link_to t('forms.back'), new_trip_request_path, class: "btn btn-primary my-10" %>
@@ -27,5 +47,5 @@
 
 <div class="container-sm bg-color3 border border-radius border-color2 d-flex flex-column p-5">
   <h2 class="text-center color-light"><%= t('trip_suggestions.weather_outlook.title') %></h2>
-  <%= render partial: "airports/forecast", locals: { weather_array: @weather_departure_array } %>
+  <%= render partial: "airports/forecast", locals: { weather_array: @forecast_array } %>
 </div>

@@ -2,12 +2,14 @@ require 'rgeo'
 require 'json'
 require 'uri'
 
+# Manages the outcome of suggested destinations
 class TripSuggestionsController < ApplicationController
   before_action :set_base_url, only: [:index]
 
   def index
     # We load the current user last trip request
-    @trip_request = TripRequest.where(user_id: current_user.id).order(id: :desc).first
+    @trip_request = TripRequest.where(user_id: current_user.id)
+                               .order(id: :desc).first
 
     # We load the pilot preferences
     @pilot_prefs = PilotPref.find_by(user_id: @trip_request.user_id)
@@ -18,77 +20,83 @@ class TripSuggestionsController < ApplicationController
     # Temporary indication on fake weather for display purpose
     @fake_weather = WEF_CONFIG['fake_weather']
 
-    # Geometries in geojson for depature date and return date for display purpose
-    @flyzone_outbound         = RGeo::GeoJSON.encode(destinations.flyzone_outbound.polygon).to_json
-    @flyzone_inbound          = RGeo::GeoJSON.encode(destinations.flyzone_inbound.polygon).to_json
-    @flyzone_common_polygons  = RGeo::GeoJSON.encode(destinations.flyzone_common_polygons).to_json
+    # Geometries in geojson for depature and return date for display purpose
+    @flyzone_outbound = RGeo::GeoJSON
+                        .encode(destinations.flyzone_outbound.polygon).to_json
+    @flyzone_inbound = RGeo::GeoJSON
+                       .encode(destinations.flyzone_inbound.polygon).to_json
+    @flyzone_common_polygons = RGeo::GeoJSON
+                               .encode(destinations.flyzone_common_polygons)
+                               .to_json
 
     # We load departure airport information for map display
     @departure_airport = []
-    @departure_airport.push( {  :name => @trip_request.airport.name,
-                                :icao => @trip_request.airport.icao,
-                                :airport_type => @trip_request.airport.airport_type,
-                                :geojson => RGeo::GeoJSON.encode(@trip_request.airport.lonlat),
-                                :icon_url => helpers.image_url("departure_airport.png")
-    })
+    hash = { name: @trip_request.airport.name,
+             icao: @trip_request.airport.icao,
+             airport_type: @trip_request.airport.airport_type,
+             geojson: RGeo::GeoJSON.encode(@trip_request.airport.lonlat),
+             icon_url: helpers.image_url('departure_airport.png') }
+    @departure_airport.push(hash)
 
     # We load airports with matching criterias for map display purpose
     @airports_matching_criterias_map = []
     destinations.airports_matching_criterias.each do |airport|
       case airport.airport_type
-      when "small_airport"
-        icon_url = "small_airport.png"
-      when "medium_airport"
-        icon_url = "medium_airport.png"
-      when "large_airport"
-        icon_url = "large_airport.png"
+      when 'small_airport'
+        icon_url = 'small_airport.png'
+      when 'medium_airport'
+        icon_url = 'medium_airport.png'
+      when 'large_airport'
+        icon_url = 'large_airport.png'
       end
-      @airports_matching_criterias_map.push({ :id => airport.id,
-                                              :name => airport.name,
-                                              :icao => airport.icao,
-                                              :airport_type => airport.airport_type,
-                                              :geojson => RGeo::GeoJSON.encode(airport.lonlat),
-                                              :icon_url => helpers.image_url(icon_url),
-                                              :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
-    })
+
+      link = "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
+      hash = { id: airport.id,
+               name: airport.name,
+               icao: airport.icao,
+               airport_type: airport.airport_type,
+               geojson: RGeo::GeoJSON.encode(airport.lonlat),
+               icon_url: helpers.image_url(icon_url),
+               detail_link: link }
+      @airports_matching_criterias_map.push(hash)
     end
 
     # We load flyzone airports for map display purpose
     @airports_flyzone_map = []
     destinations.airports_flyzone.each do |airport|
       case airport.airport_type
-      when "small_airport"
-        icon_url = "small_airport.png"
-      when "medium_airport"
-        icon_url = "medium_airport.png"
-      when "large_airport"
-        icon_url = "large_airport.png"
+      when 'small_airport'
+        icon_url = 'small_airport.png'
+      when 'medium_airport'
+        icon_url = 'medium_airport.png'
+      when 'large_airport'
+        icon_url = 'large_airport.png'
       end
-      @airports_flyzone_map.push({  :id => airport.id,
-                                    :name => airport.name,
-                                    :icao => airport.icao,
-                                    :airport_type => airport.airport_type,
-                                    :geojson => RGeo::GeoJSON.encode(airport.lonlat),
-                                    :icon_url => helpers.image_url(icon_url),
-                                    :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
-    })
+
+      link = "#{@base_url}/#{I18n.default_locale}/airports/#{airport.id}"
+      hash = { id: airport.id,
+               name: airport.name,
+               icao: airport.icao,
+               airport_type: airport.airport_type,
+               geojson: RGeo::GeoJSON.encode(airport.lonlat),
+               icon_url: helpers.image_url(icon_url),
+               detail_link: link }
+      @airports_flyzone_map.push(hash)
     end
 
     # We load the destination airports in separate array to be displayed
     @weather_destination_array  = []
     @airports_destination_map   = []
-    destinations.top_destination_airports.each_with_index do |destination, index|
-      @airports_destination_map.push({  :id => destination.id,
-                                    :name => destination.name,
-                                    :icao => destination.icao,
-                                    :airport_type => destination.airport_type,
-                                    :geojson => RGeo::GeoJSON.encode(destination.lonlat),
-                                    :icon_url => helpers.image_url("destination_#{index+1}.png"),
-                                    :detail_link => "#{@base_url}/#{I18n.default_locale}/airports/#{destination.id}"
-      })
-      
-      # We load the forecast of outbound airport
-      @weather_destination_array << WeatherService.forecast(current_user, destination)
+    destinations.top_destination_airports.each_with_index do |dest, index|
+      link = "#{@base_url}/#{I18n.default_locale}/airports/#{dest.id}"
+      hash = { id: dest.id,
+               name: dest.name,
+               icao: dest.icao,
+               airport_type: dest.airport_type,
+               geojson: RGeo::GeoJSON.encode(dest.lonlat),
+               icon_url: helpers.image_url("destination_#{index + 1}.png"),
+               detail_link: link }
+      @airports_destination_map.push(hash)
     end
 
     # We load the top destinations
@@ -97,30 +105,43 @@ class TripSuggestionsController < ApplicationController
     # We load the flight tracks for front-end (javascript)
     @flight_tracks = []
     @top_destination_airports.each do |airport|
-      flight_track = FlightTrack.new(@trip_request.airport.lonlat,
-                                     airport.lonlat,
-                                     @trip_request.user.pilot_pref.average_true_airspeed,
-                                     destinations.flyzone_common_polygons)
-      @flight_tracks << flight_track
+      track = FlightTrack.new(@trip_request.airport.lonlat,
+                              airport.lonlat,
+                              @trip_request.user
+                               .pilot_pref.average_true_airspeed,
+                              destinations.flyzone_common_polygons)
+      @flight_tracks << track
     end
 
     # We load weather for outbound and inbound for front-end (javascript)
-    @outbound_weather_data  = destinations.flyzone_outbound.get_weather_data_departure_to_date
-    @outbound_weather_ok    = destinations.flyzone_outbound.weather_departure_to_date_ok?
-    @inbound_weather_data   = destinations.flyzone_inbound.get_weather_data_departure_to_date
-    @inbound_weather_ok     = destinations.flyzone_inbound.weather_departure_to_date_ok?
+    @outbound_weather_data = destinations.flyzone_outbound
+                                         .origin_tile.weather_data_to_date
+    @outbound_weather_ok = destinations.flyzone_outbound
+                                       .origin_tile
+                                       .is_weather_pilot_compliant
+    @inbound_weather_data = destinations.flyzone_inbound
+                                        .origin_tile
+                                        .weather_data_to_date
+    @inbound_weather_ok = destinations.flyzone_inbound
+                                      .origin_tile
+                                      .is_weather_pilot_compliant
 
-    # If weather on departure airport not ok for outbound or inbound flight, we display a specific page
-    if  destinations.flyzone_outbound.weather_departure_to_date_ok?  == false || 
-        destinations.flyzone_inbound.weather_departure_to_date_ok? == false 
-      # We load the weather for departure airport in order to retrieve the forecast
-      @weather_departure_array = WeatherService.forecast(current_user, @trip_request.airport)
-      
-      # We render the bad weather specific page
-      flash.notice = t('trip_suggestions.notices.bad_weather', airport: @trip_request.airport.name)
-      render "bad_weather"
-    end
+    # If weather on departure airport not ok for outbound or inbound flight,
+    # we display a specific page
+    return unless @outbound_weather_ok == false || @inbound_weather_ok == false
 
+    # Load weather for departure airport in order to retrieve the forecast
+    forecast_hash = Weather.read(@trip_request.airport.latitude,
+                                 @trip_request.airport.longitude)
+
+    # Add a tag indiciating if weather condition compliant with pilot prefs
+    @forecast_hash  = @pilot_prefs.enrich_weather_forecast(forecast_hash)
+    @wind_limit     = @pilot_prefs.max_gnd_wind_speed
+
+    # We render the bad weather specific page
+    flash.notice = t('trip_suggestions.notices.bad_weather',
+                     airport: @trip_request.airport.name)
+    render 'bad_weather'
   end
 
   private
@@ -130,5 +151,4 @@ class TripSuggestionsController < ApplicationController
     uri = URI.parse(url)
     @base_url = "#{uri.scheme}://#{uri.host}:#{uri.port}"
   end
-
 end

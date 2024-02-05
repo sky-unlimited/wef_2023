@@ -25,17 +25,18 @@ require 'rgeo/geos'
 #   O (6,49)
 class WeatherTile
   attr_reader :polygon_geometry, :lon_center, :lat_center, :lon_tile_origin,
-              :lat_tile_origin, :weather_data
+              :lat_tile_origin, :is_weather_pilot_compliant,
+              :weather_data_to_date
 
-  # TODO; Delete args user, precision and replace effective_date by offset
-  def initialize(user, effective_date, precision, lon_tile_origin = nil,
+  # TODO; Delete args user, and replace effective_date by offset
+  def initialize(pilot_pref, effective_date, lon_tile_origin = nil,
                  lat_tile_origin = nil, airport = nil)
     # User and it's weather preferences
-    @user = user
+    @pilot_pref = pilot_pref
     # Date to retrieve weather information
     @effective_date = effective_date
     # Precision is the size of a tile. Smaller = more precise weather
-    @precision = precision
+    @precision  = WEF_CONFIG['default_weather_tile_precision'].to_f
     # Longitude center of the tile "C"
     @lon_center = nil
     # Latitude  center of the tile "C"
@@ -44,30 +45,28 @@ class WeatherTile
     @lon_tile_origin = lon_tile_origin
     # Latitude  of the origin point of the tile "O"
     @lat_tile_origin = lat_tile_origin
-    # Will store the needed weather info from openweather.com for 1 day
+    # Will store the daily weather for original tile
     @weather_data = nil
     # Polygon of the tile in RGeo factory format
     @polygon_geometry = nil
+    # We check if weather if pilot compliant
+    @is_weather_pilot_compliant = false
+    # Airport if origin tile (first tile)
+    @airport = airport
 
     # If the tile is instantiated with an airport, it means we have first to
-    # compute determine the bottom left coordinate.
+    # compute the bottom left coordinate.
     # All other tiles are determined based on this initial point.
     unless airport.nil?
-      @lon_tile_origin = get_origin(airport.longitude,
-                                    airport.latitude)[:longitude]
-      @lat_tile_origin = get_origin(airport.longitude,
-                                    airport.latitude)[:latitude]
+      @lon_tile_origin = WeatherTile.get_origin(airport.longitude,
+                                                airport.latitude)[:longitude]
+      @lat_tile_origin = WeatherTile.get_origin(airport.longitude,
+                                                airport.latitude)[:latitude]
     end
-    raise
     # We now have all info to create the tile while instantiation
     create_tile
-    get_weather_data
-  end
-
-  def is_weather_pilot_compliant?
-    # Depend on the pilot weather profile, we deduct if the tile asociated weather is ok or nok
-    # We check if weather code belongs to pilot's preference
-    WeatherService.is_weather_pilot_compliant?(@user, @weather_data)
+    @is_weather_pilot_compliant =
+      @pilot_pref.weather_pilot_compliant?(daily_weather)
   end
 
   # This method takes a latitude as input, places in a tile depending the
@@ -75,7 +74,7 @@ class WeatherTile
   def self.coordinate_to_tile_center(latitude, longitude)
     precision = WEF_CONFIG['default_weather_tile_precision']
     origin_tile_coordinates = get_origin(longitude, latitude)
-    center_coordinates = {
+    {
       latitude: origin_tile_coordinates[:latitude] + (precision.to_f / 2),
       longitude: origin_tile_coordinates[:longitude] + (precision.to_f / 2)
     }
@@ -116,30 +115,35 @@ class WeatherTile
     # origin.first is the boundary of longitude
     # origin.last  is the boundary of latitude
     # We return a hash
-    hash = { longitude: origin.first, latitude: origin.last }
+    { longitude: origin.first, latitude: origin.last }
   end
 
   def self.coordinates_to_tile_center(lat, lon)
     precision = WEF_CONFIG['default_weather_tile_precision'].to_f
-    lat_center = lat.floor + (1 +  ((lat - lat.floor) / precision).floor * 2) * (precision / 2)
-    lon_center = lon.floor + (1 +  ((lon - lon.floor) / precision).floor * 2) * (precision / 2)
+    lat_center = lat.floor +
+                 ((1 +  (((lat - lat.floor) / precision).floor * 2)) *
+                  (precision / 2))
+    lon_center = lon.floor +
+                 ((1 +  (((lon - lon.floor) / precision).floor * 2)) *
+                  (precision / 2))
 
-    return { latitude: lat_center, longitude: lon_center }
+    { latitude: lat_center, longitude: lon_center }
   end
 
   private
 
   def create_tile
-    # We define the coordinates of the tile depending on the departure airport and precision
+    # We define the coordinates of the tile depending on the departure airport
+    #   and precision
     # Exemple:  ELLX Airport
     #           longitude: 6.20444 latitude: 49.6233333
     #           Precision: 1
     #           See results below in comments
     #           !!! To obtain a square tile, top_tile * (4/6)
-    left_tile    = @lon_tile_origin                                 # 6  ELLX -> if precision=1
-    right_tile   = @lon_tile_origin + @precision                    # 7  ELLX -> if precision=1
-    bottom_tile  = @lat_tile_origin                                 # 49 ELLX -> if precision=1
-    top_tile     = @lat_tile_origin + (@precision * (1.to_f / 1)) # 50 ELLX -> if precision=1
+    left_tile    = @lon_tile_origin
+    right_tile   = @lon_tile_origin + @precision
+    bottom_tile  = @lat_tile_origin
+    top_tile     = @lat_tile_origin + (@precision * (1.to_f / 1))
 
     # x axis is longitude
     # y axis is latitude
@@ -170,13 +174,16 @@ class WeatherTile
     @lat_center = bottom_tile + ((top_tile.to_f - bottom_tile.to_f) / 2)
   end
 
-  def get_weather_data
+  def daily_weather
     # We need to determine at which date we need the weather
     # Openweather API provides daily forecast for 7 days
     day_offset = (@effective_date.to_date - Date.current).to_i
 
     # We retrieve the weather for a defined forecast day
-    @weather_data = Weather.read(@lat_center, @lon_center)
-    ['daily'][day_offset]
+    weather_daily = Weather.read(@lat_center, @lon_center)['daily'][day_offset]
+
+    # If origin tile, we load weather
+    @weather_data_to_date = weather_daily unless @airport.nil?
+    weather_daily
   end
 end
