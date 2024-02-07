@@ -45,7 +45,7 @@ test:
 
 production:
   <<: *defaults
-  weather_cache_expire_hour: 6
+  weather_cache_expire_hour: 12
   contact_form_recipient: contact@sky-unlimited.lu
   default_weather_tile_depth: 6
 
