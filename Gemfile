@@ -68,6 +68,9 @@ gem 'groupdate', '~> 6.4'
 # Cache server memcached
 gem 'dalli', '~> 3.2', '>= 3.2.6'
 
+# Scheduler
+gem 'whenever', require: false
+
 # Background jobs
 gem 'solid_queue', '~> 0.2.0'
 
