@@ -44,6 +44,5 @@ require 'capistrano/rbenv'
 require 'capistrano/rake'
 require 'whenever/capistrano'
 #require 'capistrano/sitemap_generator'
-set :whenever_environment, defer { stage }
 set :rbenv_type, :user
 set :rbenv_ruby, '3.2.2'
