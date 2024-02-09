@@ -22,6 +22,8 @@
 # To update the crontab file:
 # whenever --update-crontab --set 'environment=staging'
 
+set :output, "/home/deploy/logs/wef_2023/cron.log"
+
 every 1.day, at: ['6:00 am', '6:00 pm'], roles: [:app] do
   rake "weather:update"
 end
