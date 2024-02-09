@@ -65,13 +65,14 @@ gem 'email_validator', '~> 2.2', '>= 2.2.4', require: 'email_validator/strict'
 gem 'chartkick', '~> 5.0', '>= 5.0.5'
 gem 'groupdate', '~> 6.4'
 
-# Cache server
-gem 'redis', '~> 5.0', '>= 5.0.8'
-gem 'redis-rails', '~> 5.0', '>= 5.0.2'
+# Cache server memcached
+gem 'dalli', '~> 3.2', '>= 3.2.6'
+
+# Scheduler
+gem 'whenever', require: false
 
 # Background jobs
-gem 'sidekiq', '~> 7.2'
-gem 'sidekiq-failures', '~> 1.0', '>= 1.0.4'
+gem 'solid_queue', '~> 0.2.0'
 
 # Geospatial queries
 gem 'activerecord-postgis-adapter', '~> 9.0', '>= 8.0.2'

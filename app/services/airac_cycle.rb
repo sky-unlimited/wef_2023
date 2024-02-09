@@ -1,9 +1,10 @@
+# This class is a helper to deduct airac cycles depending source
 class AiracCycle
-
-  attr_reader :current_airac_cycle, :current_effective_date, :next_effective_date
+  attr_reader :current_airac_cycle, :current_effective_date,
+              :next_effective_date
 
   def initialize
-    @current_airac_cycle = 0 
+    @current_airac_cycle = 0
     @current_effective_date = nil
     @next_effective_date = nil
 
@@ -17,52 +18,26 @@ class AiracCycle
     year  = @current_effective_date.year
 
     # Format day
-    day_f = sprintf("%02d", day.to_i)
+    day_f = format('%02d', day.to_i)
 
     # Format month
-    month_f = case month.to_i
-      when 1
-        "JAN"
-      when 2
-        "FEB"
-      when 3
-        "MAR"
-      when 4
-        "APR"
-      when 5
-        "MAY"
-      when 6
-        "JUN"
-      when 7
-        "JUL"
-      when 8
-        "AUG"
-      when 9
-        "SEP"
-      when 10
-        "OCT"
-      when 11
-        "NOV"
-      when 12
-        "DEC"
-      else
-        "Invalid Month"
-      end
+    months = %w[JAN FEB MAR APR MAY JUN JUL AUG SEP OCT DEC]
+    month_f = months[month.to_i - 1]
 
-    return "#{day_f}_#{month_f}_#{year}"
+    "#{day_f}_#{month_f}_#{year}"
   end
 
   private
 
   def update_current_cycle
-    # Define an initial cycle and its effective date
+    # Define initial cycle and its effective date
     initial_cycle = 2309
     initial_effective_date = Date.new(2023, 9, 7)
 
     # Current date
     current_date = Date.today
 
-    # Calculate the difference in days between the current date and the initial date
+    # Calculate difference in days between current and initial date
     days_elapsed = (current_date - initial_effective_date).to_i
 
     # Calculate the current AIRAC cycle

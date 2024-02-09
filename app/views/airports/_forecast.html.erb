@@ -1,15 +1,25 @@
 <table class="mb-10 align-center table-bordered-light">
-  <% weather_array.each_with_index do |record, index| %>
-    <% next if index.zero? %>
+  <% @forecast_hash['daily'].each_with_index do |record, index| %>
     <tr>
       <% record_date = Date.current + index.day %>
       <td><%= record_date.strftime('%a %d/%m') %></td>
       <td>
-        <img src="https://openweathermap.org/img/wn/<%= record["icon"] %>.png" alt="<%= record["description"] %>">
+        <img src="https://openweathermap.org/img/wn/<%= record["weather"][0]["icon"] %>.png" alt="<%= Weather.description(record['weather'][0]['id'])['description'] %>">
       </td>
-      <td><%= "#{record["wind_deg"]}°#{winds_ms_to_kts(record["wind_speed"])} kts" %></td>
-      <td><%= record["description"] %></td>
-      <td title="<%= record["weather_ok"] ? t('trip_suggestions.weather_outlook.compliant_with_weather') : t('trip_suggestions.weather_outlook.not_compliant_with_weather')%>"><%= record["weather_ok"] ? image_tag("fly_ok.png") : image_tag("fly_nok.png") %></td>
+      <td>
+        <%= "#{record["wind_deg"]}°" %>
+        <% if winds_ms_to_kts(record["wind_speed"]).to_f > @wind_limit %>
+          <span class="tag-primary mr-5">
+            <%= "#{winds_ms_to_kts(record["wind_speed"])}" %>
+          </span>kts
+        <% else %>
+          <span class="tag-light mr-5">
+            <%= "#{winds_ms_to_kts(record["wind_speed"])}" %>
+          </span>kts
+        <% end %>
+      </td>
+      <td><%= Weather.description(record['weather'][0]['id'])['description'] %></td>
+      <td title="<%= record["is_pilot_compliant"] ? t('trip_suggestions.weather_outlook.compliant_with_weather') : t('trip_suggestions.weather_outlook.not_compliant_with_weather')%>"><%= record["is_pilot_compliant"] ? image_tag("fly_ok.png") : image_tag("fly_nok.png") %></td>
     </tr>
   <% end %>
 </table>
