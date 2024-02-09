@@ -14,9 +14,9 @@ require 'rgeo/geos'
 #
 # "O" Origin point of a weather tile
 #   => (lon_tile_origin, lat_tile_origin)
-# "C" Center point of a tile on which we'll the weather information
-#   => (lon_center, lat_center)
-# "A" if provided, represents the Airport lto determine the first tile (airport)
+# "C" Center point of a tile on which we will call the weather information
+#   => (lat_center, lon_center)
+# "A" if provided, represents the Airport determining the first tile
 # Example:
 #   ELLX Luxembourg
 #   Precision: 1
@@ -65,8 +65,24 @@ class WeatherTile
     end
     # We now have all info to create the tile while instantiation
     create_tile
-    @is_weather_pilot_compliant =
-      @pilot_pref.weather_pilot_compliant?(daily_weather)
+
+    # We check that we don't call weather services if outside the weather
+    #   limits provided by config/wef_config.yml
+    wt_left_limit  = WEF_CONFIG['weather_tiles_left_limit']
+    wt_right_limit = WEF_CONFIG['weather_tiles_right_limit']
+    wt_upper_limit = WEF_CONFIG['weather_tiles_upper_limit']
+    wt_lower_limit = WEF_CONFIG['weather_tiles_lower_limit']
+
+    if @lon_tile_origin >= wt_left_limit &&
+       @lon_tile_origin < wt_right_limit &&
+       @lat_tile_origin < wt_upper_limit &&
+       @lat_tile_origin >= wt_lower_limit
+      @is_weather_pilot_compliant =
+        @pilot_pref.weather_pilot_compliant?(daily_weather)
+    else
+      # we consider bad weather
+      @is_weather_pilot_compliant = false
+    end
   end
 
   # This method takes a latitude as input, places in a tile depending the

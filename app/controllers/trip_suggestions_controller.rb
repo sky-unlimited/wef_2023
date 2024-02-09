@@ -18,7 +18,7 @@ class TripSuggestionsController < ApplicationController
     destinations = Destinations.new(@trip_request)
 
     # Temporary indication on fake weather for display purpose
-    @fake_weather = WEF_CONFIG['fake_weather']
+    @fake_weather = false
 
     # Geometries in geojson for depature and return date for display purpose
     @flyzone_outbound = RGeo::GeoJSON
@@ -131,8 +131,13 @@ class TripSuggestionsController < ApplicationController
     return unless @outbound_weather_ok == false || @inbound_weather_ok == false
 
     # Load weather for departure airport in order to retrieve the forecast
-    forecast_hash = Weather.read(@trip_request.airport.latitude,
-                                 @trip_request.airport.longitude)
+    coord_center = WeatherTile.coordinate_to_tile_center(
+      @trip_request.airport.latitude,
+      @trip_request.airport.longitude
+    )
+
+    forecast_hash = Weather.read(coord_center[:latitude],
+                                 coord_center[:longitude])
 
     # Add a tag indiciating if weather condition compliant with pilot prefs
     @forecast_hash  = @pilot_prefs.enrich_weather_forecast(forecast_hash)

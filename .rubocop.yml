@@ -33,3 +33,5 @@ Style/FrozenStringLiteralComment:
 Metrics/BlockLength:
   CountComments: false
   Max: 30
+Naming/MethodParameterName:
+  MinNameLength: 1

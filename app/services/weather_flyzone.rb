@@ -74,7 +74,8 @@ class WeatherFlyzone
     # We continue the process and explore the surroundings of the initial tile,
     #   depth by depth
     stop_loop = 0
-    (1..@depth + correction_x).each do |current_depth|
+    # (1..@depth + correction_x).each do |current_depth|
+    (1..(indexes_x / 2)).each do |current_depth|
       stop_loop = explore_depth_level(x_grid_init,
                                       y_grid_init,
                                       virtual_grid,
@@ -103,7 +104,7 @@ class WeatherFlyzone
   # ------------------------------------------
   # | 0 | 1 | 2 | 3 | 4 || 4 | 5 | 6 | 7 | 8 |
   # ------------------------------------------
-  # | 0 | 1 | 2 | 3 | 4 || 4 | 5 | 6 | 7 | 8 |
+  # | 0 | 1 | 2 | 3 | 4 || 4 | 5 | 6 | 7 | i |
   # ------------------------------------------
   # | 0 | 1 | 2 | 3 | 4 || 4 | 5 | 6 | 7 | 8 |
   # ------------------------------------------

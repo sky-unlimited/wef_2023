@@ -1,6 +1,5 @@
 <table class="mb-10 align-center table-bordered-light">
   <% @forecast_hash['daily'].each_with_index do |record, index| %>
-    <% next if index.zero? %>
     <tr>
       <% record_date = Date.current + index.day %>
       <td><%= record_date.strftime('%a %d/%m') %></td>

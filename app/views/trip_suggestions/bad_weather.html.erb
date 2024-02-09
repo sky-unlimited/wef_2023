@@ -47,5 +47,5 @@
 
 <div class="container-sm bg-color3 border border-radius border-color2 d-flex flex-column p-5">
   <h2 class="text-center color-light"><%= t('trip_suggestions.weather_outlook.title') %></h2>
-  <%= render partial: "airports/forecast", locals: { weather_array: @forecast_array } %>
+  <%= render partial: "airports/forecast", locals: { weather_array: @forecast_hash } %>
 </div>
