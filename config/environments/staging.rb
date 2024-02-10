@@ -60,20 +60,13 @@ Rails.application.configure do
   #   .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
   #   .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
-  stdout_logger           = ActiveSupport::Logger.new(STDOUT)
-  stdout_logger.formatter = ::Logger::Formatter.new
-
-  file_logger             = ActiveSupport::Logger.new("log/staging.log")
-  file_logger.formatter   = ::Logger::Formatter.new
-
-  tagged_stdout_logger    = ActiveSupport::TaggedLogging.new(stdout_logger)
-  tagged_file_logger      = ActiveSupport::TaggedLogging.new(file_logger)
-
-  broadcast_logger = ActiveSupport::BroadcastLogger.new(tagged_stdout_logger, tagged_file_logger)
-  config.logger    = broadcast_logger
+  # Log to "log/staging.log" by default
+  config.logger = ActiveSupport::Logger.new("log/staging.log")
+    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id, lambda { |req| Time.now } ]
+  # config.log_tags = [ :request_id, lambda { |req| Time.now } ]
 
   # Info include generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
