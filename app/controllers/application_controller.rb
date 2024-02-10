@@ -47,7 +47,8 @@ class ApplicationController < ActionController::Base
           action: action,
           target_controller: params[:controller],
           user_id: current_user.id,
-          target_id: object_id
+          target_id: object_id,
+          ip_address: request.remote_ip
         ) 
         @audit_log.save
       end
