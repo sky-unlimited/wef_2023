@@ -6,7 +6,7 @@ module ImportHelpers
     point = factory.point(row['longitude_deg'].to_f, row['latitude_deg'].to_f)
 
     # We instanciate an airport from the csv row
-    airport_hash = { icao: row['ident'], name: row['name'], city: row['municipality'], country: country, iata: row['iata_code'], latitude: row['latitude_deg'], longitude: row['longitude_deg'], altitude: row['elevation_ft'], airport_type: row['type'], url: row['home_link'], local_code: row['local_code'], lonlat: point }
+    airport_hash = { ourairports_id: row['id'], icao: row['ident'], name: row['name'], city: row['municipality'], country: country, iata: row['iata_code'], latitude: row['latitude_deg'], longitude: row['longitude_deg'], altitude: row['elevation_ft'], airport_type: row['type'], url: row['home_link'], local_code: row['local_code'], lonlat: point }
   end
 
   def csv_to_runways(row, airport)

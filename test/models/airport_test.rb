@@ -32,6 +32,6 @@ class AirportTest < ActiveSupport::TestCase
     test "ourairports_id should be unique" do
       airport_hash = { icao: "LFJZ", name: "Chambley test", city: "Chambley", country: countries(:france), latitude: 49.025501, longitude: 5.87607, altitude: 866, airport_type: "small_airport", ourairports_id: 2563 }
       record = Airport.new(airport_hash)
-      assert record.save
+      assert_not record.save
     end
 end
