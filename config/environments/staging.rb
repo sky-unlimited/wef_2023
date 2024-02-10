@@ -56,9 +56,21 @@ Rails.application.configure do
   config.force_ssl = false
 
   # Log to STDOUT by default
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+  # config.logger = ActiveSupport::Logger.new(STDOUT)
+  #   .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+  #   .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+
+  stdout_logger           = ActiveSupport::Logger.new(STDOUT)
+  stdout_logger.formatter = ::Logger::Formatter.new
+
+  file_logger             = ActiveSupport::Logger.new("log/staging.log")
+  file_logger.formatter   = ::Logger::Formatter.new
+
+  tagged_stdout_logger    = ActiveSupport::TaggedLogging.new(stdout_logger)
+  tagged_file_logger      = ActiveSupport::TaggedLogging.new(file_logger)
+
+  broadcast_logger = ActiveSupport::BroadcastLogger.new(tagged_stdout_logger, tagged_file_logger)
+  config.logger    = broadcast_logger
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id, lambda { |req| Time.now } ]
