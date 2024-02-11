@@ -15,7 +15,8 @@ class AirportsController < ApplicationController
   # GET /airports/1
   def show
     @airport = Airport.find(params[:id])
-    fuel_station_id = FuelStation.find_by(airport_id: @airport.id).id
+    fuel_station = FuelStation.find_by(airport_id: @airport.id)
+    fuel_station_id = fuel_station.id unless fuel_station.nil?
     @runways = @airport.runways
     @audit_log_fuel_station = AuditLog.where(target_controller: 0)
                                       .and(AuditLog.where(
