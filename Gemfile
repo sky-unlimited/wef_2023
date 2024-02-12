@@ -107,6 +107,11 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
   gem 'capistrano-bundler', '~> 2.1'
   gem 'capistrano-git-with-submodules', '~> 2.0', '>= 2.0.6'
+
+  # Performance trackers
+  gem 'bullet', '~> 7.1', '>= 7.1.6'
+  gem 'rack-mini-profiler', '~> 3.3'
+
 end
 
 group :test do
