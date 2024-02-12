@@ -20,18 +20,31 @@ class AirportsController < ApplicationController
     @runways = @airport.runways
     @audit_log_fuel_station = AuditLog.where(target_controller: 0)
                                       .and(AuditLog.where(
-                                        target_id: fuel_station_id)).last
+                                             target_id: fuel_station_id
+                                           )).last
 
     # Link to Visual Airport Chart if available
     # France icao
     if @airport.icao.match?(/^LF..$/) # VAC only for ICAO airports
       # https://en.wikipedia.org/wiki/Aeronautical_Information_Publication
       airac_cycle = AiracCycle.new
-      @vac_link = "https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_#{airac_cycle.convert_to_sia_format}/Atlas-VAC/PDF_AIPparSSection/VAC/AD/AD-2.#{@airport.icao}.pdf"
+      @vac_link = 'https://www.sia.aviation-civile.gouv.fr/dvd/eAIP_' \
+                  "#{airac_cycle.convert_to_sia_format}/Atlas-VAC/" \
+                  "PDF_AIPparSSection/VAC/AD/AD-2.#{@airport.icao}.pdf"
     end
     # France baseulm (ultralight airfields)
     if !@airport.local_code.nil? && @airport.local_code.match?(/^LF....$/)
       @vac_link = "https://basulm.ffplum.fr/PDF/#{@airport.local_code}.pdf"
+    end
+
+    # Netherlands
+    nl_eligible = %w[EHAL EHAM EHBD EHBK EHDR EHEH EHGG EHHO EHHV EHKD EHLE
+                     EHMZ EHOW EHRD EHSE EHST EHTE EHTL EHTW EHTX]
+    if nl_eligible.include?(@airport.icao)
+      airac_cycle = AiracCycle.new
+      @vac_link = 'https://eaip.lvnl.nl/web/' \
+                  "#{airac_cycle.convert_to_nl_format}/html/eAIP/EH-AD-2." \
+                  "#{@airport.icao}-en-GB.html#AD-2.#{@airport.icao}"
     end
 
     # Load the osm_points
