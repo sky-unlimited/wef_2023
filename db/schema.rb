@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_151744) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_18_160126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -140,6 +140,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_151744) do
     t.integer "airport_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "osm_pois", force: :cascade do |t|
+    t.bigint "osm_id", null: false
+    t.string "osm_name"
+    t.string "amenity", null: false
+    t.string "tags", null: false
+    t.geometry "geom_point", limit: {:srid=>3857, :type=>"st_point"}
+    t.geometry "geom_line", limit: {:srid=>3857, :type=>"line_string"}
+    t.geometry "geom_polygon", limit: {:srid=>3857, :type=>"st_polygon"}
+    t.integer "distance"
+    t.bigint "airport_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airport_id"], name: "index_osm_pois_on_airport_id"
   end
 
   create_table "osm_polygones", force: :cascade do |t|
@@ -354,6 +369,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_151744) do
   add_foreign_key "airports", "countries"
   add_foreign_key "audit_logs", "users"
   add_foreign_key "fuel_stations", "airports"
+  add_foreign_key "osm_pois", "airports"
   add_foreign_key "pilot_prefs", "airports"
   add_foreign_key "pilot_prefs", "users"
   add_foreign_key "runways", "airports"
