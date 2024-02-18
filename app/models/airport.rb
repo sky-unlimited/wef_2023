@@ -11,7 +11,6 @@ class Airport < ApplicationRecord
   validates :longitude, presence: true
   validates :latitude, presence: true
   validates :airport_type, presence: true, inclusion: { in: ACCEPTED_AIRPORT_TYPES }
-  validates :ourairports_id, presence: true, uniqueness: true
   validate :filter_airports
 
   def filter_airports

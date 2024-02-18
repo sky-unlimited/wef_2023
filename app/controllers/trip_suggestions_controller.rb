@@ -34,7 +34,7 @@ class TripSuggestionsController < ApplicationController
     hash = { name: @trip_request.airport.name,
              icao: @trip_request.airport.icao,
              airport_type: @trip_request.airport.airport_type,
-             geojson: RGeo::GeoJSON.encode(@trip_request.airport.lonlat),
+             geojson: RGeo::GeoJSON.encode(@trip_request.airport.geom_point),
              icon_url: helpers.image_url('departure_airport.png') }
     @departure_airport.push(hash)
 
@@ -55,7 +55,7 @@ class TripSuggestionsController < ApplicationController
                name: airport.name,
                icao: airport.icao,
                airport_type: airport.airport_type,
-               geojson: RGeo::GeoJSON.encode(airport.lonlat),
+               geojson: RGeo::GeoJSON.encode(airport.geom_point),
                icon_url: helpers.image_url(icon_url),
                detail_link: link }
       @airports_matching_criterias_map.push(hash)
@@ -78,7 +78,7 @@ class TripSuggestionsController < ApplicationController
                name: airport.name,
                icao: airport.icao,
                airport_type: airport.airport_type,
-               geojson: RGeo::GeoJSON.encode(airport.lonlat),
+               geojson: RGeo::GeoJSON.encode(airport.geom_point),
                icon_url: helpers.image_url(icon_url),
                detail_link: link }
       @airports_flyzone_map.push(hash)
@@ -93,7 +93,7 @@ class TripSuggestionsController < ApplicationController
                name: dest.name,
                icao: dest.icao,
                airport_type: dest.airport_type,
-               geojson: RGeo::GeoJSON.encode(dest.lonlat),
+               geojson: RGeo::GeoJSON.encode(dest.geom_point),
                icon_url: helpers.image_url("destination_#{index + 1}.png"),
                detail_link: link }
       @airports_destination_map.push(hash)
@@ -105,8 +105,8 @@ class TripSuggestionsController < ApplicationController
     # We load the flight tracks for front-end (javascript)
     @flight_tracks = []
     @top_destination_airports.each do |airport|
-      track = FlightTrack.new(@trip_request.airport.lonlat,
-                              airport.lonlat,
+      track = FlightTrack.new(@trip_request.airport.geom_point,
+                              airport.geom_point,
                               @trip_request.user
                                .pilot_pref.average_true_airspeed,
                               destinations.flyzone_common_polygons)

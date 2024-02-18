@@ -2,7 +2,6 @@
 
 ellx_runway:
   airport: ellx
-  internal_id: 1
   length_meter: 3939
   width_meter: 44
   surface: ASP
@@ -14,7 +13,6 @@ ellx_runway:
 
 lfsw_runway_1:
   airport: lfsw
-  internal_id: 2
   length_meter: 1181
   width_meter: 49
   surface: "grass"
@@ -26,7 +24,6 @@ lfsw_runway_1:
 
 lfsw_runway_2:
   airport: lfsw
-  internal_id: 2
   length_meter: 945
   width_meter: 49
   surface: "grass"

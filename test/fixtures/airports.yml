@@ -13,9 +13,8 @@ ellx:
   airport_type: large_airport
   url: http://www.lux-airport.lu/en/
   local_code: ELLX
-  lonlat: 
+  geom_point: 
   actif: true
-  ourairports_id: 2563
 
 lfsw:
   icao: LFSW
@@ -30,6 +29,5 @@ lfsw:
   airport_type: small_airport
   url: http://www.aeroclub-epernay.com/
   local_code: 
-  lonlat:
+  geom_point:
   actif: true
-  ourairports_id: 29004

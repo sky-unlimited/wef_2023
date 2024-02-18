@@ -3,15 +3,15 @@ require 'csv'
 module ImportHelpers
   def csv_to_airport(row, factory, country)
     # RGeo point conversion
-    point = factory.point(row['longitude_deg'].to_f, row['latitude_deg'].to_f)
+    point = factory.point(row['longitude_deg'], row['latitude_deg'])
 
     # We instanciate an airport from the csv row
-    airport_hash = { ourairports_id: row['id'], icao: row['ident'], name: row['name'], city: row['municipality'], country: country, iata: row['iata_code'], latitude: row['latitude_deg'], longitude: row['longitude_deg'], altitude: row['elevation_ft'], airport_type: row['type'], url: row['home_link'], local_code: row['local_code'], lonlat: point }
+    airport_hash = { id: row['id'], icao: row['ident'], name: row['name'], city: row['municipality'], country: country, iata: row['iata_code'], latitude: row['latitude_deg'], longitude: row['longitude_deg'], altitude: row['elevation_ft'], airport_type: row['type'], url: row['home_link'], local_code: row['local_code'], geom_point: point }
   end
 
   def csv_to_runways(row, airport)
     # We instanciate a runway entry from the csv row
-    runway_hash = { airport: airport, internal_id: row['id'], length_meter: (row['length_ft'].to_f * 0.3).to_i, width_meter: (row['width_ft'].to_f * 0.3).to_i, surface: row['surface'], le_ident: row['le_ident'], he_ident: row['he_ident'], le_heading_degT: row['le_heading_degT'], he_heading_degT: row['he_heading_degT'], lighted: row['lighted'] }
+    runway_hash = { id: row['id'], airport: airport, length_meter: (row['length_ft'].to_f * 0.3).to_i, width_meter: (row['width_ft'].to_f * 0.3).to_i, surface: row['surface'], le_ident: row['le_ident'], he_ident: row['he_ident'], le_heading_degT: row['le_heading_degT'], he_heading_degT: row['he_heading_degT'], lighted: row['lighted'] }
   end
 
   def csv_to_fuel_stations(row, airport)
@@ -54,7 +54,10 @@ namespace :import do
     counter_existing  = 0
 
     # Variables setup
-    factory = RGeo::Geographic.spherical_factory(srid: 4326)
+    #factory = RGeo::Geographic.spherical_factory()
+    factory = RGeo::Geographic.simple_mercator_factory
+    # Web Mercator projection factory
+    #factory = RGeo::Geographic.spherical_factory(srid: 3857)
     country_list = WEF_CONFIG['airport_countries_to_import']
 
     # Accepted countries
@@ -78,6 +81,7 @@ namespace :import do
 
       airport_db  = Airport.find_by(icao: row['ident'])
       if airport_db.nil?  # [CREATE]
+        puts airport_csv_hash
         airport_csv = Airport.create(airport_csv_hash)
         airport_csv.persisted? ? counter_created += 1 : counter_rejected += 1
       else                # [UPDATE]
@@ -150,17 +154,17 @@ namespace :import do
         next
       end
         
-      if Runway.find_by(internal_id: row['id']).nil?
-        # If the internal_id does not exist we create a new record [INSERT]
+      if Runway.find_by(id: row['id']).nil?
+        # If the id does not exist we create a new record [INSERT]
         airport = Airport.find_by(icao: row['airport_ident'])
         runway_hash = csv_to_runways(row, airport)
         runway = Runway.create(runway_hash)
         runway.persisted? ? counter_created += 1 : counter_rejected += 1
       else
-        # If the internal_id does exist, we update the existing record [UPDATE]
+        # If the id does exist, we update the existing record [UPDATE]
         airport = Airport.find_by(icao: row['airport_ident'])
         runway_hash = csv_to_runways(row, airport)
-        runway = Runway.find_by(internal_id: row['id'])
+        runway = Runway.find_by(id: row['id'])
         runway.update(runway_hash)
         runway.persisted? ? counter_updated += 1 : counter_rejected += 1
       end
