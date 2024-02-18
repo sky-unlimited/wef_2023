@@ -14,6 +14,7 @@ defaults: &defaults
     - DK
   airports_white_list:
     - LFJY
+    - EKSB
   weather_tiles_left_limit: -5
   weather_tiles_right_limit: 16
   weather_tiles_upper_limit: 58

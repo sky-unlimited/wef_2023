@@ -54,10 +54,7 @@ namespace :import do
     counter_existing  = 0
 
     # Variables setup
-    #factory = RGeo::Geographic.spherical_factory()
     factory = RGeo::Geographic.simple_mercator_factory
-    # Web Mercator projection factory
-    #factory = RGeo::Geographic.spherical_factory(srid: 3857)
     country_list = WEF_CONFIG['airport_countries_to_import']
 
     # Accepted countries
@@ -79,18 +76,20 @@ namespace :import do
       # We check if current csv airport exists in database
       airport_csv_hash = csv_to_airport(row, factory, country)
 
-      airport_db  = Airport.find_by(icao: row['ident'])
+      airport_db  = Airport.find_by(id: row['id'])
       if airport_db.nil?  # [CREATE]
-        puts airport_csv_hash
+        #puts airport_csv_hash
         airport_csv = Airport.create(airport_csv_hash)
         airport_csv.persisted? ? counter_created += 1 : counter_rejected += 1
       else                # [UPDATE]
         counter_existing += 1
         # We create a temporary airport instance from csv
         airport_csv = Airport.new(airport_csv_hash)
+
         # Objects cannot be compared as some values are always different (id, created_at, updated_at)
         attributes_csv  = airport_csv.attributes
         attributes_db   = airport_db.attributes
+
         # Check for differences and update only if something has changed
         differences = {}
         excluded_attributes = ["id", "created_at", "updated_at"]
