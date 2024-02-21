@@ -28,6 +28,14 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Max: 250
   CountComments: false
+Metrics/ModuleLength:
+  Max: 150
+Metrics/AbcSize:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 Metrics/BlockLength:

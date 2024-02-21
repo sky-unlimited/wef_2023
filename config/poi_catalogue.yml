@@ -1,0 +1,144 @@
+food:
+  categories:
+  - amenity
+  amenities:
+  - restaurant
+  - fast_food
+  icon: food.png
+  label: proxy_food
+beverage:
+  categories:
+  - amenity
+  amenities:
+  - bar
+  - cafe
+  icon: beverage.png
+  label: proxy_beverage
+fuel_car:
+  categories:
+  - amenity
+  amenities:
+  - fuel
+  icon: fuel_car.png
+  label: proxy_fuel_car
+bike_rental:
+  categories:
+  - amenity
+  amenities:
+  - bicycle_rental
+  icon: bike_rental.png
+  label: proxy_bike_rental
+car_rental:
+  categories:
+  - amenity
+  amenities:
+  - car_rental
+  icon: car_rental.png
+  label: proxy_car_rental
+camp_site:
+  categories:
+  - tourism
+  amenities:
+  - camp_site
+  - bivouac_site
+  icon: camp_site.png
+  label: proxy_camp_site
+accommodation:
+  categories:
+  - tourism
+  amenities:
+  - hotel
+  - chalet
+  - guest_house
+  - Gîte
+  - hostel
+  - motel
+  icon: accommodation.png
+  label: proxy_accommodation
+shop:
+  categories:
+  - shop
+  amenities:
+  - bakery
+  - supermarket
+  icon: shop.png
+  label: proxy_shop
+bus_station:
+  categories:
+  - highway
+  - amenity
+  amenities:
+  - bus_station
+  - bus_stop
+  icon: bus_station.png
+  label: proxy_bus_station
+train_station:
+  categories:
+  - railway
+  amenities:
+  - station
+  - stop_position
+  icon: train_station.png
+  label: proxy_train_station
+hiking_path:
+  categories:
+  - hiking
+  - route
+  amenities:
+  - hiking
+  icon: hiking_path.png
+  label: proxy_hiking_path
+biking_path:
+  categories:
+  - bicycle
+  amenities:
+  - bicycle
+  icon: biking_path.png
+  label: proxy_biking_path
+power_cable:
+  categories:
+  - power
+  amenities:
+  - cable
+  - line
+  - minor_cable
+  - minor_line
+  icon: power.png
+  label: proxy_power_lines
+coastline:
+  categories:
+  - natural
+  amenities:
+  - coastline
+  icon: coastline.png
+  label: proxy_coastline
+aerodrome_polygone:
+  categories:
+  - aeroway
+  amenities:
+  - airstrip
+  - aerodrome
+  icon: aerodrome.png
+  label: airport
+lake:
+  categories:
+  - natural
+  amenities:
+  - water
+  icon: lake.png
+  label: proxy_lake
+spa:
+  categories:
+  - amenity
+  amenities:
+  - spa
+  icon: spa.png
+  label: proxy_spa
+atm:
+  categories:
+  - amenity
+  amenities:
+  - atm
+  icon: atm.png
+  label: proxy_atm
+
