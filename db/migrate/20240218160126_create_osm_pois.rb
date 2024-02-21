@@ -7,6 +7,7 @@ class CreateOsmPois < ActiveRecord::Migration[7.1]
       t.bigint :osm_id, null: false
       t.string :osm_name
       t.string :amenity, null: false
+      t.string :category, null: false
       t.string :tags, null: false
       t.st_point :geom_point, srid: 3857
       t.line_string :geom_line, srid: 3857

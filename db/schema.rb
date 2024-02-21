@@ -146,6 +146,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_160126) do
     t.bigint "osm_id", null: false
     t.string "osm_name"
     t.string "amenity", null: false
+    t.string "category", null: false
     t.string "tags", null: false
     t.geometry "geom_point", limit: {:srid=>3857, :type=>"st_point"}
     t.geometry "geom_line", limit: {:srid=>3857, :type=>"line_string"}
