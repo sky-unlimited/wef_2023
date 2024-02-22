@@ -12,12 +12,12 @@ class PagesController < ApplicationController
     # statistics at ecah page reload
     @poi_counter = Rails.cache.fetch('poi_counter', expires_in: 1.day) do
       {
-        accommodation: PoiCatalogue.count(:accommodation),
-        food: PoiCatalogue.count(:food),
-        bus_station: PoiCatalogue.count(:bus_station),
-        bike_rental: PoiCatalogue.count(:bike_rental),
-        camp_site: PoiCatalogue.count(:camp_site),
-        car_rental: PoiCatalogue.count(:car_rental)
+        accommodation: PoiCatalogue.count('accommodation'),
+        food: PoiCatalogue.count('food'),
+        bus_station: PoiCatalogue.count('bus_station'),
+        bike_rental: PoiCatalogue.count('bike_rental'),
+        camp_site: PoiCatalogue.count('camp_site'),
+        car_rental: PoiCatalogue.count('car_rental')
       }
     end
 
