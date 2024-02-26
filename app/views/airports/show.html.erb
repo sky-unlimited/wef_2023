@@ -9,9 +9,6 @@
 
   <div class="display_airport_poi mb-20 d-flex flex-column">
     <div>
-      <% airport_fuel_types_icons(@airport).each do |icon| %>
-        <span class="mr-10"><%= image_tag(icon) %></span>
-      <%end %>
       <% get_airport_poi_icons(@airport).each do |icon| %>
         <span class="mr-10"><%= image_tag(icon) %></span>
       <%end %>
@@ -223,10 +220,10 @@
     <div id="group_pois" class="collapse p-10 border bg-light border-dark border-radius mt-15" data-collapse-target="content">
         <!-- begin group poi content -->
         <% poi_count_group.each do |key,value| %>
-          <% next if key == :coastline %>
+          <% next if key == 'coastline' %>
           <div class="top_destinations__poi__details mt-5" data-controller="collapse">
             <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-            <span><%= "#{PoiCatalogue.inventory[key][:label]}" %></span>
+            <span><%= "#{display_poi_label(key)}" %></span>
             <span class="badge bg-primary color-light fs-0-8"><%= value %></span></br>
             <div  id="group_pois_<%= key %>" 
                   class="collapse bg-light px-5 border-radius" data-collapse-target="content">
@@ -274,7 +271,6 @@
         id="map" \
         data-controller="osm-details"  \
         data-osm-details-target="map" \
-        data-osm-details-airports-value="<%= @airports_map.to_json %>" \
         data-osm-details-airport-value="<%= @airport.to_json %>"
         data-osm-details-points-value="<%= @points_array.to_json %>">
   </div>

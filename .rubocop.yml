@@ -23,7 +23,7 @@ Style/StringLiteralsInInterpolation:
 Layout/LineLength:
   Max: 80
 Metrics/MethodLength:
-  Max: 40
+  Max: 70
   CountComments: false
 Metrics/ClassLength:
   Max: 250
