@@ -29,7 +29,6 @@ module PoiCatalogue
         airports_ids &= temp_airports_ids
       end
     end
-    # return Airport.where(id: airports_ids)
     airports_ids
   end
 

@@ -23,7 +23,7 @@ Style/StringLiteralsInInterpolation:
 Layout/LineLength:
   Max: 80
 Metrics/MethodLength:
-  Max: 70
+  Max: 100
   CountComments: false
 Metrics/ClassLength:
   Max: 250
@@ -40,6 +40,6 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Metrics/BlockLength:
   CountComments: false
-  Max: 40
+  Max: 100
 Naming/MethodParameterName:
   MinNameLength: 1

@@ -116,22 +116,18 @@ class Destinations
       end
     end
 
-    # Load corresponding airports instances
-    airports_matching_criterias = Airport
-                                  .where(id: airports_matching_criterias_ids)
-
     # Apply the trip_request preferences on airport_type
     selected_airport_types = []
     selected_airport_types << 'small_airport'   if @trip_request.small_airport
     selected_airport_types << 'medium_airport'  if @trip_request.medium_airport
     selected_airport_types << 'large_airport'   if @trip_request.large_airport
 
-    # Filter airports by selected airport types
-    airports_matching_criterias = airports_matching_criterias
+    # Load corresponding active airport types
+    airports_matching_criterias = Airport
+                                  .where(id: airports_matching_criterias_ids)
+                                  .where(actif: true)
                                   .where(airport_type: selected_airport_types)
-
-    # Filter actif airports
-    airports_matching_criterias = airports_matching_criterias.where(actif: true)
+                                  .where.not(id: @trip_request.airport.id)
 
     # Filter airports by runway length
     airports_matching_criterias =
@@ -154,10 +150,6 @@ class Destinations
                                     .where(country_id: @trip_request
                                                        .airport.country_id)
     end
-
-    # Exclude the departure airport from the list of matching airports
-    airports_matching_criterias = airports_matching_criterias
-                                  .where.not(id: @trip_request.airport.id)
 
     # Create an Airport object for viewing purpose
     @airports_matching_criterias = airports_matching_criterias
@@ -243,6 +235,11 @@ class Destinations
         end
 
       # Priority 4: Matching fuel card provider
+      # Eager load the fuel_station association
+      destination[:airport] = Airport
+                              .includes(:fuel_station)
+                              .find(destination[:airport].id)
+
       if destination[:airport].fuel_station.nil?
         fuel_card_category = 1
       else

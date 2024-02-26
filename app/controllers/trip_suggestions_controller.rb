@@ -8,8 +8,7 @@ class TripSuggestionsController < ApplicationController
 
   def index
     # We load the current user last trip request
-    @trip_request = TripRequest.where(user_id: current_user.id)
-                               .order(id: :desc).first
+    @trip_request = TripRequest.where(user_id: current_user.id).last
 
     # We load the pilot preferences
     @pilot_prefs = PilotPref.find_by(user_id: @trip_request.user_id)

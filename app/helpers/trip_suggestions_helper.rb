@@ -38,23 +38,19 @@ module TripSuggestionsHelper
   end
 
   def get_trip_request_fuel_stations_icons(_airport)
-    airport_requested_fuel_type_icons = []
+    array = []
     if @trip_request.fuel_station_100ll
-      airport_requested_fuel_type_icons << FuelStation.inventory[:fuel_types]
-      [:fuel_avgas_100ll][:icon]
+      array << FuelStation.inventory[:fuel_types][:fuel_avgas_100ll][:icon]
     end
     if @trip_request.fuel_station_91ul
-      airport_requested_fuel_type_icons << FuelStation.inventory[:fuel_types]
-      [:fuel_avgas_91ul][:icon]
+      array << FuelStation.inventory[:fuel_types][:fuel_avgas_91ul][:icon]
     end
     if @trip_request.fuel_station_mogas
-      airport_requested_fuel_type_icons << FuelStation.inventory[:fuel_types]
-      [:fuel_mogas][:icon]
+      array << FuelStation.inventory[:fuel_types][:fuel_mogas][:icon]
     end
     if @trip_request.charging_station
-      airport_requested_fuel_type_icons << FuelStation.inventory[:fuel_types]
-      [:charging_station][:icon]
+      array << FuelStation.inventory[:fuel_types][:charging_station][:icon]
     end
-    airport_requested_fuel_type_icons
+    array
   end
 end
