@@ -65,7 +65,7 @@
       <% @top_destination_airports.each_with_index do |airport,index| %>
         <div class="">
           <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5 border-radius border-shadow"
-                style="min-width: 370px"> 
+                style="width: 370px; min-height: 340px"> 
             <div class="top_desinations__airport">
               <h3 class="color-light"><%= "#{NormalizeCountry(airport.country.code, :to => :emoji)} #{index+1}. #{airport.city} (#{airport.country.name})" %>
               <%= image_tag('alert-triangle.svg') if @flight_tracks[index].warnings.count > 0 %>
