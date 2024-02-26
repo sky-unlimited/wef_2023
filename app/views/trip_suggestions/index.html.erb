@@ -40,81 +40,9 @@
   <% else %>
     <div class="my-20">
       <%= link_to t('trip_request.buttons.new_trip_request'), new_trip_request_path, class: "btn btn-secondary" %>
-      <%= link_to t('trip_suggestions.index.map'), "#map", class: "btn btn-secondary" %>
     </div>
-
-    <h2><%= t('trip_suggestions.index.selection') %></h2>
-
-    <% @top_destination_airports.each_with_index do |airport,index| %>
-      <div>
-        <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5 border-radius"> 
-          <div class="top_desinations__airport">
-            <h3 class="color-light"><%= "#{NormalizeCountry(airport.country.code, :to => :emoji)} #{index+1}. #{airport.city} (#{airport.country.name})" %>
-            <%= image_tag('alert-triangle.svg') if @flight_tracks[index].warnings.count > 0 %>
-            </h3>
-            <p><b><%= "✈️  #{airport.name} (#{airport.icao})" %></b>
-              <span class="tag-outline-dark ml-5"><%= airport.airport_type %></span>
-              <% unless airport.url.nil? %>
-              <span class="tag-outline-dark ml-5">
-                <a class="color-dark" target="_blank" href="<%= airport.url %>">web</a>
-              </span>
-            <% end %>
-            </p>
-          </div>
-
-          <div class="display_airport_poi mb-20 d-flex flex-column">
-            <div>
-              <span>
-                <% airport_fuel_types_icons(airport).each do |icon| %>
-                  <span class="mr-10"><%= image_tag(icon) %></span>
-                <%end %>
-                <% get_airport_poi_icons(airport).each do |icon| %>
-                  <span class="mr-10"><%= image_tag(icon) %></span>
-                <%end %>
-              </span>
-            </div>
-            <div class="my-20">
-              <%= link_to t('trip_suggestions.index.airport_detail'), airport_path(airport.id), 
-                  class: "btn btn-primary", target: "_blank" %>
-            </div>
-          </div>
-
-          <div class="top_destinations__flight_track mt-5" data-controller="collapse">
-            <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
-            <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
-            <div  id="flight_track_<%= index + 1 %>" 
-                  class="collapse show bg-light px-5 border-radius" 
-                  data-collapse-target="content">
-              <ul>
-                <li><%= "#{t('trip_suggestions.index.distance')}: #{@flight_tracks[index].distance_km}km (#{@flight_tracks[index].distance_nm}nm)" %></li>
-                <li><%= "#{t('trip_suggestions.index.flight_time')}: #{format_time(@flight_tracks[index].average_flight_time_min)}" %></li>
-                <li><%= "#{t('trip_suggestions.index.bearing')}: #{@flight_tracks[index].bearing}°" %></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="top_destinations__warnings mt-5" data-controller="collapse">
-            <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-            <span><b><%= "#{t('trip_suggestions.index.warnings')} (#{@flight_tracks[index].warnings.count})" %></b></span>
-            <div id="warning_<%= index + 1 %>" class="collapse bg-warning px-5 border-radius" data-collapse-target="content">
-              <ul>
-                <% @flight_tracks[index].warnings.each do |warning| %>
-                  <li class=""><%= warning %></li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-
+    
     <h2><%= t('trip_suggestions.index.flyzone_map') %></h2>
-    <% if @fake_weather %>
-      <p class="tag-danger">fake weather</p>
-    <% else %>
-      <p class="tag-success">real weather</p>
-    <% end %>
     <div class="map-container" \
           id="map" \
           data-controller="osm" \
@@ -130,6 +58,77 @@
           data-osm-pilot-prefs-value="<%= @pilot_prefs.to_json %>" \
           data-osm-flight-tracks-value="<%= @flight_tracks.to_json %>" >
     </div>
+
+    <h2><%= t('trip_suggestions.index.selection') %></h2>
+
+    <div class="container d-flex flex-wrap">
+      <% @top_destination_airports.each_with_index do |airport,index| %>
+        <div class="">
+          <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5 border-radius border-shadow"
+                style="min-width: 370px"> 
+            <div class="top_desinations__airport">
+              <h3 class="color-light"><%= "#{NormalizeCountry(airport.country.code, :to => :emoji)} #{index+1}. #{airport.city} (#{airport.country.name})" %>
+              <%= image_tag('alert-triangle.svg') if @flight_tracks[index].warnings.count > 0 %>
+              </h3>
+              <b><%= "✈️  #{airport.name} (#{airport.icao})" %></b>
+              <div class="my-10">
+                <span class="tag-light ml-5"><%= airport.airport_type %></span>
+                <% unless airport.url.nil? %>
+                <span class="tag-light ml-5">
+                  <a class="color-dark" target="_blank" href="<%= airport.url %>">web</a>
+                </span>
+              <% end %>
+              </div>
+            </div>
+
+            <div class="display_airport_poi mb-20 d-flex flex-column">
+              <div>
+                <span>
+                  <% airport_fuel_types_icons(airport).each do |icon| %>
+                    <span class="mr-10"><%= image_tag(icon) %></span>
+                  <%end %>
+                  <% get_airport_poi_icons(airport).each do |icon| %>
+                    <span class="mr-10"><%= image_tag(icon) %></span>
+                  <%end %>
+                </span>
+              </div>
+              <div class="my-20">
+                <%= link_to t('trip_suggestions.index.airport_detail'), airport_path(airport.id), 
+                    class: "btn btn-primary", target: "_blank" %>
+              </div>
+            </div>
+
+            <div class="top_destinations__flight_track mt-5" data-controller="collapse">
+              <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+              <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
+              <div  id="flight_track_<%= index + 1 %>" 
+                    class="collapse bg-light px-5 border-radius" 
+                    data-collapse-target="content">
+                <ul>
+                  <li><%= "#{t('trip_suggestions.index.distance')}: #{@flight_tracks[index].distance_km}km (#{@flight_tracks[index].distance_nm}nm)" %></li>
+                  <li><%= "#{t('trip_suggestions.index.flight_time')}: #{format_time(@flight_tracks[index].average_flight_time_min)}" %></li>
+                  <li><%= "#{t('trip_suggestions.index.bearing')}: #{@flight_tracks[index].bearing}°" %></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="top_destinations__warnings mt-5" data-controller="collapse">
+              <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
+              <span><b><%= "#{t('trip_suggestions.index.warnings')} (#{@flight_tracks[index].warnings.count})" %></b></span>
+              <div id="warning_<%= index + 1 %>" class="collapse bg-warning px-5 border-radius" data-collapse-target="content">
+                <ul>
+                  <% @flight_tracks[index].warnings.each do |warning| %>
+                    <li class=""><%= warning %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+
   <% end %>
 
   <div class="my-20">

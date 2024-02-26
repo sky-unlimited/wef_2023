@@ -16,9 +16,6 @@ class TripSuggestionsController < ApplicationController
     # Instantiating Destinations class
     destinations = Destinations.new(@trip_request)
 
-    # Temporary indication on fake weather for display purpose
-    @fake_weather = false
-
     # Geometries in geojson for depature and return date for display purpose
     @flyzone_outbound = RGeo::GeoJSON
                         .encode(destinations.flyzone_outbound.polygon).to_json
