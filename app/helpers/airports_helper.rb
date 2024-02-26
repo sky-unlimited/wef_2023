@@ -20,16 +20,16 @@ module AirportsHelper
     fuel_type_icons = []
     unless airport.fuel_station.nil?
       if airport.fuel_station.fuel_avgas_100ll != 'no'
-        fuel_type_icons << FuelStation.inventory[:fuel_types]
-        [:fuel_avgas_100ll][:icon]
+        fuel_type_icons << FuelStation
+                           .inventory[:fuel_types][:fuel_avgas_100ll][:icon]
       end
       if airport.fuel_station.fuel_avgas_91ul != 'no'
-        fuel_type_icons << FuelStation.inventory[:fuel_types]
-        [:fuel_avgas_91ul][:icon]
+        fuel_type_icons << FuelStation
+                           .inventory[:fuel_types][:fuel_avgas_91ul][:icon]
       end
       if airport.fuel_station.fuel_mogas != 'no'
-        fuel_type_icons << FuelStation.inventory[:fuel_types]
-        [:fuel_mogas][:icon]
+        fuel_type_icons << FuelStation
+                           .inventory[:fuel_types][:fuel_mogas][:icon]
       end
       if airport.fuel_station.charging_station != 'no'
         fuel_type_icons << FuelStation.inventory[:fuel_types]

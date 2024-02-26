@@ -156,8 +156,9 @@ module PoiCatalogue
   end
 
   def get_airports_ids(poi_group)
-    OsmPoi.where(amenity: inventory[poi_group][:amenities])
-          .and(OsmPoi.where(category: inventory[poi_group][:categories]))
+    OsmPoi.where(amenity: PoiCatalogue.inventory[poi_group.to_s]['amenities'])
+          .and(OsmPoi.where(category: PoiCatalogue
+                                      .inventory[poi_group.to_s]['categories']))
           .pluck(:airport_id)
   end
 end

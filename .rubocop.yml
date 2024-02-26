@@ -40,6 +40,6 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Metrics/BlockLength:
   CountComments: false
-  Max: 30
+  Max: 40
 Naming/MethodParameterName:
   MinNameLength: 1
