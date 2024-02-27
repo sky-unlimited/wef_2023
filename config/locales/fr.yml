@@ -138,6 +138,7 @@ fr:
     poi: Centres d'intérêts SUR/PROCHE aérodrome
     submit: Trouver destinations!
     airport_types: Type d'aérodrome de destination
+    filter_warning: Chaque filtre diminuera le choix des aéroports
     messages:
       end_date_greater_start_date: doit être après la date de départ
     buttons:

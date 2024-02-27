@@ -137,6 +137,7 @@ en:
     poi: Points of Interest ON/NEAR Airport
     submit: Find destinations!
     airport_types: Destination airport type
+    filter_warning: Each filter applied will reduce the available airports
     messages:
       end_date_greater_start_date: should be after Departure Date
     buttons:
