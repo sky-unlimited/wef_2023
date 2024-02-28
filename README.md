@@ -68,7 +68,8 @@ Should you work in the team, ask for the encryption file `master.key`
 
 ### Secrets - Database
 Copy the file `config/database.yml.example` and rename it `config/database.yml` that will be git ignored.
-Make your own modifications inside it.
+Make your own modifications inside it. However, Postgresql is mandatory because of the geospatial functions
+handeled by Postgis extension.
 
 ````bash
 # To create new db user, let's assume your database user is rubyuser:
@@ -88,12 +89,10 @@ rails db:create
 rails db:migrate
 rails db:seed
 ````
-Import the point of interest tables (osm_points, osm_lines, osm_polygones). Should you need them, please ask for it: contact@sky-unlimited.lu
+Import the point of interests table (osm_pois). Should you need it, please ask for it: contact@sky-unlimited.lu
 ````bash
 # Adapt to your PostgreSQL environment
-pg_restore -U rubyuser --single-transaction --table=osm_points --data-only -h localhost -d wef_2023_development osm_points_backup.sql
-pg_restore -U rubyuser --single-transaction --table=osm_lines --data-only -h localhost -d wef_2023_development osm_lines_backup.sql
-pg_restore -U rubyuser --single-transaction --table=osm_polygones --data-only -h localhost -d wef_2023_development osm_polygones_backup.sql
+psql -U rubyuser -h localhost -d wef_2023_development < osm_pois_backup.sql
 ````
 
 ### Launch local server

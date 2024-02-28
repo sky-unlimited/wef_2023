@@ -1,3 +1,4 @@
+# Manages methods for the trip_suggestions view
 module TripSuggestionsHelper
   def winds_ms_to_kts(wind_ms)
     (wind_ms * 1.9438445).round(0)
@@ -11,7 +12,7 @@ module TripSuggestionsHelper
     when 1
       I18n.t('date.tomorrow')
     else
-      "#{I18n.t('date.days', count: day_offset)}"
+      I18n.t('date.days', count: day_offset).to_s
     end
   end
 
@@ -22,7 +23,7 @@ module TripSuggestionsHelper
       hours = time_in_minutes / 60
       minutes = time_in_minutes % 60
       time_str = "#{hours}h"
-      time_str += " #{minutes}min" if minutes > 0
+      time_str += " #{minutes}min" if minutes.positive?
       time_str
     end
   end
@@ -30,27 +31,26 @@ module TripSuggestionsHelper
   def get_airport_poi_icons(airport)
     icons_array = []
     groups = PoiCatalogue.count_groups_per_airport(airport)
-      groups.each do |key,value|
-        icons_array << PoiCatalogue.inventory[key][:icon]
-      end
-    return icons_array
+    groups.each_key do |key|
+      icons_array << PoiCatalogue.inventory[key]['icon']
+    end
+    icons_array
   end
 
-  def get_trip_request_fuel_stations_icons(airport)
-    airport_requested_fuel_type_icons = []
+  def get_trip_request_fuel_stations_icons(_airport)
+    array = []
     if @trip_request.fuel_station_100ll
-      airport_requested_fuel_type_icons << FuelStation.inventory[:fuel_types][:fuel_avgas_100ll][:icon] 
+      array << FuelStation.inventory[:fuel_types][:fuel_avgas_100ll][:icon]
     end
     if @trip_request.fuel_station_91ul
-      airport_requested_fuel_type_icons << FuelStation.inventory[:fuel_types][:fuel_avgas_91ul][:icon] 
+      array << FuelStation.inventory[:fuel_types][:fuel_avgas_91ul][:icon]
     end
     if @trip_request.fuel_station_mogas
-      airport_requested_fuel_type_icons << FuelStation.inventory[:fuel_types][:fuel_mogas][:icon] 
+      array << FuelStation.inventory[:fuel_types][:fuel_mogas][:icon]
     end
     if @trip_request.charging_station
-      airport_requested_fuel_type_icons << FuelStation.inventory[:fuel_types][:charging_station][:icon] 
+      array << FuelStation.inventory[:fuel_types][:charging_station][:icon]
     end
-    return airport_requested_fuel_type_icons
+    array
   end
-
 end

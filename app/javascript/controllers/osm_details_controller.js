@@ -4,7 +4,6 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="osm-details"
 export default class extends Controller {
   static values = {
-    airports: Array,
     airport:  Object,
     points:   Array
   }
@@ -113,36 +112,6 @@ export default class extends Controller {
 
     /*
       ------------------------------------------------------ 
-      We display all airports
-      ------------------------------------------------------ 
-    */
-    var airportsGroup = L.layerGroup();
-    this.airportsValue.forEach((airport) => {
-      // Create icon
-      var iconAirport = L.icon({
-      iconUrl:      airport.icon_url,
-      iconSize:     [20, 20], // size of the icon
-      iconAnchor:   [10, 10],   // point of the icon which will correspond to marker's location
-      popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
-      });
-
-      // Create a marker for each osm point
-      //var marker = L.marker([point.latitude, point.longitude], {icon: iconL}).addTo(this.map);
-      var marker = L.marker([airport.geojson.coordinates[1], airport.geojson.coordinates[0]], {icon: iconAirport});
-
-      // set the opacity of the marker
-      marker.setOpacity(1);
-
-      // We add a popup to each marker
-      marker.bindPopup("<b>" + airport.icao + "</b></br>" + airport.name + "</br>" + "<a href=" + 
-        airport.detail_link + " target='_blank'>Details</a>");
-
-      // Creating a Layer Group of all airports
-      airportsGroup.addLayer(marker);
-    });
-
-    /*
-      ------------------------------------------------------ 
       LayerGroup, scale, controlsl layers, ...
       ------------------------------------------------------ 
     */
@@ -160,7 +129,6 @@ export default class extends Controller {
     };
     var Overlays = {
       "POI": pointsInterestGroup,
-      "Airports": airportsGroup
     }
     var layerControl = L.control.layers(baseLayers, Overlays).addTo(this.map);
   }

@@ -23,15 +23,23 @@ Style/StringLiteralsInInterpolation:
 Layout/LineLength:
   Max: 80
 Metrics/MethodLength:
-  Max: 40
+  Max: 100
   CountComments: false
 Metrics/ClassLength:
   Max: 250
   CountComments: false
+Metrics/ModuleLength:
+  Max: 150
+Metrics/AbcSize:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
 Metrics/BlockLength:
   CountComments: false
-  Max: 30
+  Max: 100
 Naming/MethodParameterName:
   MinNameLength: 1

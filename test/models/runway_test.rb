@@ -15,7 +15,6 @@ class RunwayTest < ActiveSupport::TestCase
 
   test "should not save a not given surface type " do
     hash = {  airport: airports(:ellx),
-              internal_id: 2,
               length_meter: 2000,
               width_meter: 15,
               le_ident: 10,
@@ -27,7 +26,6 @@ class RunwayTest < ActiveSupport::TestCase
 
   test "Runway length equal to zero should not save" do
     hash = {  airport: airports(:ellx),
-              internal_id: 3,
               length_meter: 0,
               width_meter: 15,
               le_ident: 10,

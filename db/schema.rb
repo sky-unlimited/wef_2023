@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_09_202435) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_18_160126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -56,11 +56,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_202435) do
     t.string "airport_type", null: false
     t.string "url"
     t.string "local_code"
-    t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.geography "geom_point", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "actif", default: true
-    t.bigint "ourairports_id", default: -1
+    t.geometry "geom_polygon", limit: {:srid=>3857, :type=>"st_polygon"}
     t.index ["country_id"], name: "index_airports_on_country_id"
     t.index ["id"], name: "index_airports_on_id", unique: true
   end
@@ -142,6 +142,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_202435) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "osm_pois", force: :cascade do |t|
+    t.bigint "osm_id", null: false
+    t.string "osm_name"
+    t.string "amenity", null: false
+    t.string "category", null: false
+    t.string "tags", null: false
+    t.geometry "geom_point", limit: {:srid=>3857, :type=>"st_point"}
+    t.geometry "geom_line", limit: {:srid=>3857, :type=>"line_string"}
+    t.geometry "geom_polygon", limit: {:srid=>3857, :type=>"st_polygon"}
+    t.integer "distance"
+    t.bigint "airport_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airport_id"], name: "index_osm_pois_on_airport_id"
+  end
+
   create_table "osm_polygones", force: :cascade do |t|
     t.bigint "osm_id", null: false
     t.string "osm_name"
@@ -174,7 +190,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_202435) do
 
   create_table "runways", force: :cascade do |t|
     t.bigint "airport_id", null: false
-    t.integer "internal_id", null: false
     t.integer "length_meter"
     t.integer "width_meter"
     t.string "surface"
@@ -355,6 +370,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_09_202435) do
   add_foreign_key "airports", "countries"
   add_foreign_key "audit_logs", "users"
   add_foreign_key "fuel_stations", "airports"
+  add_foreign_key "osm_pois", "airports"
   add_foreign_key "pilot_prefs", "airports"
   add_foreign_key "pilot_prefs", "users"
   add_foreign_key "runways", "airports"
