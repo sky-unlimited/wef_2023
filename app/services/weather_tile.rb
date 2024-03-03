@@ -28,7 +28,6 @@ class WeatherTile
               :lat_tile_origin, :is_weather_pilot_compliant,
               :weather_data_to_date
 
-  # TODO; Delete args user, and replace effective_date by offset
   def initialize(pilot_pref, effective_date, lon_tile_origin = nil,
                  lat_tile_origin = nil, airport = nil)
     # User and it's weather preferences
@@ -51,17 +50,18 @@ class WeatherTile
     @polygon_geometry = nil
     # We check if weather if pilot compliant
     @is_weather_pilot_compliant = false
-    # Airport if origin tile (first tile)
-    @airport = airport
+    # Check if this tile is the origin one (presence of departure airport)
+    @is_origin_tile = false
 
     # If the tile is instantiated with an airport, it means we have first to
     # compute the bottom left coordinate.
-    # All other tiles are determined based on this initial point.
+    # All other tiles are deducted from this initial point by propagation.
     unless airport.nil?
       @lon_tile_origin = WeatherTile.get_origin(airport.longitude,
                                                 airport.latitude)[:longitude]
       @lat_tile_origin = WeatherTile.get_origin(airport.longitude,
                                                 airport.latitude)[:latitude]
+      @is_origin_tile = true
     end
     # We now have all info to create the tile while instantiation
     create_tile
@@ -78,9 +78,9 @@ class WeatherTile
        @lat_tile_origin < wt_upper_limit &&
        @lat_tile_origin >= wt_lower_limit
       @is_weather_pilot_compliant =
-        @pilot_pref.weather_pilot_compliant?(daily_weather)
+        @pilot_pref.weather_pilot_compliant?(daily_weather(@is_origin_tile))
     else
-      # we consider bad weather
+      # we consider bad weather avoiding the weather loading
       @is_weather_pilot_compliant = false
     end
   end
@@ -190,7 +190,7 @@ class WeatherTile
     @lat_center = bottom_tile + ((top_tile.to_f - bottom_tile.to_f) / 2)
   end
 
-  def daily_weather
+  def daily_weather(is_origin_tile)
     # We need to determine at which date we need the weather
     # Openweather API provides daily forecast for 7 days
     day_offset = (@effective_date.to_date - Date.current).to_i
@@ -199,7 +199,7 @@ class WeatherTile
     weather_daily = Weather.read(@lat_center, @lon_center)['daily'][day_offset]
 
     # If origin tile, we load weather
-    @weather_data_to_date = weather_daily unless @airport.nil?
+    @weather_data_to_date = weather_daily if @is_origin_tile
     weather_daily
   end
 end
