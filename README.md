@@ -2,11 +2,11 @@
 
 <img src="https://github.com/alexstan67/wef_2023/blob/master/app/assets/images/full-logo-early-dark.png" width="200" />
 
-Weekend-Fly is based on Rails framework helping General Aviation fellows to find a destination !
+Weekend-Fly, built on the Rails framework, is tailored to assist a community of general aviation pilots in discovering destinations, ensuring they only fly where the weather welcomes them!"
 
-Your Rules. Your Interests. Your Destination.🌴☀️🏕️
+Your Rules. Your Interests. Your Destinations.🌴🏕️
 
-One Community 💪
+One Community. 💪
 
 # WEEKEND-FLY
 
@@ -53,6 +53,9 @@ bundle install
 ### Secrets - Credentials
 Store following secrets in `config/credentials.yml.enc` by using: `EDITOR=vim rails credentials:edit`
 ````bash
+#config/credentials.yml.enc
+secret_key_base: your_secret_key
+
 development:
   openweathermap:
     app_id: your_secret_key
@@ -72,12 +75,11 @@ Make your own modifications inside it. However, Postgresql is mandatory because 
 handeled by Postgis extension.
 
 ````bash
-# To create new db user, let's assume your database user is rubyuser:
+# To create new db user, let's assume your database user will be `rubyuser`:
 sudo su - postgres
 createuser --pwprompt rubyuser
-createdb -O rubyuser wef_2023_development
-alter user rubyuser with superuser;
-create extension postgis;
+psql
+ALTER USER rubyuser WITH SUPERUSER;
 ````
 - Take care to use `postgis` adapter instead of `postgres` in `config/database.yml`
 
