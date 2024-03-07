@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: admin_user
+  title: My first beautfull blog
+  keywords: '#firstBlog'
+  status: 3
+  blog_publication_date: Time.now - 2.days
+  email_publication_date: Time.now - 1.day
+
+two:
+  user: admin_user
+  title: My second blog!
+  keywords: '#release_note'
+  status: 3
+  blog_publication_date: Time.now - 2.days
+  email_publication_date: Time.now - 1.day

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_18_160126) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_114519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -74,6 +74,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_160126) do
     t.datetime "updated_at", null: false
     t.string "ip_address", default: "::1", null: false
     t.index ["user_id"], name: "index_audit_logs_on_user_id"
+  end
+
+  create_table "blogs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.string "keywords"
+    t.integer "status", null: false
+    t.datetime "blog_publication_date"
+    t.datetime "email_publication_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_blogs_on_user_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -369,6 +381,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_160126) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "airports", "countries"
   add_foreign_key "audit_logs", "users"
+  add_foreign_key "blogs", "users"
   add_foreign_key "fuel_stations", "airports"
   add_foreign_key "osm_pois", "airports"
   add_foreign_key "pilot_prefs", "airports"
