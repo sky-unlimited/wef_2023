@@ -1,91 +1,41 @@
-<%= form_with model: @fuel_station, data: { turbo: false } do |f| %>
-  <div class="form-inputs">
-    <% if @fuel_station.errors.any? %>
-      <div class="alert-danger">
-        <p><%=  t("forms.messages.errors", count: @fuel_station.errors.count) %> </p>
-        <ul>
-          <% @fuel_station.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <%= f.text_field :airport_id, readonly: "readonly", hidden: true %>
-
-    <div class="d-flex flex-row">
-      <div class="d-flex align-items-start flex-column mr-10">
-        <div>
-          <%= f.label :provider, class: "form-label" %>
-          <div class="mb-15 form-select">
-            <%= f.collection_select :provider,
-                                    FuelStation.providers.keys, :to_s,
-                                    :humanize,
-                                    class: "form-select" %>
-          </div>
-        </div>
-        <div>
-          <%= f.label :fuel_avgas_100ll, class: "form-label" %>
-          <div class="mb-15 form-select">
-            <%= f.collection_select :fuel_avgas_100ll,
-                                    FuelStation.fuel_avgas_100lls.keys, :to_s,
-                                    :humanize,
-                                    class: "form-select" %>
-          </div>
-        </div>
-        <div>
-          <%= f.label :fuel_mogas, class: "form-label" %>
-          <div class="mb-15 form-select">
-            <%= f.collection_select :fuel_mogas,
-                                    FuelStation.fuel_mogas.keys, :to_s,
-                                    :humanize,
-                                    class: "form-select" %>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex align-items-start flex-column">
-        <div>
-          <%= f.label :status, class: "form-label" %>
-          <div class="mb-15 form-select">
-            <%= f.collection_select :status,
-                                    FuelStation.statuses.keys, :to_s,
-                                    :humanize,
-                                    class: "form-select" %>
-          </div>
-        </div>
-        <div>
-          <%= f.label :fuel_avgas_91ul, class: "form-label" %>
-          <div class="mb-15 form-select">
-            <%= f.collection_select :fuel_avgas_91ul,
-                                    FuelStation.fuel_avgas_91uls.keys, :to_s,
-                                    :humanize,
-                                    class: "form-select" %>
-          </div>
-        </div>
-        <div>
-          <%= f.label :charging_station, class: "form-label" %>
-          <div class="mb-15 form-select">
-            <%= f.collection_select :charging_station,
-                                    FuelStation.charging_stations.keys, :to_s,
-                                    :humanize,
-                                    class: "form-select" %>
-          </div>
-        </div>
-      </div>
+<%= simple_form_for @fuel_station, data: { turbo: false }, html: { class: "row" } do |f| %>
+  <% if @fuel_station.errors.any? %>
+    <div class="alert-danger">
+      <p><%=  t("forms.messages.errors", count: @fuel_station.errors.count) %> </p>
+      <ul>
+        <% @fuel_station.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
     </div>
+  <% end %>
 
-    <%= f.label :email, class: "form-label" %>
-    <div class="mb-15">
-      <%= f.email_field :email, class: "form-control" %>
-    </div> 
-
-    <%= f.label :phone, class: "form-label" %>
-    <div class="mb-15">
-      <%= f.telephone_field :phone, class: "form-control" %>
-    </div> 
-
-    <div class="form-actions mt-15">
-      <%= f.submit t('fuel_station.form.submit'), class: "btn btn-primary" %>
-    </div>
+  <%= f.input :airport_id, input_html: { readonly: "readonly" }, as: :hidden %>
+  <div class="col-12 col-md-6">
+    <%= f.input :provider, collection: FuelStation.providers.keys %>
+  </div>
+  <div class="col-12 col-md-6">
+    <%= f.input :status, collection: FuelStation.statuses.keys %>
+  </div>
+  <div class="col-12 col-md-6">
+    <%= f.input :fuel_avgas_100ll, collection: FuelStation.fuel_avgas_100lls.keys %>
+  </div>
+  <div class="col-12 col-md-6">
+    <%= f.input :fuel_avgas_91ul, collection: FuelStation.fuel_avgas_91uls.keys %>
+  </div>
+  <div class="col-12 col-md-6">
+    <%= f.input :fuel_mogas, collection: FuelStation.fuel_mogas.keys %>
+  </div>
+  <div class="col-12 col-md-6">
+    <%= f.input :charging_station, collection: FuelStation.charging_stations.keys %>
+  </div>
+  <div class="col-12 col-md-6">
+    <%= f.input :email %>
+  </div>
+  <div class="col-12 col-md-6">
+    <%= f.input :phone %>
+  </div>
+  <div class="col-12">
+    <%= f.submit t('fuel_station.form.submit'), class: "btn btn-primary w-100" %>
   </div>
 <% end %>

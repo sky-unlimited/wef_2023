@@ -1,9 +1,8 @@
 <h2 class="text-center"><%= t('.change_your_password') %></h2>
 
-<div class="container-sm">
-  <div class="form-wrapper card-product border-radius bg-color3">
-
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<div class="container-sm py-5">
+  <div class="row card bg-color3 p-3">
+  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "col-6 col-md-8 mx-auto" }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     <%= f.hidden_field :reset_password_token %>
 
@@ -26,6 +25,5 @@
   <% end %>
 
   <%= render "devise/shared/links" %>
-
   </div>
 </div>

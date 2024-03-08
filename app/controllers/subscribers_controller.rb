@@ -36,6 +36,6 @@ class SubscribersController < ApplicationController
   private
 
   def subscriber_input_params
-    params.permit(:email, :accept_private_data_policy, :unsubscribe_hash, :honey_bot)
+    params.require(:subscriber).permit(:email, :accept_private_data_policy, :unsubscribe_hash, :honey_bot)
   end
 end

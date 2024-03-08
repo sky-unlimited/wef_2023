@@ -1,59 +1,63 @@
-.form-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.form-inputs {
-  overflow: hidden;
-  padding: 5px;
-}
-.form-actions {
-  margin-bottom: 20px;
-}
-.form-control {
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
-  padding: .375rem .75rem;
-  line-height: 1.5;
-  // color: $text-color;
-  background-color: $light;
-  background-clip: padding-box;
-  border: 1px solid $dark;
-  appearance: none; // Hide arrows for number inputs
-  border-radius: $border-radius;
-  transition: 0.5s ease-in-out;
-  //margin-bottom: 15px;
-}
-.form-label {
-  margin-bottom: 5px;
-}
-.form-select {
-  select {
-    padding: .375rem .75rem;
-  }
-}
-.form-checkboxes {
-  padding: 15px;
-  width: fit-content;
-  align-items: start;
-}
-.form-searcher {
-  border-radius: 25px;
-}
 .group-searcher {
-  display: flex;
-  align-items: center;
-}
-.form-searcher-ul {
-  text-align: left;
-  list-style-type: none;
+  position: relative;
+  #clear-search {
+    position: absolute;
+    right: 0;
+  }
 }
 
-@media (min-width: 768px) {
-  .form-wrapper {
-    padding: 60px;
-  }
-}
+// .form-wrapper {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   text-align: center;
+// }
+// .form-inputs {
+//   overflow: hidden;
+//   padding: 5px;
+// }
+// .form-actions {
+//   margin-bottom: 20px;
+// }
+// .form-control {
+//   box-sizing: border-box;
+//   display: block;
+//   width: 100%;
+//   padding: .375rem .75rem;
+//   line-height: 1.5;
+//   // color: $text-color;
+//   background-color: $light;
+//   background-clip: padding-box;
+//   border: 1px solid $dark;
+//   appearance: none; // Hide arrows for number inputs
+//   border-radius: $border-radius;
+//   transition: 0.5s ease-in-out;
+//   //margin-bottom: 15px;
+// }
+// .form-label {
+//   margin-bottom: 5px;
+// }
+// .form-select {
+//   select {
+//     padding: .375rem .75rem;
+//   }
+// }
+// .form-checkboxes {
+//   padding: 15px;
+//   width: fit-content;
+//   align-items: start;
+// }
+// .form-searcher {
+//   border-radius: 25px;
+// }
+// .form-searcher-ul {
+//   text-align: left;
+//   list-style-type: none;
+// }
+
+// @media (min-width: 768px) {
+//   .form-wrapper {
+//     padding: 60px;
+//   }
+// }

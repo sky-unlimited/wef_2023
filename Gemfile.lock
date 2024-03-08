@@ -307,6 +307,9 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    simple_form (5.3.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     solid_queue (0.2.0)
       rails (~> 7.1)
     sprockets (4.2.1)
@@ -392,6 +395,7 @@ DEPENDENCIES
   rgeo-proj4 (~> 4.0.0)
   sass-rails (~> 6.0)
   selenium-webdriver (~> 4.16)
+  simple_form
   solid_queue (~> 0.2.0)
   sprockets-rails
   stimulus-rails (~> 1.3)

@@ -1,9 +1,9 @@
-<h2 class="text-center"><%= t('.resend_confirmation_instructions') %></h2>
 
-<div class="container-sm">
-  <div class="form-wrapper card-product border-radius bg-color3">
+<div class="container-sm py-5">
+  <div class="row card bg-color3 p-3">
+    <h1 class="text-center"><%= t('.resend_confirmation_instructions') %></h1>
 
-    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "col-6 col-md-8 mx-auto" }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="form-inputs">

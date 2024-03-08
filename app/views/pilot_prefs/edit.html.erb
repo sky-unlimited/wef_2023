@@ -1,9 +1,7 @@
-<div class="container-sm">
+<div class="container-sm py-5">
   <%= render "weather_info" %>
-
-  <div class="form-wrapper card-product border-radius bg-color3">
-
-    <%= form_for @pilot_pref, method: :patch, data: { turbo: false } do |f| %>
+  <div class="row card bg-color3 p-3">
+    <%= simple_form_for @pilot_pref, method: :patch, data: { turbo: false }, class: "col-6 col-md-8 mx-auto" do |f| %>
       <h1 class="text-center"><%= t('activerecord.models.pilot_pref') %></h1>
 
       <div class="form-inputs">
@@ -21,20 +19,20 @@
         <div data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
           </br>
           <%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true, data: { airport_searcher_target: "airportId" }%>
-        
+
           <div class="searcher">
             <%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %>
             <div class="group-searcher">
-              <%= text_field_tag "search", 
-                                  @airport_full_name, 
-                                  placeholder: t('trip_request.search_placeholder'), 
-                                  size: 30, 
-                                  data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, 
+              <%= text_field_tag "search",
+                                  @airport_full_name,
+                                  placeholder: t('trip_request.search_placeholder'),
+                                  size: 30,
+                                  data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" },
                                   class: "form-control form-searcher",
                                   required: true %>
-              <button type="button" 
-                      id="clear-search" 
-                      class="btn-round" 
+              <button type="button"
+                      id="clear-search"
+                      class="btn-round"
                       data-action="click->airport-searcher#clearSearcher">X
               </button>
             </div>
@@ -55,7 +53,7 @@
                                   PilotPref.weather_profiles.keys, :to_s,
                                   :humanize,
                                   class: "form-select" %>
-          <%= image_tag "icons8-question-mark-48.png", 
+          <%= image_tag "icons8-question-mark-48.png",
             data: { action: "click->modals#display" },
             width: 32,
             class: "p-5" %>
@@ -69,16 +67,16 @@
                       class: "form-label" %>
           <%= f.check_box :is_private_pilot %>
         </div>
-        
+
         <%= f.label :average_true_airspeed,
                     class: "form-label mt-10" %>
-        <%= f.number_field :average_true_airspeed, 
+        <%= f.number_field :average_true_airspeed,
                            min: 0, max: 250,
                            class: "form-control mb-15" %>
 
         <%= f.label :min_runway_length,
                     class: "form-label mt-10" %>
-        <%= f.number_field :min_runway_length, 
+        <%= f.number_field :min_runway_length,
                            min: 150, max: 1500,
                            class: "form-control mb-15" %>
 
@@ -98,7 +96,7 @@
             <%= f.label :fuel_card_bp, class: "form-label" %>
           </div>
         </div>
-        
+
       </div>
       <div class="form-actions mt-15">
         <%= link_to t('forms.back'), root_path, class:"btn btn-secondary" %>

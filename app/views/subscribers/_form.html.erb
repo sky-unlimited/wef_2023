@@ -4,22 +4,17 @@
   <% else %>
     <h1 class="text-center mb-10"><%= t('subscribers.form.subscribe') %></h1>
     <div class="container-sm d-flex flex-column align-items-center">
-      <%= form_with model: @subscriber, url: root_path, data: { turbo: false } do |f| %>
-        <div class="form-inputs">
-          <%= f.email_field :email,
-                            placeholder: t('activerecord.attributes.subscriber.email'),
-                            class: "form-control mb-10" %>
-          <%= f.label :accept_private_data_policy,
-                       t("subscribers.form.acceptation") %>
-          <%= link_to t('subscribers.form.privacy_policy'), legal_privacy_path, class: "link-light", target: "_blank" %>
-          <%= f.check_box :accept_private_data_policy %>
-
-          <%= f.text_field     :honey_bot, hidden: true %>
-
-          <div class="form-actions mt-15">
-            <%= f.submit t('subscribers.form.submit'), class:"btn btn-dark" %>
+      <%= simple_form_for @subscriber, url: root_path, data: { turbo: false } do |f| %>
+        <%= f.input :email %>
+        <div class="d-flex mb-3">
+          <%= f.input :accept_private_data_policy, label: false %>
+          <div>
+            <%= f.label :accept_private_data_policy, label: t("subscribers.form.acceptation") %>
+            <%= link_to t('subscribers.form.privacy_policy'), legal_privacy_path, class: "link-light", target: "_blank" %>
           </div>
         </div>
+        <%= f.input :honey_bot, as: :hidden %>
+        <%= f.submit t('subscribers.form.submit'), class:"btn btn-dark" %>
       <% end %>
     </div>
   <% end %>

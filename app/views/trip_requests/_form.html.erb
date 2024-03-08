@@ -1,200 +1,124 @@
-<%= form_with model: trip_request, data: { turbo: false } do |f| %>
-
-  <div class="form-inputs">
-
-    <h1 class="text-center color-dark"><%= t('trip_request.title') %></h1>
-
-    <% if @trip_request.errors.any? %>
-      <div class="alert-danger">
-        <p><%=  t("forms.messages.errors", count: @trip_request.errors.count) %> </p>
-        <ul>
-          <% @trip_request.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
-
-      <%= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true, data: { airport_searcher_target: "airportId" } %>
-      <%= f.text_field :user_id, readonly: "readonly", size: 4, hidden: true %>
-
-      <div class="searcher">
-        <%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %>
-        <div class="group-searcher">
-          <%= text_field_tag "search" ,
-                              @airport_full_name, 
-                              placeholder: t('trip_request.search_placeholder'), 
-                              size: 30, 
-                              data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, 
-                              class: "form-control form-searcher",
-                              required: true %>
-          <button type="button" 
-                  id="clear-search" 
-                  class="btn-round" 
-                  data-action="click->airport-searcher#clearSearcher">X
-          </button>
-        </div>
-        <ul id="results" data-airport-searcher-target="resultList" class="form-searcher-ul" >
-        </ul>
-      </div>
+<h1 class="text-center color-dark"><%= t('trip_request.title') %></h1>
+<%= simple_form_for trip_request, data: { turbo: false }, html: { class: "row" } do |f| %>
+  <% if @trip_request.errors.any? %>
+    <div class="alert-danger">
+      <p><%=  t("forms.messages.errors", count: @trip_request.errors.count) %> </p>
+      <ul>
+        <% @trip_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
     </div>
+  <% end %>
 
-    <div class="d-flex flex-row justify-content-around">
-      <div class="d-flex flex-column">
-        <div><%= f.label :start_date, class: "form-label" %></div>
-        <div><%= f.date_field :start_date,
-                min: Date.today, 
-                class: "form-control text-center" %></div>
+  <div data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>" class="col-12">
+    <%= f.input :airport_id, as: :hidden, input_html: {readonly: "readonly", size: 4, data: { airport_searcher_target: "airportId" }} %>
+    <%= f.input :user_id, as: :hidden, readonly: "readonly", size: 4 %>
+    <div class="searcher">
+      <%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %>
+      <div class="position-relative">
+        <%= text_field_tag "search" ,
+                            @airport_full_name,
+                            placeholder: t('trip_request.search_placeholder'),
+                            size: 30,
+                            data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" },
+                            class: "form-control form-searcher",
+                            required: true %>
+        <button type="button"
+                class="btn position-absolute end-0 top-0"
+                data-action="click->airport-searcher#clearSearcher">Ｘ
+        </button>
       </div>
-      <div class="d-flex flex-column">
-        <div><%= f.label :end_date, class: "form-label" %></div>
-        <div><%= f.date_field :end_date,
-                min: Date.today,
-                max: Date.today + 7.days,
-                class: "form-control text-center" %></div>
-      </div>
-    </div>
-
-    <div><%= f.label :international_flight, class: "form_label" %></div>
-    <div class="p-10 border border-radius mb-20 bg-light color-dark">
-      <div><%= f.check_box :international_flight %></div>
-    </div>
-
-    <p class="text-center mb-5"><%= t('trip_request.airport_types') %></p>
-    <div class="d-flex flex-row justify-content-around p-10 border border-radius mb-20 bg-light color-dark">
-      <div class="d-flex flex-column">
-        <%= f.check_box :small_airport %>
-        <%= f.label :small_airport, class: "form-label" %>
-      </div>
-      <div class="d-flex flex-column">
-        <%= f.check_box :medium_airport %>
-        <%= f.label :medium_airport %>
-      </div>
-      <div class="d-flex flex-column">
-        <%= f.check_box :large_airport %>
-        <%= f.label :large_airport %>
-      </div>
-    </div>
-
-    <!--
-    <p class="text-center mb-5"><%= t('activerecord.attributes.trip_request.trip_mode') %></p>
-    <div class="d-flex flex-columns align-items-center p-10 border border-radius mb-20 bg-light color-dark">
-      <%= f.collection_radio_buttons :trip_mode, TripRequest.trip_modes, :first, :first, class: "mr-5", 
-          checked: I18n.t('activerecord.attributes.trip_request.trip_mode_options.custom'), 
-          disabled: [I18n.t('activerecord.attributes.trip_request.trip_mode_options.events'), 
-                     I18n.t('activerecord.attributes.trip_request.trip_mode_options.suggested')] %>
-    </div>
-    -->
-
-    <p class="text-center mb-5"><%= t('trip_request.poi') %></p>
-    <p class="color-danger"><b>👇 <%= t('trip_request.filter_warning') %></b></p>
-    <div style="width: fit-content; margin: auto;" class="border border-radius bg-dark color-light p-20">
-      <div class="airport-select-proxies text-start">
-        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_coastline %>
-            <%= image_tag(PoiCatalogue.inventory['coastline']['icon'], size: "24x24", alt:"coastline", class: "mr-10") %>
-            <%= f.label :proxy_coastline %>
-          </div>
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_lake %>
-            <%= image_tag(PoiCatalogue.inventory['lake']['icon'], size: "24x24", alt:"lake", class: "mr-10") %>
-            <%= f.label :proxy_lake %>
-          </div>
-          <div class="d-flex flex-row align-items-center">
-            <%= f.check_box :proxy_hiking_path %>
-            <%= image_tag(PoiCatalogue.inventory['hiking_path']['icon'], size: "24x24", alt:"hiking_path", class: "mr-10") %>
-            <%= f.label :proxy_hiking_path %>
-          </div>
-        </div>
-        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_food %>
-            <%= image_tag(PoiCatalogue.inventory['food']['icon'], size: "24x24", alt:"food", class: "mr-10") %>
-            <%= f.label :proxy_food %>
-          </div>
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_beverage %>
-            <%= image_tag(PoiCatalogue.inventory['beverage']['icon'], size: "24x24", alt:"beverage", class: "mr-10") %>
-            <%= f.label :proxy_beverage %>
-          </div>
-          <div class="d-flex flex-row align-items-center">
-            <%= f.check_box :proxy_shop %>
-            <%= image_tag(PoiCatalogue.inventory['shop']['icon'], size: "24x24", alt:"shop", class: "mr-10") %>
-            <%= f.label :proxy_shop %>
-          </div>
-        </div>
-        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_camp_site %>
-            <%= image_tag(PoiCatalogue.inventory['camp_site']['icon'], size: "24x24", alt:"camp_site", class: "mr-10") %>
-            <%= f.label :proxy_camp_site %>
-          </div>
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_accommodation %>
-            <%= image_tag(PoiCatalogue.inventory['accommodation']['icon'], size: "24x24", alt:"accommodation", class: "mr-10") %>
-            <%= f.label :proxy_accommodation %>
-          </div>
-        </div>
-        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :fuel_station_100ll %>
-            <%= image_tag(FuelStation.inventory[:fuel_types][:fuel_avgas_100ll][:icon], size: "24x24", alt:"fuel_100ll", class: "mr-10") %>
-            <%= f.label :fuel_station_100ll %>
-          </div>
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :fuel_station_91ul %>
-            <%= image_tag(FuelStation.inventory[:fuel_types][:fuel_avgas_91ul][:icon], size: "24x24", alt:"fuel_91ul", class: "mr-10") %>
-            <%= f.label :fuel_station_91ul %>
-          </div>
-          <% if @is_ultralight_pilot %>
-            <div class="d-flex flex-row align-items-center mb-5">
-              <%= f.check_box :fuel_station_mogas %>
-              <%= image_tag(FuelStation.inventory[:fuel_types][:fuel_mogas][:icon], size: "24x24", alt:"fuel_car", class: "mr-10") %>
-              <%= f.label :fuel_station_mogas %>
-            </div>
-            <div class="d-flex flex-row align-items-center mb-5">
-              <%= f.check_box :proxy_fuel_car %>
-              <%= image_tag(PoiCatalogue.inventory['fuel_car']['icon'], size: "24x24", alt:"fuel_car", class: "mr-10") %>
-              <%= f.label :proxy_fuel_car %>
-            </div>
-            <div class="d-flex flex-row align-items-center mb-5">
-              <%= f.check_box :charging_station %>
-              <%= image_tag(FuelStation.inventory[:fuel_types][:charging_station][:icon], size: "24x24", alt:"charging_station", class: "mr-10") %>
-              <%= f.label :charging_station %>
-            </div>
-          <% end %>
-        </div>
-        <div class="border bg-color3 color-dark border-radius p-15 mb-5">
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_bike_rental %>
-            <%= image_tag(PoiCatalogue.inventory['bike_rental']['icon'], size: "24x24", alt:"bike_rental", class: "mr-10") %>
-            <%= f.label :proxy_bike_rental %>
-          </div>
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_car_rental %>
-            <%= image_tag(PoiCatalogue.inventory['car_rental']['icon'], size: "24x24", alt:"car_rental", class: "mr-10") %>
-            <%= f.label :proxy_car_rental  %>
-          </div>
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_bus_station %>
-            <%= image_tag(PoiCatalogue.inventory['bus_station']['icon'], size: "24x24", alt:"bus_station", class: "mr-10") %>
-            <%= f.label :proxy_bus_station %>
-          </div>
-          <div class="d-flex flex-row align-items-center mb-5">
-            <%= f.check_box :proxy_train_station %>
-            <%= image_tag(PoiCatalogue.inventory['train_station']['icon'], size: "24x24", alt:"train_station", class: "mr-10") %>
-            <%= f.label :proxy_train_station %>
-          </div>
-        </div>
-      </div>
+      <ul id="results" data-airport-searcher-target="resultList" class="w-100">
+      </ul>
     </div>
   </div>
 
-  <div class="form-actions mt-15">
-    <%= f.submit t('trip_request.submit'), class: "btn btn-primary" %>
+  <div class="col-6">
+    <%= f.input :start_date, input_html: { min: Date.today }, as: :date, html5: true %>
+  </div>
+  <div class="col-6">
+    <%= f.input :end_date, input_html: { min: Date.today, max: Date.today + 7.days }, as: :date, html5: true %>
   </div>
 
+  <div class="col-6">
+    <%= f.input :international_flight %>
+  </div>
+  <div class="col-6">
+    <%= f.input :small_airport, wrapper_html: { style: "margin-bottom: 0.25rem !important" } %>
+    <%= f.input :medium_airport, wrapper_html: { style: "margin-bottom: 0.25rem !important" } %>
+    <%= f.input :large_airport %>
+  </div>
+  <hr>
+  <h4 class=""><%= t('trip_request.poi') %></h4>
+  <p class="color-danger"><b>👇 <%= t('trip_request.filter_warning') %></b></p>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_coastline, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['coastline']['icon'], size: "24x24", alt:"coastline", class: "mr-10") %>
+    <%= f.label :proxy_coastline %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_lake, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['lake']['icon'], size: "24x24", alt:"lake", class: "mr-10") %>
+    <%= f.label :proxy_lake %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_hiking_path, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['hiking_path']['icon'], size: "24x24", alt:"hiking_path", class: "mr-10") %>
+    <%= f.label :proxy_hiking_path %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_food, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['food']['icon'], size: "24x24", alt:"food", class: "mr-10") %>
+    <%= f.label :proxy_food %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_beverage, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['beverage']['icon'], size: "24x24", alt:"beverage", class: "mr-10") %>
+    <%= f.label :proxy_beverage %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_shop, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['shop']['icon'], size: "24x24", alt:"shop", class: "mr-10") %>
+    <%= f.label :proxy_shop %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_camp_site, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['camp_site']['icon'], size: "24x24", alt:"camp_site", class: "mr-10") %>
+    <%= f.label :proxy_camp_site %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_accommodation, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['accommodation']['icon'], size: "24x24", alt:"accommodation", class: "mr-10") %>
+    <%= f.label :proxy_accommodation %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_fuel_car, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['fuel_car']['icon'], size: "24x24", alt:"fuel_car", class: "mr-10") %>
+    <%= f.label :proxy_fuel_car %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_bike_rental, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['bike_rental']['icon'], size: "24x24", alt:"bike_rental", class: "mr-10") %>
+    <%= f.label :proxy_bike_rental %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_car_rental, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['car_rental']['icon'], size: "24x24", alt:"car_rental", class: "mr-10") %>
+    <%= f.label :proxy_car_rental %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_bus_station, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['bus_station']['icon'], size: "24x24", alt:"bus_station", class: "mr-10") %>
+    <%= f.label :proxy_bus_station %>
+  </div>
+  <div class="d-flex col-6 col-md-4">
+    <%= f.input :proxy_train_station, label: false %>
+    <%= image_tag(PoiCatalogue.inventory['train_station']['icon'], size: "24x24", alt:"train_station", class: "mr-10") %>
+    <%= f.label :proxy_train_station %>
+  </div>
+
+  <div class="col-12">
+    <%= f.submit t('trip_request.submit'), class: "btn btn-primary mt-3 w-100" %>
+  </div>
 <% end %>

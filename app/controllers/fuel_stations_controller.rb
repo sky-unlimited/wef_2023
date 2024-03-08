@@ -12,7 +12,7 @@ class FuelStationsController < ApplicationController
       render_404
     end
   end
-  
+
   def new
     @fuel_station = FuelStation.new
     @airport = Airport.find(params[:airport_id])
@@ -42,7 +42,7 @@ class FuelStationsController < ApplicationController
       redirect_to airport_path(@airport)
     else
       render "edit", status: :unprocessable_entity
-    end 
+    end
   end
 
   private

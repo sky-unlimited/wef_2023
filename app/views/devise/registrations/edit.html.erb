@@ -1,7 +1,6 @@
-<div class="container-sm">
-  <div class="form-wrapper card-product border-radius bg-color3">
-
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<div class="container-sm py-5">
+  <div class="row card bg-color3 p-3">
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "col-6 col-md-8 mx-auto" }) do |f| %>
       <h1 class="text-center"><%= t('.title', resource: resource.model_name.human) %></h1>
 
       <div class="form-inputs">
@@ -11,7 +10,7 @@
                               class: "form-label" %>
         <%= f.file_field      :picture,
                               class: "form-control mb-10" %>
-                            
+
         <%= f.label           :username,
                               class: "form-label" %>
         <%= f.text_field     :username,
@@ -19,7 +18,7 @@
                               autocomplete: "username",
                               class: "form-control mb-10",
                               readonly: true %>
- 
+
         <%= f.label           :email,
                               class: "form-label" %>
         <%= f.email_field     :email,
@@ -44,7 +43,7 @@
                               class: "form-label" %>
         <%= f.password_field  :password_confirmation,
                               autocomplete: "new-password",
-                              class: "form-control mb-20", 
+                              class: "form-control mb-20",
                               placeholder: t('devise.shared.minimum_password_length',
                                            count: @minimum_password_length) %>
 

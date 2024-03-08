@@ -1,7 +1,7 @@
-<div class="container-sm">
-  <div class="form-wrapper card-product border-radius bg-color3">
+<div class="container-sm py-5">
+  <div class="row card bg-color3 p-3">
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "test") do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "col-6 col-md-8 mx-auto" }) do |f| %>
       <h1 class="text-center"><%= t('.sign_up') %></h1>
 
       <div class="form-inputs">
@@ -9,7 +9,7 @@
 
         <%= f.label           :picture,
                               class: "form-label" %>
-        <%= f.file_field      :picture, 
+        <%= f.file_field      :picture,
                               class: "form-control mb-10" %>
 
         <%= f.label           :username,
@@ -50,8 +50,8 @@
 
     <% end %>
 
-    <div class="bg-dark mb-15 border border-radius">
-      <p class="text-center color2"><%= t('forms.devise_custom.accept_terms') %> 
+    <div class="bg-dark mt-3 border border-radius">
+      <p class="text-center color2"><%= t('forms.devise_custom.accept_terms') %>
         <%= link_to t('legal.privacy_policy'), legal_privacy_path, class: "link-primary", target: "_blank" %>
         <%= t('forms.devise_custom.and') %>
         <%= link_to t('legal.terms_and_conditions'),

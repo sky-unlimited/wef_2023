@@ -64,6 +64,9 @@ gem 'email_validator', '~> 2.2', '>= 2.2.4', require: 'email_validator/strict'
 # Bootstrap
 gem "bootstrap", "~> 5.2"
 
+# Simple form with bootstrap
+gem "simple_form"
+
 # Charts js
 gem 'chartkick', '~> 5.0', '>= 5.0.5'
 gem 'groupdate', '~> 6.4'
