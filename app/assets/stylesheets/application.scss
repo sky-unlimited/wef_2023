@@ -2,6 +2,10 @@
 @import "config/colors";
 @import "config/fonts";
 @import "config/others";
+@import "config/bootstrap_variables";
+
+// Libraries
+@import "bootstrap";
 
 // Our CSS Components
 @import "components/index";

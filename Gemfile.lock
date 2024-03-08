@@ -82,6 +82,8 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     airbrussh (1.5.0)
       sshkit (>= 1.6.1, != 1.7.0)
+    autoprefixer-rails (10.4.16.0)
+      execjs (~> 2)
     base64 (0.2.0)
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.0)
@@ -89,6 +91,9 @@ GEM
     bindex (0.8.1)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
+    bootstrap (5.3.2)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 2.11.8, < 3)
     builder (3.2.4)
     bullet (7.1.6)
       activesupport (>= 3.0.0)
@@ -144,6 +149,7 @@ GEM
     email_validator (2.2.4)
       activemodel
     erubi (1.12.0)
+    execjs (2.9.1)
     ffi (1.16.3)
     ffi-geos (2.4.0)
       ffi (>= 1.0.0)
@@ -202,6 +208,8 @@ GEM
     net-ssh (7.2.1)
     netrc (0.11.0)
     nio4r (2.7.0)
+    nokogiri (1.15.5-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
     normalize_country (0.3.2)
@@ -210,6 +218,7 @@ GEM
       rack
       rake (>= 0.8.1)
     pg (1.5.4)
+    popper_js (2.11.8)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -342,12 +351,14 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
   activerecord-postgis-adapter (~> 9.0, >= 8.0.2)
   bcrypt_pbkdf (>= 1.0, < 2.0)
   bootsnap
+  bootstrap (~> 5.2)
   bullet (~> 7.1, >= 7.1.6)
   capistrano (~> 3.17, >= 3.17.3)
   capistrano-bundler (~> 2.1)

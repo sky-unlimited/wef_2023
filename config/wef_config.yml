@@ -37,7 +37,7 @@ defaults: &defaults
 development:
   <<: *defaults
   weather_cache_expire_hour: 12
-  default_weather_tile_depth: 6
+  default_weather_tile_depth: 2
 
 test:
   <<: *defaults
