@@ -21,4 +21,6 @@ Rails.application.routes.draw do
     resources :contacts,          only: [ :index, :new, :create ]
     root to: 'pages#home'
   end
+
+  resources :blogs
 end
