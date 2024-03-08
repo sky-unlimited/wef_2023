@@ -1,5 +1,6 @@
 defaults: &defaults
   # Accepted values: 1, 0.5 and 0.25
+  contact_form_desciption_max_characters: 2000
   default_weather_tile_precision: 1
   contact_form_recipient: alex@sky-unlimited.lu
   airport_types_to_import:
