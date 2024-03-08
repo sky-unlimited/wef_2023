@@ -1,12 +1,12 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-wef">
+<div class="navbar navbar-light navbar-wef">
   <div class="container-fluid">
     <%= link_to root_path do %>
       <%= image_tag("full-logo-early-dark.png", alt: "Weekend-fly logo", height: 64, class: "logo") %>
     <% end %>
 
-    <ul class="navbar-nav me-auto">
+    <ul class="nav align-items-center">
       <li class="nav-item dropdown">
-        <p class="avatar dropdown-toggle" id="navbarLangDropdown" data-bs-toggle="dropdown" aria-haspopup=true aria-expanded=false ><%= displayFlag(locale) %></p>
+        <div class="avatar dropdown-toggle" id="navbarLangDropdown" data-bs-toggle="dropdown" aria-haspopup=true aria-expanded=false ><%= displayFlag(locale) %></div>
         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarLangDropdown">
           <% I18n.available_locales.each do |loc| %>
             <% current_locale = params[:locale] || I18n.default_locale.to_s %>
@@ -14,48 +14,38 @@
             <% new_locale = loc.to_s %>
             <% new_locale_param = (new_locale == "en") ? nil : new_locale %>
             <% new_url = "#{root_url(locale: new_locale_param)}#{new_full_path}" %>
+
             <%= link_to displayFlag(loc), new_url, class: "dropdown-item" %>
           <% end %>
         </div>
       </li>
-    </ul>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLanguages" aria-controls="navbarLanguages" aria-expanded="false" aria-label="Toggle navigation">
-      <%= displayFlag(locale) %>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarLanguages">
-      <ul class="navbar-nav me-auto">
-        <% I18n.available_locales.each do |loc| %>
-          <% current_locale = params[:locale] || I18n.default_locale.to_s %>
-          <% new_full_path = request.fullpath.sub("/#{current_locale}", "") %>
-          <% new_locale = loc.to_s %>
-          <% new_locale_param = (new_locale == "en") ? nil : new_locale %>
-          <% new_url = "#{root_url(locale: new_locale_param)}#{new_full_path}" %>
-          <li class="nav-item"><%= link_to displayFlag(loc), new_url %></li>
-        <% end %>
-      </ul>
-    </div>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <%= image_tag("menu-light.svg", class: "icon") %>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><%= link_to t("shared.home"), root_path %></li>
+      <li class="nav-item dropdown">
         <% if user_signed_in? %>
-          <li class="nav-item"><%= link_to t("shared.account"), edit_user_registration_path %></li>
-          <li class="nav-item"><%= link_to t("pilot_prefs.menu"), edit_pilot_pref_path(current_user) %></li>
-          <li class="nav-item"><%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete} %></li>
-          <% if current_user.role == "admin" %>
-            <li class="nav-item"><%= link_to t("shared.console"), console_index_path %></li>
+          <% if current_user.picture.attached? %>
+            <%= image_tag(current_user.picture.variant(:thumb), class: "avatar dropdown-toggle", id: "navbarUserDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
+          <% else %>
+            <% initials = current_user.username[0] %>
+            <div class="avatar-fake bg-color1 color-light" id="navbarUserDropdown" data-bs-toggle="dropdown" aria-haspopup=true aria-expanded=false ><%= initials.upcase %></div>
           <% end %>
         <% else %>
-          <li class="nav-item"><%= link_to t("shared.sign_in"), new_user_session_path(redirect_to: request.path) %></li>
-          <li class="nav-item"><%= link_to t("shared.sign_up"), new_user_registration_path %></li>
+          <%= image_tag("user-light.svg", class: "avatar dropdown-toggle", id: "navbarUserDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
         <% end %>
-      </ul>
-    </div>
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserDropdown">
+          <%= link_to t("shared.home"), root_path, class: "dropdown-item" %>
+          <% if user_signed_in? %>
+            <%= link_to t("shared.account"), edit_user_registration_path, class: "dropdown-item" %>
+            <%= link_to t("pilot_prefs.menu"), edit_pilot_pref_path(current_user), class: "dropdown-item" %>
+            <%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+            <% if current_user.role == "admin" %>
+              <%= link_to t("shared.console"), console_index_path, class: "dropdown-item" %>
+            <% end %>
+          <% else %>
+            <%= link_to t("shared.sign_in"), new_user_session_path(redirect_to: request.path), class: "dropdown-item" %>
+            <%= link_to t("shared.sign_up"), new_user_registration_path, class: "dropdown-item" %>
+          <% end %>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
