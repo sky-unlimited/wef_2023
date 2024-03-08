@@ -1,5 +1,6 @@
 # Manage the blog publications
 class Blog < ApplicationRecord
+  has_rich_text :content
   belongs_to :user
 
   has_one_attached :picture do |attachable|
@@ -12,6 +13,7 @@ class Blog < ApplicationRecord
                  'email_scheduled' => 4, 'email_sent' => 5 }
 
   validates :title, presence: true, length: { minimum: 3 }
+  validates :content, presence: true, length: { minimum: 10 }
 
   validate :picture_format
   validate :user_admin
