@@ -7,7 +7,7 @@
     <ul class="nav align-items-center">
       <li class="nav-item dropdown">
         <div class="avatar dropdown-toggle" id="navbarLangDropdown" data-bs-toggle="dropdown" aria-haspopup=true aria-expanded=false ><%= displayFlag(locale) %></div>
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarLangDropdown">
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark w-50" aria-labelledby="navbarLangDropdown">
           <% I18n.available_locales.each do |loc| %>
             <% current_locale = params[:locale] || I18n.default_locale.to_s %>
             <% new_full_path = request.fullpath.sub("/#{current_locale}", "") %>
@@ -31,7 +31,7 @@
         <% else %>
           <%= image_tag("user-light.svg", class: "avatar dropdown-toggle", id: "navbarUserDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
         <% end %>
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserDropdown">
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarUserDropdown">
           <%= link_to t("shared.home"), root_path, class: "dropdown-item" %>
           <% if user_signed_in? %>
             <%= link_to t("shared.account"), edit_user_registration_path, class: "dropdown-item" %>
