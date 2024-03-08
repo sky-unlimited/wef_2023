@@ -1,12 +1,131 @@
-.navbar-wef {
+header > div {
+  font-family: $body-font, "Helvetica", "sans-serif";
+  display: flex;
   justify-content: space-between;
-  background: $dark;
+  align-items: center;
+  background-color: $dark;
+  padding: 8px 0;
 }
-
-.navbar-wef .navbar-collapse {
-  flex-grow: 0;
+header p {
+  margin: 0;
 }
+header .logo {
+  height: 64px;
+  width: 100px;
+}
+header .burger {
+  color: $light;
+  margin-right: 1em;
+}
+header nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+header .nav-links {
+  display: none;
+  position: relative;
+  align-items: center;
+}
+header .nav-link {
+  text-align: center;
+  line-height: 64px;
+  transition: 0.25s;
+  width: 6em;
+}
+header .nav-link:hover {
+  background-color: $dark-bis;
+  transition: 0.25s;
+}
+header .nav-button {
+  color: $light;
+  line-height: 64px;
+  transition: 0.25s;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
 
-.navbar-wef .navbar-brand .logo {
-  width: 64px;
+}
+header .nav-account {
+  line-height: 64px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.75em;
+  margin: 1em;
+  color: $light;
+}
+header .nav-link a {
+  color: $light;
+  text-decoration: none;
+  font-weight: 400;
+}
+header .nav-lang {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  align-self: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 64px;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  position: relative;
+  li {
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+header .nav-lang-content {
+  line-height: 1.25em;
+  background-color: $dark;
+  position: absolute;
+  display: none;
+  z-index: 1100;
+  left: -10px;
+  padding: 10px;
+}
+header .account-menu-content {
+  background-color: $dark;
+  position: absolute;
+  width: auto;
+  display: none;
+  right: 0;
+  top: 80px;
+  z-index: 1100;
+}
+header .account-menu-content p {
+  line-height: 2em;
+  transition: 0.25s;
+}
+header .account-menu-content p:hover {
+  background-color: $secondary;
+  transition: 0.25s;
+}
+header .account-menu-content a {
+  color: $light;
+  text-decoration: none;
+  padding: 1em;
+  white-space: nowrap;
+}
+header .account-menu-content a:hover {
+  color: $light;
+}
+header .account-menu-content p {
+  text-align: center;
+  padding: 1em;
+}
+header .show {
+  display: inline-block;
+}
+@media only screen and (min-width: 700px) {
+  header .nav-links {
+    display: flex;
+  }
+  header .nav-lang {
+    display: inline;
+  }
+  .burger {
+    display: none;
+  }
 }

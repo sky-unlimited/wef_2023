@@ -1,51 +1,74 @@
-<div class="navbar navbar-light navbar-wef">
+<header>
   <div class="container-fluid">
-    <%= link_to root_path do %>
-      <%= image_tag("full-logo-early-dark.png", alt: "Weekend-fly logo", height: 64, class: "logo") %>
-    <% end %>
-
-    <ul class="nav align-items-center">
-      <li class="nav-item dropdown">
-        <div class="avatar dropdown-toggle" id="navbarLangDropdown" data-bs-toggle="dropdown" aria-haspopup=true aria-expanded=false ><%= displayFlag(locale) %></div>
-        <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark w-50" aria-labelledby="navbarLangDropdown">
-          <% I18n.available_locales.each do |loc| %>
-            <% current_locale = params[:locale] || I18n.default_locale.to_s %>
-            <% new_full_path = request.fullpath.sub("/#{current_locale}", "") %>
-            <% new_locale = loc.to_s %>
-            <% new_locale_param = (new_locale == "en") ? nil : new_locale %>
-            <% new_url = "#{root_url(locale: new_locale_param)}#{new_full_path}" %>
-
-            <%= link_to displayFlag(loc), new_url, class: "dropdown-item" %>
-          <% end %>
+    <div class="logo">
+      <%= link_to root_path do %>
+        <%= image_tag("full-logo-early-dark.png", alt: "Weekend-fly logo") %>
+      <% end %>
+    </div>
+    <nav>
+      <div class="nav-links" data-controller="submenu">
+        <div class="nav-lang">
+          <div id="navbarLangDropdown" data-bs-toggle="dropdown" aria-haspopup=true aria-expanded=false><%= displayFlag(locale) %></div>
+          <div class="nav-lang-content dropdown-menu dropdown-menu-end dropdown-menu-dark" data-submenu-target="flag" aria-labelledby="navbarLangDropdown">
+            <% I18n.available_locales.each do |loc| %>
+              <% current_locale = params[:locale] || I18n.default_locale.to_s %>
+              <% new_full_path = request.fullpath.sub("/#{current_locale}", "") %>
+              <% new_locale = loc.to_s %>
+              <% new_locale_param = (new_locale == "en") ? nil : new_locale %>
+              <% new_url = "#{root_url(locale: new_locale_param)}#{new_full_path}" %>
+              <%= link_to displayFlag(loc), new_url, class: "dropdown-item" %>
+            <% end %>
+          </div>
         </div>
-      </li>
 
-      <li class="nav-item dropdown">
-        <% if user_signed_in? %>
-          <% if current_user.picture.attached? %>
-            <%= image_tag(current_user.picture.variant(:thumb), class: "avatar dropdown-toggle", id: "navbarUserDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
-          <% else %>
-            <% initials = current_user.username[0] %>
-            <div class="avatar-fake bg-color1 color-light" id="navbarUserDropdown" data-bs-toggle="dropdown" aria-haspopup=true aria-expanded=false ><%= initials.upcase %></div>
-          <% end %>
-        <% else %>
-          <%= image_tag("user-light.svg", class: "avatar dropdown-toggle", id: "navbarUserDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
-        <% end %>
-        <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarUserDropdown">
-          <%= link_to t("shared.home"), root_path, class: "dropdown-item" %>
+        <div>
           <% if user_signed_in? %>
-            <%= link_to t("shared.account"), edit_user_registration_path, class: "dropdown-item" %>
-            <%= link_to t("pilot_prefs.menu"), edit_pilot_pref_path(current_user), class: "dropdown-item" %>
-            <%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-            <% if current_user.role == "admin" %>
-              <%= link_to t("shared.console"), console_index_path, class: "dropdown-item" %>
+            <% if current_user.picture.attached? %>
+              <%= image_tag(current_user.picture.variant(:thumb), class: "nav-account avatar-medium", id: "navbarAccountDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
+            <% else %>
+              <% initials = current_user.username[0] %>
+              <div class="avatar-fake bg-color1 color-light" id="navbarAccountDropdown" data-bs-toggle="dropdown" aria-haspopup=true aria-expanded=false><%= initials.upcase %></div>
             <% end %>
           <% else %>
-            <%= link_to t("shared.sign_in"), new_user_session_path(redirect_to: request.path), class: "dropdown-item" %>
-            <%= link_to t("shared.sign_up"), new_user_registration_path, class: "dropdown-item" %>
+            <%= image_tag("user-light.svg", class: "nav-account", id: "navbarAccountDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false) %>
           <% end %>
+          <div class="account-menu-content dropdown-menu dropdown-menu-end dropdown-menu-dark" data-submenu-target="account" aria-labelledby="navbarAccountDropdown">
+            <% if user_signed_in? %>
+              <%= link_to t("shared.account"), edit_user_registration_path, class: "dropdown-item" %>
+              <%= link_to t("pilot_prefs.menu"), edit_pilot_pref_path(current_user), class: "dropdown-item" %>
+              <%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
+              <% if current_user.role == "admin" %>
+                <%= link_to t("shared.console"), console_index_path, class: "dropdown-item" %>
+              <% end %>
+            <% else %>
+              <%= link_to t("shared.sign_in"), new_user_session_path(redirect_to: request.path), class: "dropdown-item" %>
+              <%= link_to t("shared.sign_up"), new_user_registration_path, class: "dropdown-item" %>
+            <% end %>
+          </div>
         </div>
-      </li>
-    </ul>
+      </div>
+      <div data-controller="burger" data-action="click->burger#menu" class="burger">
+        <%= image_tag("menu-light.svg", class: "icon", data: { burger_target: 'icon'}) %>
+        <div class="burger-menu-content" data-burger-target="burger">
+          <p><%= link_to t("shared.home"), root_path %></p>
+          <% if user_signed_in? %>
+            <p><%= link_to t("shared.account"), edit_user_registration_path %></p>
+            <p><%= link_to t("pilot_prefs.menu"), edit_pilot_pref_path(current_user) %></p>
+            <p><%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete} %></p>
+            <% if current_user.role == "admin" %>
+              <p><%= link_to t("shared.console"), console_index_path %></p>
+            <% end %>
+          <% else %>
+            <p><%= link_to t("shared.sign_in"), new_user_session_path(redirect_to: request.path) %></p>
+            <p><%= link_to t("shared.sign_up"), new_user_registration_path %></p>
+          <% end %>
+          <div class="nav-lang">
+            <% I18n.available_locales.each do |loc| %>
+              <p><%= link_to displayFlag(loc), root_path(locale: loc) %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
   </div>
-</div>
+</header>
