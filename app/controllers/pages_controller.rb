@@ -21,6 +21,8 @@ class PagesController < ApplicationController
       }
     end
 
+    @events = Event.includes(:airport).all.limit(3)
+
     # We set variables needed for airport searcher
     @base_url = set_base_url
     @locale   = set_locale
