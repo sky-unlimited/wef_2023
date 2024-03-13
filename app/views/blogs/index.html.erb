@@ -1,4 +1,4 @@
-<div class="container-fluid p-20 bg-light">
+<div class="container-fluid pt-20">
   <% if current_user && current_user.admin? %>
     <%= link_to 'New Post', new_blog_path, class: 'btn btn-primary' %>
   <% end %>
@@ -9,16 +9,16 @@
   <div id="blogs" class="d-flex flex-wrap">
     <% @blogs.each do |blog| %>
       <div  id="card"
-            class="d-flex flex-row bg-light border-shadow mb-20 ml-20"
-            style="min-width: 500px; max-width: 500px;">
+            class="d-flex flex-row bg-light border-shadow mb-20 ml-10"
+            style="min-width: 380px; max-width: 380px;">
         <a href="#"></a>
         <div  id="card-picture"
-              class="bg-dark"
+              class="bg-secondary"
               style="width: 100px;height: 100px;">
           <% if blog.picture.attached? %>
             <%= image_tag blog.picture.variant(:thumb) %>
           <% else %>
-            <%= image_tag 'cast.svg', width: '60px' %>
+            <%= image_tag 'cast.svg', width: '100px' %>
           <% end %>
         </div>
         <div  id="card-description" 

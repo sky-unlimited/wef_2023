@@ -21,6 +21,7 @@ class BlogsController < ApplicationController
   def edit; end
 
   def update
+    @blog.blog_publication_date = Time.now if @blog.status.to_sym == :published
     if @blog.update(blog_input_params)
       redirect_to blog_url(@blog), notice: 'Post was successfully updated.'
     else

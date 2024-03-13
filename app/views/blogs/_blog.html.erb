@@ -23,19 +23,24 @@
   <p class="mt-0">
     <% unless blog.keywords.nil? %>
       <% display_keywords(blog.keywords).each do |keyword| %>
-        <span class="tag tag-color3"><%= keyword %></span>
+        <span class="tag tag-secondary"><%= keyword %></span>
       <% end %>
     <% end %>
   </p>
 
   <p>
     <strong>Newsletter publication date:</strong>
-    <%= blog.blog_publication_date %>
+      <% unless blog.blog_publication_date.nil? %>
+        <%= "#{l blog.blog_publication_date, format: :long}" %>
+      <% end %>
   </p>
 
   <p>
     <strong>Email publication date:</strong>
-    <%= blog.email_publication_date %>
+      <% unless blog.email_publication_date.nil? %>
+        <%= "#{l blog.email_publication_date, format: :long}" %>
+      <% end %>
+  </p>
   </p>
 
 </div>
