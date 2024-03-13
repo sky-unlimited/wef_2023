@@ -1,0 +1,41 @@
+<div id="<%= dom_id blog %>">
+  <% if blog.picture.attached? %>
+    <p>
+      <%= link_to image_tag(blog.picture.variant(:thumb_big)), blog.picture, target: :_blank %>
+    </p>
+  <% end %>
+
+  <p>
+    <span>
+      <%= "#{blog.user.username.downcase} · 
+          #{l blog.created_at, format: :date_short} · 
+          #{blog.content.to_s.scan(/\w+/).size / 250} min · " %>
+    </span>
+    <span class="tag tag-outline-dark">
+      <%= blog.status.humanize %>
+    </span>
+  </p>
+
+  <p>
+    <%= blog.content %>
+  </p>
+
+  <p class="mt-0">
+    <% unless blog.keywords.nil? %>
+      <% display_keywords(blog.keywords).each do |keyword| %>
+        <span class="tag tag-color3"><%= keyword %></span>
+      <% end %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Newsletter publication date:</strong>
+    <%= blog.blog_publication_date %>
+  </p>
+
+  <p>
+    <strong>Email publication date:</strong>
+    <%= blog.email_publication_date %>
+  </p>
+
+</div>

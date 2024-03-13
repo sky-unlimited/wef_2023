@@ -1,1 +1,46 @@
-<h1>All blogs</h1>
+<div class="container-fluid p-20 bg-light">
+  <% if current_user && current_user.admin? %>
+    <%= link_to 'New Post', new_blog_path, class: 'btn btn-primary' %>
+  <% end %>
+  <%= link_to 'Back', root_path, class: 'btn btn-secondary' %>
+
+  <h1>Newsletters</h1>
+
+  <div id="blogs" class="d-flex flex-wrap">
+    <% @blogs.each do |blog| %>
+      <div  id="card"
+            class="d-flex flex-row bg-light border-shadow mb-20 ml-20"
+            style="min-width: 500px; max-width: 500px;">
+        <a href="#"></a>
+        <div  id="card-picture"
+              class="bg-dark"
+              style="width: 100px;height: 100px;">
+          <% if blog.picture.attached? %>
+            <%= image_tag blog.picture.variant(:thumb) %>
+          <% else %>
+            <%= image_tag 'cast.svg', width: '60px' %>
+          <% end %>
+        </div>
+        <div  id="card-description" 
+              class="ml-15 d-flex flex-column bg-light justify-content-between">
+          <div  id="card-description-author"
+                class="color-dark fs-0-8">
+            <%= blog.user.username %>
+          </div>
+          <div  id="card-description-title"
+                class="fs-1-2">
+            <strong>
+              <%= link_to blog.title, blog_path(blog.id), class: "link-dark" %>
+            </strong>
+          </div>
+          <div  id="card-description-infos"
+                class="color-dark fs-0-8">
+            <%= "#{l blog.created_at, format: :date_short} · 
+            #{blog.content.to_s.scan(/\w+/).size / 250} min · 
+            #{blog.status.humanize}" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

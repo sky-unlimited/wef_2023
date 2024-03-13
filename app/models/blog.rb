@@ -1,6 +1,11 @@
 # Manage the blog publications
 class Blog < ApplicationRecord
   has_rich_text :content
+  has_one_attached :picture do |attachable|
+    attachable.variant :thumb, resize_to_fill: [100, 100]
+    attachable.variant :thumb_big, resize_to_limit: [200, 200]
+  end
+
   belongs_to :user
 
   has_one_attached :picture do |attachable|
@@ -8,17 +13,17 @@ class Blog < ApplicationRecord
     attachable.variant :thumb_big, resize_to_limit: [200, 200]
   end
 
-  enum status: { 'draft' => 0, 'ready_to_publish' => 1,
-                 'scheduled' => 2, 'published' => 3,
-                 'email_scheduled' => 4, 'email_sent' => 5 }
+  enum status: { draft: 0, published: 1, email_sent: 2 }
 
   validates :title, presence: true, length: { minimum: 3 }
   validates :content, presence: true, length: { minimum: 10 }
+  validates :keywords, length: { maximum: 100 }
 
   validate :picture_format
   validate :user_admin
   validate :publications_order
-  validate :status_daft, on: :create
+  validate :status_draft, on: :create
+  validate :status_cycle
 
   def user_admin
     return if user&.admin?
@@ -28,10 +33,31 @@ class Blog < ApplicationRecord
 
   private
 
-  def status_daft
-    return if status == :draft
+  def status_draft
+    return if status.to_sym == :draft
 
     errors.add(:status, 'Status should be draft on creation')
+  end
+
+  def status_cycle
+    return if id.nil?
+
+    # Can't go from published to draft
+    #   Check former status
+    status_before = Blog.find(id).status
+    if status.to_sym == :draft &&
+       (status_before.to_sym == :published ||
+         status_before.to_sym == :email_sent)
+      errors.add(:status,
+                 'Cannot go back to draft status. Post already published')
+    end
+
+    # email_sent status can't be set manually
+    if  status.to_sym == :email_sent &&
+        email_publication_date.nil?
+      errors.add(:status,
+                 'You cannot set manualy status to email_sent')
+    end
   end
 
   def publications_order

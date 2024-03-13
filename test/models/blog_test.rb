@@ -3,7 +3,8 @@ require 'test_helper'
 class BlogTest < ActiveSupport::TestCase
   test 'Correct blog should save' do
     blog = blogs(:one)
-    assert blog.save
+    blog.content = 'This is the content!'
+    assert blog.save!
   end
 
   test 'None admin user should not save' do
@@ -32,6 +33,22 @@ class BlogTest < ActiveSupport::TestCase
               keywords: '#test',
               status: 1 }
     blog = Blog.new(hash)
+    assert_not blog.save
+  end
+
+  test 'Keywords have a maximum length' do
+    hash = {  user: users(:admin_user),
+              title: 'My title',
+              keywords: '#test' * 100,
+              status: 0 }
+    blog = Blog.new(hash)
+    assert_not blog.save
+  end
+
+  test 'Cannot change status from published to draft' do
+    blog = blogs(:two)
+    blog.content = 'This is my super story, listen...'
+    blog.status = :draft
     assert_not blog.save
   end
 end

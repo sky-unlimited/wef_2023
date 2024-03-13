@@ -1,1 +1,15 @@
-<h1>Edit blog</h1>
+<div class="container-fluid p-20">
+  <%= link_to 'Show Post', blog_path(@blog), class: 'btn btn-secondary' %>
+  <%= link_to 'All Posts', blogs_path, class: 'btn btn-secondary' %>
+
+  <h1>Editing blog</h1>
+
+  <%= render "form", blog: @blog %>
+
+  <br>
+
+  <div>
+    <%= link_to "Show this blog", @blog %> |
+    <%= link_to "Back to blogs", blogs_path %>
+  </div>
+</div>

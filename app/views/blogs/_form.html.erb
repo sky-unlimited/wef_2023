@@ -1,8 +1,57 @@
-<%= form_with model: @blog do |form| %>
-  <div class="field">
-    <%= form.label :title %>
+<%= form_with(model: blog) do |form| %>
+  <% if blog.errors.any? %>
+    <div class="alert-danger">
+      <h3 class="form-title-error"><%= t("forms.messages.errors", count: blog.errors.count) %> </h3>
+      <ul>
+        <% blog.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :picture %>
+    <%= form.file_field :picture %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
-    <%= form.label :content %>
+  </div>
+
+  <div>
+    <%= form.label :content, style: "display: block" %>
     <%= form.rich_text_area :content %>
   </div>
+
+  <div>
+    <%= form.label :keywords, style: "display: block" %>
+    <%= form.text_area  :keywords, 
+                        placeholder: "tag1, tag2",
+                        size: "50x2" %>
+  </div>
+
+  <% unless blog.id.nil? %>
+    <div>
+      <%= form.label :status, style: "display: block" %>
+      <%= form.collection_select  :status,
+                                  Blog.statuses.keys, :to_s,
+                                  :humanize %>
+    </div>
+
+    <div>
+      <%= form.label :email_publication_date, style: "display: block" %>
+      <%= form.datetime_field :email_publication_date,
+                              min: Date.today,
+                              readonly: true
+      %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit t("forms.submit"), class: "btn btn-success mt-10" %>
+  </div>
+
+</div>
 <% end %>

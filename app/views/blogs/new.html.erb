@@ -1,2 +1,8 @@
-<h1>New blog</h1>
-<%= render 'form' %>
+
+<div class="container-lg pt-20">
+  <%= link_to 'Back', blogs_path, class: 'btn btn-secondary' %>
+
+<h1>New Post</h1>
+<%= render 'form', blog: @blog %>
+
+</div>
