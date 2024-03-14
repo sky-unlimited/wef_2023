@@ -1,0 +1,18 @@
+<%# locals: (events:) %>
+
+<% events.each do |event| %>
+  <div class="card-trip">
+    <%= link_to event.url, target: "_blank", class: "link" do %>
+      <%= image_tag "external-link.png", alt: "link", width: 20 %>
+    <% end %>
+    <%= image_tag event.image_link, alt: event.title %>
+    <div class="card-trip-infos">
+      <h2><%= event.title %></h2>
+      <p class="mt-5"><%= event.start_date.strftime("%a, %e %b") %><%= "- #{event.end_date.strftime("%a, %e %b")}" unless event.one_day? %></p>
+      <div class="d-flex align-items-center mt-10 justify-content-between">
+        <p class="mt-0">📍 <%= event.airport.name %></p>
+        <div class="tag <%= "bg-#{event.kind_color}" %>"><%= event.kind.capitalize %></div>
+      </div>
+    </div>
+  </div>
+<% end %>
