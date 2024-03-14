@@ -4,9 +4,10 @@ class CreateBlogs < ActiveRecord::Migration[7.1]
       t.references :user, null: false, foreign_key: true
       t.string :title, null: false
       t.string :keywords
-      t.integer :status, null: false
-      t.datetime :blog_publication_date
-      t.datetime :email_publication_date
+      t.boolean :published, default: false
+      t.boolean :scheduled_email, default: false
+      t.boolean :sent_email, default: false
+      t.datetime :sent_email_date
 
       t.timestamps
     end

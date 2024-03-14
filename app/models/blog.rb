@@ -13,17 +13,13 @@ class Blog < ApplicationRecord
     attachable.variant :thumb_big, resize_to_limit: [200, 200]
   end
 
-  enum status: { draft: 0, published: 1, email_sent: 2 }
-
   validates :title, presence: true, length: { minimum: 3 }
   validates :content, presence: true, length: { minimum: 10 }
   validates :keywords, length: { maximum: 100 }
 
   validate :picture_format
   validate :user_admin
-  validate :publications_order
-  validate :status_draft, on: :create
-  validate :status_cycle
+  validate :unpublishing, on: :update
 
   def user_admin
     return if user&.admin?
@@ -33,40 +29,11 @@ class Blog < ApplicationRecord
 
   private
 
-  def status_draft
-    return if status.to_sym == :draft
+  def unpublishing
+    published_before = Blog.find(id).published
+    return unless published_before == true && published == false
 
-    errors.add(:status, 'Status should be draft on creation')
-  end
-
-  def status_cycle
-    return if id.nil?
-
-    # Can't go from published to draft
-    #   Check former status
-    status_before = Blog.find(id).status
-    if status.to_sym == :draft &&
-       (status_before.to_sym == :published ||
-         status_before.to_sym == :email_sent)
-      errors.add(:status,
-                 'Cannot go back to draft status. Post already published')
-    end
-
-    # email_sent status can't be set manually
-    if  status.to_sym == :email_sent &&
-        email_publication_date.nil?
-      errors.add(:status,
-                 'You cannot set manualy status to email_sent')
-    end
-  end
-
-  def publications_order
-    if !blog_publication_date.nil? &&
-       !email_publication_date.nil? &&
-       (email_publication_date < blog_publication_date)
-
-      errors.add(:email_publication_date, 'Cannot be before blog publication')
-    end
+    errors.add(:pubished, 'Published post cannot be unpublished')
   end
 
   def picture_format

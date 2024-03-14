@@ -2,16 +2,17 @@
 
 one:
   user: admin_user
-  title: My first beautfull blog
-  keywords: '#firstBlog'
-  status: 0
-  blog_publication_date: Time.now - 2.days
-  email_publication_date: Time.now - 1.day
+  title: My first beautifull blog
+  keywords: 'firstBlog, news'
+  published: true
+  scheduled_email: true
+  sent_email: true
+  sent_email_date: Time.zone.now - 1.day
 
 two:
   user: admin_user
   title: My second blog!
-  keywords: '#release_note'
-  status: 1
-  blog_publication_date: Time.now - 2.days
-  email_publication_date: Time.now - 1.day
+  keywords: 'release_note, fixture'
+  published: false
+  scheduled_email: false
+  sent_email: false

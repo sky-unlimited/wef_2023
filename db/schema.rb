@@ -90,9 +90,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_024115) do
     t.bigint "user_id", null: false
     t.string "title", null: false
     t.string "keywords"
-    t.integer "status", null: false
-    t.datetime "blog_publication_date"
-    t.datetime "email_publication_date"
+    t.boolean "published", default: false
+    t.boolean "scheduled_email", default: false
+    t.boolean "sent_email", default: false
+    t.datetime "sent_email_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_blogs_on_user_id"

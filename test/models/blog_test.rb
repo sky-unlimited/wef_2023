@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class BlogTest < ActiveSupport::TestCase
-  test 'Correct blog should save' do
-    blog = blogs(:one)
+  test 'Correct drafted blog should save' do
+    blog = blogs(:two)
     blog.content = 'This is the content!'
     assert blog.save!
   end
@@ -10,28 +10,7 @@ class BlogTest < ActiveSupport::TestCase
   test 'None admin user should not save' do
     hash = {  user: users(:regular_user),
               title: 'My title',
-              keywords: '#test',
-              status: 0 }
-    blog = Blog.new(hash)
-    assert_not blog.save
-  end
-
-  test "email publication  can't be before blog publication" do
-    hash = {  user: users(:admin_user),
-              title: 'My title',
-              keywords: '#test',
-              status: 0,
-              blog_publication_date: Time.now,
-              email_publication_date: Time.now - 1.day }
-    blog = Blog.new(hash)
-    assert_not blog.save
-  end
-
-  test 'Status can only be in draft when creating ' do
-    hash = {  user: users(:admin_user),
-              title: 'My title',
-              keywords: '#test',
-              status: 1 }
+              keywords: 'test' }
     blog = Blog.new(hash)
     assert_not blog.save
   end
@@ -39,16 +18,15 @@ class BlogTest < ActiveSupport::TestCase
   test 'Keywords have a maximum length' do
     hash = {  user: users(:admin_user),
               title: 'My title',
-              keywords: '#test' * 100,
-              status: 0 }
+              keywords: '#test' * 100 }
     blog = Blog.new(hash)
     assert_not blog.save
   end
 
-  test 'Cannot change status from published to draft' do
-    blog = blogs(:two)
-    blog.content = 'This is my super story, listen...'
-    blog.status = :draft
+  test 'Post having been published cannot be unpublished' do
+    blog = blogs(:one)
+    blog.content = 'This is the content!'
+    blog.published = false
     assert_not blog.save
   end
 end
