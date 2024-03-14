@@ -21,9 +21,8 @@ class PagesController < ApplicationController
       }
     end
 
-    @events = Event.includes(:airport).where('start_date >= ?', Date.today)
     # Sort events by distance from user's base airport, then by start date
-    @events = @events.sort_by { |event| [event.airport.geom_point.distance(current_user.base_airport.geom_point), event.start_date] }.first(3)
+    @events = Event.includes(:airport).closest(current_user.base_airport).first(3)
 
     # We set variables needed for airport searcher
     @base_url = set_base_url

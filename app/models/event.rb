@@ -21,4 +21,16 @@ class Event < ApplicationRecord
       'color3'
     end
   end
+
+  def self.upcoming
+    where('start_date >= ?', Date.today)
+  end
+
+  def self.closest(airport)
+    upcoming.sort_by { |event| [event.airport.geom_point.distance(airport.geom_point), event.start_date] }
+  end
+
+  def one_day?
+    start_date == end_date
+  end
 end
