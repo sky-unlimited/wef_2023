@@ -1,4 +1,10 @@
-<%= form_with model: trip_request, data: { turbo: false } do |f| %>
+<%= form_with model: trip_request, data: { turbo: false, controller: "loading", action: "submit->loading#loader" } do |f| %>
+  <div class="loader loader--style1">
+    <div data-loading-target="modal" id="loader-page">
+      <div class="loader-name">Loading</div>
+      <div class="loader-circle"></div>
+    </div>
+  </div>
 
   <div class="form-inputs">
 
@@ -24,15 +30,15 @@
         <%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %>
         <div class="group-searcher">
           <%= text_field_tag "search" ,
-                              @airport_full_name, 
-                              placeholder: t('trip_request.search_placeholder'), 
-                              size: 30, 
-                              data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" }, 
+                              @airport_full_name,
+                              placeholder: t('trip_request.search_placeholder'),
+                              size: 30,
+                              data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" },
                               class: "form-control form-searcher",
                               required: true %>
-          <button type="button" 
-                  id="clear-search" 
-                  class="btn-round" 
+          <button type="button"
+                  id="clear-search"
+                  class="btn-round"
                   data-action="click->airport-searcher#clearSearcher">X
           </button>
         </div>
@@ -45,7 +51,7 @@
       <div class="d-flex flex-column">
         <div><%= f.label :start_date, class: "form-label" %></div>
         <div><%= f.date_field :start_date,
-                min: Date.today, 
+                min: Date.today,
                 class: "form-control text-center" %></div>
       </div>
       <div class="d-flex flex-column">
@@ -81,9 +87,9 @@
     <!--
     <p class="text-center mb-5"><%= t('activerecord.attributes.trip_request.trip_mode') %></p>
     <div class="d-flex flex-columns align-items-center p-10 border border-radius mb-20 bg-light color-dark">
-      <%= f.collection_radio_buttons :trip_mode, TripRequest.trip_modes, :first, :first, class: "mr-5", 
-          checked: I18n.t('activerecord.attributes.trip_request.trip_mode_options.custom'), 
-          disabled: [I18n.t('activerecord.attributes.trip_request.trip_mode_options.events'), 
+      <%= f.collection_radio_buttons :trip_mode, TripRequest.trip_modes, :first, :first, class: "mr-5",
+          checked: I18n.t('activerecord.attributes.trip_request.trip_mode_options.custom'),
+          disabled: [I18n.t('activerecord.attributes.trip_request.trip_mode_options.events'),
                      I18n.t('activerecord.attributes.trip_request.trip_mode_options.suggested')] %>
     </div>
     -->
