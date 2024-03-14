@@ -11,6 +11,7 @@ Runway.destroy_all
 FuelStation.destroy_all
 Airport.destroy_all
 Country.destroy_all
+Blog.destroy_all
 
 puts "-------------------------------"
 puts "All environments seeds"
@@ -41,8 +42,8 @@ pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: false)
 puts "Admin user alex created"
 puts "Pilot pref alex created"
 
-# Create users
 if Rails.env.development? || Rails.env.staging?
+  # Create users
   puts "-------------------------------"
   puts "development & staging seeds"
   puts "-------------------------------"
@@ -71,4 +72,17 @@ if Rails.env.development? || Rails.env.staging?
   pilot_pref.update(airport: Airport.find_by(icao: "LFCL"), is_ultralight_pilot: true, is_private_pilot: true)
   puts "christina user created"
   puts "christina pilot prefs created"
+
+  # Create blogs
+  lorem = 'Cras aliquam tincidunt accumsan. Pellentesque metus libero, bibendum quis mollis vitae, accumsan non ipsum. In id purus quis ipsum suscipit luctus. Etiam maximus magna sed leo dapibus tristique. Suspendisse potenti. Etiam a nisl purus. Etiam porttitor risus ac ligula consectetur, in porttitor ligula tincidunt. Praesent sodales lacus tincidunt, rhoncus justo sed, molestie ipsum. Sed finibus erat sed vulputate scelerisque.
+
+Vivamus condimentum tempus tortor, sit amet ornare arcu maximus sit amet. Mauris sed ex nec augue varius fermentum. Sed maximus nisi ut ex tincidunt, quis tincidunt diam venenatis. Integer tristique hendrerit tellus ac egestas. Nulla facilisi. Nam non fringilla eros. Donec ultricies elit lacinia tincidunt scelerisque. Quisque non condimentum nisi. Donec interdum vehicula enim a ornare. Donec feugiat in eros at ultrices. Nam in leo non ante placerat scelerisque. Aliquam ut turpis volutpat, finibus odio vel, ullamcorper nisi.
+
+Nam lacinia risus lorem, ut dignissim tellus sollicitudin eget. Nam eu condimentum metus. Nam in elit non tortor molestie placerat. Nullam maximus quam leo, sed condimentum velit aliquet nec. Donec iaculis est id venenatis suscipit. Nam quis nisl nunc. Duis id leo arcu. Cras vestibulum bibendum urna, id pharetra dui suscipit ac.'
+  hash = { user: User.first, title: 'My first blog!',
+           keywords: 'test, seed',
+           content: lorem }
+  blog = Blog.new(hash)
+  blog.save
+  puts "Blog#1 created!"
 end
