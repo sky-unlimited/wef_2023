@@ -74,9 +74,9 @@ if Rails.env.development? || Rails.env.staging?
   puts "christina pilot prefs created"
 
   # Create dummy events
-  lux_airport = Airport.find_by(name: "Luxembourg-Findel International Airport")
-  leipzig_airport = Airport.find_by(name: "Leipzig–Altenburg Airport")
-  munich_airport = Airport.find_by(name: "Munich Airport")
+  lux_airport = Airport.find_by(icao: "ELLX")
+  leipzig_airport = Airport.find_by(icao: "EDAC")
+  munich_airport = Airport.find_by(icao: "EDDM")
   Event.create(title: "Event 1", kind: 0, start_date: Date.today + 1.week, end_date: Date.today + 1.week, image_link: "https://source.unsplash.com/random/?#{lux_airport.name}" , url: "https://google.com?q=#{lux_airport.name}", airport: lux_airport)
   Event.create(title: "Event 2", kind: 1, start_date: Date.today + 2.week, end_date: Date.today + 2.week + 2.day, image_link: "https://source.unsplash.com/random/?#{lux_airport.name}" , url: "https://google.com?q=#{lux_airport.name}", airport: lux_airport)
   Event.create(title: "Event 3", kind: 2, start_date: Date.today + 1.week, end_date: Date.today + 1.week + 2.day, image_link: "https://source.unsplash.com/random/?#{lux_airport.name}" , url: "https://google.com?q=#{lux_airport.name}", airport: lux_airport)
