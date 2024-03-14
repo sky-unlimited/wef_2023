@@ -1,17 +1,19 @@
 <%# locals: (events:) %>
 
-<section class="container-xl d-flex flex-column py-20">
+<section class="container d-flex flex-column py-20">
   <h1 class="text-center">Events near you</h1>
   <div class="cards">
     <% events.each do |event| %>
       <div class="card-trip">
+        <div class="tag <%= "bg-#{event.kind_color}" %>"><%= event.kind.capitalize %></div>
         <%= image_tag event.image_link, alt: event.title %>
         <div class="card-trip-infos">
-          <div>
-            <h2><%= event.title %></h2>
-            <p><%= event.airport.name %></p>
+          <small class="mb-5"><%= event.start_date.strftime("%d %b %y") %> - <%= event.end_date.strftime("%d %b %y") %></small>
+          <h2><%= event.title %></h2>
+          <div class="d-flex align-items-center mt-10 justify-content-between">
+            <p>📍 <%= event.airport.name %></p>
+            <%= link_to "See event", event.url, target: "_blank" %>
           </div>
-          <p><%= event.start_date.strftime("%d/%m/%y") %> - <%= event.end_date.strftime("%d/%m/%y") %></p>
         </div>
       </div>
     <% end %>
