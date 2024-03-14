@@ -9,7 +9,7 @@ class BlogsController < ApplicationController
                                     user
                                     picture_attachment]).order('id DESC')
     else
-      @blogs = Blog.where.not(status: :draft).includes(%i[rich_text_content
+      @blogs = Blog.where.not(published: false).includes(%i[rich_text_content
                                                           user
                                                           picture_attachment])
                    .order('id DESC')
@@ -21,7 +21,6 @@ class BlogsController < ApplicationController
   def edit; end
 
   def update
-    @blog.blog_publication_date = Time.now if @blog.status.to_sym == :published
     if @blog.update(blog_input_params)
       redirect_to blog_url(@blog), notice: 'Post was successfully updated.'
     else
@@ -46,7 +45,6 @@ class BlogsController < ApplicationController
   def create
     @blog = Blog.new(blog_input_params)
     @blog.user = current_user
-    @blog.status = :draft
     if @blog.save
       redirect_to blog_url(@blog),
                   notice: 'Newsletter was successfully created.'
@@ -59,8 +57,7 @@ class BlogsController < ApplicationController
 
   def blog_input_params
     params.require(:blog).permit(:user, :title, :content, :keywords, :picture,
-                                 :blog_publication_date,
-                                 :email_publication_date, :status)
+                                 :published, :scheduled_email, :sent_email)
   end
 
   def set_blog

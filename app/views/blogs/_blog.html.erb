@@ -6,14 +6,9 @@
   <% end %>
 
   <p>
-    <span>
-      <%= "#{blog.user.username.downcase} · 
-          #{l blog.created_at, format: :date_short} · 
-          #{blog.content.to_s.scan(/\w+/).size / 250} min · " %>
-    </span>
-    <span class="tag tag-outline-dark">
-      <%= blog.status.humanize %>
-    </span>
+    <%= "#{blog.user.username.downcase} · 
+        #{l blog.created_at, format: :date_short} · 
+        #{blog.content.to_s.scan(/\w+/).size / 250} min · " %>
   </p>
 
   <p>
@@ -28,19 +23,34 @@
     <% end %>
   </p>
 
-  <p>
-    <strong>Newsletter publication date:</strong>
-      <% unless blog.blog_publication_date.nil? %>
-        <%= "#{l blog.blog_publication_date, format: :long}" %>
+  <% if current_user&.admin? %>
+    <p>Published:
+    <% if blog.published %>
+      ✅
+    <% else %>
+      ❌
+    <% end %>
+    </p>
+    <p>Email scheduled:
+    <% if blog.scheduled_email %>
+      ✅
+    <% else %>
+      ❌
+    <% end %>
+    </p>
+    <p>Email sent:
+    <% if blog.sent_email %>
+      ✅
+      <% unless blog.sent_email_date.nil? %>
+        (<%= blog.sent_email_date %>)
       <% end %>
-  </p>
+    <% else %>
+      ❌
+    <% end %>
+    </p>
 
-  <p>
-    <strong>Email publication date:</strong>
-      <% unless blog.email_publication_date.nil? %>
-        <%= "#{l blog.email_publication_date, format: :long}" %>
-      <% end %>
-  </p>
-  </p>
+    <p>
+    </p>
+  <% end %>
 
 </div>

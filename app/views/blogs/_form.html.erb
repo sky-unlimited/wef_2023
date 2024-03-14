@@ -34,18 +34,16 @@
 
   <% unless blog.id.nil? %>
     <div>
-      <%= form.label :status, style: "display: block" %>
-      <%= form.collection_select  :status,
-                                  Blog.statuses.keys, :to_s,
-                                  :humanize %>
+      <%= form.label :published, style: "display: block" %>
+      <%= form.check_box  :published  %>
     </div>
-
     <div>
-      <%= form.label :email_publication_date, style: "display: block" %>
-      <%= form.datetime_field :email_publication_date,
-                              min: Date.today,
-                              readonly: true
-      %>
+      <%= form.label :scheduled_email, style: "display: block" %>
+      <%= form.check_box  :scheduled_email  %>
+    </div>
+    <div>
+      <%= form.label :sent_email, style: "display: block" %>
+      <%= form.check_box  :sent_email  %>
     </div>
   <% end %>
 

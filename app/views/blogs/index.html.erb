@@ -36,8 +36,12 @@
           <div  id="card-description-infos"
                 class="color-dark fs-0-8">
             <%= "#{l blog.created_at, format: :date_short} · 
-            #{blog.content.to_s.scan(/\w+/).size / 250} min · 
-            #{blog.status.humanize}" %>
+            #{blog.content.to_s.scan(/\w+/).size / 250} min · " %>
+            <% if blog.published %>
+              Published
+            <% else %>
+              Draft
+            <% end %>
           </div>
         </div>
       </div>
