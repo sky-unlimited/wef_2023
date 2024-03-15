@@ -71,6 +71,13 @@
   right: 12px;
 }
 
+.card-trip .actions {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

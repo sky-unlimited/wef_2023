@@ -17,6 +17,27 @@ class EventsController < ApplicationController
     end
   end
 
+  def edit
+    @event = Event.find(params[:id])
+    @airports = Airport.all
+  end
+
+  def update
+    @event = Event.find(params[:id])
+    if @event.update(event_params)
+      redirect_to events_path, notice: 'Event was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @event = Event.find(params[:id])
+    if @event.destroy
+      redirect_to events_path, notice: 'Event was successfully deleted.'
+    end
+  end
+
   private
 
   def event_params
