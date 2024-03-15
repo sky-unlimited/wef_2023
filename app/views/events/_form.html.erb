@@ -1,0 +1,57 @@
+<%# locals: (event:) %>
+
+<%= form_with model: event, data: { turbo: false } do |f| %>
+  <div class="form-inputs">
+    <% if event.errors.any? %>
+      <div class="alert-danger">
+        <p><%=  t("forms.messages.errors", count: event.errors.count) %> </p>
+        <ul>
+          <% event.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.label           :title,
+                          class: "form-label" %>
+    <%= f.text_field      :title,
+                          class: "form-control mb-10" %>
+
+    <%= f.label           :airport_id,
+                          class: "form-label" %>
+    <%= f.collection_select(:airport_id, @airports, :id, :name) %>
+
+    <%= f.label           :kind, class: "form-label" %>
+    <div class="mb-15 form-select">
+      <%= f.select        :kind,
+                          Event.kinds,
+                          class: "form-select" %>
+    </div>
+
+    <%= f.label           :start_date,
+                          class: "form-label" %>
+    <%= f.text_field      :start_date,
+                          class: "form-control mb-10" %>
+
+    <%= f.label           :end_date,
+                          class: "form-label" %>
+    <%= f.text_field      :end_date,
+                          class: "form-control mb-10" %>
+
+    <%= f.label           :image_link,
+                          class: "form-label" %>
+    <%= f.text_field      :image_link,
+                          class: "form-control mb-10",
+                          readonly: @is_session ? "readonly" : nil,
+                          placeholder: "e.g. john.smith@example.com" %>
+
+    <%= f.label           :url,
+                          class: "form-label" %>
+    <%= f.text_field      :url,
+                          class: "form-control mb-10" %>
+  </div>
+  <div class="form-actions d-flex justify-content-center my-20">
+    <%= f.submit t('forms.contact.submit'), class: "btn btn-primary" %>
+  </div>
+<% end %>

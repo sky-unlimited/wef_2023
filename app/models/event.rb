@@ -6,7 +6,6 @@ class Event < ApplicationRecord
   validates :title, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true, comparison: { greater_than_or_equal_to: :start_date }
-  validates :image_link, presence: true
   validates :url, presence: true
 
   def kind_color
