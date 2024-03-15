@@ -22,7 +22,7 @@
   position: relative;
   text-align: start;
 
-  &:hover .link {
+  &:hover .link, &:hover .actions {
     opacity: 1;
   }
 }
@@ -65,19 +65,16 @@
   opacity: 0;
   background-color: white;
   border-radius: $border-radius;
-  padding: 12px;
+  padding: 8px;
   position: absolute;
   top: 12px;
   right: 12px;
 }
 
-.card-trip .actions {
-  display: flex;
-  gap: 8px;
-  position: absolute;
-  top: 12px;
-  left: 12px;
+.card-trip .edit {
+  right: 54px;
 }
+
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

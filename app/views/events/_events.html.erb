@@ -3,15 +3,13 @@
 <% events.each do |event| %>
   <div class="card-trip">
     <% if current_user.admin? %>
-      <div class="actions">
-        <%= link_to edit_event_path(event), class: "btn btn-light" do %>
-          <%= image_tag "edit.png", alt: "edit-pen", width: 20 %>
-        <% end %>
-      </div>
+      <%= link_to edit_event_path(event) do %>
+        <%= image_tag "edit.png", alt: "edit-pen", width: 18, class: "link edit" %>
+      <% end %>
     <% end %>
 
     <%= link_to event.url, target: "_blank", class: "text-decoration-none text-dark" do %>
-      <%= image_tag "external-link.png", alt: "link", width: 20, class: "link" %>
+      <%= image_tag "external-link.png", alt: "link", width: 18, class: "link" %>
       <% if event.image_link.present? %>
         <%= image_tag event.image_link, alt: event.title, class: "card-image" %>
       <% else %>
