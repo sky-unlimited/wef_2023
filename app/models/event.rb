@@ -7,6 +7,7 @@ class Event < ApplicationRecord
   validates :start_date, presence: true
   validates :end_date, presence: true, comparison: { greater_than_or_equal_to: :start_date }
   validates :url, presence: true
+  validates :title, uniqueness: { scope: [:start_date, :end_date, :airport_id, :kind], message: 'Event already exists' }
 
   def kind_color
     case kind
