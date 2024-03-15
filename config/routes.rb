@@ -5,6 +5,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # Admin console Blazer
+  authenticate :user, ->(user) { user.admin? } do
+    mount Blazer::Engine, at: "blazer"
+  end
+
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users
     get 'console/index'

@@ -60,6 +60,7 @@ gem 'rack-cors', '~> 2.0', '>= 2.0.1'
 gem 'rest-client', '~> 2.1'
 gem 'normalize_country', '~> 0.3.2'
 gem 'email_validator', '~> 2.2', '>= 2.2.4', require: 'email_validator/strict'
+gem 'blazer', '~> 3.0', '>= 3.0.3'
 
 # Charts js
 gem 'chartkick', '~> 5.0', '>= 5.0.5'
