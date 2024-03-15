@@ -21,8 +21,10 @@ class Event < ApplicationRecord
     end
   end
 
-  def self.upcoming
-    where('start_date >= ?', Date.today)
+  def self.upcoming(airport: nil)
+    events = self.where('start_date >= ?', Date.today)
+    events = events.where(airport: airport) if airport
+    events
   end
 
   def self.closest(airport)
