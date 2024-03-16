@@ -9,16 +9,17 @@
   <div id="blogs" class="d-flex flex-wrap">
     <% @blogs.each do |blog| %>
       <div  id="card"
-            class="d-flex flex-row bg-light border-shadow mb-20 ml-10"
+            class="d-flex flex-row bg-light border-shadow mb-20 ml-10 border-radius"
             style="min-width: 380px; max-width: 380px;">
         <a href="#"></a>
         <div  id="card-picture"
-              class="bg-secondary"
+              class="d-flex align-items-center justify-content-center"
               style="width: 100px;height: 100px;">
           <% if blog.picture.attached? %>
             <%= image_tag blog.picture.variant(:thumb) %>
           <% else %>
-            <%= image_tag 'cast.svg', width: '100px' %>
+            <%= image_tag 'cast.svg', width: "60", height: "60",
+                class: "avatar-large bg-dark" %>
           <% end %>
         </div>
         <div  id="card-description" 
