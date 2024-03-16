@@ -10,8 +10,8 @@ class BlogsController < ApplicationController
                                     picture_attachment]).order('id DESC')
     else
       @blogs = Blog.where.not(published: false).includes(%i[rich_text_content
-                                                          user
-                                                          picture_attachment])
+                                                            user
+                                                            picture_attachment])
                    .order('id DESC')
     end
   end
@@ -22,6 +22,7 @@ class BlogsController < ApplicationController
 
   def update
     if @blog.update(blog_input_params)
+      schedule_newsletter if @blog.scheduled_email
       redirect_to blog_url(@blog), notice: 'Post was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
@@ -62,5 +63,15 @@ class BlogsController < ApplicationController
 
   def set_blog
     @blog = Blog.find(params[:id])
+  end
+
+  def schedule_newsletter
+    # We compute next friday
+    today = Date.current
+    days_until_next_friday = (5 - today.wday) % 7
+    next_friday = today + days_until_next_friday.days
+
+    # We schedule the job
+    SendNewsletterJob.set(waiti_until: next_friday).perform_later(self)
   end
 end
