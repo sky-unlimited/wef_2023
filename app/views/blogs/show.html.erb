@@ -2,7 +2,7 @@
   <% if current_user && current_user.admin? %>
     <%= link_to 'Edit Post', edit_blog_path(@blog), class: 'btn btn-warning' %>
     <span style="display: inline-block;">
-      <%= button_to "Destroy this blog", 
+      <%= button_to "Destroy Post", 
         @blog, method: :delete,
         class: "btn btn-danger mt-5" %>
     </span>
