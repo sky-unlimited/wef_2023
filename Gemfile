@@ -89,6 +89,11 @@ group :development, :test do
   gem 'puma', '~> 6.4'
 end
 
+group :development, :staging do
+  # faker
+  gem 'faker', '~> 3.2', '>= 3.2.3'
+end
+
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
