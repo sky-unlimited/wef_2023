@@ -97,11 +97,15 @@ Import the point of interests table (osm_pois). Should you need it, please ask f
 psql -U rubyuser -h localhost -d wef_2023_development < osm_pois_backup.sql
 ````
 
-### Launch local server
+### Launch local web server
 
 `passenger start`
 
 Visit http://localhost:3000
+
+### Launch ActiveJob queuing backend
+
+`bundle exec rake solid_queue:start`
 
 ## How to contribute
 
@@ -116,8 +120,14 @@ Always work on branches that are linked to an issue.
 3. To close a ticket, add "closes#xxx" in the issue when the PR is merged.
 
 ### Create a pull request
+Please ensure before PR, the folliwing tests do pass:
+- `rubocop`
+- `Rails test`
+- `Rails test:system`
+Then,
 1. `git push origin <branch>`
-2. Merge the pull request
+2. Let your coding partner review
+3. Merge the pull request on master
 
 ### Update submodules
 ````bash

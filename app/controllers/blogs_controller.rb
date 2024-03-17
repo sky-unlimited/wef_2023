@@ -67,11 +67,13 @@ class BlogsController < ApplicationController
 
   def schedule_newsletter
     # We compute next friday
-    today = Date.current
-    days_until_next_friday = (5 - today.wday) % 7
-    next_friday = today + days_until_next_friday.days
+    next_friday_at_4_pm = Time.current.next_week(:friday).at_noon + 4.hours
 
-    # We schedule the job
-    SendNewsletterJob.set(waiti_until: next_friday).perform_later(self)
+    # We schedule the job depending on our environment
+    if Rails.env.production?
+      SendNewsletterJob.set(wait_until: next_friday_at_4_pm).perform_later(@blog)
+    else
+      SendNewsletterJob.set(wait: 5.seconds).perform_later(@blog)
+    end
   end
 end
