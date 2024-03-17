@@ -1,3 +1,12 @@
+<style>
+@media only screen and (min-width: 576px) {
+  #card {
+    margin-left: 10px; 
+    min-width: 380px;
+    max-width: 380px;
+  }
+}
+</style>
 <div class="container-fluid pt-20">
   <% if current_user && current_user.admin? %>
     <%= link_to 'New Post', new_blog_path, class: 'btn btn-primary' %>
@@ -9,14 +18,13 @@
   <div id="blogs" class="d-flex flex-wrap">
     <% @blogs.each do |blog| %>
       <div  id="card"
-            class="d-flex flex-row bg-light border-shadow mb-20 ml-10 border-radius"
-            style="min-width: 380px; max-width: 380px;">
+            class="d-flex flex-row bg-light border-shadow mb-20 border-radius py-5 w-100">
         <a href="#"></a>
         <div  id="card-picture"
-              class="d-flex align-items-center justify-content-center"
+              class="d-flex align-items-center justify-content-center p-5"
               style="width: 100px;height: 100px;">
           <% if blog.picture.attached? %>
-            <%= image_tag blog.picture.variant(:thumb) %>
+            <%= image_tag blog.picture.variant(:thumb), class: "border-radius" %>
           <% else %>
             <%= image_tag 'cast.svg', width: "60", height: "60",
                 class: "avatar-large bg-dark" %>
@@ -39,9 +47,9 @@
             <%= "#{l blog.created_at, format: :date_short} · 
             #{blog.content.to_s.scan(/\w+/).size / 250} min · " %>
             <% if blog.published %>
-              Published
+              <span class="tag-success">Published</span>
             <% else %>
-              Draft
+              <span class="tag-warning">Draft</span>
             <% end %>
           </div>
         </div>
