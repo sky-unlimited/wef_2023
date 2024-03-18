@@ -16,5 +16,11 @@
 .card {
   box-shadow: $box-shadow;
   border-radius: $border-radius;
-  padding: 12px;
+  padding: 24px;
+  background-color: white;
+}
+.card-section {
+  p {
+    margin: 0;
+  }
 }

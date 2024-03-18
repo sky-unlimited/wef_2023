@@ -1,0 +1,28 @@
+#airport-header {
+  h1 {
+    font-size: 1.5em;
+  }
+}
+
+#airport-content {
+  display: grid;
+  grid-template-columns: 35fr 50fr 20fr;
+  gap: 1em;
+
+  .grouped-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  h4 {
+    font-size: 1.1em;
+    margin-top: 0 !important;
+  }
+}
+
+#weather-card {
+  p {
+    margin: 0;
+  }
+}
