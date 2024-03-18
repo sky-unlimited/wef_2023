@@ -1,12 +1,3 @@
-<style>
-@media only screen and (min-width: 576px) {
-  #card {
-    margin-left: 10px; 
-    min-width: 380px;
-    max-width: 380px;
-  }
-}
-</style>
 <div class="container-fluid pt-20">
   <% if current_user && current_user.admin? %>
     <%= link_to 'New Post', new_blog_path, class: 'btn btn-primary' %>
@@ -15,13 +6,13 @@
 
   <h1>Newsletters</h1>
 
-  <div id="blogs" class="d-flex flex-wrap">
+  <!-- blogs -->
+  <div class="d-flex flex-wrap">
     <% @blogs.each do |blog| %>
-      <div  id="card"
-            class="d-flex flex-row bg-light border-shadow mb-20 border-radius py-5 w-100">
-        <a href="#"></a>
-        <div  id="card-picture"
-              class="d-flex align-items-center justify-content-center p-5"
+      <!-- card -->
+      <div class="card-blog-index d-flex flex-row bg-light border-shadow mb-20 border-radius py-5 w-100">
+        <!-- card-picture -->
+        <div  class="d-flex align-items-center justify-content-center p-5"
               style="width: 100px;height: 100px;">
           <% if blog.picture.attached? %>
             <%= image_tag blog.picture.variant(:thumb), class: "border-radius" %>
@@ -30,20 +21,20 @@
                 class: "avatar-medium bg-dark p-10" %>
           <% end %>
         </div>
-        <div  id="card-description" 
-              class="ml-15 d-flex flex-column bg-light justify-content-between">
-          <div  id="card-description-author"
-                class="color-dark fs-0-8">
+        <!-- card-description -->
+        <div class="ml-15 d-flex flex-column bg-light justify-content-between">
+          <!-- card-description-author -->
+          <div class="color-dark fs-0-8">
             <%= blog.user.username %>
           </div>
-          <div  id="card-description-title"
-                class="fs-1-2">
+          <!-- card-description-title -->
+          <div class="fs-1-2">
             <strong>
               <%= link_to blog.title, blog_path(blog.id), class: "link-dark" %>
             </strong>
           </div>
-          <div  id="card-description-infos"
-                class="color-dark fs-0-8">
+          <!-- card-description-infos -->
+          <div class="color-dark fs-0-8">
             <%= "#{l blog.created_at, format: :date_short} · 
             #{blog.content.to_s.scan(/\w+/).size / 250} min · " %>
             <% if blog.published %>

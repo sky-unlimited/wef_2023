@@ -13,3 +13,10 @@
 .card-small {
   max-width: 350px;
 }
+@media only screen and (min-width: 576px) {
+  .card-blog-index {
+    margin-left: 10px; 
+    min-width: 380px;
+    max-width: 380px;
+    }
+}
