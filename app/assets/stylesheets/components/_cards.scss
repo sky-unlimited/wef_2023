@@ -13,3 +13,8 @@
 .card-small {
   max-width: 350px;
 }
+.card {
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  padding: 12px;
+}

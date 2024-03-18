@@ -1,19 +1,65 @@
 <div class="container">
+  <div class="airport-header">
+    <h1><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %></h1>
 
-  <h2><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %>
-    <% unless @vac_link.nil? %>
-      <a class="tag-outline-primary" target="_blank" 
-                            href="<%= @vac_link %>">VAC</a>
-    <% end %>
-  </h2>
-
-  <div class="display_airport_poi mb-20 d-flex flex-column">
-    <div>
-      <% get_airport_poi_icons(@airport).each do |icon| %>
-        <span class="mr-10"><%= image_tag(icon) %></span>
-      <%end %>
+    <div class="display_airport_poi mb-20 d-flex flex-column">
+      <div>
+        <% get_airport_poi_icons(@airport).each do |icon| %>
+          <span class="mr-10"><%= image_tag(icon) %></span>
+        <%end %>
+      </div>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-section">
+      <h3>Facility data</h3>
+      <div>
+        <p><b><%= t('airport.show.location') %></b></p>
+        <p><%= @airport.city %></p>
+      </div>
+      <div>
+        <p><b><%= t('airport.show.local_code') %></b></p>
+        <p><%= @airport.local_code %></p>
+      </div>
+      <div>
+        <p><b><%= t('airport.show.iata') %></b></p>
+        <p><%= @airport.iata %></p>
+      </div>
+      <div>
+        <p><b><%= t('airport.show.facility_type') %></b></p>
+        <p><%= @airport.airport_type %></p>
+      </div>
+      <div>
+        <p><b><%= t('airport.show.coordinates') %></b></p>
+        <p><%= "#{@airport.latitude},#{@airport.longitude}" %>
+          <a class="tag-outline-primary" target="_blank"
+                                href="https://skyvector.com/?ll=<%= @airport.latitude %>,<%= @airport.longitude %>&chart=301&zoom=2">
+                                chart
+          </a>
+        </p>
+      </div>
+      <div>
+        <p><b><%= t('airport.show.field_elevation') %></b></p>
+        <p><%= "#{@airport.altitude} ft MSL" %></p>
+      </div>
+      <div>
+        <p><b><%= t('airport.show.website') %></b></p>
+        <p>
+          <a class="color-dark" target="_blank"
+                                href="<%= @airport.url %>">
+                                <%= @airport.url %>
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <% unless @vac_link.nil? %>
+    <a class="tag-outline-primary" target="_blank"
+                          href="<%= @vac_link %>">VAC</a>
+  <% end %>
 
   <div data-controller="collapse">
     <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
@@ -39,7 +85,7 @@
         <tr>
           <td><b><%= t('airport.show.coordinates') %></b></td>
           <td><%= "#{@airport.latitude},#{@airport.longitude}" %>
-            <a class="tag-outline-primary" target="_blank" 
+            <a class="tag-outline-primary" target="_blank"
                                   href="https://skyvector.com/?ll=<%= @airport.latitude %>,<%= @airport.longitude %>&chart=301&zoom=2">
                                   chart
             </a>
@@ -52,7 +98,7 @@
         <tr>
           <td><b><%= t('airport.show.website') %></b></td>
           <td>
-            <a class="color-dark" target="_blank" 
+            <a class="color-dark" target="_blank"
                                   href="<%= @airport.url %>">
                                   <%= @airport.url %>
             </a>
@@ -88,8 +134,8 @@
   <div class="fuel_station mt-20" data-controller="collapse">
     <span class="collapse-marker badge bg-dark color-light mb-5" data-action="click->collapse#toggle">+</span>
     <span><b><%= t('activerecord.models.fuel_station') %></b></span>
-    <div  id="fuel_station" 
-          class="collapse bg-color3 border-radius p-10" 
+    <div  id="fuel_station"
+          class="collapse bg-color3 border-radius p-10"
           data-collapse-target="content">
       <% if @airport.fuel_station.nil? %>
         <p>No fuel station known</p>
@@ -190,7 +236,7 @@
 
           <% unless @audit_log_fuel_station.nil? %>
             <span class="fs-0-8">
-              <%= " #{t('airport.show.last_update_by')} #{@audit_log_fuel_station.user.username}, 
+              <%= " #{t('airport.show.last_update_by')} #{@audit_log_fuel_station.user.username},
                   #{l @audit_log_fuel_station.updated_at, format: :date_short} ,
                   #{extract_time_from_date(@audit_log_fuel_station.updated_at)}" %>
             </span>
@@ -204,8 +250,8 @@
   <div class="weather_forecast mt-20" data-controller="collapse">
     <span class="collapse-marker badge bg-dark color-light mb-5" data-action="click->collapse#toggle">+</span>
     <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
-    <div  id="weather_forecast" 
-          class="collapse bg-color3 border-radius p-10" 
+    <div  id="weather_forecast"
+          class="collapse bg-color3 border-radius p-10"
           data-collapse-target="content">
       <%= render partial: "forecast", locals: { forecast_hash: @forecast_hash } %>
     </div>
@@ -225,7 +271,7 @@
             <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
             <span><%= "#{display_poi_label(key)}" %></span>
             <span class="badge bg-primary color-light fs-0-8"><%= value %></span></br>
-            <div  id="group_pois_<%= key %>" 
+            <div  id="group_pois_<%= key %>"
                   class="collapse bg-light px-5 border-radius" data-collapse-target="content">
               <!-- begin sub-group poi content -->
               <ul>
