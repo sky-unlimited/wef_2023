@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
       elsif request.referer == new_user_session_url
         super
       else
-        store_location_for(resource) || request.referer || root_path
+        store_location_for(resource, root_path) || request.referer || root_path
       end
     end
 

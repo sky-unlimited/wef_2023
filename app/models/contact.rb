@@ -26,7 +26,7 @@ class Contact < ApplicationRecord
   validates :email, email: true
   #validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP  #not strict
   validates :accept_privacy_policy, acceptance: { message: I18n.t('subscribers.errors.accept_private_data_policy') }
-  validates :description, presence: true, length: { minimum: 20 }
+  validates :description, presence: true, length: { minimum: 20, maximum: WEF_CONFIG['contact_form_desciption_max_characters'].to_i }
   validates :category, inclusion: { in: CATEGORIES }
   validates :honey_bot, length: { is: 0 }
   #validates_format_of :phone, with: /\A(?:\+|00)[1-9][0-9 \-\(\)\.]{7,32}\z/, allow_blank: true # begin with "+" or "00" as we require international format, however a number like '+352661477661' doesn't validate. #TODO: Improve later the phone validation
@@ -53,7 +53,7 @@ class Contact < ApplicationRecord
       self.ip_address = request.headers["X-Forwarded-For"] || request.remote_ip
     end
   end
-  
+
   def check_timelapse_before_last_attempt
     # In order to prevent mass injections, we ensure that for the same last ip_address
     # a period of 15 seconds has elapsed
