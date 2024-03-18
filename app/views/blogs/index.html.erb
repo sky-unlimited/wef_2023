@@ -26,8 +26,8 @@
           <% if blog.picture.attached? %>
             <%= image_tag blog.picture.variant(:thumb), class: "border-radius" %>
           <% else %>
-            <%= image_tag 'cast.svg', width: "60", height: "60",
-                class: "avatar-large bg-dark" %>
+            <%= image_tag 'cast.svg',
+                class: "avatar-medium bg-dark p-10" %>
           <% end %>
         </div>
         <div  id="card-description" 

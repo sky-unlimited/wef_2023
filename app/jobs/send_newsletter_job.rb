@@ -5,12 +5,14 @@ class SendNewsletterJob < ApplicationJob
   def perform(blog)
     # Do something later
     Subscriber.all.each do |subscriber|
-      logger.info "Send email to #{subscriber.email}"
+      BlogMailer.with(blog:,
+                      subscriber:)
+                .newsletter_email.deliver_later
     end
 
     # Once performed we mark newsletters as sent
-    #blog.sent_email = true
-    #blog.sent_email_date = Date.current
-    #blog.save
+    blog.sent_email = true
+    blog.sent_email_date = Time.current
+    blog.save
   end
 end

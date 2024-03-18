@@ -71,9 +71,11 @@ class BlogsController < ApplicationController
 
     # We schedule the job depending on our environment
     if Rails.env.production?
-      SendNewsletterJob.set(wait_until: next_friday_at_4_pm).perform_later(@blog)
+      SendNewsletterJob.set(wait_until: next_friday_at_4_pm)
+                       .perform_later(@blog)
     else
-      SendNewsletterJob.set(wait: 5.seconds).perform_later(@blog)
+      SendNewsletterJob.set(wait: 5.seconds)
+                       .perform_later(@blog)
     end
   end
 end
