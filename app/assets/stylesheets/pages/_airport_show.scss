@@ -6,22 +6,20 @@
 
 #airport-content {
   display: grid;
-  grid-template-columns: 35fr 50fr 20fr;
-  gap: 1em;
+  grid-template-columns: 2fr 3fr;
+  gap: 1.5em;
 
   .grouped-card {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 1.5em;
   }
 
   h4 {
     font-size: 1.1em;
-    margin-top: 0 !important;
+    margin: 0;
   }
-}
 
-#weather-card {
   p {
     margin: 0;
   }

@@ -1,25 +1,35 @@
-<div id="weather-card">
-  <% @forecast_hash['daily'].each_with_index do |record, index| %>
-    <div class="d-flex justify-content-between align-items-center mb-5">
-      <% record_date = Date.current + index.day %>
-      <p><%= record_date.strftime('%a %d/%m') %></p>
-      <p>
-        <img src="https://openweathermap.org/img/wn/<%= record["weather"][0]["icon"] %>.png" alt="<%= Weather.description(record['weather'][0]['id'])['description'] %>">
-      </p>
-      <p>
-        <%= "#{record["wind_deg"]}°" %>
-        <% if winds_ms_to_kts(record["wind_speed"]).to_f > @wind_limit %>
-          <span class="tag-primary mr-5">
-            <%= "#{winds_ms_to_kts(record["wind_speed"])}" %>
-          </span>kts
-        <% else %>
-          <span class="tag-light mr-5">
-            <%= "#{winds_ms_to_kts(record["wind_speed"])}" %>
-          </span>kts
-        <% end %>
-      </p>
-      <p><%= Weather.description(record['weather'][0]['id'])['description'] %></p>
-      <p title="<%= record["is_pilot_compliant"] ? t('trip_suggestions.weather_outlook.compliant_with_weather') : t('trip_suggestions.weather_outlook.not_compliant_with_weather')%>"><%= record["is_pilot_compliant"] ? image_tag("fly_ok.png") : image_tag("fly_nok.png") %></p>
-    </div>
-  <% end %>
-</div>
+<table class="table w-100">
+  <thead>
+    <tr>
+      <th class="text-start">Date</th>
+      <th class="text-start">Weather</th>
+      <th>Wind</th>
+      <th>Compliant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @forecast_hash['daily'].each_with_index do |record, index| %>
+      <tr>
+        <% record_date = Date.current + index.day %>
+        <td><%= record_date.strftime('%a, %d/%m') %></td>
+        <td class="d-flex gap-10 align-items-center">
+          <img src="https://openweathermap.org/img/wn/<%= record["weather"][0]["icon"] %>.png" alt="<%= Weather.description(record['weather'][0]['id'])['description'] %>">
+          <span><%= Weather.description(record['weather'][0]['id'])['description'] %></span>
+        </td>
+        <td class="text-center">
+          <%= "#{record["wind_deg"]}°" %>
+          <% if winds_ms_to_kts(record["wind_speed"]).to_f > @wind_limit %>
+            <span class="tag-primary mr-5">
+              <%= "#{winds_ms_to_kts(record["wind_speed"])}" %>
+            </span>kts
+          <% else %>
+            <span class="tag-light mr-5">
+              <%= "#{winds_ms_to_kts(record["wind_speed"])}" %>
+            </span>kts
+          <% end %>
+        </td>
+        <td class="text-center" title="<%= record["is_pilot_compliant"] ? t('trip_suggestions.weather_outlook.compliant_with_weather') : t('trip_suggestions.weather_outlook.not_compliant_with_weather')%>"><%= record["is_pilot_compliant"] ? image_tag("fly_ok.png") : image_tag("fly_nok.png") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

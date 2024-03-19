@@ -204,6 +204,7 @@ fr:
       update_ok: Station d'avitaillement mise à jour!
   airport:
     show:
+      icao: ICAO
       edit: Editer
       last_update_by: Dernière modification par
       facility_data: Données sur installation

@@ -118,3 +118,16 @@
   transition: 0.25s;
   cursor: pointer;
 }
+.btn-contact {
+  background-color: $light-gray;
+  color: $dark;
+  border-radius: $border-radius * 3;
+  transition: 0.25s;
+  padding: 5px 12px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $secondary;
+    color: $light;
+  }
+}

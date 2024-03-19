@@ -203,6 +203,7 @@ en:
       update_ok: Fuel Station has been updated!
   airport:
     show:
+      icao: ICAO
       edit: Edit
       last_update_by: Updated last by
       facility_data: Facility data
