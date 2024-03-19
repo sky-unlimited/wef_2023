@@ -21,6 +21,9 @@ class PagesController < ApplicationController
       }
     end
 
+    # Sort events by distance from user's base airport, then by start date
+    @events = Event.includes(:airport).closest(current_user.base_airport).first(3)
+
     # We set variables needed for airport searcher
     @base_url = set_base_url
     @locale   = set_locale
