@@ -8,6 +8,7 @@ class Airport < ApplicationRecord
   has_many :trip_requests, dependent: :destroy
   has_one :pilot_pref
   has_one :fuel_station
+  has_many :events, dependent: :destroy
 
   ACCEPTED_AIRPORT_TYPES = WEF_CONFIG['airport_types_to_import']
 

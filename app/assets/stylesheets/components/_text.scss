@@ -25,6 +25,9 @@
 .text-decoration-line-through {
   text-decoration: line-through;
 }
+.text-decoration-none {
+  text-decoration: none;
+}
 .fs-0-8 {
   font-size: 0.8em;
 }
@@ -45,4 +48,7 @@
 }
 .font-italic {
   font-style: italic;
+}
+.text-dark {
+  color: $dark;
 }

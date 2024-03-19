@@ -72,7 +72,7 @@ fr:
       contact:
         username: Identifiant (Si vous êtes enregistré)
         last_name: Nom
-        first_name: Prénom 
+        first_name: Prénom
         company: Société
         phone: Téléphone
         email: Email
@@ -115,9 +115,11 @@ fr:
       and: ainsi que les
     contact:
       submit: Envoyez
+    event:
+      submit: Envoyez
   users:
     errors:
-      file_type: Le format soumit n'est pas une image 
+      file_type: Le format soumit n'est pas une image
       image_size: La taille de l'image dépasse 2MB
       password_policy: Le mot de passe doit comprendre au moins une lettre minuscule, une lettre majuscule et un chiffre.
   pages:
@@ -130,6 +132,11 @@ fr:
   pilot_prefs:
     menu: Préfèrences
     saved: Préférences enregistrées!
+  events:
+    menu: Evennements
+    saved: Evennement créé avec succès!
+    updated: Evennement mis à jour avec succès!
+    error: Evennement supprimé avec succès!
   trip_request:
     title: Organisation de Voyage
     search_placeholder: 🔎 Chercher un Aéroport
@@ -172,7 +179,7 @@ fr:
       register_ok: "Vous êtes bien enregistré à la Newsletter!"
       register_nok: "Echec de l'enregistrement à la newsletter."
     errors:
-      accept_private_data_policy: Veuillez accepter les termes de la vie privée 
+      accept_private_data_policy: Veuillez accepter les termes de la vie privée
     form:
       acceptation: "En cochant vous acceptez de recevoir des courriels conformément à notre "
       subscribe: "Abonnez-vous à la Newsletter!"
@@ -199,7 +206,7 @@ fr:
     show:
       edit: Editer
       last_update_by: Dernière modification par
-      facility_data: Données sur installation 
+      facility_data: Données sur installation
       location: Lieu
       local_code: Code local
       iata: IATA
