@@ -1,5 +1,5 @@
 <div id="airport-background" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(<%= image_path "lux_airport.png" %>)"></div>
-<div class="container">
+<div class="container mb-30">
   <div id="airport-header">
     <div>
       <h1><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %></h1>
@@ -9,12 +9,40 @@
         <%end %>
       </div>
     </div>
-    <div class="text-end">
+    <div class="d-flex flex-column align-items-end">
       <div class="d-flex gap-10">
         <%= link_to "👍🏻", "#", class: "btn btn-light" %>
         <%= link_to "I've been here", "#", class: "btn btn-primary" %>
       </div>
-      <p><a class="link-dark font-weight-bold" data-action="click->modals#display"><%= pluralize(@pilots.count, "pilot") %></a> based here</p>
+      <p class="mb-0"><b>Home pilots</b></p>
+      <div class="d-flex justify-content-end align-items-center">
+        <% if @pilots.empty? %>
+          <p>No pilot is based here</p>
+        <% end %>
+        <div class="avatars-overlap mt-10">
+          <% @pilots.first(5).each do |pilot| %>
+            <% initials = pilot.user.username[0] %>
+            <div class="tooltip">
+              <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+              <div class="tooltip-content">
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                  <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+                  <%= link_to "+ Follow", "#", class: "btn btn-primary btn-small" %>
+                </div>
+                <p class="mb-5"><b><%= pilot.user.username %></b> <%= pilot.user.email %></p>
+                <small>📍 <%= "#{pilot.user.base_airport.name} (#{@airport.icao})" %></small>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <% if @pilots.count > 5 %>
+          <div class="pl-10">
+              <a class="link-dark font-weight-bold" data-action="click->modals#display">+ <%= pluralize(@pilots.count - 5, "pilot") %></a>
+          </div>
+        <% end %>
+      </div>
+      <p>
+      </p>
     </div>
   </div>
   <div data-modals-target="modal" class="modal">
@@ -23,31 +51,30 @@
         <h1><%= pluralize(@pilots.count, "pilot") %></span> based here</h1>
         <span class="modal-close" data-action="click->modals#close">&times;</span>
       </div>
-      <div class="modal-content__body">
+      <div class="modal-content__body d-flex flex-column gap-10">
         <% if @pilots.empty? %>
           <p>No pilot is based here</p>
         <% end %>
 
-        <% @pilots.each do |pilot| %>
-          <div class="card-user">
-            <% if pilot.user.picture.attached? %>
-              <%= image_tag(pilot.user.picture.variant(:thumb), class: "nav-account avatar-medium") %>
-            <% else %>
-              <% initials = pilot.user.username[0] %>
-              <p class="avatar-fake m-5 bg-color1 color-light"><%= initials.upcase %></p>
-            <% end %>
-            <div class="card-user-info">
-              <p><%= pilot.user.username %></p>
-              <p><%= pilot.user.email %></p>
+        <div class="avatars mt-10">
+          <% @pilots.each do |pilot| %>
+            <% initials = pilot.user.username[0] %>
+            <div class="tooltip">
+              <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+              <div class="tooltip-content">
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                  <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+                  <%= link_to "+ Follow", "#", class: "btn btn-primary btn-small" %>
+                </div>
+                <p class="mb-5"><b><%= pilot.user.username %></b> <%= pilot.user.email %></p>
+                <small>📍 <%= "#{pilot.user.base_airport.name} (#{@airport.icao})" %></small>
+              </div>
             </div>
-            <div class="card-user-action">
-              <%= link_to "+ Follow", "#", class: "btn btn-primary" %>
-            </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
 
-      <div>
+      <div class="mt-20">
         <%= link_to "Close", "#", class: "btn btn-secondary", data: { action: "click->modals#close" } %>
       </div>
     </div>
@@ -156,9 +183,9 @@
                   <p class="text-center">
                     <% case @airport.fuel_station.fuel_avgas_100ll %>
                     <% when FuelStation.fuel_avgas_100lls.keys[0] %>
-                      <span><%= image_tag('circle-cross.png') %>
+                      ❌
                     <% else %>
-                      <span><%= image_tag('circle-checked.png') %>
+                      ✅
                     <% end %>
                   </p>
                   <p><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_100ll') %> </b></p>
@@ -172,9 +199,9 @@
                   <p class="text-center">
                     <% case @airport.fuel_station.fuel_avgas_91ul %>
                     <% when FuelStation.fuel_avgas_91uls.keys[0] %>
-                      <span><%= image_tag('circle-cross.png') %>
+                      ❌
                     <% else %>
-                      <span><%= image_tag('circle-checked.png') %>
+                      ✅
                     <% end %>
                   </p>
                   <p><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_91ul') %> </b></p>
@@ -188,9 +215,9 @@
                   <p class="text-center">
                     <% case @airport.fuel_station.fuel_mogas %>
                     <% when FuelStation.fuel_mogas.keys[0] %>
-                      <span><%= image_tag('circle-cross.png') %>
+                      ❌
                     <% else %>
-                      <span><%= image_tag('circle-checked.png') %>
+                      ✅
                     <% end %>
                   </p>
                   <p><b><%= t('activerecord.attributes.fuel_station.fuel_mogas') %> </b></p>
@@ -204,9 +231,9 @@
                   <p class="text-center">
                     <% case @airport.fuel_station.charging_station %>
                     <% when FuelStation.charging_stations.keys[0] %>
-                      <span><%= image_tag('circle-cross.png') %>
+                      ❌
                     <% else %>
-                      <span><%= image_tag('circle-checked.png') %>
+                      ✅
                     <% end %>
                   </p>
                   <p><b><%= t('activerecord.attributes.fuel_station.charging_station') %> </b></p>
@@ -232,10 +259,16 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-sections">
+    <div class="card d-flex flex-column">
+      <div class="card-sections flex-grow-1">
         <h4 class="mb-20"><b><%= t('trip_suggestions.index.forecast') %></b></h4>
         <%= render partial: "forecast", locals: { forecast_hash: @forecast_hash } %>
+      </div>
+      <div class="card-footer">
+        <p class="fs-0-8">
+          <em>Note: This forecast is based on OpenWeatherMap data.</em>
+        </p>
+        <%= image_tag "openweather-logo.png", alt: "openweather", height: 30 %>
       </div>
     </div>
   </div>

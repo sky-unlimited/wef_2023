@@ -2,12 +2,13 @@
   padding-top: 100px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   margin-bottom: 2em;
   color: $light;
 
   h1 {
     color: $light;
+    margin-top: 0;
     font-size: 1.5em;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
@@ -29,6 +30,7 @@
   background-position: center;
   z-index: -1;
 }
+
 #airport-content {
   display: grid;
   grid-template-columns: 2fr 3fr;

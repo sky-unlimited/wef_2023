@@ -1,0 +1,51 @@
+.tooltip {
+  position: relative;
+  display: inline-block;
+
+  .avatar-fake {
+    cursor: pointer;
+  }
+
+  .tooltip-content {
+    visibility: hidden;
+    min-width: 240px;
+    background-color: $color2;
+    color: $dark;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    padding: 1em;
+    position: absolute;
+    z-index: 1;
+    bottom: 112%; // Position below the avatar
+    right: -25%;
+    opacity: 0;
+    width: auto;
+    transition: opacity 0.3s ease-in-out;
+
+    .btn {
+      transition: unset;
+    }
+
+    &:hover {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    // Tooltip arrow
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%; // At the bottom of the tooltip
+      right: 10%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: $color2 transparent transparent transparent; // Arrow pointing up
+    }
+  }
+
+  &:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+  }
+}

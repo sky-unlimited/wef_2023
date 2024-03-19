@@ -92,16 +92,20 @@
     margin: 0;
   }
 }
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
 .card-user {
   display: flex;
   gap: 16px;
-
 }
 .card-user-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   flex-grow: 1;
 
   p {
