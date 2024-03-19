@@ -1,11 +1,53 @@
 <div class="container">
   <div id="airport-header">
-    <h1><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %></h1>
-    <div class="display_airport_poi mb-20 d-flex flex-column">
-      <div>
+    <div>
+      <h1><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %></h1>
+      <div class="display_airport_poi mb-20 d-flex gap-5">
         <% get_airport_poi_icons(@airport).each do |icon| %>
-          <span class="mr-5"><%= image_tag(icon) %></span>
+          <%= image_tag(icon) %>
         <%end %>
+      </div>
+    </div>
+    <div class="text-end">
+      <div class="d-flex gap-10">
+        <%= link_to "👍🏻", "#", class: "btn btn-light" %>
+        <%= link_to "I've been here", "#", class: "btn btn-primary" %>
+      </div>
+      <p><a class="link-dark font-weight-bold" data-action="click->modals#display"><%= pluralize(@pilots.count, "pilot") %></a> based here</p>
+    </div>
+  </div>
+  <div data-modals-target="modal" class="modal">
+    <div class="modal-content w-50">
+      <div class="modal-content__title mb-15">
+        <h1><%= pluralize(@pilots.count, "pilot") %></span> based here</h1>
+        <span class="modal-close" data-action="click->modals#close">&times;</span>
+      </div>
+      <div class="modal-content__body">
+        <% if @pilots.empty? %>
+          <p>No pilot is based here</p>
+        <% end %>
+
+        <% @pilots.each do |pilot| %>
+          <div class="card-user">
+            <% if pilot.user.picture.attached? %>
+              <%= image_tag(pilot.user.picture.variant(:thumb), class: "nav-account avatar-medium") %>
+            <% else %>
+              <% initials = pilot.user.username[0] %>
+              <p class="avatar-fake m-5 bg-color1 color-light"><%= initials.upcase %></p>
+            <% end %>
+            <div class="card-user-info">
+              <p><%= pilot.user.username %></p>
+              <p><%= pilot.user.email %></p>
+            </div>
+            <div class="card-user-action">
+              <%= link_to "+ Follow", "#", class: "btn btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div>
+        <%= link_to "Close", "#", class: "btn btn-secondary", data: { action: "click->modals#close" } %>
       </div>
     </div>
   </div>

@@ -92,7 +92,22 @@
     margin: 0;
   }
 }
+.card-user {
+  display: flex;
+  gap: 16px;
 
+}
+.card-user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  flex-grow: 1;
+
+  p {
+    margin: 0;
+  }
+}
 @media screen and (max-width: 768px) {
   .cards {
     grid-template-columns: 1fr 1fr;
