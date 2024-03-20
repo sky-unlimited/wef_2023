@@ -1,15 +1,15 @@
 <div id="airport-background" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(<%= image_path "lux_airport.png" %>)"></div>
-<div class="container mb-30">
+<div class="container pt-30">
   <div id="airport-header">
     <div>
       <h1><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %></h1>
-      <div class="display_airport_poi mb-20 d-flex gap-5">
+      <div class="display-airport-poi mb-20 d-flex gap-5">
         <% get_airport_poi_icons(@airport).each do |icon| %>
           <%= image_tag(icon) %>
         <%end %>
       </div>
     </div>
-    <div class="d-flex flex-column align-items-end">
+    <div class="display-airport-actions d-flex flex-column align-items-end">
       <div class="d-flex gap-10">
         <%= link_to "👍🏻", "#", class: "btn btn-light" %>
         <%= link_to "I've been here", "#", class: "btn btn-primary" %>
@@ -331,12 +331,11 @@
   </div>
   -->
 
-  <div class="map-container mt-20" \
+  <div class="map-container my-20" \
         id="map" \
         data-controller="osm-details"  \
         data-osm-details-target="map" \
         data-osm-details-airport-value="<%= @airport.to_json %>"
         data-osm-details-points-value="<%= @points_array.to_json %>">
   </div>
-
 </div>
