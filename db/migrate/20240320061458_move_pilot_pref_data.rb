@@ -1,6 +1,6 @@
 class MovePilotPrefData < ActiveRecord::Migration[7.1]
   def up
-    PilotPref.each do |pilot_pref|
+    PilotPref.all.each do |pilot_pref|
       pilot = Pilot.create!(airport: pilot_pref.airport, user: pilot_pref.user)
     end
   end
