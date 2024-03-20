@@ -3,7 +3,6 @@ en:
     models:
       pilot_pref: Pilot preferences
       preference: Pilot Preferences
-      profile: Pilot Profile
       trip_request: Trip Organization
       fuel_station: Fuel Station
       contact: Contact Form

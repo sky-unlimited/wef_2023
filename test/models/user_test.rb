@@ -24,7 +24,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "New user should have default pilot preferences" do
     user = users(:regular_user)
-    assert_not_nil user.pilot, "The new user should have a default pilot profile"
+    assert_not_nil user.pilot, "The new user should have a default pilot"
   end
 
   test "already taken username should not save" do
