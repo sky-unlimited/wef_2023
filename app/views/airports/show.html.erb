@@ -1,4 +1,6 @@
-<div id="airport-background" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(<%= image_path "lux_airport.png" %>)"></div>
+<% image = "#{@airport.icao.downcase}_airport.png" %>
+<% image = "placeholder_airport.png" unless Rails.application.assets.find_asset(image) %>
+<div id="airport-background" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(<%= image_path image %>)"></div>
 <div class="container pt-30">
   <div id="airport-header">
     <div>
@@ -14,10 +16,14 @@
         <%= link_to "👍🏻", "#", class: "btn btn-light" %>
         <%= link_to "I've been here", "#", class: "btn btn-primary" %>
       </div>
-      <p class="mb-0"><b>Home pilots</b></p>
+
+      <% unless @pilots.empty? %>
+        <p class="mb-0"><b>Home pilots</b></p>
+      <% end %>
+
       <div class="d-flex justify-content-end align-items-center">
         <% if @pilots.empty? %>
-          <p>No pilot is based here</p>
+          <p><b>No pilot is based here</b></p>
         <% end %>
         <div class="avatars-overlap mt-10">
           <% @pilots.first(5).each do |pilot| %>
@@ -130,6 +136,9 @@
       <div class="card">
         <div class="card-sections">
           <h4 class="mb-20"><b>Runways</b></h4>
+          <% if @runways.empty? %>
+            <p>No runways known</p>
+          <% end %>
           <% @runways.each do |runway| %>
               <div class="d-flex justify-content-between">
                 <p><b><%= "#{runway.le_ident} #{runway.he_ident}" %></b></p>
