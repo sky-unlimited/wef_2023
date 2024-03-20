@@ -5,13 +5,14 @@ require 'csv'
 # ############################################
 puts "👉 Cleaning databases..."
 AuditLog.destroy_all
-PilotPref.destroy_all
+Preference.destroy_all
 User.destroy_all
 Runway.destroy_all
 FuelStation.destroy_all
 Event.destroy_all
 Airport.destroy_all
 Country.destroy_all
+Certificate.destroy_all
 
 puts "-------------------------------"
 puts "All environments seeds"
@@ -26,6 +27,13 @@ Rake::Task['import:runways'].invoke
 Rake::Task['import:fuel_stations'].invoke
 
 # ############################################
+# CERTIFICATES
+# ############################################
+# Create certificates
+ultra_light_pilot = Certificate.create!(name: "Ultra-light pilot")
+private_pilot = Certificate.create!(name: "Private pilot")
+
+# ############################################
 # USERS
 # ############################################
 # Create an admin user
@@ -37,8 +45,8 @@ user.password = "Default2024"
 user.confirmed_at = Time.zone.now - 1.hour
 user.confirmation_sent_at = Time.zone.now - 2.hours
 user.save
-pilot_pref = PilotPref.find_by(user_id: user.id)
-pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: false)
+preference = Preference.find_by(user_id: user.id)
+preference.update(is_ultralight_pilot: true, is_private_pilot: false)
 puts "Admin user alex created"
 puts "Pilot pref alex created"
 
@@ -55,8 +63,8 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  pilot_pref = PilotPref.find_by(user_id: user.id)
-  pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: true)
+  preference = Preference.find_by(user_id: user.id)
+  preference.update(is_ultralight_pilot: true, is_private_pilot: true)
   puts "rachel user created"
   puts "rachel pilot prefs created"
 
@@ -68,8 +76,8 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  pilot_pref = PilotPref.find_by(user_id: user.id)
-  pilot_pref.update(airport: Airport.find_by(icao: "LFCL"), is_ultralight_pilot: true, is_private_pilot: true)
+  preference = Preference.find_by(user_id: user.id)
+  preference.update(airport: Airport.find_by(icao: "LFCL"), is_ultralight_pilot: true, is_private_pilot: true)
   puts "christina user created"
   puts "christina pilot prefs created"
 
