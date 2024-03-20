@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  aircraft_type: 1
+  airport_role: 1
+  airport: one
+
+two:
+  user: two
+  aircraft_type: 1
+  airport_role: 1
+  airport: two
