@@ -27,7 +27,7 @@
       <%= f.text_field :user_id, readonly: "readonly", size: 4, hidden: true %>
 
       <div class="searcher">
-        <%= f.label t('activerecord.attributes.pilot_pref.airport'), class: "form-label" %>
+        <%= f.label t('activerecord.attributes.preference.airport'), class: "form-label" %>
         <div class="group-searcher">
           <%= text_field_tag "search" ,
                               @airport_full_name,

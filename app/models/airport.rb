@@ -6,7 +6,8 @@ class Airport < ApplicationRecord
   belongs_to :country
   has_many :runways
   has_many :trip_requests, dependent: :destroy
-  has_one :pilot_pref
+  has_one :pilot_pref # TODO: Remove this line after migration
+  has_many :pilots
   has_one :fuel_station
   has_many :events, dependent: :destroy
 

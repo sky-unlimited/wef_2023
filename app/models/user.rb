@@ -3,6 +3,9 @@ class User < ApplicationRecord
   has_one :pilot_pref, dependent: :destroy # TODO: Remove this line after migration
 
   has_one :pilot, dependent: :destroy
+  has_one :preference, through: :pilot, dependent: :destroy
+  has_one :profile, through: :pilot, dependent: :destroy
+
   has_many :trip_requests, dependent: :destroy
   has_one_attached :picture do |attachable|
     attachable.variant :thumb, resize_to_limit: [48, 48]

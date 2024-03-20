@@ -1,12 +1,12 @@
 class Preference < ApplicationRecord
   belongs_to :pilot
 
-  saf = 'activerecord.attributes.pilot_pref.weather_profile_options.safe'
-  adv = 'activerecord.attributes.pilot_pref.weather_profile_options.adventurous'
+  saf = 'activerecord.attributes.preference.weather_profile_options.safe'
+  adv = 'activerecord.attributes.preference.weather_profile_options.adventurous'
   enum :weather_profile, { I18n.t(saf) => 0,
                            I18n.t(adv) => 1 }
 
-  validates :pilot, presence: true
+  validates :pilot, presence: true, uniqueness: true
   validates :min_runway_length, numericality: { in: 150..1500 }
   validates :max_gnd_wind_speed, numericality: { in: 15..45 }
   validates :average_true_airspeed, numericality: { in: 0..250 }

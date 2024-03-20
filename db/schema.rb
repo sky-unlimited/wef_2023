@@ -249,15 +249,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_063002) do
     t.index ["pilot_id"], name: "index_preferences_on_pilot_id"
   end
 
-  create_table "profiles", force: :cascade do |t|
-    t.bigint "pilot_id", null: false
-    t.text "bio"
-    t.string "aircraft_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["pilot_id"], name: "index_profiles_on_pilot_id"
-  end
-
   create_table "runways", force: :cascade do |t|
     t.bigint "airport_id", null: false
     t.integer "length_meter"
@@ -448,7 +439,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_063002) do
   add_foreign_key "pilots", "airports"
   add_foreign_key "pilots", "users"
   add_foreign_key "preferences", "pilots"
-  add_foreign_key "profiles", "pilots"
   add_foreign_key "runways", "airports"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ProfileTest < ActiveSupport::TestCase
+class PreferencesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
