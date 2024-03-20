@@ -18,6 +18,7 @@ class AirportsController < ApplicationController
     fuel_station = FuelStation.find_by(airport_id: @airport.id)
     fuel_station_id = fuel_station.id unless fuel_station.nil?
     @pilots = @airport.pilots.includes(:user)
+    @poi_icons = POI_CATALOGUE.values.map { |poi| poi["icon"] }
     @runways = @airport.runways
     @audit_log_fuel_station = AuditLog.where(target_controller: 0)
                                       .and(AuditLog.where(

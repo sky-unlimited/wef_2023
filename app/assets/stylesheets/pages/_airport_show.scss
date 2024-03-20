@@ -6,6 +6,24 @@
   margin-bottom: 2em;
   color: $light;
 
+  .display-airport-poi {
+    display: flex;
+    gap: 0.5em;
+    margin-bottom: 1.2em;
+
+    img {
+      opacity: 0.4;
+    }
+  }
+
+  .display-airport-poi .active {
+    opacity: 1;
+  }
+
+  .display-airport-actions {
+    flex-shrink: 0;
+  }
+
   h1 {
     color: $light;
     margin-top: 0;
@@ -52,7 +70,17 @@
   }
 }
 
+@media screen and (max-width: 1024px){
+  .display-airport-poi {
+    flex-wrap: wrap;
+  }
+}
+
 @media screen and (max-width: 768px) {
+  #airport-background {
+    height: 60vh;
+  }
+
   #airport-header {
     flex-direction: column;
     align-items: center;

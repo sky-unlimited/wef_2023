@@ -5,10 +5,10 @@
   <div id="airport-header">
     <div>
       <h1><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %></h1>
-      <div class="display-airport-poi mb-20 d-flex gap-5">
-        <% get_airport_poi_icons(@airport).each do |icon| %>
-          <%= image_tag(icon) %>
-        <%end %>
+      <div class="display-airport-poi">
+        <%  @poi_icons.each do |icon| %>
+          <%= image_tag icon, class: ("active" if get_airport_poi_icons(@airport).include?(icon)) %>
+        <% end %>
       </div>
     </div>
     <div class="display-airport-actions d-flex flex-column align-items-end">
