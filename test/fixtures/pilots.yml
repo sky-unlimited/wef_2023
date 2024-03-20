@@ -1,13 +1,20 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user: one
-  aircraft_type: 1
-  airport_role: 1
-  airport: one
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+regular_staff:
+  user: regular_user
+  airport_role: 0
+  airport: ellx
 
-two:
-  user: two
-  aircraft_type: 1
+regular_pilot:
+  user: regular_user
   airport_role: 1
-  airport: two
+  airport: ellx
+
+regular_student:
+  user: regular_user
+  airport_role: 2
+  airport: ellx

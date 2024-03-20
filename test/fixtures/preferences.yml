@@ -1,11 +1,23 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the "{}" from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+profile_ok:
+  pilot: regular_pilot
+  weather_profile: 0
+  is_ultralight_pilot: true
+  is_private_pilot: true
+  average_true_airspeed: 100
+  min_runway_length: 300
+  fuel_card_total: false
+  fuel_card_bp: false
+  max_gnd_wind_speed: 15
+
+wrong_licence:
+  pilot: regular_pilot
+  weather_profile: 0
+  is_ultralight_pilot: false
+  is_private_pilot: false
+  average_true_airspeed: 100
+  min_runway_length: 300
+  fuel_card_total: false
+  fuel_card_bp: false
+  max_gnd_wind_speed: 15

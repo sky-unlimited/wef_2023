@@ -47,8 +47,8 @@ class User < ApplicationRecord
     return unless pilot.nil?
 
     Pilot.create(
-      user_id: id,
-      airport_id: Airport.find_by(icao: 'ELLX').id
+      user: self,
+      airport: Airport.find_by(icao: 'ELLX')
     )
   end
 
