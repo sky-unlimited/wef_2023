@@ -1,0 +1,10 @@
+<%# locals: (events:) %>
+
+<section class="container py-20 text-center">
+  <h1 class="text-center">Events near you</h1>
+  <div class="cards">
+    <%= render "events/events", events: events %>
+  </div>
+
+  <%= link_to "Browse more events", events_path, class: "btn btn-secondary d-inline-block mt-20" %>
+</section>

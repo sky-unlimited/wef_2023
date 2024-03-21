@@ -73,7 +73,7 @@ en:
       contact:
         username: Username (if you're registered)
         last_name: Last name
-        first_name: First name 
+        first_name: First name
         company: Company
         phone: Phone
         email: Email
@@ -122,9 +122,11 @@ en:
       and: and
     contact:
       submit: Submit
+    event:
+      submit: Submit
   users:
     errors:
-      file_type: The uploaded format is not an image 
+      file_type: The uploaded format is not an image
       image_size: Image size greater than 2MB
       password_policy: Password must include at least one lowercase letter, one uppercase letter, and one digit
   pages:
@@ -137,6 +139,11 @@ en:
   pilot_prefs:
     menu: Preferences
     saved: Preferences saved!
+  events:
+    menu: Events
+    saved: Event was successfully created!
+    updated: Event was successfully updated!
+    error: Event was successfully deleted!
   trip_request:
     title: Trip Organization
     search_placeholder: 🔎 Search an Airport
@@ -232,5 +239,3 @@ en:
       title: "📢 New Contact Form Submission!"
   blog:
     saved: Your post has been successfully saved!
- 
-
