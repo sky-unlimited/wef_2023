@@ -1,9 +1,9 @@
 #pilot-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   border-bottom: 1px solid $light;
   padding: 2em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
 
   h1 {
     margin: 0;
@@ -15,10 +15,45 @@
   }
 }
 
+.pilot-header-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pilot-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pilot-header-social {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+
+  .pilot-header-social-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    h3 {
+      margin: 0;
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
-  #pilot-header {
+  .pilot-header-profile {
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .pilot-header-info {
+    text-align: center;
     align-items: center;
   }
 }
