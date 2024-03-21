@@ -215,6 +215,9 @@ fr:
       fuel_station: Station d'avitaillement
       weather_forecast: Prévisions météo
       pois: Points d'intérêts SUR/PRES aérodrome
+  follower:
+    created: "Vous suivez désormais %{username}"
+    destroyed: "Vous ne suivez plus %{username}"
   legal:
     privacy_policy: Politique de Confidentialité
     terms_and_conditions: Termes et Conditions

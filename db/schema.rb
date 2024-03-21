@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_20_085052) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_21_070058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -141,6 +141,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_085052) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.index ["airport_id"], name: "index_events_on_airport_id"
+  end
+
+  create_table "followers", force: :cascade do |t|
+    t.bigint "follower_id", null: false
+    t.bigint "following_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id"], name: "index_followers_on_follower_id"
+    t.index ["following_id"], name: "index_followers_on_following_id"
   end
 
   create_table "fuel_stations", force: :cascade do |t|
@@ -449,6 +458,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_085052) do
   add_foreign_key "audit_logs", "users"
   add_foreign_key "blogs", "users"
   add_foreign_key "events", "airports"
+  add_foreign_key "followers", "users", column: "follower_id"
+  add_foreign_key "followers", "users", column: "following_id"
   add_foreign_key "fuel_stations", "airports"
   add_foreign_key "osm_pois", "airports"
   add_foreign_key "pilot_certificates", "certificates"

@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users
+    resources :users, only: [] do
+      resources :followers,         only: [ :create ]
+    end
+    resources :followers,           only: [ :destroy ]
     get 'console/index'
     get 'subscribers/index'
     get 'legal/privacy'

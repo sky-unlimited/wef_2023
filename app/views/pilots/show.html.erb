@@ -9,8 +9,10 @@
     <div class="actions">
       <% if @pilot == current_user.pilot %>
         <%= link_to 'Edit', edit_pilot_path(@pilot), class: 'btn btn-secondary' %>
+      <% elsif current_user.follow?(@pilot.user) %>
+        <%= link_to "Unfollow", follower_path(current_user.follow(@pilot)), data: { turbo_method: :delete }, class: 'btn btn-outline-primary' %>
       <% else %>
-        <%= link_to "+ Follow", "#", class: 'btn btn-primary' %>
+        <%= link_to "+ Follow", user_followers_path(@pilot.user), data: { turbo_method: :post }, class: 'btn btn-primary' %>
       <% end %>
     </div>
   </div>

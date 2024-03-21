@@ -231,6 +231,9 @@ en:
       fuel_station: Fuel station
       weather_forecast: Weather forecast
       pois: Points of interest ON/NEAR airport
+  follower:
+    created: "You are now following %{username}"
+    destroyed: "You are no longer following %{username}"
   legal:
     privacy_policy: Privacy Policy
     terms_and_conditions: Terms & Conditions

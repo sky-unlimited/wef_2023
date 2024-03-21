@@ -6,6 +6,16 @@ class User < ApplicationRecord
   has_one :preference, through: :pilot, dependent: :destroy
 
   has_many :trip_requests, dependent: :destroy
+
+  has_many :buyer_transactions,
+    dependent: :restrict_with_error,
+    foreign_key: :buyer_id,
+    class_name: "Transaction",
+    inverse_of: :buyer
+
+  has_many :followers, dependent: :restrict_with_error, foreign_key: :following_id, class_name: 'Follower', inverse_of: :following
+  has_many :followings, dependent: :restrict_with_error, foreign_key: :follower_id, class_name: 'Follower', inverse_of: :follower
+
   has_one_attached :picture do |attachable|
     attachable.variant :thumb, resize_to_limit: [48, 48]
   end
@@ -23,6 +33,18 @@ class User < ApplicationRecord
 
   def base_airport
     pilot.airport
+  end
+
+  def follow?(user)
+    followings.find_by(following: user).present?
+  end
+
+  def followed_by?(user)
+    followers.find_by(follower: user).present?
+  end
+
+  def follow(user)
+    followings.find_by(following: user)
   end
 
   private
