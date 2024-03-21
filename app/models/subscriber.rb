@@ -7,7 +7,10 @@ class Subscriber < ApplicationRecord
   before_create :add_unsubscribe_hash
   before_validation :add_ip_address
   before_validation :check_timelapse_before_last_attempt,
-                    on: :create, unless: -> { Rails.env.test? }
+                    on: :create, unless: lambda {
+                                           Rails.env.test? ||
+                                             Rails.env.development?
+                                         }
 
   validates :email, presence: true, uniqueness: true
   # validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP  #not strict
