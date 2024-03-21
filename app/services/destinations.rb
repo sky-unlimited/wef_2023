@@ -255,17 +255,29 @@ class Destinations
         end
       end
 
+      # Priority 5: Events
+      events = Event.upcoming(airport: destination[:airport]).count
+      if events.zero?
+        event_category = 0
+      elsif events < 2
+        event_category = 1
+      else
+        event_category = 2
+      end
+
       airports_priority_groups << { airport_id: destination[:airport].id,
                                     direct_flight:,
                                     distance_group: distance_category,
                                     heading_group: heading_category,
-                                    fuel_card_group: fuel_card_category }
+                                    fuel_card_group: fuel_card_category,
+                                    event_group: event_category
+                                  }
     end
 
     # Sorting rules
     sorted_destinations = airports_priority_groups.sort_by do |hash|
       [hash[:direct_flight], hash[:distance_group], hash[:heading_group],
-       hash[:fuel_card_group]]
+       hash[:fuel_card_group], hash[:event_group]]
     end
 
     # Unique destinations - avoid having airports in same 3 groups

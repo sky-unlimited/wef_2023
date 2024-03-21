@@ -17,6 +17,10 @@ class User < ApplicationRecord
   validate :picture_format
   validate :password_complexity
 
+  def base_airport
+    pilot_pref.airport
+  end
+
   private
 
   def set_default_role

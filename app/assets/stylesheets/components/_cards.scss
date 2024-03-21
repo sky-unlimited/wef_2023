@@ -13,3 +13,78 @@
 .card-small {
   max-width: 350px;
 }
+
+.card-trip {
+  overflow: hidden;
+  background: white;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  position: relative;
+  text-align: start;
+
+  &:hover .link, &:hover .actions {
+    opacity: 1;
+  }
+}
+
+.card-trip .card-image {
+  border-radius: $border-radius $border-radius 0 0;
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-trip h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.card-trip-infos p {
+  font-size: 14px;
+  margin-bottom: 0;
+  display: inline-block;
+}
+
+.card-trip .card-trip-infos {
+  padding: 16px;
+}
+
+.card-trip .tag {
+  color: white;
+  padding: 4px 8px;
+  border-radius: $border-radius;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.card-trip .link {
+  transition: .2s ease-in-out;
+  opacity: 0;
+  background-color: white;
+  border-radius: $border-radius;
+  padding: 8px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.card-trip .edit {
+  right: 54px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+@media only screen and (min-width: 576px) {
+  .card-blog-index {
+    margin-left: 10px; 
+    min-width: 380px;
+    max-width: 380px;
+    }
+}

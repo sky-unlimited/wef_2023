@@ -1,0 +1,28 @@
+<%# locals: (events:) %>
+
+<% events.each do |event| %>
+  <div class="card-trip">
+    <% if current_user.admin? %>
+      <%= link_to edit_event_path(event) do %>
+        <%= image_tag "edit.png", alt: "edit-pen", width: 18, class: "link edit" %>
+      <% end %>
+    <% end %>
+
+    <%= link_to event.url, target: "_blank", class: "text-decoration-none text-dark" do %>
+      <%= image_tag "external-link.png", alt: "link", width: 18, class: "link" %>
+      <% if event.image_link.present? %>
+        <%= image_tag event.image_link, alt: event.title, class: "card-image" %>
+      <% else %>
+        <%= image_tag "https://sman1ngantang.sch.id/wp-content/plugins/elementor/assets/images/placeholder.png", alt: event.title, class: "card-image" %>
+      <% end %>
+      <div class="card-trip-infos">
+        <h2><%= event.title %></h2>
+        <p class="mt-5"><%= event.start_date.strftime("%a, %e %b") %><%= "- #{event.end_date.strftime("%a, %e %b")}" unless event.one_day? %></p>
+        <div class="d-flex align-items-center mt-10 justify-content-between">
+          <p class="mt-0">📍 <%= "#{event.airport.name}" %> <%= "(#{event.airport.icao})" if event.airport.icao.match?(/^(L|E)...$/) %></p>
+          <div class="tag <%= "bg-#{event.kind_color}" %>"><%= event.kind.capitalize %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

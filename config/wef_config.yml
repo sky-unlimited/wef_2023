@@ -16,6 +16,7 @@ defaults: &defaults
   airports_white_list:
     - LFJY
     - EKSB
+    - LFMF
   weather_tiles_left_limit: -5
   weather_tiles_right_limit: 16
   weather_tiles_upper_limit: 58
@@ -43,7 +44,7 @@ development:
 test:
   <<: *defaults
   weather_cache_expire_hour: 12
-  default_weather_tile_depth: 4
+  default_weather_tile_depth: 2
 
 production:
   <<: *defaults

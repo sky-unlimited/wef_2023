@@ -19,6 +19,9 @@ Rails.application.routes.draw do
     resources :airports,          only: [ :index, :show ]
     resources :fuel_stations,     only: [ :index, :new, :show, :edit, :update, :create ]
     resources :contacts,          only: [ :index, :new, :create ]
+    resources :events,            only: [ :index, :new, :create, :edit, :update, :destroy ]
     root to: 'pages#home'
   end
+
+  resources :blogs
 end

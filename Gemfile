@@ -72,7 +72,7 @@ gem 'dalli', '~> 3.2', '>= 3.2.6'
 gem 'whenever', require: false
 
 # Background jobs
-gem 'solid_queue', '~> 0.2.0'
+gem 'solid_queue', '~> 0.2.2'
 
 # Geospatial queries
 gem 'activerecord-postgis-adapter', '~> 9.0', '>= 8.0.2'
@@ -87,6 +87,11 @@ group :development, :test do
 
   # Use the Puma web server [https://github.com/puma/puma]
   gem 'puma', '~> 6.4'
+end
+
+group :development, :staging do
+  # faker
+  gem 'faker', '~> 3.2', '>= 3.2.3'
 end
 
 group :development do
