@@ -1,0 +1,22 @@
+<div class="container-md py-20">
+  <div id="pilot-header">
+    <% initials = @pilot.user.username[0] %>
+    <span class="avatar-fake m-5 bg-color1 color-light"><%= initials.upcase %></span>
+    <div class="flex-grow-1">
+      <h1><%= @pilot.user.username %></h1>
+      <p><%= @pilot.user.email %></p>
+    </div>
+    <div class="actions">
+      <% if @pilot == current_user.pilot %>
+        <%= link_to 'Edit', edit_pilot_path(@pilot), class: 'btn btn-secondary' %>
+      <% else %>
+        <%= link_to "+ Follow", "#", class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+  <div id="pilot-body">
+    <p><b>Aircraft type: </b><%= @pilot.aircraft_type %></p>
+    <p><b>Role: </b><%= @pilot.airport_role %></p>
+    <p><b>Bio: </b><%= @pilot.bio %></p>
+  </div>
+</div>

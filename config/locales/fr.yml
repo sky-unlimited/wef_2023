@@ -113,10 +113,7 @@ fr:
       sign_up_tip: "💡 Conseil: une fois votre compte confirmé, veuillez mettre à jour vos préfèrences pilote!"
       accept_terms: En vous enregistrant sur Weekend-Fly, vous acceptez la
       and: ainsi que les
-    contact:
-      submit: Envoyez
-    event:
-      submit: Envoyez
+    submit: Envoyez
   users:
     errors:
       file_type: Le format soumit n'est pas une image
