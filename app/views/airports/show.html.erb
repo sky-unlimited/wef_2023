@@ -1,278 +1,294 @@
-<div class="container">
-
-  <h2><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %>
-    <% unless @vac_link.nil? %>
-      <a class="tag-outline-primary" target="_blank" 
-                            href="<%= @vac_link %>">VAC</a>
-    <% end %>
-  </h2>
-
-  <div class="display_airport_poi mb-20 d-flex flex-column">
+<% image = "placeholder_#{@airport.airport_type}.png" %>
+<% image = "placeholder_medium_airport.png" unless Rails.application.assets.find_asset(image) %>
+<div id="airport-background" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(<%= image_path image %>)"></div>
+<div class="container pt-30">
+  <div id="airport-header">
     <div>
-      <% get_airport_poi_icons(@airport).each do |icon| %>
-        <span class="mr-10"><%= image_tag(icon) %></span>
-      <%end %>
-    </div>
-  </div>
-
-  <div data-controller="collapse">
-    <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
-    <span><b><%= t('airport.show.facility_data') %></b></span>
-    <div id="facility" class="collapse show overflow-auto" data-collapse-target="content">
-      <table class="table-bordered mt-5">
-        <tr>
-          <td><b><%= t('airport.show.location') %></b></td>
-          <td><%= @airport.city %></td>
-        </tr>
-        <tr>
-          <td><b><%= t('airport.show.local_code') %></b></td>
-          <td><%= @airport.local_code %></td>
-        </tr>
-        <tr>
-          <td><b><%= t('airport.show.iata') %></b></td>
-          <td><%= @airport.iata %></td>
-        </tr>
-        <tr>
-          <td><b><%= t('airport.show.facility_type') %></b></td>
-          <td><%= @airport.airport_type %></td>
-        </tr>
-        <tr>
-          <td><b><%= t('airport.show.coordinates') %></b></td>
-          <td><%= "#{@airport.latitude},#{@airport.longitude}" %>
-            <a class="tag-outline-primary" target="_blank" 
-                                  href="https://skyvector.com/?ll=<%= @airport.latitude %>,<%= @airport.longitude %>&chart=301&zoom=2">
-                                  chart
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td><b><%= t('airport.show.field_elevation') %></b></td>
-          <td><%= "#{@airport.altitude} ft MSL" %></td>
-        </tr>
-        <tr>
-          <td><b><%= t('airport.show.website') %></b></td>
-          <td>
-            <a class="color-dark" target="_blank" 
-                                  href="<%= @airport.url %>">
-                                  <%= @airport.url %>
-            </a>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <div data-controller="collapse" class="mt-20" >
-    <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">-</span>
-    <span><b><%= t('airport.show.runways') %></b></span>
-    <div id="runways" class="collapse show" data-collapse-target="content">
-      <table class="p-5 mt-5 table-bordered-dark">
-        <% @runways.each do |runway| %>
-          <tr>
-            <td><b><%= "#{runway.le_ident} #{runway.he_ident}" %></b></td>
-            <td><%= "#{runway.length_meter}m X #{runway.width_meter}m" %></td>
-            <td><%= "Surface #{runway.surface.capitalize}" %></td>
-            <td>
-              <% if runway.lighted %>
-                <%= "💡 Lighted" %>
-              <% else %>
-                <%= "Not lighted" %>
-              <% end %>
-            </td>
-          </tr>
+      <h1><%= "#{NormalizeCountry(@airport.country.code, :to => :emoji)} #{@airport.name} (#{@airport.icao})" %></h1>
+      <div class="display-airport-poi">
+        <%  @poi_icons.each do |icon| %>
+          <%= image_tag icon, class: ("active" if get_airport_poi_icons(@airport).include?(icon)) %>
         <% end %>
-      </table>
+      </div>
     </div>
-  </div>
+    <div class="display-airport-actions d-flex flex-column align-items-end">
+      <div class="d-flex gap-10">
+        <%= link_to "👍🏻", "#", class: "btn btn-light" %>
+        <%= link_to "I've been here", "#", class: "btn btn-primary" %>
+      </div>
 
-  <div class="fuel_station mt-20" data-controller="collapse">
-    <span class="collapse-marker badge bg-dark color-light mb-5" data-action="click->collapse#toggle">+</span>
-    <span><b><%= t('activerecord.models.fuel_station') %></b></span>
-    <div  id="fuel_station" 
-          class="collapse bg-color3 border-radius p-10" 
-          data-collapse-target="content">
-      <% if @airport.fuel_station.nil? %>
-        <p>No fuel station known</p>
-        <%= link_to 'Register New', new_fuel_station_path(airport_id: @airport), class: "link-primary" %>
-      <% else %>
-        <div>
-          <div class="d-flex align-items-center mb-15">
-            <span><%= image_tag(display_fuel_provider_logo(@airport), class: "mr-10") %></span>
-            <span><b class="fs-1-2"><%= @airport.fuel_station.provider %></b></span>
-            <span class="ml-20">
-              <% case @airport.fuel_station.status %>
-              <% when FuelStation.statuses.keys[0] %>
-                <span class="badge-status-green ml-5"> </span>
-              <% when FuelStation.statuses.keys[1] %>
-                <span class="badge-status-yellow ml-5"> </span>
-              <% when FuelStation.statuses.keys[2] %>
-                <span class="badge-status-red ml-5"> </span>
-              <% end %>
-            </span>
-          </div>
-          <p>
-            <%= @airport.fuel_station.phone %>
-            <% unless @airport.fuel_station.email.nil?
-                 unless @airport.fuel_station.email.empty? %>
-                  <%= "| #{@airport.fuel_station.email}" %>
-                <% end %>
-            <% end %>
-          </p>
-          <table class="mb-10">
-            <tr>
-              <td><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_100ll') %> </b></td>
-              <td class="text-center">
-                <% case @airport.fuel_station.fuel_avgas_100ll %>
-                <% when FuelStation.fuel_avgas_100lls.keys[0] %>
-                  <span><%= image_tag('circle-cross.png') %>
-                <% else %>
-                  <span><%= image_tag('circle-checked.png') %>
-                <% end %>
-              </td>
-              <td class="text-center">
-                <% if @airport.fuel_station.fuel_avgas_100ll == FuelStation.fuel_avgas_100lls.keys[2] %>
-                  <span class="tag-success"><%= @airport.fuel_station.fuel_avgas_100ll %></span>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_91ul') %> </b></td>
-              <td class="text-center">
-                <% case @airport.fuel_station.fuel_avgas_91ul %>
-                <% when FuelStation.fuel_avgas_91uls.keys[0] %>
-                  <span><%= image_tag('circle-cross.png') %>
-                <% else %>
-                  <span><%= image_tag('circle-checked.png') %>
-                <% end %>
-              </td>
-              <td class="text-center">
-                <% if @airport.fuel_station.fuel_avgas_91ul == FuelStation.fuel_avgas_91uls.keys[2] %>
-                  <span class="tag-success"><%= @airport.fuel_station.fuel_avgas_91ul %></span>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td><b><%= t('activerecord.attributes.fuel_station.fuel_mogas') %> </b></td>
-              <td class="text-center">
-                <% case @airport.fuel_station.fuel_mogas %>
-                <% when FuelStation.fuel_mogas.keys[0] %>
-                  <span><%= image_tag('circle-cross.png') %>
-                <% else %>
-                  <span><%= image_tag('circle-checked.png') %>
-                <% end %>
-              </td>
-              <td class="text-center">
-                <% if @airport.fuel_station.fuel_mogas == FuelStation.fuel_mogas.keys[2] %>
-                  <span class="tag-success"><%= @airport.fuel_station.fuel_mogas %></span>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td><b><%= t('activerecord.attributes.fuel_station.charging_station') %> </b></td>
-              <td class="text-center">
-                <% case @airport.fuel_station.charging_station %>
-                <% when FuelStation.charging_stations.keys[0] %>
-                  <span><%= image_tag('circle-cross.png') %>
-                <% else %>
-                  <span><%= image_tag('circle-checked.png') %>
-                <% end %>
-              </td>
-              <td class="text-center">
-                <% if @airport.fuel_station.charging_station == FuelStation.charging_stations.keys[2] %>
-                  <span class="tag-light"><%= @airport.fuel_station.charging_station %></span>
-                <% end %>
-              </td>
-            </tr>
-          </table>
-          <div class="ml-5 mb-15">
-            <%= link_to t('airport.show..edit'), edit_fuel_station_path(@airport.fuel_station), class: "link-light" %>
-          </div>
-
-          <% unless @audit_log_fuel_station.nil? %>
-            <span class="fs-0-8">
-              <%= " #{t('airport.show.last_update_by')} #{@audit_log_fuel_station.user.username}, 
-                  #{l @audit_log_fuel_station.updated_at, format: :date_short} ,
-                  #{extract_time_from_date(@audit_log_fuel_station.updated_at)}" %>
-            </span>
-          <% end %>
-
-        </div>
+      <% unless @pilots.empty? %>
+        <p class="mb-0"><b>Home pilots</b></p>
       <% end %>
+
+      <div class="d-flex justify-content-end align-items-center">
+        <% if @pilots.empty? %>
+          <p><b>No pilot is based here</b></p>
+        <% end %>
+        <div class="avatars-overlap mt-10">
+          <% @pilots.first(5).each do |pilot| %>
+            <% initials = pilot.user.username[0] %>
+            <div class="tooltip">
+              <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+              <div class="tooltip-content">
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                  <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+                  <%= link_to "+ Follow", "#", class: "btn btn-primary btn-small" %>
+                </div>
+                <p class="mb-5"><b><%= pilot.user.username %></b> <%= pilot.user.email %></p>
+                <small>📍 <%= "#{pilot.user.base_airport.name} (#{@airport.icao})" %></small>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <% if @pilots.count > 5 %>
+          <div class="pl-10">
+              <a class="link-dark font-weight-bold" data-action="click->modals#display">+ <%= pluralize(@pilots.count - 5, "pilot") %></a>
+          </div>
+        <% end %>
+      </div>
+      <p>
+      </p>
+    </div>
+  </div>
+  <div data-modals-target="modal" class="modal">
+    <div class="modal-content w-50">
+      <div class="modal-content__title mb-15">
+        <h1><%= pluralize(@pilots.count, "pilot") %></span> based here</h1>
+        <span class="modal-close" data-action="click->modals#close">&times;</span>
+      </div>
+      <div class="modal-content__body d-flex flex-column gap-10">
+        <% if @pilots.empty? %>
+          <p>No pilot is based here</p>
+        <% end %>
+
+        <div class="avatars mt-10">
+          <% @pilots.each do |pilot| %>
+            <% initials = pilot.user.username[0] %>
+            <div class="tooltip">
+              <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+              <div class="tooltip-content">
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                  <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+                  <%= link_to "+ Follow", "#", class: "btn btn-primary btn-small" %>
+                </div>
+                <p class="mb-5"><b><%= pilot.user.username %></b> <%= pilot.user.email %></p>
+                <small>📍 <%= "#{pilot.user.base_airport.name} (#{@airport.icao})" %></small>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="mt-20">
+        <%= link_to "Close", "#", class: "btn btn-secondary", data: { action: "click->modals#close" } %>
+      </div>
     </div>
   </div>
 
-  <div class="weather_forecast mt-20" data-controller="collapse">
-    <span class="collapse-marker badge bg-dark color-light mb-5" data-action="click->collapse#toggle">+</span>
-    <span><b><%= t('trip_suggestions.index.forecast') %></b></span>
-    <div  id="weather_forecast" 
-          class="collapse bg-color3 border-radius p-10" 
-          data-collapse-target="content">
-      <%= render partial: "forecast", locals: { forecast_hash: @forecast_hash } %>
-    </div>
-  </div>
-
-  <div class="top_destinations__poi mt-20" data-controller="collapse">
-    <% poi_count_group = PoiCatalogue.count_groups_per_airport(@airport) %>
-    <% total_poi_sum = poi_count_group.values.sum %>
-    <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-    <span><b><%= t('trip_request.poi') %></b></span>
-
-    <div id="group_pois" class="collapse p-10 border bg-light border-dark border-radius mt-15" data-collapse-target="content">
-        <!-- begin group poi content -->
-        <% poi_count_group.each do |key,value| %>
-          <% next if key == 'coastline' %>
-          <div class="top_destinations__poi__details mt-5" data-controller="collapse">
-            <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
-            <span><%= "#{display_poi_label(key)}" %></span>
-            <span class="badge bg-primary color-light fs-0-8"><%= value %></span></br>
-            <div  id="group_pois_<%= key %>" 
-                  class="collapse bg-light px-5 border-radius" data-collapse-target="content">
-              <!-- begin sub-group poi content -->
-              <ul>
-                <% PoiCatalogue.poi_per_group_and_airport(@airport)[key].each do |group_detail|  %>
-                  <% unless group_detail[:name].nil? %>
-                    <li><%= group_detail[:name] %>
-                      <span> (<%= group_detail[:distance] %>m)</span>
-                      <!-- tags details -->
-                        <% unless group_detail[:tags]["website"].nil? %>
-                          <span class="ml-5">
-                            <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["website"] %>">web</a>
-                          </span>
-                        <% end %>
-                        <% unless group_detail[:tags]["contact:website"].nil? %>
-                          <span class="ml-5">
-                            <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["contact:website"] %>">web</a>
-                          </span>
-                        <% end %>
-                        <% unless group_detail[:tags]["url"].nil? %>
-                          <span class="ml-5">
-                            <a class="link-primary" target="_blank" href="<%= group_detail[:tags]["url"] %>">web</a>
-                          </span>
-                        <% end %>
-                      <!-- tags details -->
-                    </li>
-                  <% else %>
-                    <li style="font-style: italic;">Data unavailable
-                      <span> (<%= group_detail[:distance] %>m)</span>
-                    </li>
-                  <% end %>
+  <div id="airport-content">
+    <div class="grouped-card">
+      <div class="card">
+        <div class="card-section">
+          <div class="d-flex justify-content-between align-items-center mb-20">
+            <h4><b>Facility data</b></h4>
+            <div class="d-flex gap-10">
+              <% if @vac_link.present? %>
+                <%= link_to @vac_link, target: "_blank", class: "btn-contact d-flex align-items-center gap-5" do %>
+                  VAC
+                  <%= image_tag "pdf.png", alt: "pdf", height: 20 %>
                 <% end %>
-              </ul>
-              <!-- end sub-group poi content -->
+              <% end %>
+              <%= link_to "https://skyvector.com/?ll=#{@airport.latitude},#{@airport.longitude}&chart=301&zoom=2", target: "_blank", class: "btn-contact d-flex align-items-center gap-5" do %>
+                Chart
+                <%= image_tag 'external-link.png', alt: "link", height: 20 %>
+              <% end %>
             </div>
           </div>
-        <% end %>
-        <!-- end group poi content -->
+          <div class="d-flex justify-content-between mb-10">
+            <p><b><%= t('airport.show.location') %></b></p>
+            <p><%= @airport.city %></p>
+          </div>
+          <div class="d-flex justify-content-between mb-10">
+            <p><b><%= t('airport.show.local_code') %></b></p>
+            <p><%= @airport.local_code %></p>
+          </div>
+          <div class="d-flex justify-content-between mb-10">
+            <p><b><%= t('airport.show.iata') %></b></p>
+            <p><%= @airport.iata %></p>
+          </div>
+          <div class="d-flex justify-content-between mb-10">
+            <p><b><%= t('airport.show.facility_type') %></b></p>
+            <p><%= @airport.airport_type %></p>
+          </div>
+          <div class="d-flex justify-content-between mb-10">
+            <p><b><%= t('airport.show.coordinates') %></b></p>
+            <p><%= "#{@airport.latitude.round(4)},#{@airport.longitude.round(4)}" %></p>
+          </div>
+          <div class="d-flex justify-content-between mb-10">
+            <p><b><%= t('airport.show.field_elevation') %></b></p>
+            <p><%= "#{@airport.altitude} ft MSL" %></p>
+          </div>
+          <div class="d-flex justify-content-between mb-10">
+            <p><b><%= t('airport.show.website') %></b></p>
+            <%= link_to @airport.url, @airport.url, target: "_blank", class: "color-dark" if @airport.url.present? %>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-sections">
+          <h4 class="mb-20"><b>Runways</b></h4>
+          <% if @runways.empty? %>
+            <p>No runways known</p>
+          <% end %>
+          <% @runways.each do |runway| %>
+              <div class="d-flex justify-content-between">
+                <p><b><%= "#{runway.le_ident} #{runway.he_ident}" %></b></p>
+                <p><%= "#{runway.length_meter}m X #{runway.width_meter}m" %></p>
+                <p><%= "Surface #{runway.surface.capitalize}" %></p>
+                <p>
+                  <% if runway.lighted %>
+                    <%= "💡 Lighted" %>
+                  <% else %>
+                    <%= "Not lighted" %>
+                  <% end %>
+                </p>
+              </div>
+            <% end %>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-section">
+          <div class="d-flex justify-content-between align-items-center mb-20">
+            <h4><b><%= t('activerecord.models.fuel_station') %></b></h4>
+            <% if @airport.fuel_station.nil? %>
+              <%= link_to 'Register New', new_fuel_station_path(airport_id: @airport), class: "btn btn-secondary" %>
+            <% else %>
+              <%= link_to t('airport.show..edit'), edit_fuel_station_path(@airport.fuel_station), class: "link-dark" %>
+            <% end %>
+          </div>
+          <% if @airport.fuel_station.nil? %>
+            <p>No fuel station known</p>
+          <% else %>
+            <div>
+              <div class="d-flex justify-content-between mb-10">
+                <div class="d-flex align-items-center gap-10">
+                  <%= image_tag(display_fuel_provider_logo(@airport)) %>
+                  <b class="fs-1-2"><%= @airport.fuel_station.provider %></b>
+                  <% case @airport.fuel_station.status %>
+                  <% when FuelStation.statuses.keys[0] %>
+                    <div class="badge-status-green"></div>
+                  <% when FuelStation.statuses.keys[1] %>
+                    <div class="badge-status-yellow"></div>
+                  <% when FuelStation.statuses.keys[2] %>
+                    <div class="badge-status-red"></div>
+                  <% end %>
+                </div>
+                <div class="d-flex align-items-center gap-10">
+                  <%= link_to '📞 Call', "tel:#{@airport.fuel_station.phone}", title: @airport.fuel_station.phone, class: "btn btn-contact" if @airport.fuel_station.phone.present? %>
+                  <%= link_to '✉️ Email', "mailto:#{@airport.fuel_station.email}", title: @airport.fuel_station.email, class: "btn btn-contact" if @airport.fuel_station.email.present? %>
+                </div>
+              </div>
+              <div class="mb-10">
+                <div class="d-flex gap-10 align-items-center mb-5">
+                  <p class="text-center">
+                    <% case @airport.fuel_station.fuel_avgas_100ll %>
+                    <% when FuelStation.fuel_avgas_100lls.keys[0] %>
+                      ❌
+                    <% else %>
+                      ✅
+                    <% end %>
+                  </p>
+                  <p><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_100ll') %> </b></p>
+                  <p class="text-center">
+                    <% if @airport.fuel_station.fuel_avgas_100ll == FuelStation.fuel_avgas_100lls.keys[2] %>
+                      <span class="tag-success"><%= @airport.fuel_station.fuel_avgas_100ll %></span>
+                    <% end %>
+                  </p>
+                </div>
+                <div class="d-flex gap-10 align-items-center mb-5">
+                  <p class="text-center">
+                    <% case @airport.fuel_station.fuel_avgas_91ul %>
+                    <% when FuelStation.fuel_avgas_91uls.keys[0] %>
+                      ❌
+                    <% else %>
+                      ✅
+                    <% end %>
+                  </p>
+                  <p><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_91ul') %> </b></p>
+                  <p class="text-center">
+                    <% if @airport.fuel_station.fuel_avgas_91ul == FuelStation.fuel_avgas_91uls.keys[2] %>
+                      <span class="tag-success"><%= @airport.fuel_station.fuel_avgas_91ul %></span>
+                    <% end %>
+                  </p>
+                </div>
+                <div class="d-flex gap-10 align-items-center mb-5">
+                  <p class="text-center">
+                    <% case @airport.fuel_station.fuel_mogas %>
+                    <% when FuelStation.fuel_mogas.keys[0] %>
+                      ❌
+                    <% else %>
+                      ✅
+                    <% end %>
+                  </p>
+                  <p><b><%= t('activerecord.attributes.fuel_station.fuel_mogas') %> </b></p>
+                  <p class="text-center">
+                    <% if @airport.fuel_station.fuel_mogas == FuelStation.fuel_mogas.keys[2] %>
+                      <span class="tag-success"><%= @airport.fuel_station.fuel_mogas %></span>
+                    <% end %>
+                  </p>
+                </div>
+                <div class="d-flex gap-10 align-items-center mb-5">
+                  <p class="text-center">
+                    <% case @airport.fuel_station.charging_station %>
+                    <% when FuelStation.charging_stations.keys[0] %>
+                      ❌
+                    <% else %>
+                      ✅
+                    <% end %>
+                  </p>
+                  <p><b><%= t('activerecord.attributes.fuel_station.charging_station') %> </b></p>
+                  <p class="text-center">
+                    <% if @airport.fuel_station.charging_station == FuelStation.charging_stations.keys[2] %>
+                      <span class="tag-light"><%= @airport.fuel_station.charging_station %></span>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
 
+              <% unless @audit_log_fuel_station.nil? %>
+                <span class="fs-0-8">
+                  <%= " #{t('airport.show.last_update_by')} #{@audit_log_fuel_station.user.username},
+                      #{l @audit_log_fuel_station.updated_at, format: :date_short} ,
+                      #{extract_time_from_date(@audit_log_fuel_station.updated_at)}" %>
+                </span>
+              <% end %>
+
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="card d-flex flex-column">
+      <div class="card-sections flex-grow-1">
+        <h4 class="mb-20"><b><%= t('trip_suggestions.index.forecast') %></b></h4>
+        <%= render partial: "forecast", locals: { forecast_hash: @forecast_hash } %>
+      </div>
+      <div class="card-footer">
+        <p class="fs-0-8">
+          <em>Note: This forecast is based on OpenWeatherMap data.</em>
+        </p>
+        <%= image_tag "openweather-logo.png", alt: "openweather", height: 30 %>
+      </div>
     </div>
   </div>
 
-  <div class="map-container mt-20" \
+  <div class="map-container my-20" \
         id="map" \
         data-controller="osm-details"  \
         data-osm-details-target="map" \
         data-osm-details-airport-value="<%= @airport.to_json %>"
         data-osm-details-points-value="<%= @points_array.to_json %>">
   </div>
-
 </div>

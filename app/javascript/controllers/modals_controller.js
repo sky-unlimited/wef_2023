@@ -10,7 +10,7 @@ export default class extends Controller {
 
   display() {
     console.log(this.modalTarget);
-    this.modalTarget.style.display = "block";
+    this.modalTarget.style.display = "flex";
   }
 
   close(event) {
