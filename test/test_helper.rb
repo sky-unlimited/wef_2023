@@ -14,4 +14,7 @@ class ActiveSupport::TestCase
   #include Warden::Test::Helpers
   #Warden.test_mode!
 
+  # Capybara::Screenshot.prune_strategy = { keep: 20 }
 end
+
+Capybara.save_path = Rails.root.join("tmp/capybara")
