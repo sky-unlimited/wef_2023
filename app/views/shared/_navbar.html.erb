@@ -37,7 +37,7 @@
             <p><%= link_to t("pilot_prefs.menu"), edit_pilot_pref_path(current_user) %></p>
             <p><%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete} %></p>
             <% if current_user.role == "admin" %>
-              <p><%= link_to t("shared.console"), console_index_path %></p>
+              <p><%= link_to t("shared.console"), blazer_path %></p>
             <% end %>
           <% else %>
             <p><%= link_to t("shared.sign_in"), new_user_session_path(redirect_to: request.path) %></p>
@@ -55,7 +55,7 @@
           <p><%= link_to t("pilot_prefs.menu"), edit_pilot_pref_path(current_user) %></p>
           <p><%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete} %></p>
           <% if current_user.role == "admin" %>
-            <p><%= link_to t("shared.console"), console_index_path %></p>
+            <p><%= link_to t("shared.console"), blazer_path %></p>
           <% end %>
         <% else %>
           <p><%= link_to t("shared.sign_in"), new_user_session_path(redirect_to: request.path) %></p>

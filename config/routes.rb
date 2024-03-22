@@ -12,7 +12,6 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users
-    get 'console/index'
     get 'subscribers/index'
     get 'legal/privacy'
     get 'legal/terms_and_conditions'

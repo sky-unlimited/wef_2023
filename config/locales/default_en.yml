@@ -44,11 +44,6 @@ en:
     sign_out: Sign out
     sign_up: Sign up
     account: Account
-    console: Console
     legal_mentions: legal terms
     privacy_policy:
     copyright: "All rights reserved"
-  console:
-    title: "Administrator console"
-    export_title: "📤 Data Export"
-    export_button: "Export"

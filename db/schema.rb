@@ -15,16 +15,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_091200) do
   enable_extension "plpgsql"
   enable_extension "postgis"
 
-  create_table "action_text_rich_texts", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "body"
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
-  end
-
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -142,19 +132,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_091200) do
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
   end
 
-  create_table "blogs", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "title", null: false
-    t.string "keywords"
-    t.boolean "published", default: false
-    t.boolean "scheduled_email", default: false
-    t.boolean "sent_email", default: false
-    t.datetime "sent_email_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_blogs_on_user_id"
-  end
-
   create_table "contacts", force: :cascade do |t|
     t.string "username"
     t.string "last_name"
@@ -178,6 +155,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_091200) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_countries_on_id", unique: true
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "airport_id", null: false
+    t.integer "kind"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "image_link"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.index ["airport_id"], name: "index_events_on_airport_id"
   end
 
   create_table "fuel_stations", force: :cascade do |t|
@@ -448,7 +438,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_15_091200) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "airports", "countries"
   add_foreign_key "audit_logs", "users"
-  add_foreign_key "blogs", "users"
+  add_foreign_key "events", "airports"
   add_foreign_key "fuel_stations", "airports"
   add_foreign_key "osm_pois", "airports"
   add_foreign_key "pilot_prefs", "airports"
