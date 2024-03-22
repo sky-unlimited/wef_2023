@@ -159,6 +159,7 @@ fr:
     saved: Evennement créé avec succès!
     updated: Evennement mis à jour avec succès!
     error: Evennement supprimé avec succès!
+    not_admin: Vous n'êtes pas autorisé à accéder à cette page!
   trip_request:
     title: Organisation de Voyage
     search_placeholder: 🔎 Chercher un Aéroport

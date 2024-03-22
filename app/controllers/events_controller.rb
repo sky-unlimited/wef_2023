@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :check_admin, only: %i[new create edit update destroy]
+
   def index
     @events = Event.includes(:airport).closest(current_user.base_airport)
   end
@@ -39,6 +41,10 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def check_admin
+    redirect_to root_path, alert: t('events.not_admin') unless current_user.admin?
+  end
 
   def event_params
     params.require(:event).permit(:title, :airport_id, :start_date, :end_date, :kind, :image_link, :url)

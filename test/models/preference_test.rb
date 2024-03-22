@@ -1,8 +1,10 @@
 require "test_helper"
 
 class PreferenceTest < ActiveSupport::TestCase
-  test "Correct values shoud save" do
-    assert preferences(:profile_ok).save
+  test "Should be created when pilot is created" do
+    pilot = pilots(:regular_pilot)
+    pilot.save
+    assert pilot.preference, "Preference should be created when pilot is created"
   end
 
   test "No pilot licence shoud not save" do

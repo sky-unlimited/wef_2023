@@ -103,7 +103,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  
+
   # Capistrano is a utility and framework for executing commands in parallel on multiple remote machines, via SSH.
   gem 'capistrano-rake', require: false
   gem 'capistrano', '~> 3.17', '>= 3.17.3', require: false
@@ -125,5 +125,3 @@ group :test do
   gem 'selenium-webdriver', '~> 4.16'
   #gem 'webdrivers', '~>5.2'
 end
-
-

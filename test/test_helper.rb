@@ -13,5 +13,6 @@ class ActiveSupport::TestCase
   include Devise::Test::IntegrationHelpers
   #include Warden::Test::Helpers
   #Warden.test_mode!
-
 end
+
+Capybara.save_path = Rails.root.join("tmp/capybara")
