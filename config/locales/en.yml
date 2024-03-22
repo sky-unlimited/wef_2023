@@ -144,6 +144,7 @@ en:
     saved: Event was successfully created!
     updated: Event was successfully updated!
     error: Event was successfully deleted!
+    not_admin: You are not authorized!
   trip_request:
     title: Trip Organization
     search_placeholder: 🔎 Search an Airport

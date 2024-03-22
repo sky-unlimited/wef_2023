@@ -11,7 +11,6 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Email", with: user.email
     fill_in "Password", with: "Hello123"
     click_on "Log in"
-    # save_screenshot
     assert_selector ".alerts", text: "Signed in successfully."
   end
 
@@ -21,6 +20,7 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Email", with: user.email
     fill_in "Password", with: "wrong password"
     click_on "Log in"
+
     assert_selector ".alerts", text: "Invalid Email or password."
   end
 
@@ -37,7 +37,10 @@ class UsersTest < ApplicationSystemTestCase
     fill_in "Password", with: "Hello123"
     fill_in "Password confirmation", with: "Hello123"
     click_on "Sign up"
-    # save_screenshot
+
+    # Wait for the page to load
+    sleep(5)
+
     assert_selector ".alerts", text: "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
   end
 end

@@ -29,7 +29,13 @@ class Event < ApplicationRecord
   end
 
   def self.closest(airport)
-    upcoming.sort_by { |event| [event.start_date, event.airport.geom_point.distance(airport.geom_point)] }
+    upcoming.sort_by do |event|
+      if event.airport.geom_point.nil?
+        event.start_date
+      else
+        [event.start_date, event.airport.geom_point.distance(airport.geom_point)]
+      end
+    end
   end
 
   def one_day?
