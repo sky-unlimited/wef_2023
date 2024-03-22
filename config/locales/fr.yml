@@ -2,13 +2,28 @@ fr:
   activerecord:
     models:
       pilot_pref: Préférences pilote
+      preference: Préférences pilote
       trip_request: Organisation Voyage
       fuel_station: Stations d'avitaillement
       contact: Formulaire de contact
       subscriber: Souscription newsletter
       user: Utilisateur
+      blog: Newsletter
     attributes:
       pilot_pref:
+        weather_profile: Profile météo
+        weather_profile_options:
+          safe: Prudent
+          adventurous: Aventureux
+        airport: Aérodrome d'attache
+        average_true_airspeed: Vitesse Propre Moyenne (kts)
+        min_runway_length: Longueur de piste minimale (m)
+        max_gnd_wind_speed: Vitesse de vent au sol maximale (kts)
+        is_ultralight_pilot: Pilote ULM
+        is_private_pilot: Pilote privé (PPL)
+        fuel_card_total: Carte essence TOTAL
+        fuel_card_bp: Carte essence BP
+      preference:
         weather_profile: Profile météo
         weather_profile_options:
           safe: Prudent
@@ -72,7 +87,7 @@ fr:
       contact:
         username: Identifiant (Si vous êtes enregistré)
         last_name: Nom
-        first_name: Prénom 
+        first_name: Prénom
         company: Société
         phone: Téléphone
         email: Email
@@ -89,6 +104,13 @@ fr:
         accept_privacy_policy: Politique de confidentialité
         created_at: Crée le
         ip_address: Addresse IP
+      blog:
+        title: Titre
+        content: Contenu
+        keywords: Mots-clés
+        status: Statut
+        blog_publication_date: Date publication billet
+        email_publication_date: Date de publication email
     errors:
       messages:
         in: doit être compris entre %{count}
@@ -113,11 +135,10 @@ fr:
       sign_up_tip: "💡 Conseil: une fois votre compte confirmé, veuillez mettre à jour vos préfèrences pilote!"
       accept_terms: En vous enregistrant sur Weekend-Fly, vous acceptez la
       and: ainsi que les
-    contact:
-      submit: Envoyez
+    submit: Envoyez
   users:
     errors:
-      file_type: Le format soumit n'est pas une image 
+      file_type: Le format soumit n'est pas une image
       image_size: La taille de l'image dépasse 2MB
       password_policy: Le mot de passe doit comprendre au moins une lettre minuscule, une lettre majuscule et un chiffre.
   pages:
@@ -130,6 +151,15 @@ fr:
   pilot_prefs:
     menu: Préfèrences
     saved: Préférences enregistrées!
+  preferences:
+    menu: Préfèrences
+    saved: Préférences enregistrées!
+  events:
+    menu: Evennements
+    saved: Evennement créé avec succès!
+    updated: Evennement mis à jour avec succès!
+    error: Evennement supprimé avec succès!
+    not_admin: Vous n'êtes pas autorisé à accéder à cette page!
   trip_request:
     title: Organisation de Voyage
     search_placeholder: 🔎 Chercher un Aéroport
@@ -172,7 +202,7 @@ fr:
       register_ok: "Vous êtes bien enregistré à la Newsletter!"
       register_nok: "Echec de l'enregistrement à la newsletter."
     errors:
-      accept_private_data_policy: Veuillez accepter les termes de la vie privée 
+      accept_private_data_policy: Veuillez accepter les termes de la vie privée
     form:
       acceptation: "En cochant vous acceptez de recevoir des courriels conformément à notre "
       subscribe: "Abonnez-vous à la Newsletter!"
@@ -197,9 +227,10 @@ fr:
       update_ok: Station d'avitaillement mise à jour!
   airport:
     show:
+      icao: ICAO
       edit: Editer
       last_update_by: Dernière modification par
-      facility_data: Données sur installation 
+      facility_data: Données sur installation
       location: Lieu
       local_code: Code local
       iata: IATA
@@ -211,6 +242,9 @@ fr:
       fuel_station: Station d'avitaillement
       weather_forecast: Prévisions météo
       pois: Points d'intérêts SUR/PRES aérodrome
+  follower:
+    created: "Vous suivez désormais %{username}"
+    destroyed: "Vous ne suivez plus %{username}"
   legal:
     privacy_policy: Politique de Confidentialité
     terms_and_conditions: Termes et Conditions
@@ -223,3 +257,5 @@ fr:
     new_submission:
       subject: "WEF Formulaire de contact - [%{category}]"
       title: "📢 Nouvelle soumission de formulaire!"
+  blog:
+    saved: Votre post a été correctement sauvegardé!

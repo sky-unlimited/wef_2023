@@ -42,5 +42,8 @@ module Wef
     # Cache store
     config.cache_store = :mem_cache_store # Will fallback to $MEMCACHE_SERVERS, then 127.0.0.1:11211
 
+    # solid_queue
+    config.solid_queue.silence_polling = true
+
   end
 end

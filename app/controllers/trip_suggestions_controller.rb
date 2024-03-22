@@ -11,7 +11,7 @@ class TripSuggestionsController < ApplicationController
     @trip_request = TripRequest.where(user_id: current_user.id).last
 
     # We load the pilot preferences
-    @pilot_prefs = PilotPref.find_by(user_id: @trip_request.user_id)
+    @preference = Preference.find_by(pilot: @trip_request.user.pilot)
 
     # Instantiating Destinations class
     destinations = Destinations.new(@trip_request)
@@ -104,7 +104,7 @@ class TripSuggestionsController < ApplicationController
       track = FlightTrack.new(@trip_request.airport.geom_point,
                               airport.geom_point,
                               @trip_request.user
-                               .pilot_pref.average_true_airspeed,
+                               .preference.average_true_airspeed,
                               destinations.flyzone_common_polygons)
       @flight_tracks << track
     end
@@ -136,8 +136,8 @@ class TripSuggestionsController < ApplicationController
                                  coord_center[:longitude])
 
     # Add a tag indiciating if weather condition compliant with pilot prefs
-    @forecast_hash  = @pilot_prefs.enrich_weather_forecast(forecast_hash)
-    @wind_limit     = @pilot_prefs.max_gnd_wind_speed
+    @forecast_hash  = @preference.enrich_weather_forecast(forecast_hash)
+    @wind_limit     = @preference.max_gnd_wind_speed
 
     # We render the bad weather specific page
     flash.notice = t('trip_suggestions.notices.bad_weather',

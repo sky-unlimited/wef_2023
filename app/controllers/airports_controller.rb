@@ -17,6 +17,8 @@ class AirportsController < ApplicationController
     @airport = Airport.find(params[:id])
     fuel_station = FuelStation.find_by(airport_id: @airport.id)
     fuel_station_id = fuel_station.id unless fuel_station.nil?
+    @pilots = @airport.pilots.includes(:user)
+    @poi_icons = POI_CATALOGUE.values.map { |poi| poi["icon"] }
     @runways = @airport.runways
     @audit_log_fuel_station = AuditLog.where(target_controller: 0)
                                       .and(AuditLog.where(
@@ -91,9 +93,9 @@ class AirportsController < ApplicationController
 
     # Add a tag indiciating if weather condition compliant with
     #   pilot preferences
-    pilot_pref = PilotPref.find_by(user: current_user)
-    @forecast_hash  = pilot_pref.enrich_weather_forecast(forecast_hash)
-    @wind_limit     = pilot_pref.max_gnd_wind_speed
+    preference = current_user.preference
+    @forecast_hash  = preference.enrich_weather_forecast(forecast_hash)
+    @wind_limit     = preference.max_gnd_wind_speed
   end
 
   private

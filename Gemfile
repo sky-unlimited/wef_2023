@@ -73,7 +73,7 @@ gem 'dalli', '~> 3.2', '>= 3.2.6'
 gem 'whenever', require: false
 
 # Background jobs
-gem 'solid_queue', '~> 0.2.0'
+gem 'solid_queue', '~> 0.2.2'
 
 # Geospatial queries
 gem 'activerecord-postgis-adapter', '~> 9.0', '>= 8.0.2'
@@ -90,6 +90,11 @@ group :development, :test do
   gem 'puma', '~> 6.4'
 end
 
+group :development, :staging do
+  # faker
+  gem 'faker', '~> 3.2', '>= 3.2.3'
+end
+
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
@@ -99,7 +104,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  
+
   # Capistrano is a utility and framework for executing commands in parallel on multiple remote machines, via SSH.
   gem 'capistrano-rake', require: false
   gem 'capistrano', '~> 3.17', '>= 3.17.3', require: false
@@ -121,5 +126,3 @@ group :test do
   gem 'selenium-webdriver', '~> 4.16'
   #gem 'webdrivers', '~>5.2'
 end
-
-

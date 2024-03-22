@@ -14,6 +14,7 @@
 </div>
 <% if user_signed_in? %>
   <%= render 'airport_searcher' %>
+  <%= render 'events_near_me', events: @events %>
 <% end %>
 <%= render 'how_it_works' %>
 <%= render 'what_you_get' %>

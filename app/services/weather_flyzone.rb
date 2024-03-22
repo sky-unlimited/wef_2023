@@ -16,10 +16,10 @@ class WeatherFlyzone
     @tile_offset_y = []     # latitude offset between Tile and virtual grid
     # polygon that should union the adjacent good weather tiles
     @polygon = nil
-    @pilot_pref = PilotPref.find_by(user: @trip_request.user)
+    @preference = Preference.find_by(pilot: @trip_request.user.pilot)
 
     # We create the origin tile
-    @origin_tile = WeatherTile.new(@pilot_pref, @effective_date,
+    @origin_tile = WeatherTile.new(@preference, @effective_date,
                                    nil, nil, @trip_request.airport)
     @tiles.push(@origin_tile)
     # will define the center of the weather grid -> lon
@@ -127,7 +127,7 @@ class WeatherFlyzone
         # We create the tile
         next unless (grid[y][x]).zero? # cell is not visited
 
-        tile = WeatherTile.new(@pilot_pref,
+        tile = WeatherTile.new(@preference,
                                @effective_date,
                                @tile_offset_x[x],
                                @tile_offset_y[y],

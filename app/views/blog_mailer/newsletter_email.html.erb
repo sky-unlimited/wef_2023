@@ -1,0 +1,11 @@
+<h2><%= @blog.title %></h2>
+<p><strong>
+  <%= "#{@blog.user.username.downcase} · 
+      #{l @blog.created_at, format: :date_short} · 
+      #{@blog.content.to_s.scan(/\w+/).size / 250} min" %>
+</strong></p>
+<p><%= @blog.content %></p>
+<p>
+  <a href="<%= @link_root %>">Weekend-Fly</a> | 
+  <a href="<%= @link_unsubscribe %>">Unsubscribe</a>
+</p>

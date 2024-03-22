@@ -2,13 +2,28 @@ en:
   activerecord:
     models:
       pilot_pref: Pilot preferences
+      preference: Pilot Preferences
       trip_request: Trip Organization
       fuel_station: Fuel Station
       contact: Contact Form
       subscriber: Newsletter subscription
       user: User
+      blog: Newsletter
     attributes:
       pilot_pref:
+        weather_profile: Weather Profile
+        weather_profile_options:
+          safe: Safe
+          adventurous: Adventurous
+        airport: Home Base Airport
+        average_true_airspeed: Average True Airspeed (kts)
+        min_runway_length: Minimun runway length (m)
+        max_gnd_wind_speed: Maximum ground wind speed (kts)
+        is_ultralight_pilot: Ultralight Pilot
+        is_private_pilot: Private Pilot (PPL)
+        fuel_card_total: Fuel card TOTAL
+        fuel_card_bp: Fuel card BP
+      preference:
         weather_profile: Weather Profile
         weather_profile_options:
           safe: Safe
@@ -72,7 +87,7 @@ en:
       contact:
         username: Username (if you're registered)
         last_name: Last name
-        first_name: First name 
+        first_name: First name
         company: Company
         phone: Phone
         email: Email
@@ -89,6 +104,13 @@ en:
         accept_privacy_policy: Privacy policy
         created_at: Created at
         ip_address: IP Address
+      blog:
+        title: Ttile
+        content: Content
+        keywords: Keywords
+        status: Status
+        blog_publication_date: Blog publication date
+        email_publication_date: Email publication date
     errors:
       messages:
         in: must be in %{count}
@@ -112,11 +134,10 @@ en:
       sign_up_tip: "💡 Tip: Once confirmed, update your pilot preferences in the account menu!"
       accept_terms: By Signing up you agree to Weekend-Fly’s
       and: and
-    contact:
-      submit: Submit
+    submit: Submit
   users:
     errors:
-      file_type: The uploaded format is not an image 
+      file_type: The uploaded format is not an image
       image_size: Image size greater than 2MB
       password_policy: Password must include at least one lowercase letter, one uppercase letter, and one digit
   pages:
@@ -129,6 +150,15 @@ en:
   pilot_prefs:
     menu: Preferences
     saved: Preferences saved!
+  preferences:
+    menu: Preferences
+    saved: Preferences saved!
+  events:
+    menu: Events
+    saved: Event was successfully created!
+    updated: Event was successfully updated!
+    error: Event was successfully deleted!
+    not_admin: You are not authorized!
   trip_request:
     title: Trip Organization
     search_placeholder: 🔎 Search an Airport
@@ -196,6 +226,7 @@ en:
       update_ok: Fuel Station has been updated!
   airport:
     show:
+      icao: ICAO
       edit: Edit
       last_update_by: Updated last by
       facility_data: Facility data
@@ -210,6 +241,9 @@ en:
       fuel_station: Fuel station
       weather_forecast: Weather forecast
       pois: Points of interest ON/NEAR airport
+  follower:
+    created: "You are now following %{username}"
+    destroyed: "You are no longer following %{username}"
   legal:
     privacy_policy: Privacy Policy
     terms_and_conditions: Terms & Conditions
@@ -222,5 +256,5 @@ en:
     new_submission:
       subject: "WEF Contact Form - [%{category}]"
       title: "📢 New Contact Form Submission!"
- 
-
+  blog:
+    saved: Your post has been successfully saved!

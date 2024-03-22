@@ -76,7 +76,7 @@
   margin-bottom: 15px;
 }
 .mb-20 {
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
 }
 .mb-30 {
   margin-bottom: 30px;
@@ -259,4 +259,13 @@
 }
 .m20-auto {
   margin: 20px auto;
+}
+.gap-5 {
+  gap: 5px;
+}
+.gap-10 {
+  gap: 10px;
+}
+.gap-15 {
+  gap: 15px;
 }

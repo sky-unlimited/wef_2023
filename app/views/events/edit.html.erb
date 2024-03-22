@@ -1,0 +1,7 @@
+<div class="container-md pt-10">
+  <h1 class="text-center">Edit your event</h1>
+  <%= render "form", event: @event %>
+  <div class="text-center">
+    <%= link_to "Delete event", event_path(@event), class: "", data: { turbo_method: :delete } %>
+  </div>
+</div>

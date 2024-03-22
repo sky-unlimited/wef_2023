@@ -1,7 +1,21 @@
 # This class mananges basic user information
 class User < ApplicationRecord
-  has_one :pilot_pref, dependent: :destroy
+  has_one :pilot_pref, dependent: :destroy # TODO: Remove this line after migration
+
+  has_one :pilot, dependent: :destroy
+  has_one :preference, through: :pilot, dependent: :destroy
+
   has_many :trip_requests, dependent: :destroy
+
+  has_many :buyer_transactions,
+    dependent: :restrict_with_error,
+    foreign_key: :buyer_id,
+    class_name: "Transaction",
+    inverse_of: :buyer
+
+  has_many :followers, dependent: :restrict_with_error, foreign_key: :following_id, class_name: 'Follower', inverse_of: :following
+  has_many :followings, dependent: :restrict_with_error, foreign_key: :follower_id, class_name: 'Follower', inverse_of: :follower
+
   has_one_attached :picture do |attachable|
     attachable.variant :thumb, resize_to_limit: [48, 48]
   end
@@ -12,10 +26,26 @@ class User < ApplicationRecord
          :trackable, :confirmable, :lockable
   enum role: %i[user admin]
   after_initialize :set_default_role, if: :new_record?
-  after_save :create_default_pilot_preferences
+  after_save :create_default_pilot
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validate :picture_format
   validate :password_complexity
+
+  def base_airport
+    pilot.airport
+  end
+
+  def follow?(user)
+    followings.find_by(following: user).present?
+  end
+
+  def followed_by?(user)
+    followers.find_by(follower: user).present?
+  end
+
+  def follow(user)
+    followings.find_by(following: user)
+  end
 
   private
 
@@ -37,19 +67,18 @@ class User < ApplicationRecord
     end
   end
 
-  def create_default_pilot_preferences
-    return unless pilot_pref.nil?
+  def create_default_pilot
+    return unless pilot.nil?
 
-    PilotPref.create(
-      user_id: id,
-      is_private_pilot: true,
-      airport_id: Airport.find_by(icao: 'ELLX').id
+    Pilot.create(
+      user: self,
+      airport: Airport.find_by(icao: 'ELLX')
     )
   end
 
   def password_complexity
     if password.present? &&
-       !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
+      !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
       errors.add(:password, I18n.t('users.errors.password_policy'))
     end
   end

@@ -134,12 +134,12 @@ class Destinations
       airports_matching_criterias.joins(:runways)
                                  .where('runways.length_meter >= ?',
                                         @trip_request.user
-                                                     .pilot_pref
+                                                     .preference
                                                      .min_runway_length)
                                  .distinct
 
     # Filter airports for PPL only
-    if @trip_request.user.pilot_pref.is_ultralight_pilot == false
+    if @trip_request.user.preference.is_ultralight_pilot == false
       airports_matching_criterias = airports_matching_criterias
                                     .where('length(icao) = 4')
     end
@@ -188,7 +188,7 @@ class Destinations
     @airports_flyzone.each do |airport|
       flight_track = FlightTrack.new(@trip_request.airport.geom_point,
                                      airport.geom_point,
-                                     @trip_request.user.pilot_pref
+                                     @trip_request.user.preference
                                                   .average_true_airspeed,
                                      @flyzone_common_polygons)
 
@@ -244,8 +244,8 @@ class Destinations
         fuel_card_category = 1
       else
         fuel_cards = []
-        fuel_cards << 'Air BP' if @trip_request.user.pilot_pref.fuel_card_bp
-        if @trip_request.user.pilot_pref.fuel_card_total
+        fuel_cards << 'Air BP' if @trip_request.user.preference.fuel_card_bp
+        if @trip_request.user.preference.fuel_card_total
           fuel_cards << 'Total Energies'
         end
         if fuel_cards.include?(destination[:airport].fuel_station.provider)
@@ -255,17 +255,29 @@ class Destinations
         end
       end
 
+      # Priority 5: Events
+      events = Event.upcoming(airport: destination[:airport]).count
+      if events.zero?
+        event_category = 0
+      elsif events < 2
+        event_category = 1
+      else
+        event_category = 2
+      end
+
       airports_priority_groups << { airport_id: destination[:airport].id,
                                     direct_flight:,
                                     distance_group: distance_category,
                                     heading_group: heading_category,
-                                    fuel_card_group: fuel_card_category }
+                                    fuel_card_group: fuel_card_category,
+                                    event_group: event_category
+                                  }
     end
 
     # Sorting rules
     sorted_destinations = airports_priority_groups.sort_by do |hash|
       [hash[:direct_flight], hash[:distance_group], hash[:heading_group],
-       hash[:fuel_card_group]]
+       hash[:fuel_card_group], hash[:event_group]]
     end
 
     # Unique destinations - avoid having airports in same 3 groups
