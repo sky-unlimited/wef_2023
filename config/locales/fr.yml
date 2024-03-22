@@ -2,6 +2,7 @@ fr:
   activerecord:
     models:
       pilot_pref: Préférences pilote
+      preference: Préférences pilote
       trip_request: Organisation Voyage
       fuel_station: Stations d'avitaillement
       contact: Formulaire de contact
@@ -9,6 +10,19 @@ fr:
       user: Utilisateur
     attributes:
       pilot_pref:
+        weather_profile: Profile météo
+        weather_profile_options:
+          safe: Prudent
+          adventurous: Aventureux
+        airport: Aérodrome d'attache
+        average_true_airspeed: Vitesse Propre Moyenne (kts)
+        min_runway_length: Longueur de piste minimale (m)
+        max_gnd_wind_speed: Vitesse de vent au sol maximale (kts)
+        is_ultralight_pilot: Pilote ULM
+        is_private_pilot: Pilote privé (PPL)
+        fuel_card_total: Carte essence TOTAL
+        fuel_card_bp: Carte essence BP
+      preference:
         weather_profile: Profile météo
         weather_profile_options:
           safe: Prudent
@@ -127,6 +141,9 @@ fr:
     airport_searcher:
       find_airport: Chercher un aéroport
   pilot_prefs:
+    menu: Préfèrences
+    saved: Préférences enregistrées!
+  preferences:
     menu: Préfèrences
     saved: Préférences enregistrées!
   events:

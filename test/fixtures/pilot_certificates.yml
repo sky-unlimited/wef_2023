@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  pilot: one
+  pilot: regular_pilot
   certificate: one
 
 two:
-  pilot: two
+  pilot: regular_regular
   certificate: two
