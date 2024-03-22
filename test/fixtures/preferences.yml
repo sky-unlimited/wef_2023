@@ -1,6 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-profile_ok:
+preference_ok:
   pilot: regular_pilot
   weather_profile: 0
   is_ultralight_pilot: true
