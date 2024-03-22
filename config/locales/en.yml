@@ -8,6 +8,7 @@ en:
       contact: Contact Form
       subscriber: Newsletter subscription
       user: User
+      blog: Newsletter
     attributes:
       pilot_pref:
         weather_profile: Weather Profile
@@ -103,6 +104,13 @@ en:
         accept_privacy_policy: Privacy policy
         created_at: Created at
         ip_address: IP Address
+      blog:
+        title: Ttile
+        content: Content
+        keywords: Keywords
+        status: Status
+        blog_publication_date: Blog publication date
+        email_publication_date: Email publication date
     errors:
       messages:
         in: must be in %{count}
@@ -246,3 +254,5 @@ en:
     new_submission:
       subject: "WEF Contact Form - [%{category}]"
       title: "📢 New Contact Form Submission!"
+  blog:
+    saved: Your post has been successfully saved!

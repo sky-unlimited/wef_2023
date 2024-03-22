@@ -1,0 +1,51 @@
+<%= form_with(model: blog) do |form| %>
+  <% if blog.errors.any? %>
+    <div class="alert-danger">
+      <h3 class="form-title-error"><%= t("forms.messages.errors", count: blog.errors.count) %> </h3>
+      <ul>
+        <% blog.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :picture %>
+    <%= form.file_field :picture %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :content, style: "display: block" %>
+    <%= form.rich_text_area :content %>
+  </div>
+
+  <div>
+    <%= form.label :keywords, style: "display: block" %>
+    <%= form.text_area  :keywords, 
+                        placeholder: "tag1, tag2",
+                        size: "50x2" %>
+  </div>
+
+  <% unless blog.id.nil? %>
+    <div>
+      <%= form.label :published, style: "display: block" %>
+      <%= form.check_box  :published  %>
+    </div>
+    <div>
+      <%= form.label :scheduled_email, style: "display: block" %>
+      <%= form.check_box  :scheduled_email  %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit t("forms.submit"), class: "btn btn-success mt-10" %>
+  </div>
+
+</div>
+<% end %>

@@ -1,0 +1,18 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: admin_user
+  title: My first beautifull blog
+  keywords: 'firstBlog, news'
+  published: true
+  scheduled_email: true
+  sent_email: true
+  sent_email_date: Time.zone.now - 1.day
+
+two:
+  user: admin_user
+  title: My second blog!
+  keywords: 'release_note, fixture'
+  published: false
+  scheduled_email: false
+  sent_email: false

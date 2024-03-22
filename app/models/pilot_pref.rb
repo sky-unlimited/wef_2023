@@ -15,6 +15,8 @@ class PilotPref < ApplicationRecord
 
   validate :pilot_should_have_at_least_one_licence
 
+  after_create :subscribe_newsletter
+
   def pilot_should_have_at_least_one_licence
     return unless is_ultralight_pilot == false && is_private_pilot == false
 
@@ -54,5 +56,13 @@ class PilotPref < ApplicationRecord
         weather_pilot_compliant?(weather)
     end
     weather_data
+  end
+
+  def subscribe_newsletter
+    hash = { email: user.email,
+             accept_private_data_policy: true,
+             honey_bot: '' }
+    new_subscriber = Subscriber.new(hash)
+    new_subscriber.save
   end
 end

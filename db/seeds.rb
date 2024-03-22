@@ -28,40 +28,33 @@ if Rails.env.development? || Rails.env.staging?
   Rake::Task['import:fuel_stations'].invoke
 
   # ############################################
-  # CERTIFICATES
-  # ############################################
-  # Create certificates
-  ultra_light_pilot = Certificate.create!(name: "Ultra-light pilot")
-  private_pilot = Certificate.create!(name: "Private pilot")
-
-  # ############################################
   # USERS
   # ############################################
   # Create an admin user
   user = User.new
-  user.username = "alexstan57"
-  user.email = "alex@sky-unlimited.lu"
-  user.role = "admin"
-  user.password = "Default2024"
+  user.username = 'alexstan57'
+  user.email = 'alex@sky-unlimited.lu'
+  user.role = 'admin'
+  user.password = 'Default2024'
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  preference = Preference.find_by(user_id: user.id)
-  preference.update(is_ultralight_pilot: true, is_private_pilot: false)
-  puts "Admin user alex created"
-  puts "Pilot pref alex created"
+  pilot_pref = PilotPref.find_by(user_id: user.id)
+  pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: false)
+  puts 'Admin user alex created'
+  puts 'Pilot pref alex created'
 end
 
-# Create users
 if Rails.env.development? || Rails.env.staging?
-  puts "-------------------------------"
-  puts "development & staging seeds"
-  puts "-------------------------------"
+  # Create users
+  puts '-------------------------------'
+  puts 'development & staging seeds'
+  puts '-------------------------------'
   user = User.new
-  user.username = "rachel"
-  user.email = "rachel@sky-unlimited.lu"
-  user.role = "admin"
-  user.password = "Default2024"
+  user.username = 'rachel'
+  user.email = 'rachel@sky-unlimited.lu'
+  user.role = 'admin'
+  user.password = 'Default2024'
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
@@ -71,10 +64,10 @@ if Rails.env.development? || Rails.env.staging?
   puts "rachel pilot prefs created"
 
   user = User.new
-  user.username = "chris_bali"
-  user.email = "christina.sugiono95@gmail.com"
-  user.role = "admin"
-  user.password = "Default2024"
+  user.username = 'chris_bali'
+  user.email = 'christina.sugiono95@gmail.com'
+  user.role = 'admin'
+  user.password = 'Default2024'
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
@@ -82,6 +75,33 @@ if Rails.env.development? || Rails.env.staging?
   preference.update(airport: Airport.find_by(icao: "LFCL"), is_ultralight_pilot: true, is_private_pilot: true)
   puts "christina user created"
   puts "christina pilot prefs created"
+
+  # Create blogs
+  i = 0
+  rand(5..15).times do
+    i += 1
+    # content
+    lorem = ""
+    rand(3..10).times do
+      lorem += Faker::Lorem.paragraph(sentence_count: 40)
+    end
+    # post
+    hash = { user: User.first, title: Faker::Lorem.sentence,
+             keywords: 'test, seed',
+             content: lorem }
+    blog = Blog.new(hash)
+    blog.published = true if i.odd?
+    blog.save
+    puts "Blog##{i}1 created!"
+  end
+
+  # Create subscribers
+  hash = { email: 'alex@sky-unlimited.lu',
+           accept_private_data_policy: true,
+           honey_bot: '' }
+  subscriber = Subscriber.new(hash)
+  subscriber.save
+  puts "Subscriber created for #{hash[:email]} !"
 
   # Create dummy events
   friedrichshafen_airport = Airport.find_by(icao: "EDNY")

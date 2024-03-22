@@ -8,6 +8,7 @@ fr:
       contact: Formulaire de contact
       subscriber: Souscription newsletter
       user: Utilisateur
+      blog: Newsletter
     attributes:
       pilot_pref:
         weather_profile: Profile météo
@@ -103,6 +104,13 @@ fr:
         accept_privacy_policy: Politique de confidentialité
         created_at: Crée le
         ip_address: Addresse IP
+      blog:
+        title: Titre
+        content: Contenu
+        keywords: Mots-clés
+        status: Statut
+        blog_publication_date: Date publication billet
+        email_publication_date: Date de publication email
     errors:
       messages:
         in: doit être compris entre %{count}
@@ -247,3 +255,5 @@ fr:
     new_submission:
       subject: "WEF Formulaire de contact - [%{category}]"
       title: "📢 Nouvelle soumission de formulaire!"
+  blog:
+    saved: Votre post a été correctement sauvegardé!
