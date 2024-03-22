@@ -5,5 +5,5 @@ one:
   certificate: one
 
 two:
-  pilot: regular_regular
+  pilot: regular_pilot
   certificate: two
