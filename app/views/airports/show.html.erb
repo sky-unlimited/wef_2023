@@ -29,11 +29,19 @@
           <% @pilots.first(5).each do |pilot| %>
             <% initials = pilot.user.username[0] %>
             <div class="tooltip">
-              <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+              <%= link_to pilot_path(pilot), class: "text-decoration-none" do %>
+                <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+              <% end %>
               <div class="tooltip-content">
                 <div class="d-flex justify-content-between align-items-center mb-5">
-                  <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
-                  <%= link_to "+ Follow", "#", class: "btn btn-primary btn-small" %>
+                  <%= link_to pilot_path(pilot), class: "text-decoration-none" do %>
+                    <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+                  <% end %>
+                  <% if current_user.follow?(pilot.user) %>
+                    <%= link_to "Unfollow", follower_path(current_user.follow(pilot)), data: { turbo_method: :delete }, class: 'btn btn-outline-primary btn-small' %>
+                  <% else %>
+                    <%= link_to "+ Follow", user_followers_path(pilot.user), data: { turbo_method: :post }, class: 'btn btn-primary btn-small' %>
+                  <% end %>
                 </div>
                 <p class="mb-5"><b><%= pilot.user.username %></b> <%= pilot.user.email %></p>
                 <small>📍 <%= "#{pilot.user.base_airport.name} (#{@airport.icao})" %></small>
@@ -66,10 +74,14 @@
           <% @pilots.each do |pilot| %>
             <% initials = pilot.user.username[0] %>
             <div class="tooltip">
-              <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+              <%= link_to pilot_path(pilot), class: "text-decoration-none" do %>
+                <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+              <% end %>
               <div class="tooltip-content">
                 <div class="d-flex justify-content-between align-items-center mb-5">
-                  <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+                  <%= link_to pilot_path(pilot), class: "text-decoration-none" do %>
+                    <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+                  <% end %>
                   <%= link_to "+ Follow", "#", class: "btn btn-primary btn-small" %>
                 </div>
                 <p class="mb-5"><b><%= pilot.user.username %></b> <%= pilot.user.email %></p>

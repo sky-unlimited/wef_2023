@@ -20,10 +20,6 @@ class Airport < ApplicationRecord
                            inclusion: { in: ACCEPTED_AIRPORT_TYPES }
   validate :filter_airports
 
-  def pilots
-    pilot_prefs
-  end
-
   def filter_airports
     # We load white list from config file
     white_list = WEF_CONFIG['airports_white_list']

@@ -2,7 +2,7 @@
   <div id="pilot-header">
     <div class="pilot-header-profile">
       <% initials = @pilot.user.username[0] %>
-      <span class="avatar-fake bg-color1 color-light"><%= initials.upcase %></span>
+      <span class="avatar-fake avatar-medium bg-color1 color-light"><%= initials.upcase %></span>
       <div class="flex-grow-1">
         <h1><%= @pilot.user.username %></h1>
         <p><%= @pilot.user.email %></p>
