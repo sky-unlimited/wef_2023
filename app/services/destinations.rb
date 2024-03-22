@@ -134,12 +134,12 @@ class Destinations
       airports_matching_criterias.joins(:runways)
                                  .where('runways.length_meter >= ?',
                                         @trip_request.user
-                                                     .pilot_pref
+                                                     .preference
                                                      .min_runway_length)
                                  .distinct
 
     # Filter airports for PPL only
-    if @trip_request.user.pilot_pref.is_ultralight_pilot == false
+    if @trip_request.user.preference.is_ultralight_pilot == false
       airports_matching_criterias = airports_matching_criterias
                                     .where('length(icao) = 4')
     end
@@ -188,7 +188,7 @@ class Destinations
     @airports_flyzone.each do |airport|
       flight_track = FlightTrack.new(@trip_request.airport.geom_point,
                                      airport.geom_point,
-                                     @trip_request.user.pilot_pref
+                                     @trip_request.user.preference
                                                   .average_true_airspeed,
                                      @flyzone_common_polygons)
 
@@ -244,8 +244,8 @@ class Destinations
         fuel_card_category = 1
       else
         fuel_cards = []
-        fuel_cards << 'Air BP' if @trip_request.user.pilot_pref.fuel_card_bp
-        if @trip_request.user.pilot_pref.fuel_card_total
+        fuel_cards << 'Air BP' if @trip_request.user.preference.fuel_card_bp
+        if @trip_request.user.preference.fuel_card_total
           fuel_cards << 'Total Energies'
         end
         if fuel_cards.include?(destination[:airport].fuel_station.provider)

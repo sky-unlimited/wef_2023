@@ -22,7 +22,7 @@
       <td>
         <span>
           <% get_trip_request_fuel_stations_icons(@trip_request.airport).each do |fuel_type| %>
-            <%= image_tag(fuel_type, alt: fuel_type) %> 
+            <%= image_tag(fuel_type, alt: fuel_type) %>
           <% end %>
         </span>
         <% PoiCatalogue.get_pois_group_per_trip_request(@trip_request).each do |group| %>
@@ -36,12 +36,12 @@
   </table>
 
   <% if @top_destination_airports.count == 0 %>
-    <p><%= t('trip_suggestions.index.no_destinations') %></p></br>
+    <p><%= t('trip_suggestions.index.no_destinations') %></p><br/>
   <% else %>
     <div class="my-20">
       <%= link_to t('trip_request.buttons.new_trip_request'), new_trip_request_path, class: "btn btn-secondary" %>
     </div>
-    
+
     <h2><%= t('trip_suggestions.index.flyzone_map') %></h2>
     <div class="map-container" \
           id="map" \
@@ -55,7 +55,7 @@
           data-osm-flyzone-outbound-value="<%= @flyzone_outbound %>" \
           data-osm-flyzone-inbound-value="<%= @flyzone_inbound %>" \
           data-osm-trip-request-value="<%= @trip_request.to_json %>" \
-          data-osm-pilot-prefs-value="<%= @pilot_prefs.to_json %>" \
+          data-osm-pilot-prefs-value="<%= @preference.to_json %>" \
           data-osm-flight-tracks-value="<%= @flight_tracks.to_json %>" >
     </div>
 
@@ -65,7 +65,7 @@
       <% @top_destination_airports.each_with_index do |airport,index| %>
         <div class="">
           <div id="top_destination_<%= index + 1 %>" class="bg-color3 p-5 m-5 border-radius border-shadow"
-                style="width: 370px; min-height: 340px"> 
+                style="width: 370px; min-height: 340px">
             <div class="top_desinations__airport">
               <h3 class="color-light"><%= "#{NormalizeCountry(airport.country.code, :to => :emoji)} #{index+1}. #{airport.city} (#{airport.country.name})" %>
               <%= image_tag('alert-triangle.svg') if @flight_tracks[index].warnings.count > 0 %>
@@ -93,7 +93,7 @@
                 </span>
               </div>
               <div class="my-20">
-                <%= link_to t('trip_suggestions.index.airport_detail'), airport_path(airport.id), 
+                <%= link_to t('trip_suggestions.index.airport_detail'), airport_path(airport.id),
                     class: "btn btn-primary", target: "_blank" %>
               </div>
             </div>
@@ -101,8 +101,8 @@
             <div class="top_destinations__flight_track mt-5" data-controller="collapse">
               <span class="collapse-marker badge bg-dark color-light" data-action="click->collapse#toggle">+</span>
               <span><b><%= t('trip_suggestions.index.flight_track') %></b></span>
-              <div  id="flight_track_<%= index + 1 %>" 
-                    class="collapse bg-light px-5 border-radius" 
+              <div  id="flight_track_<%= index + 1 %>"
+                    class="collapse bg-light px-5 border-radius"
                     data-collapse-target="content">
                 <ul>
                   <li><%= "#{t('trip_suggestions.index.distance')}: #{@flight_tracks[index].distance_km}km (#{@flight_tracks[index].distance_nm}nm)" %></li>

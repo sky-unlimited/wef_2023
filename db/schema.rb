@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_13_103624) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_21_070058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -99,6 +99,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_103624) do
     t.index ["user_id"], name: "index_blogs_on_user_id"
   end
 
+  create_table "certificates", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "username"
     t.string "last_name"
@@ -135,6 +141,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_103624) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.index ["airport_id"], name: "index_events_on_airport_id"
+  end
+
+  create_table "followers", force: :cascade do |t|
+    t.bigint "follower_id", null: false
+    t.bigint "following_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id"], name: "index_followers_on_follower_id"
+    t.index ["following_id"], name: "index_followers_on_following_id"
   end
 
   create_table "fuel_stations", force: :cascade do |t|
@@ -207,8 +222,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_103624) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pilot_certificates", force: :cascade do |t|
+    t.bigint "pilot_id", null: false
+    t.bigint "certificate_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["certificate_id"], name: "index_pilot_certificates_on_certificate_id"
+    t.index ["pilot_id"], name: "index_pilot_certificates_on_pilot_id"
+  end
+
   create_table "pilot_prefs", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.integer "weather_profile", default: 0, null: false
     t.integer "min_runway_length", default: 250, null: false
     t.boolean "fuel_card_total", default: false, null: false
@@ -218,10 +241,38 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_103624) do
     t.datetime "updated_at", null: false
     t.boolean "is_ultralight_pilot", default: false, null: false
     t.boolean "is_private_pilot", default: false, null: false
-    t.bigint "airport_id"
     t.integer "average_true_airspeed", default: 100, null: false
+    t.bigint "user_id"
+    t.bigint "airport_id"
     t.index ["airport_id"], name: "index_pilot_prefs_on_airport_id"
     t.index ["user_id"], name: "index_pilot_prefs_on_user_id"
+  end
+
+  create_table "pilots", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "airport_role", default: 1, null: false
+    t.string "aircraft_type"
+    t.text "bio"
+    t.bigint "airport_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["airport_id"], name: "index_pilots_on_airport_id"
+    t.index ["user_id"], name: "index_pilots_on_user_id"
+  end
+
+  create_table "preferences", force: :cascade do |t|
+    t.bigint "pilot_id", null: false
+    t.integer "weather_profile", default: 0, null: false
+    t.integer "min_runway_length", default: 250, null: false
+    t.boolean "fuel_card_total", default: false, null: false
+    t.boolean "fuel_card_bp", default: false, null: false
+    t.integer "max_gnd_wind_speed", default: 15, null: false
+    t.boolean "is_ultralight_pilot", default: false, null: false
+    t.boolean "is_private_pilot", default: true, null: false
+    t.integer "average_true_airspeed", default: 100, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pilot_id"], name: "index_preferences_on_pilot_id"
   end
 
   create_table "runways", force: :cascade do |t|
@@ -407,10 +458,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_103624) do
   add_foreign_key "audit_logs", "users"
   add_foreign_key "blogs", "users"
   add_foreign_key "events", "airports"
+  add_foreign_key "followers", "users", column: "follower_id"
+  add_foreign_key "followers", "users", column: "following_id"
   add_foreign_key "fuel_stations", "airports"
   add_foreign_key "osm_pois", "airports"
+  add_foreign_key "pilot_certificates", "certificates"
+  add_foreign_key "pilot_certificates", "pilots"
   add_foreign_key "pilot_prefs", "airports"
   add_foreign_key "pilot_prefs", "users"
+  add_foreign_key "pilots", "airports"
+  add_foreign_key "pilots", "users"
+  add_foreign_key "preferences", "pilots"
   add_foreign_key "runways", "airports"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

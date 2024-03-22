@@ -1,0 +1,51 @@
+<div class="container-md">
+  <div id="pilot-header">
+    <div class="pilot-header-profile">
+      <% initials = @pilot.user.username[0] %>
+      <span class="avatar-fake avatar-medium bg-color1 color-light"><%= initials.upcase %></span>
+      <div class="flex-grow-1">
+        <h1><%= @pilot.user.username %></h1>
+        <p><%= @pilot.user.email %></p>
+      </div>
+      <div class="actions">
+        <% if @pilot == current_user.pilot %>
+          <%= link_to 'Edit', edit_pilot_path(@pilot), class: 'btn btn-secondary' %>
+        <% elsif current_user.follow?(@pilot.user) %>
+          <%= link_to "Unfollow", follower_path(current_user.follow(@pilot)), data: { turbo_method: :delete }, class: 'btn btn-outline-primary' %>
+        <% else %>
+          <%= link_to "+ Follow", user_followers_path(@pilot.user), data: { turbo_method: :post }, class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="pilot-header-info">
+      <div class="d-flex align-items-center gap-5">
+        <%= image_tag "departure_airport.png", alt: "text", height: 18 %>
+        <p><%= "#{@pilot.airport.name} (#{@pilot.airport.icao})" %></p>
+      </div>
+      <div class="d-flex align-items-center gap-5">
+        <%= image_tag "aerodrome.png", alt: "text", height: 18 %>
+        <p><%= @pilot.aircraft_type %></p>
+      </div>
+      <div class="d-flex align-items-center gap-5">
+        <%= image_tag "user-dark.svg", alt: "text", height: 18 %>
+        <p><%= @pilot.airport_role %></p>
+      </div>
+      <div class="">
+        <p><%= @pilot.bio %></p>
+      </div>
+    </div>
+    <div class="pilot-header-social">
+      <div class="pilot-header-social-item">
+        <h3><%= @pilot.user.followers.count %></h3>
+        <p>Followers</p>
+      </div>
+      <div class="pilot-header-social-item">
+        <h3><%= @pilot.user.followings.count %></h3>
+        <p>Following</p>
+      </div>
+    </div>
+  </div>
+  <div id="pilot-body">
+    <%# TODO social media %>
+  </div>
+</div>

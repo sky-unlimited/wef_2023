@@ -2,9 +2,9 @@ class ApplicationController < ActionController::Base
     around_action :switch_locale
     before_action :configure_permitted_parameters, if: :devise_controller?
     before_action :authenticate_user!
-  
+
     protected
-  
+
     def configure_permitted_parameters
       attributes = [ :username, :picture ]
       devise_parameter_sanitizer.permit(:account_update, keys: attributes)
@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
           user_id: current_user.id,
           target_id: object_id,
           ip_address: request.remote_ip
-        ) 
+        )
         @audit_log.save
       end
     end

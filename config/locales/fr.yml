@@ -2,6 +2,7 @@ fr:
   activerecord:
     models:
       pilot_pref: Préférences pilote
+      preference: Préférences pilote
       trip_request: Organisation Voyage
       fuel_station: Stations d'avitaillement
       contact: Formulaire de contact
@@ -10,6 +11,19 @@ fr:
       blog: Newsletter
     attributes:
       pilot_pref:
+        weather_profile: Profile météo
+        weather_profile_options:
+          safe: Prudent
+          adventurous: Aventureux
+        airport: Aérodrome d'attache
+        average_true_airspeed: Vitesse Propre Moyenne (kts)
+        min_runway_length: Longueur de piste minimale (m)
+        max_gnd_wind_speed: Vitesse de vent au sol maximale (kts)
+        is_ultralight_pilot: Pilote ULM
+        is_private_pilot: Pilote privé (PPL)
+        fuel_card_total: Carte essence TOTAL
+        fuel_card_bp: Carte essence BP
+      preference:
         weather_profile: Profile météo
         weather_profile_options:
           safe: Prudent
@@ -121,10 +135,7 @@ fr:
       sign_up_tip: "💡 Conseil: une fois votre compte confirmé, veuillez mettre à jour vos préfèrences pilote!"
       accept_terms: En vous enregistrant sur Weekend-Fly, vous acceptez la
       and: ainsi que les
-    contact:
-      submit: Envoyez
-    event:
-      submit: Envoyez
+    submit: Envoyez
   users:
     errors:
       file_type: Le format soumit n'est pas une image
@@ -138,6 +149,9 @@ fr:
     airport_searcher:
       find_airport: Chercher un aéroport
   pilot_prefs:
+    menu: Préfèrences
+    saved: Préférences enregistrées!
+  preferences:
     menu: Préfèrences
     saved: Préférences enregistrées!
   events:
@@ -228,6 +242,9 @@ fr:
       fuel_station: Station d'avitaillement
       weather_forecast: Prévisions météo
       pois: Points d'intérêts SUR/PRES aérodrome
+  follower:
+    created: "Vous suivez désormais %{username}"
+    destroyed: "Vous ne suivez plus %{username}"
   legal:
     privacy_policy: Politique de Confidentialité
     terms_and_conditions: Termes et Conditions
