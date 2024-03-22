@@ -3,19 +3,21 @@ require 'csv'
 # ############################################
 # CLEANING
 # ############################################
-puts "👉 Cleaning databases..."
+puts '👉 Cleaning databases...'
 AuditLog.destroy_all
 PilotPref.destroy_all
+Blog.destroy_all
 User.destroy_all
 Runway.destroy_all
 FuelStation.destroy_all
+OsmPoi.destroy_all
 Event.destroy_all
 Airport.destroy_all
 Country.destroy_all
 
-puts "-------------------------------"
-puts "All environments seeds"
-puts "-------------------------------"
+puts '-------------------------------'
+puts 'All environments seeds'
+puts '-------------------------------'
 
 # ############################################
 # IMPORT TASKS
@@ -30,41 +32,41 @@ Rake::Task['import:fuel_stations'].invoke
 # ############################################
 # Create an admin user
 user = User.new
-user.username = "alexstan57"
-user.email = "alex@sky-unlimited.lu"
-user.role = "admin"
-user.password = "Default2024"
+user.username = 'alexstan57'
+user.email = 'alex@sky-unlimited.lu'
+user.role = 'admin'
+user.password = 'Default2024'
 user.confirmed_at = Time.zone.now - 1.hour
 user.confirmation_sent_at = Time.zone.now - 2.hours
 user.save
 pilot_pref = PilotPref.find_by(user_id: user.id)
 pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: false)
-puts "Admin user alex created"
-puts "Pilot pref alex created"
+puts 'Admin user alex created'
+puts 'Pilot pref alex created'
 
-# Create users
 if Rails.env.development? || Rails.env.staging?
-  puts "-------------------------------"
-  puts "development & staging seeds"
-  puts "-------------------------------"
+  # Create users
+  puts '-------------------------------'
+  puts 'development & staging seeds'
+  puts '-------------------------------'
   user = User.new
-  user.username = "rachel"
-  user.email = "rachel@sky-unlimited.lu"
-  user.role = "admin"
-  user.password = "Default2024"
+  user.username = 'rachel'
+  user.email = 'rachel@sky-unlimited.lu'
+  user.role = 'admin'
+  user.password = 'Default2024'
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
   pilot_pref = PilotPref.find_by(user_id: user.id)
   pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: true)
-  puts "rachel user created"
-  puts "rachel pilot prefs created"
+  puts 'rachel user created'
+  puts 'rachel pilot prefs created'
 
   user = User.new
-  user.username = "chris_bali"
-  user.email = "christina.sugiono95@gmail.com"
-  user.role = "admin"
-  user.password = "Default2024"
+  user.username = 'chris_bali'
+  user.email = 'christina.sugiono95@gmail.com'
+  user.role = 'admin'
+  user.password = 'Default2024'
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
@@ -72,6 +74,33 @@ if Rails.env.development? || Rails.env.staging?
   pilot_pref.update(airport: Airport.find_by(icao: "LFCL"), is_ultralight_pilot: true, is_private_pilot: true)
   puts "christina user created"
   puts "christina pilot prefs created"
+
+  # Create blogs
+  i = 0
+  rand(5..15).times do
+    i += 1
+    # content
+    lorem = ""
+    rand(3..10).times do
+      lorem += Faker::Lorem.paragraph(sentence_count: 40)
+    end
+    # post
+    hash = { user: User.first, title: Faker::Lorem.sentence,
+             keywords: 'test, seed',
+             content: lorem }
+    blog = Blog.new(hash)
+    blog.published = true if i.odd?
+    blog.save
+    puts "Blog##{i}1 created!"
+  end
+
+  # Create subscribers
+  hash = { email: 'alex@sky-unlimited.lu',
+           accept_private_data_policy: true,
+           honey_bot: '' }
+  subscriber = Subscriber.new(hash)
+  subscriber.save
+  puts "Subscriber created for #{hash[:email]} !"
 
   # Create dummy events
   friedrichshafen_airport = Airport.find_by(icao: "EDNY")
