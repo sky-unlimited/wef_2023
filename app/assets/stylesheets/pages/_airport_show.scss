@@ -1,17 +1,23 @@
 #airport-header {
-  padding-top: 100px;
+  padding-top: 40px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
-  align-items: start;
   margin-bottom: 2em;
+  text-align: center;
   color: $light;
 
   .display-airport-poi {
     display: flex;
     gap: 0.5em;
     margin-bottom: 1.2em;
+    justify-content: center;
+    flex-wrap: wrap;
 
     img {
+      border-radius: 50%;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
       opacity: 0.4;
     }
   }
@@ -22,6 +28,7 @@
 
   .display-airport-actions {
     flex-shrink: 0;
+    align-items: center;
   }
 
   h1 {
@@ -30,19 +37,16 @@
     font-size: 1.5em;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
+
   a {
     color: $light;
-  }
-  img {
-    border-radius: 50%;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   }
 }
 
 #airport-background {
   position: absolute;
   top: 64px;
-  height: 400px;
+  height: 60vh;
   width: 100%;
   background-size: cover;
   background-position: center;
@@ -51,7 +55,7 @@
 
 #airport-content {
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 1fr;
   gap: 1.5em;
 
   .grouped-card {
@@ -70,34 +74,29 @@
   }
 }
 
-@media screen and (max-width: 1024px){
-  .display-airport-poi {
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  #airport-background {
-    height: 60vh;
-  }
-
+@media screen and (min-width: 768px) {
   #airport-header {
-    flex-direction: column;
-    align-items: center;
-    padding-top: 40px;
-    text-align: center;
+    text-align: left;
+    flex-direction: row;
+    align-items: start;
+    padding-top: 100px;
+    justify-content: space-between;
 
     .display-airport-poi {
-      justify-content: center;
+      flex-wrap: wrap;
+      justify-content: flex-start;
     }
 
     .display-airport-actions {
-      align-items: center;
+      align-items: flex-end;
     }
   }
 
-  #airport-content {
-    grid-template-columns: 1fr;
+  #airport-background {
+    height: 400px;
   }
 
+  #airport-content {
+    grid-template-columns: 2fr 3fr;
+  }
 }
