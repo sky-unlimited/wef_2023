@@ -39,10 +39,13 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  pilot_pref = PilotPref.find_by(user_id: user.id)
-  pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: false)
-  puts 'Admin user alex created'
-  puts 'Pilot pref alex created'
+  pilot = Pilot.find_by(user: user)
+  pilot.update(airport_role: :pilot, aircraft_type: 'Nynja 912ULS', 
+               bio: Faker::Lorem.paragraphs(number: 3),
+               airport_id: Airport.find_by(local_code: 'LF-5755'))
+  preference = Preference.find_by(pilot_id: Pilot.find_by(user:))
+  preference.update(is_ultralight_pilot: true, is_private_pilot: false)
+  puts "Alex user - pilot - preferences created"
 end
 
 if Rails.env.development? || Rails.env.staging?
@@ -58,10 +61,13 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  preference = Preference.find_by(user_id: user.id)
+  pilot = Pilot.find_by(user: user)
+  pilot.update(airport_role: :pilot, aircraft_type: 'Alpi Pioneer 200', 
+               bio: Faker::Lorem.paragraphs(number: 3),
+               airport_id: Airport.find_by(icao: 'ELLX'))
+  preference = Preference.find_by(pilot_id: Pilot.find_by(user:))
   preference.update(is_ultralight_pilot: true, is_private_pilot: true)
-  puts "rachel user created"
-  puts "rachel pilot prefs created"
+  puts "Rachel user - pilot - preferences created"
 
   user = User.new
   user.username = 'chris_bali'
@@ -71,10 +77,13 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  preference = Preference.find_by(user_id: user.id)
-  preference.update(airport: Airport.find_by(icao: "LFCL"), is_ultralight_pilot: true, is_private_pilot: true)
-  puts "christina user created"
-  puts "christina pilot prefs created"
+  pilot = Pilot.find_by(user: user)
+  pilot.update(airport_role: :pilot, aircraft_type: 'Cessna 172', 
+               bio: Faker::Lorem.paragraphs(number: 3),
+               airport_id: Airport.find_by(icao: 'LFLC'))
+  preference = Preference.find_by(pilot_id: Pilot.find_by(user:))
+  preference.update(is_ultralight_pilot: true, is_private_pilot: true)
+  puts "christina user - pilot - preferences created"
 
   # Create blogs
   i = 0
@@ -105,13 +114,21 @@ if Rails.env.development? || Rails.env.staging?
 
   # Create dummy events
   friedrichshafen_airport = Airport.find_by(icao: "EDNY")
-  Event.create(title: "Aero Friedrichshafen_airport", kind: 0, start_date: DateTime.parse("2024-04-17.12:00:00"), end_date: DateTime.parse("2024-04-20.12:00:00"), image_link: "https://cdn.messe-friedrichshafen.de/assets/aero/logos/_AUTOx240_crop_center-center_none_ns/logo-aero-friedrichshafen.png?v=1706175611" , url: "https://www.aero-expo.com", airport: friedrichshafen_airport)
+  Event.create(title: "Aero Friedrichshafen_airport", kind: 0, 
+               start_date: DateTime.parse("2024-04-17.12:00:00"),
+               end_date: DateTime.parse("2024-04-20.12:00:00"),
+               image_link: "https://cdn.messe-friedrichshafen.de/assets/aero/logos/_AUTOx240_crop_center-center_none_ns/logo-aero-friedrichshafen.png?v=1706175611",
+               url: "https://www.aero-expo.com",
+               airport: friedrichshafen_airport)
   10.times do |i|
     start_date = Date.today + rand(1..3).day
     end_date = start_date + rand(0..3).day
     airport = Airport.all.sample
     kind = Event.kinds.values.sample
-    Event.create(title: "Event #{i + 1}", kind: kind, start_date: start_date, end_date: end_date, image_link: "https://source.unsplash.com/random/?#{airport.name}" , url: "https://google.com?q=#{airport.name}", airport: airport)
+    Event.create(title: "Event #{i + 1}", kind: kind, start_date: start_date,
+                 end_date: end_date,
+                 image_link: "https://source.unsplash.com/random/?#{airport.name}",
+                 url: "https://google.com?q=#{airport.name}", airport: airport)
   end
 end
 
