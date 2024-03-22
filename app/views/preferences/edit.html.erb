@@ -1,0 +1,113 @@
+<div class="container-sm">
+  <%= render "weather_info" %>
+
+  <div class="form-wrapper card-product border-radius bg-color3">
+
+    <%= form_for @preference, method: :patch, data: { turbo: false } do |f| %>
+      <h1 class="text-center"><%= t('activerecord.models.preference') %></h1>
+
+      <div class="form-inputs">
+        <% if @preference.errors.any? %>
+          <div class="alert-danger">
+            <p><%=  t("forms.messages.errors", count: @preference.errors.count) %> </p>
+            <ul>
+              <% @preference.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div data-controller="airport-searcher" data-airport-searcher-base-url-value="<%= @base_url %>">
+          </br>
+          <!-- TO BE MOVED TO PILOT UPDATE
+          <%#= f.text_field :airport_id, readonly: "readonly", size: 4, hidden: true, data: { airport_searcher_target: "airportId" }%>
+
+          <div class="searcher">
+            <%= f.label t('activerecord.attributes.preference.airport'), class: "form-label" %>
+            <div class="group-searcher">
+              <%= text_field_tag "search",
+                                  @airport_full_name,
+                                  placeholder: t('trip_request.search_placeholder'),
+                                  size: 30,
+                                  data: { action: "keyup->airport-searcher#eventKey", airport_searcher_target: "searchbox" },
+                                  class: "form-control form-searcher",
+                                  required: true %>
+              <button type="button"
+                      id="clear-search"
+                      class="btn-round"
+                      data-action="click->airport-searcher#clearSearcher">X
+              </button>
+            </div>
+            <ul id="results" data-airport-searcher-target="resultList" class="form-searcher-ul" >
+            </ul>
+          </div>
+          -->
+
+          <!--
+          <div><%= f.label t('activerecord.attributes.preference.airport'), class: "form-label" %></div>
+          <div><%= text_field_tag "airport_full_name", @airport_full_name, placeholder: t('trip_request.no_airport_selected'), readonly: "readonly", required: true, class: "form-control", data: { airport_searcher_target: "resultField" } %></div>
+          -->
+        </div>
+
+        <%= f.label :weather_profile,
+                    class: "form-label" %>
+        <div class="mb-15 form-select d-flex justify-content-center">
+          <%= f.collection_select :weather_profile,
+                                  PilotPref.weather_profiles.keys, :to_s,
+                                  :humanize,
+                                  class: "form-select" %>
+          <%= image_tag "icons8-question-mark-48.png",
+            data: { action: "click->modals#display" },
+            width: 32,
+            class: "p-5" %>
+        </div>
+
+        <div class="form-checkboxes border border-radius m20-auto bg-light color-dark">
+          <%= f.label :is_ultralight_pilot,
+                      class: "form-label" %>
+          <%= f.check_box :is_ultralight_pilot %>
+          <%= f.label :is_private_pilot,
+                      class: "form-label" %>
+          <%= f.check_box :is_private_pilot %>
+        </div>
+
+        <%= f.label :average_true_airspeed,
+                    class: "form-label mt-10" %>
+        <%= f.number_field :average_true_airspeed,
+                           min: 0, max: 250,
+                           class: "form-control mb-15" %>
+
+        <%= f.label :min_runway_length,
+                    class: "form-label mt-10" %>
+        <%= f.number_field :min_runway_length,
+                           min: 150, max: 1500,
+                           class: "form-control mb-15" %>
+
+        <%= f.label :max_gnd_wind_speed,
+                    class: "form-label" %>
+        <%= f.number_field  :max_gnd_wind_speed,
+                            min: 15, max: 45,
+                            class: "form-control" %>
+
+        <div class="form-checkboxes border border-radius m10-auto d-flex flex-column bg-dark color2">
+          <div>
+            <%= f.check_box :fuel_card_total %>
+            <%= f.label :fuel_card_total, class: "form-label" %>
+          </div>
+          <div>
+            <%= f.check_box :fuel_card_bp %>
+            <%= f.label :fuel_card_bp, class: "form-label" %>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-actions mt-15">
+        <%= link_to t('forms.back'), root_path, class:"btn btn-secondary" %>
+        <%= f.submit t('forms.submit'), class: "btn btn-primary" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

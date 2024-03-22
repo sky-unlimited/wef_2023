@@ -93,9 +93,9 @@ class AirportsController < ApplicationController
 
     # Add a tag indiciating if weather condition compliant with
     #   pilot preferences
-    pilot_pref = PilotPref.find_by(user: current_user)
-    @forecast_hash  = pilot_pref.enrich_weather_forecast(forecast_hash)
-    @wind_limit     = pilot_pref.max_gnd_wind_speed
+    preference = current_user.preference
+    @forecast_hash  = preference.enrich_weather_forecast(forecast_hash)
+    @wind_limit     = preference.max_gnd_wind_speed
   end
 
   private

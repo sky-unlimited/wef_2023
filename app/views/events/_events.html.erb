@@ -2,7 +2,7 @@
 
 <% events.each do |event| %>
   <div class="card-trip">
-    <% if current_user.admin? %>
+    <% if user_signed_in? && current_user.admin? %>
       <%= link_to edit_event_path(event) do %>
         <%= image_tag "edit.png", alt: "edit-pen", width: 18, class: "link edit" %>
       <% end %>

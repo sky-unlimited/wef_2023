@@ -43,7 +43,7 @@ class TripRequestsController < ApplicationController
     set_airport_details unless @trip_request.airport_id.nil?
 
     # In order to avoid displaying useless fuel options for private pilots
-    @is_ultralight_pilot = User.find(current_user.id).pilot_pref.is_ultralight_pilot
+    @is_ultralight_pilot = current_user.preference.is_ultralight_pilot
   end
 
   def create

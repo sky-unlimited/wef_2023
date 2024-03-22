@@ -6,8 +6,8 @@ class Airport < ApplicationRecord
   belongs_to :country
   has_many :runways
   has_many :trip_requests, dependent: :destroy
-  has_many :pilot_prefs
-  has_many :users, through: :pilot_prefs
+  has_one :pilot_pref # TODO: Remove this line after migration
+  has_many :pilots
   has_one :fuel_station
   has_many :events, dependent: :destroy
 
@@ -19,10 +19,6 @@ class Airport < ApplicationRecord
   validates :airport_type, presence: true,
                            inclusion: { in: ACCEPTED_AIRPORT_TYPES }
   validate :filter_airports
-
-  def pilots
-    pilot_prefs
-  end
 
   def filter_airports
     # We load white list from config file
