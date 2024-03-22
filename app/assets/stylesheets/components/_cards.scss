@@ -81,10 +81,52 @@
   gap: 16px;
 }
 
+.card {
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  padding: 24px;
+  background-color: white;
+}
+.card-section {
+  p {
+    margin: 0;
+  }
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+.card-user {
+  display: flex;
+  gap: 16px;
+}
+.card-user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  flex-grow: 1;
+
+  p {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media only screen and (min-width: 576px) {
   .card-blog-index {
-    margin-left: 10px; 
+    margin-left: 10px;
     min-width: 380px;
     max-width: 380px;
-    }
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
 }

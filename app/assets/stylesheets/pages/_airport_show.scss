@@ -1,0 +1,102 @@
+#airport-header {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2em;
+  text-align: center;
+  color: $light;
+
+  .display-airport-poi {
+    display: flex;
+    gap: 0.5em;
+    margin-bottom: 1.2em;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    img {
+      border-radius: 50%;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+      opacity: 0.4;
+    }
+  }
+
+  .display-airport-poi .active {
+    opacity: 1;
+  }
+
+  .display-airport-actions {
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  h1 {
+    color: $light;
+    margin-top: 0;
+    font-size: 1.5em;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  a {
+    color: $light;
+  }
+}
+
+#airport-background {
+  position: absolute;
+  top: 64px;
+  height: 60vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+#airport-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5em;
+
+  .grouped-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+  }
+
+  h4 {
+    font-size: 1.1em;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #airport-header {
+    text-align: left;
+    flex-direction: row;
+    align-items: start;
+    padding-top: 100px;
+    justify-content: space-between;
+
+    .display-airport-poi {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .display-airport-actions {
+      align-items: flex-end;
+    }
+  }
+
+  #airport-background {
+    height: 400px;
+  }
+
+  #airport-content {
+    grid-template-columns: 2fr 3fr;
+  }
+}
