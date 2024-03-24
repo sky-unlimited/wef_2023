@@ -7,12 +7,6 @@ class User < ApplicationRecord
 
   has_many :trip_requests, dependent: :destroy
 
-  has_many :buyer_transactions,
-    dependent: :restrict_with_error,
-    foreign_key: :buyer_id,
-    class_name: "Transaction",
-    inverse_of: :buyer
-
   has_many :followers, dependent: :restrict_with_error, foreign_key: :following_id, class_name: 'Follower', inverse_of: :following
   has_many :followings, dependent: :restrict_with_error, foreign_key: :follower_id, class_name: 'Follower', inverse_of: :follower
 

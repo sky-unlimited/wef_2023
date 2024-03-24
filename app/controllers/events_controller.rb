@@ -13,7 +13,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to events_path, notice: t('event.saved')
+      redirect_to events_path, notice: t('events.saved')
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
-      redirect_to events_path, notice: t('event.updated')
+      redirect_to events_path, notice: t('events.updated')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     if @event.destroy
-      redirect_to events_path, notice: t('event.deleted')
+      redirect_to events_path, notice: t('events.deleted')
     end
   end
 
