@@ -5,13 +5,17 @@ Rails.application.routes.draw do
     end
   end
 
+  # Admin console Blazer
+  authenticate :user, ->(user) { user.admin? } do
+    mount Blazer::Engine, at: "blazer"
+  end
+
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users
     resources :users, only: [] do
       resources :followers,         only: [ :create ]
     end
     resources :followers,           only: [ :destroy ]
-    get 'console/index'
     get 'subscribers/index'
     get 'legal/privacy'
     get 'legal/terms_and_conditions'
