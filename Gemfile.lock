@@ -87,6 +87,12 @@ GEM
     bcrypt_pbkdf (1.1.0)
     bigdecimal (3.1.5)
     bindex (0.8.1)
+    blazer (3.0.3)
+      activerecord (>= 6.1)
+      chartkick (>= 5)
+      csv
+      railties (>= 6.1)
+      safely_block (>= 0.4)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -126,6 +132,7 @@ GEM
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     crass (1.0.6)
+    csv (3.2.8)
     dalli (3.2.6)
     date (3.3.4)
     debug (1.9.1)
@@ -288,6 +295,7 @@ GEM
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    safely_block (0.4.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -352,6 +360,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter (~> 9.0, >= 8.0.2)
   bcrypt_pbkdf (>= 1.0, < 2.0)
+  blazer (~> 3.0, >= 3.0.3)
   bootsnap
   bullet (~> 7.1, >= 7.1.6)
   capistrano (~> 3.17, >= 3.17.3)

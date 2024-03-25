@@ -44,11 +44,6 @@ fr:
     sign_out: "Déconnexion"
     sign_up: "S'inscrire"
     account: "Compte"
-    console: "Console"
     legal_mentions: "Mentions Légales"
     privacy_policy: "Politique de confidentialité"
     copyright: "Tous droits réservés"
-  console:
-    title: "Console Administrateur"
-    export_title: "📤 Export de données"
-    export_button: "Export"
