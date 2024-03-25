@@ -287,6 +287,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_070058) do
   end
 
   create_table "pilot_prefs", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.integer "weather_profile", default: 0, null: false
     t.integer "min_runway_length", default: 250, null: false
     t.boolean "fuel_card_total", default: false, null: false
@@ -296,9 +297,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_070058) do
     t.datetime "updated_at", null: false
     t.boolean "is_ultralight_pilot", default: false, null: false
     t.boolean "is_private_pilot", default: false, null: false
-    t.integer "average_true_airspeed", default: 100, null: false
-    t.bigint "user_id"
     t.bigint "airport_id"
+    t.integer "average_true_airspeed", default: 100, null: false
     t.index ["airport_id"], name: "index_pilot_prefs_on_airport_id"
     t.index ["user_id"], name: "index_pilot_prefs_on_user_id"
   end

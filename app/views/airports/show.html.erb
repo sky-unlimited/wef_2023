@@ -206,9 +206,9 @@
                   <p class="text-center">
                     <% case @airport.fuel_station.fuel_avgas_100ll %>
                     <% when FuelStation.fuel_avgas_100lls.keys[0] %>
-                      ❌
+                      <%= image_tag "circle-cross.png", alt: "cross" %>
                     <% else %>
-                      ✅
+                      <%= image_tag "circle-checked.png", alt: "checked" %>
                     <% end %>
                   </p>
                   <p><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_100ll') %> </b></p>
@@ -222,9 +222,9 @@
                   <p class="text-center">
                     <% case @airport.fuel_station.fuel_avgas_91ul %>
                     <% when FuelStation.fuel_avgas_91uls.keys[0] %>
-                      ❌
+                      <%= image_tag "circle-cross.png", alt: "cross" %>
                     <% else %>
-                      ✅
+                      <%= image_tag "circle-checked.png", alt: "checked" %>
                     <% end %>
                   </p>
                   <p><b><%= t('activerecord.attributes.fuel_station.fuel_avgas_91ul') %> </b></p>
@@ -238,9 +238,9 @@
                   <p class="text-center">
                     <% case @airport.fuel_station.fuel_mogas %>
                     <% when FuelStation.fuel_mogas.keys[0] %>
-                      ❌
+                      <%= image_tag "circle-cross.png", alt: "cross" %>
                     <% else %>
-                      ✅
+                      <%= image_tag "circle-checked.png", alt: "checked" %>
                     <% end %>
                   </p>
                   <p><b><%= t('activerecord.attributes.fuel_station.fuel_mogas') %> </b></p>
@@ -254,9 +254,9 @@
                   <p class="text-center">
                     <% case @airport.fuel_station.charging_station %>
                     <% when FuelStation.charging_stations.keys[0] %>
-                      ❌
+                      <%= image_tag "circle-cross.png", alt: "cross" %>
                     <% else %>
-                      ✅
+                      <%= image_tag "circle-checked.png", alt: "checked" %>
                     <% end %>
                   </p>
                   <p><b><%= t('activerecord.attributes.fuel_station.charging_station') %> </b></p>
