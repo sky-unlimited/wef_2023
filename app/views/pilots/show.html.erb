@@ -10,10 +10,11 @@
             <%= link_to 'Edit', edit_pilot_path(@pilot), class: 'btn btn-small btn-secondary' %>
           <% elsif current_user.follow?(@pilot.user) %>
             <%= link_to "Unfollow", follower_path(current_user.follow(@pilot)), data: { turbo_method: :delete }, class: 'btn btn-small btn-outline-primary' %>
+            <%= link_to "✉️", "mailto:#{@pilot.user.email}", class: "btn btn-small btn-secondary" %>
           <% else %>
             <%= link_to "+ Follow", user_followers_path(@pilot.user), data: { turbo_method: :post }, class: 'btn btn-small btn-primary' %>
+            <%= link_to "✉️", "mailto:#{@pilot.user.email}", class: "btn btn-small btn-secondary" %>
           <% end %>
-          <%= link_to "✉️", "mailto:#{@pilot.user.email}", class: "btn btn-secondary" %>
         </div>
       </div>
     </div>
@@ -36,6 +37,10 @@
     </div>
     <div class="pilot-header-social">
       <div class="pilot-header-social-item">
+        <h3><%= @pilot.visited_airports.count %></h3>
+        <p>Visited airport</p>
+      </div>
+      <div class="pilot-header-social-item">
         <h3><%= @pilot.user.followers.count %></h3>
         <p>Followers</p>
       </div>
@@ -50,7 +55,7 @@
       <div class="social-media-item">
         <div class="circle"></div>
         <p class="flex-grow-1">Visited <%= link_to "#{visited_airport.airport.name} (#{visited_airport.airport.icao})", airport_path(visited_airport.airport) %></p>
-        <p><%= time_ago_in_words(visited_airport.created_at) %></p>
+        <p class="flex-shrink-0 fs-0-8 text-gray"><%= time_ago_in_words(visited_airport.created_at) %> ago</p>
       </div>
     <% end %>
   </div>

@@ -27,6 +27,11 @@
     flex-direction: column;
     gap: 4px;
   }
+
+  .action {
+    display: flex;
+    gap: 6px;
+  }
 }
 
 .pilot-header__info {
@@ -39,6 +44,10 @@
   display: flex;
   justify-content: center;
   gap: 12px;
+
+  > div {
+    width: calc(100%/3);
+  }
 
   .pilot-header-social-item {
     display: flex;
@@ -59,17 +68,17 @@
 
   .social-media-item {
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: 8px;
 
     &:not(.social-media-item:last-child) {
       .circle::after {
         content: '';
         border-left: 1px solid $light-gray;
-        height: 12px;
+        height: 24px;
         width: 2px;
         position: absolute;
-        bottom: -50%;
+        bottom: -100%;
         left: 50%;
       }
     }
@@ -78,10 +87,10 @@
       .circle::before {
         content: '';
         border-left: 1px solid $light-gray;
-        height: 12px;
+        height: 24px;
         width: 2px;
         position: absolute;
-        top: -50%;
+        top: -100%;
         left: 50%;
       }
     }
@@ -93,6 +102,7 @@
 }
 
 .circle {
+  flex-shrink: 0;
   width: 24px;
   height: 24px;
   border-radius: 50%;
