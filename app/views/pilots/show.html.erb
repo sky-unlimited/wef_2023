@@ -46,6 +46,13 @@
     </div>
   </div>
   <div id="pilot-body">
-    <%# TODO social media %>
+    <div class="d-flex flex-column gap-10">
+      <% @visited_airports.each do |visited_airport| %>
+        <div class="d-flex justify-content-between">
+          <p>Visited <%= link_to "#{visited_airport.airport.name} (#{visited_airport.airport.icao})", airport_path(visited_airport.airport) %></p>
+          <p><%= time_ago_in_words(visited_airport.created_at) %></p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

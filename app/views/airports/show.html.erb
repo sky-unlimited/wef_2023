@@ -14,7 +14,18 @@
     <div class="display-airport-actions d-flex flex-column align-items-end">
       <div class="d-flex gap-10">
         <%= link_to "👍🏻", "#", class: "btn btn-light" %>
-        <%= link_to "I've been here", "#", class: "btn btn-primary" %>
+
+        <% if current_user.pilot.airport == @airport %>
+          <span class="tag-primary">Home airport</span>
+        <% elsif @visited_airport %>
+          <span class="tag-primary">
+            You've been here
+            <%= link_to "X", visited_airport_path(@visited_airport), data: { turbo_method: :delete }, class: "text-decoration-none text-white pl-5" %>
+          </span>
+        <% else %>
+          <%= link_to "I've been here", airport_visited_airports_path(@airport), data: { turbo_method: :post }, class: "btn btn-primary" %>
+        <% end %>
+
       </div>
 
       <% unless @pilots.empty? %>
@@ -143,7 +154,7 @@
           </div>
           <div class="d-flex justify-content-between mb-10">
             <p><b><%= t('airport.show.website') %></b></p>
-            <%= link_to @airport.url, @airport.url, target: "_blank", class: "color-dark" if @airport.url.present? %>
+            <%= link_to @airport.url.truncate(40), @airport.url, target: "_blank", class: "color-dark" if @airport.url.present? %>
           </div>
         </div>
       </div>
