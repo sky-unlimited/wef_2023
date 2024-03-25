@@ -7,6 +7,7 @@ if Rails.env.development? || Rails.env.staging?
   puts '👉 Cleaning databases...'
   AuditLog.destroy_all
   Preference.destroy_all
+  Pilot.destroy_all
   Blog.destroy_all
   User.destroy_all
   Runway.destroy_all
@@ -40,7 +41,7 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  user.pilot.update(bio: Faker::Lorem.paragraphs(number: 3),
+  user.pilot.update(bio: Faker::Lorem.paragraph(sentence_count: 3),
                     aircraft_type: 'Nynja 912 ULS')
   preference = Preference.find_by(pilot: user.pilot)
   preference.update(is_ultralight_pilot: true, is_private_pilot: false)
@@ -60,7 +61,7 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  user.pilot.update(bio: Faker::Lorem.paragraphs(number: 3),
+  user.pilot.update(bio: Faker::Lorem.paragraph(sentence_count: 3),
                     aircraft_type: 'Alpi Pionneer 200')
   preference = Preference.find_by(pilot: user.pilot)
   preference.update(is_ultralight_pilot: true, is_private_pilot: true)
