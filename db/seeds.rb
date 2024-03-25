@@ -76,7 +76,7 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
   user.pilot.update(airport: Airport.find_by(icao: 'LFCL'),
-                    bio: Faker::Lorem.paragraphs(number: 3),
+                    bio: Faker::Lorem.paragraph(sentence_count: 3),
                     aircraft_type: 'Cessna 172')
   preference = Preference.find_by(pilot: user.pilot)
   preference.update(is_ultralight_pilot: true, is_private_pilot: true)
