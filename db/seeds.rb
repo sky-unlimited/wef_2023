@@ -42,8 +42,8 @@ if Rails.env.development? || Rails.env.staging?
   user.save
   pilot = user.pilot
   pilot.update(bio: "I am a passionate pilot who loves to fly in the sky. I am a ultralight pilot and I am looking forward to meet other pilots and share my passion with them.")
-  pilot_pref = PilotPref.find_by(user_id: user.id)
-  pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: false)
+  preference = Preference.find_by(pilot: user.pilot)
+  preference.update(is_ultralight_pilot: true, is_private_pilot: false)
   puts 'Admin user alex created'
   puts 'Pilot pref alex created'
 end
@@ -63,7 +63,7 @@ if Rails.env.development? || Rails.env.staging?
   user.save
   pilot = user.pilot
   pilot.update(bio: "I am a passionate pilot who loves to fly in the sky. I am a private pilot and I am also a ultralight pilot. I am looking forward to meet other pilots and share my passion with them.")
-  preference = Preference.find_by(user_id: user.id)
+  preference = Preference.find_by(pilot: user.pilot)
   preference.update(is_ultralight_pilot: true, is_private_pilot: true)
   puts "rachel user created"
   puts "rachel pilot prefs created"
@@ -78,8 +78,9 @@ if Rails.env.development? || Rails.env.staging?
   user.save
   pilot = user.pilot
   pilot.update(bio: "I am a passionate pilot who loves to fly in the sky. I am a private pilot and I am also a ultralight pilot. I am looking forward to meet other pilots and share my passion with them.")
-  preference = Preference.find_by(user_id: user.id)
-  preference.update(airport: Airport.find_by(icao: "LFCL"), is_ultralight_pilot: true, is_private_pilot: true)
+  user.pilot.update(airport: Airport.find_by(icao: "LFCL"))
+  preference = Preference.find_by(pilot: user.pilot)
+  preference.update(is_ultralight_pilot: true, is_private_pilot: true)
   puts "christina user created"
   puts "christina pilot prefs created"
 
@@ -127,3 +128,12 @@ Certificate.create!(name: "Student")
 Certificate.create!(name: "Ultra-light/Microlight")
 Certificate.create!(name: "Private")
 Certificate.create!(name: "Commercial")
+
+User.all.each do |user|
+  if user.preference.is_private_pilot
+    PilotCertificate.create!(pilot: user.pilot, certificate: Certificate.find_by(name: "Private"))
+  end
+  if user.preference.is_ultralight_pilot
+    PilotCertificate.create!(pilot: user.pilot, certificate: Certificate.find_by(name: "Ultra-light/Microlight"))
+  end
+end

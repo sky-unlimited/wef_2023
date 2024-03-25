@@ -29,9 +29,9 @@
 
 .card-trip .card-image {
   border-radius: $border-radius $border-radius 0 0;
-  height: 250px;
+  height: 180px;
   width: 100%;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .card-trip h2 {
@@ -77,7 +77,7 @@
 
 .cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
 }
 
@@ -113,12 +113,6 @@
   }
 }
 
-@media screen and (min-width: 480px) {
-  .cards {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media only screen and (min-width: 576px) {
   .card-blog-index {
     margin-left: 10px;
@@ -128,5 +122,11 @@
 
   .cards {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
