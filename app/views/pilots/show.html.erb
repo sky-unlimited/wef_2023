@@ -45,14 +45,13 @@
       </div>
     </div>
   </div>
-  <div id="pilot-body">
-    <div class="d-flex flex-column gap-10">
-      <% @visited_airports.each do |visited_airport| %>
-        <div class="d-flex justify-content-between">
-          <p>Visited <%= link_to "#{visited_airport.airport.name} (#{visited_airport.airport.icao})", airport_path(visited_airport.airport) %></p>
-          <p><%= time_ago_in_words(visited_airport.created_at) %></p>
-        </div>
-      <% end %>
-    </div>
+  <div class="social-media-items mt-20">
+    <% @visited_airports.each do |visited_airport| %>
+      <div class="social-media-item">
+        <div class="circle"></div>
+        <p class="flex-grow-1">Visited <%= link_to "#{visited_airport.airport.name} (#{visited_airport.airport.icao})", airport_path(visited_airport.airport) %></p>
+        <p><%= time_ago_in_words(visited_airport.created_at) %></p>
+      </div>
+    <% end %>
   </div>
 </div>

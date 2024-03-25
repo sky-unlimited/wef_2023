@@ -33,6 +33,7 @@
         <% end %>
         <div class="account-menu-content" data-submenu-target="account">
           <% if user_signed_in? %>
+            <p><%= link_to t("users.menu"), pilot_path(current_user.pilot) %></p>
             <p><%= link_to t("shared.account"), edit_user_registration_path %></p>
             <p><%= link_to t("preferences.menu"), edit_preference_path(current_user) %></p>
             <p><%= link_to t("events.menu"), events_path %></p>
