@@ -7,6 +7,7 @@ if Rails.env.development? || Rails.env.staging?
   puts "👉 Cleaning databases..."
   AuditLog.destroy_all
   Preference.destroy_all
+  Blog.destroy_all
   User.destroy_all
   Runway.destroy_all
   FuelStation.destroy_all
@@ -39,6 +40,8 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
+  pilot = user.pilot
+  pilot.update(bio: "I am a passionate pilot who loves to fly in the sky. I am a ultralight pilot and I am looking forward to meet other pilots and share my passion with them.")
   pilot_pref = PilotPref.find_by(user_id: user.id)
   pilot_pref.update(is_ultralight_pilot: true, is_private_pilot: false)
   puts 'Admin user alex created'
@@ -58,6 +61,8 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
+  pilot = user.pilot
+  pilot.update(bio: "I am a passionate pilot who loves to fly in the sky. I am a private pilot and I am also a ultralight pilot. I am looking forward to meet other pilots and share my passion with them.")
   preference = Preference.find_by(user_id: user.id)
   preference.update(is_ultralight_pilot: true, is_private_pilot: true)
   puts "rachel user created"
@@ -71,6 +76,8 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
+  pilot = user.pilot
+  pilot.update(bio: "I am a passionate pilot who loves to fly in the sky. I am a private pilot and I am also a ultralight pilot. I am looking forward to meet other pilots and share my passion with them.")
   preference = Preference.find_by(user_id: user.id)
   preference.update(airport: Airport.find_by(icao: "LFCL"), is_ultralight_pilot: true, is_private_pilot: true)
   puts "christina user created"

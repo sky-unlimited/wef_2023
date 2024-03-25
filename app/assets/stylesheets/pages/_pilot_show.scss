@@ -7,7 +7,8 @@
 
   h1 {
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1em;
+    line-height: 1.2em;
   }
 
   p {
@@ -15,13 +16,20 @@
   }
 }
 
-.pilot-header-profile {
+.pilot-header__profile {
   display: flex;
   align-items: center;
   gap: 12px;
+
+  .pilot-name {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 }
 
-.pilot-header-info {
+.pilot-header__info {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -92,16 +100,10 @@
   position: relative;
 }
 
-@media screen and (max-width: 768px) {
-  .pilot-header-profile {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  .pilot-header-info {
-    text-align: center;
-    align-items: center;
+@media screen and (min-width: 768px) {
+  #pilot-header {
+    h1 {
+      font-size: 1.2em;
+    }
   }
 }

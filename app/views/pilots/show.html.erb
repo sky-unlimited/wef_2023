@@ -1,23 +1,23 @@
 <div class="container-md">
   <div id="pilot-header">
-    <div class="pilot-header-profile">
+    <div class="pilot-header__profile">
       <% initials = @pilot.user.username[0] %>
-      <span class="avatar-fake avatar-medium bg-color1 color-light"><%= initials.upcase %></span>
-      <div class="flex-grow-1">
+      <span class="avatar-fake avatar-large bg-color1 color-light"><%= initials.upcase %></span>
+      <div class="pilot-name">
         <h1><%= @pilot.user.username %></h1>
-        <p><%= @pilot.user.email %></p>
-      </div>
-      <div class="actions">
-        <% if @pilot == current_user.pilot %>
-          <%= link_to 'Edit', edit_pilot_path(@pilot), class: 'btn btn-secondary' %>
-        <% elsif current_user.follow?(@pilot.user) %>
-          <%= link_to "Unfollow", follower_path(current_user.follow(@pilot)), data: { turbo_method: :delete }, class: 'btn btn-outline-primary' %>
-        <% else %>
-          <%= link_to "+ Follow", user_followers_path(@pilot.user), data: { turbo_method: :post }, class: 'btn btn-primary' %>
-        <% end %>
+        <div class="action">
+          <% if @pilot == current_user.pilot %>
+            <%= link_to 'Edit', edit_pilot_path(@pilot), class: 'btn btn-small btn-secondary' %>
+          <% elsif current_user.follow?(@pilot.user) %>
+            <%= link_to "Unfollow", follower_path(current_user.follow(@pilot)), data: { turbo_method: :delete }, class: 'btn btn-small btn-outline-primary' %>
+          <% else %>
+            <%= link_to "+ Follow", user_followers_path(@pilot.user), data: { turbo_method: :post }, class: 'btn btn-small btn-primary' %>
+          <% end %>
+          <%= link_to "✉️", "mailto:#{@pilot.user.email}", class: "btn btn-secondary" %>
+        </div>
       </div>
     </div>
-    <div class="pilot-header-info">
+    <div class="pilot-header__info">
       <div class="d-flex align-items-center gap-5">
         <%= image_tag "departure_airport.png", alt: "text", height: 18 %>
         <p><%= "#{@pilot.airport.name} (#{@pilot.airport.icao})" %></p>
