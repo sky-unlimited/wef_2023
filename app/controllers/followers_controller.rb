@@ -1,6 +1,4 @@
 class FollowersController < ApplicationController
-  after_action :audit_log, only: [ :create ]
-
   def create
     following = User.find(params[:user_id])
     follow = Follower.create(follower: current_user, following: following)

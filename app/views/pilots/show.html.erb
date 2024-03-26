@@ -47,12 +47,35 @@
         <p class="fs-0-8 font-weight-bold">visited airports</p>
       </div>
       <div class="pilot-header-social-item">
-        <h3><%= @pilot.user.followers.count %></h3>
+        <h3 class="cursor" data-action="click->modals#display"><%= @pilot.user.followers.count %></h3>
         <p class="fs-0-8 font-weight-bold">followers</p>
       </div>
       <div class="pilot-header-social-item">
         <h3><%= @pilot.user.followings.count %></h3>
         <p class="fs-0-8 font-weight-bold">following</p>
+      </div>
+    </div>
+    <div data-modals-target="modal" class="modal">
+      <div class="modal-content w-50">
+        <div class="modal-content__title mb-15">
+          <h1><%= pluralize(@pilot.user.followers.count, "follower") %></h1>
+          <span class="modal-close" data-action="click->modals#close">&times;</span>
+        </div>
+        <div class="modal-content__body d-flex flex-column gap-10">
+          <% if @pilot.user.followers.empty? %>
+            <p>No followers</p>
+          <% end %>
+
+          <div class="avatars mt-10">
+            <% @pilot.user.followers.each do |follower| %>
+              <%= render "users/avatar", user: follower.follower %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-20">
+          <%= link_to "Close", "#", class: "btn btn-secondary", data: { action: "click->modals#close" } %>
+        </div>
       </div>
     </div>
   </div>
