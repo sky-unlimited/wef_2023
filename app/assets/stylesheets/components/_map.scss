@@ -6,4 +6,9 @@
   outline-style: none;
   border-radius: $border-radius;
   box-shadow: $box-shadow;
+  z-index: 0;
+}
+
+#visited-map.map-container {
+  height: 40vh;
 }

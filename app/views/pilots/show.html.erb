@@ -1,4 +1,4 @@
-<div class="container-md">
+<div class="container-md mb-20">
   <div id="pilot-header">
     <div class="pilot-header__profile">
       <% initials = @user.username[0] %>
@@ -39,7 +39,7 @@
     </div>
     <div class="pilot-header-social">
       <div class="pilot-header-social-item">
-        <h3 class="cursor" data-action="click->modals#display" id="contributions"><%= @user.audit_logs.where(target_controller: "fuel_stations").count %></h3>
+        <h3 class="cursor" data-action="click->modals#display" id="contributions"><%= @audit_logs.where(target_controller: "fuel_stations").count %></h3>
         <p class="fs-0-8 font-weight-bold">contributions</p>
       </div>
       <div class="pilot-header-social-item">
@@ -47,27 +47,27 @@
         <p class="fs-0-8 font-weight-bold">visited airports</p>
       </div>
       <div class="pilot-header-social-item">
-        <h3 class="cursor" data-action="click->modals#display" id="followers"><%= @user.followers.count %></h3>
+        <h3 class="cursor" data-action="click->modals#display" id="followers"><%= @followers.count %></h3>
         <p class="fs-0-8 font-weight-bold">followers</p>
       </div>
       <div class="pilot-header-social-item">
-        <h3 class="cursor" data-action="click->modals#display" id="following"><%= @user.followings.count %></h3>
+        <h3 class="cursor" data-action="click->modals#display" id="following"><%= @followings.count %></h3>
         <p class="fs-0-8 font-weight-bold">following</p>
       </div>
     </div>
     <div data-modals-target="modal" class="modal" id="contributions-modal">
       <div class="modal-content w-50">
         <div class="modal-content__title mb-15">
-          <h1><%= pluralize(@user.audit_logs.where(target_controller: "fuel_stations").count, "contribution") %></h1>
+          <h1><%= pluralize(@audit_logs.where(target_controller: "fuel_stations").count, "contribution") %></h1>
           <span class="modal-close" data-action="click->modals#close">&times;</span>
         </div>
         <div class="modal-content__body d-flex flex-column gap-10">
-          <% if @user.audit_logs.where(target_controller: "fuel_stations").empty? %>
+          <% if @audit_logs.where(target_controller: "fuel_stations").empty? %>
             <p>You haven't contribute</p>
           <% end %>
 
           <div class="mt-10 d-flex flex-column gap-10">
-            <% @user.audit_logs.where(target_controller: "fuel_stations").each do |contribution| %>
+            <% @audit_logs.where(target_controller: "fuel_stations").each do |contribution| %>
               <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-10">
                   <%= image_tag(display_fuel_provider_logo(contribution.airport)) %>
@@ -113,16 +113,16 @@
     <div data-modals-target="modal" class="modal" id="following-modal">
       <div class="modal-content w-50">
         <div class="modal-content__title mb-15">
-          <h1><%= pluralize(@user.followings.count, "follower") %></h1>
+          <h1><%= pluralize(@followings.count, "follower") %></h1>
           <span class="modal-close" data-action="click->modals#close">&times;</span>
         </div>
         <div class="modal-content__body d-flex flex-column gap-10">
-          <% if @user.followings.empty? %>
+          <% if @followings.empty? %>
             <p>You haven't follow anyone</p>
           <% end %>
 
           <div class="avatars mt-10">
-            <% @user.followings.each do |follower| %>
+            <% @followings.each do |follower| %>
               <%= render "users/avatar", user: follower.following %>
             <% end %>
           </div>
@@ -136,16 +136,16 @@
     <div data-modals-target="modal" class="modal" id="followers-modal">
       <div class="modal-content w-50">
         <div class="modal-content__title mb-15">
-          <h1><%= pluralize(@user.followers.count, "follower") %></h1>
+          <h1><%= pluralize(@followers.count, "follower") %></h1>
           <span class="modal-close" data-action="click->modals#close">&times;</span>
         </div>
         <div class="modal-content__body d-flex flex-column gap-10">
-          <% if @user.followers.empty? %>
+          <% if @followers.empty? %>
             <p>No followers</p>
           <% end %>
 
           <div class="avatars mt-10">
-            <% @user.followers.each do |follower| %>
+            <% @followers.each do |follower| %>
               <%= render "users/avatar", user: follower.follower %>
             <% end %>
           </div>
@@ -156,6 +156,13 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="map-container" \
+        id="visited-map" \
+        data-controller="visited-map" \
+        data-visited-map-target="map" \
+        data-visited-map-airports-destination-map-value="<%= @visited_destination_map.to_json %>" \
+        data-visited-map-departure-airport-value="<%= @departure_airport.to_json %>" \>
   </div>
   <div class="social-media-items mt-20">
     <% @pilot_activities.each do |activity| %>
