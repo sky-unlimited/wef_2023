@@ -4,6 +4,8 @@ class Pilot < ApplicationRecord
   has_one :preference, dependent: :destroy
   has_many :pilot_certificates, dependent: :destroy
   has_many :certificates, through: :pilot_certificates
+  has_many :visited_airports, dependent: :destroy
+  has_many :airports, through: :visited_airports
 
   after_create :create_default_preference
 

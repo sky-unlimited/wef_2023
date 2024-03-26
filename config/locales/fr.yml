@@ -137,6 +137,8 @@ fr:
       and: ainsi que les
     submit: Envoyez
   users:
+    menu: Profil
+    edit: Editer Profil
     errors:
       file_type: Le format soumit n'est pas une image
       image_size: La taille de l'image dépasse 2MB

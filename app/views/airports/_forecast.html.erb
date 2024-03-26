@@ -13,17 +13,17 @@
         <% record_date = Date.current + index.day %>
         <td><%= record_date.strftime('%a, %d/%m') %></td>
         <td class="d-flex gap-10 align-items-center">
-          <img src="https://openweathermap.org/img/wn/<%= record["weather"][0]["icon"] %>.png" alt="<%= Weather.description(record['weather'][0]['id'])['description'] %>">
+          <%= image_tag "https://openweathermap.org/img/wn/#{record["weather"][0]["icon"]}.png", alt: Weather.description(record['weather'][0]['id'])['description'] %>
           <span><%= Weather.description(record['weather'][0]['id'])['description'] %></span>
         </td>
         <td class="text-center">
-          <%= "#{record["wind_deg"]}°" %>
+          <%= record["wind_deg"] %>°
           <% if winds_ms_to_kts(record["wind_speed"]).to_f > @wind_limit %>
-            <span class="tag-primary mr-5">
+            <span class="tag-primary">
               <%= "#{winds_ms_to_kts(record["wind_speed"])}" %>
             </span>kts
           <% else %>
-            <span class="tag-light mr-5">
+            <span class="tag-light">
               <%= "#{winds_ms_to_kts(record["wind_speed"])}" %>
             </span>kts
           <% end %>

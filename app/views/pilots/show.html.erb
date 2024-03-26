@@ -1,34 +1,37 @@
-<div class="container-md">
+<div class="container-md mb-20">
   <div id="pilot-header">
-    <div class="pilot-header-profile">
-      <% initials = @pilot.user.username[0] %>
-      <span class="avatar-fake avatar-medium bg-color1 color-light"><%= initials.upcase %></span>
-      <div class="flex-grow-1">
-        <h1><%= @pilot.user.username %></h1>
-        <p><%= @pilot.user.email %></p>
-      </div>
-      <div class="actions">
-        <% if @pilot == current_user.pilot %>
-          <%= link_to 'Edit', edit_pilot_path(@pilot), class: 'btn btn-secondary' %>
-        <% elsif current_user.follow?(@pilot.user) %>
-          <%= link_to "Unfollow", follower_path(current_user.follow(@pilot)), data: { turbo_method: :delete }, class: 'btn btn-outline-primary' %>
-        <% else %>
-          <%= link_to "+ Follow", user_followers_path(@pilot.user), data: { turbo_method: :post }, class: 'btn btn-primary' %>
-        <% end %>
+    <div class="pilot-header__profile">
+      <% initials = @user.username[0] %>
+      <span class="avatar-fake avatar-large bg-color1 color-light"><%= initials.upcase %></span>
+      <div class="pilot-name">
+        <h1><%= @user.username %></h1>
+        <div class="action">
+          <% if @pilot == current_user.pilot %>
+            <%= link_to 'Edit', edit_pilot_path(@pilot), class: 'btn btn-small btn-secondary' %>
+          <% elsif current_user.follow?(@user) %>
+            <%= link_to "Unfollow", follower_path(current_user.follow(@pilot)), data: { turbo_method: :delete }, class: 'btn btn-small btn-outline-primary' %>
+          <% else %>
+            <%= link_to "+ Follow", user_followers_path(@user), data: { turbo_method: :post }, class: 'btn btn-small btn-primary' %>
+          <% end %>
+        </div>
       </div>
     </div>
-    <div class="pilot-header-info">
-      <div class="d-flex align-items-center gap-5">
-        <%= image_tag "departure_airport.png", alt: "text", height: 18 %>
+    <div class="pilot-header__info">
+      <div class="d-flex align-items-center gap-10">
+        <%= image_tag "home.png", alt: "home", height: 18 %>
         <p><%= "#{@pilot.airport.name} (#{@pilot.airport.icao})" %></p>
       </div>
-      <div class="d-flex align-items-center gap-5">
-        <%= image_tag "aerodrome.png", alt: "text", height: 18 %>
+      <div class="d-flex align-items-center gap-10">
+        <%= image_tag "plane.png", alt: "plane", height: 18 %>
         <p><%= @pilot.aircraft_type %></p>
       </div>
-      <div class="d-flex align-items-center gap-5">
-        <%= image_tag "user-dark.svg", alt: "text", height: 18 %>
-        <p><%= @pilot.airport_role %></p>
+      <div class="d-flex align-items-center gap-10">
+        <%= image_tag "role.png", alt: "role", height: 18 %>
+        <p><%= @pilot.airport_role.titleize %></p>
+      </div>
+      <div class="d-flex align-items-center gap-10">
+        <%= image_tag "certificate.png", alt: "certificate", height: 18 %>
+        <p><%= @pilot.certificates.pluck(:name).join(", ") %></p>
       </div>
       <div class="">
         <p><%= @pilot.bio %></p>
@@ -36,16 +39,143 @@
     </div>
     <div class="pilot-header-social">
       <div class="pilot-header-social-item">
-        <h3><%= @pilot.user.followers.count %></h3>
-        <p>Followers</p>
+        <h3 class="cursor" data-action="click->modals#display" id="contributions"><%= @audit_logs.where(target_controller: "fuel_stations").count %></h3>
+        <p class="fs-0-8 font-weight-bold">contributions</p>
       </div>
       <div class="pilot-header-social-item">
-        <h3><%= @pilot.user.followings.count %></h3>
-        <p>Following</p>
+        <h3 class="cursor" data-action="click->modals#display" id="airports"><%= @pilot.visited_airports.count %></h3>
+        <p class="fs-0-8 font-weight-bold">visited airports</p>
+      </div>
+      <div class="pilot-header-social-item">
+        <h3 class="cursor" data-action="click->modals#display" id="followers"><%= @followers.count %></h3>
+        <p class="fs-0-8 font-weight-bold">followers</p>
+      </div>
+      <div class="pilot-header-social-item">
+        <h3 class="cursor" data-action="click->modals#display" id="following"><%= @followings.count %></h3>
+        <p class="fs-0-8 font-weight-bold">following</p>
+      </div>
+    </div>
+    <div data-modals-target="modal" class="modal" id="contributions-modal">
+      <div class="modal-content w-50">
+        <div class="modal-content__title mb-15">
+          <h1><%= pluralize(@audit_logs.where(target_controller: "fuel_stations").count, "contribution") %></h1>
+          <span class="modal-close" data-action="click->modals#close">&times;</span>
+        </div>
+        <div class="modal-content__body d-flex flex-column gap-10">
+          <% if @audit_logs.where(target_controller: "fuel_stations").empty? %>
+            <p>You haven't contribute</p>
+          <% end %>
+
+          <div class="mt-10 d-flex flex-column gap-10">
+            <% @audit_logs.where(target_controller: "fuel_stations").each do |contribution| %>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-10">
+                  <%= image_tag(display_fuel_provider_logo(contribution.airport)) %>
+                  <p><%= "#{contribution.action.capitalize} #{contribution.target_controller.titleize}" %> in <%= link_to "#{contribution.airport.name} (#{contribution.airport.icao})", airport_path(contribution.airport) %></p>
+                </div>
+                <p class="flex-shrink-0 fs-0-8 text-gray"><%= time_ago_in_words(contribution.created_at) %> ago</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-20">
+          <%= link_to "Close", "#", class: "btn btn-secondary", data: { action: "click->modals#close" } %>
+        </div>
+      </div>
+    </div>
+    <div data-modals-target="modal" class="modal" id="airports-modal">
+      <div class="modal-content w-50">
+        <div class="modal-content__title mb-15">
+          <h1><%= pluralize(@pilot.visited_airports.count, "airport") %> visited</h1>
+          <span class="modal-close" data-action="click->modals#close">&times;</span>
+        </div>
+        <div class="modal-content__body d-flex flex-column gap-10">
+          <% if @pilot.visited_airports.empty? %>
+            <p>You haven't visited any airports</p>
+          <% end %>
+
+          <div class="mt-10 d-flex flex-column gap-10">
+            <% @pilot.visited_airports.each do |visited_airport| %>
+              <div class="d-flex align-items-center justify-content-between">
+                <p><%= NormalizeCountry(visited_airport.airport.country.code, :to => :emoji) %> <%= link_to "#{visited_airport.airport.name} (#{visited_airport.airport.icao})", airport_path(visited_airport.airport) %></p>
+                <p class="flex-shrink-0 fs-0-8 text-gray"><%= time_ago_in_words(visited_airport.created_at) %> ago</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-20">
+          <%= link_to "Close", "#", class: "btn btn-secondary", data: { action: "click->modals#close" } %>
+        </div>
+      </div>
+    </div>
+    <div data-modals-target="modal" class="modal" id="following-modal">
+      <div class="modal-content w-50">
+        <div class="modal-content__title mb-15">
+          <h1><%= pluralize(@followings.count, "follower") %></h1>
+          <span class="modal-close" data-action="click->modals#close">&times;</span>
+        </div>
+        <div class="modal-content__body d-flex flex-column gap-10">
+          <% if @followings.empty? %>
+            <p>You haven't follow anyone</p>
+          <% end %>
+
+          <div class="avatars mt-10">
+            <% @followings.each do |follower| %>
+              <%= render "users/avatar", user: follower.following %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-20">
+          <%= link_to "Close", "#", class: "btn btn-secondary", data: { action: "click->modals#close" } %>
+        </div>
+      </div>
+    </div>
+    <div data-modals-target="modal" class="modal" id="followers-modal">
+      <div class="modal-content w-50">
+        <div class="modal-content__title mb-15">
+          <h1><%= pluralize(@followers.count, "follower") %></h1>
+          <span class="modal-close" data-action="click->modals#close">&times;</span>
+        </div>
+        <div class="modal-content__body d-flex flex-column gap-10">
+          <% if @followers.empty? %>
+            <p>No followers</p>
+          <% end %>
+
+          <div class="avatars mt-10">
+            <% @followers.each do |follower| %>
+              <%= render "users/avatar", user: follower.follower %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-20">
+          <%= link_to "Close", "#", class: "btn btn-secondary", data: { action: "click->modals#close" } %>
+        </div>
       </div>
     </div>
   </div>
-  <div id="pilot-body">
-    <%# TODO social media %>
+  <div class="map-container" \
+        id="visited-map" \
+        data-controller="visited-map" \
+        data-visited-map-target="map" \
+        data-visited-map-airports-destination-map-value="<%= @visited_destination_map.to_json %>" \
+        data-visited-map-departure-airport-value="<%= @departure_airport.to_json %>" \>
+  </div>
+  <div class="social-media-items mt-20">
+    <% @pilot_activities.each do |activity| %>
+      <div class="social-media-item">
+        <% if activity.class == VisitedAirport %>
+          <div class="circle bg-primary"></div>
+          <p class="flex-grow-1">Visited <%= link_to "#{activity.airport.name} (#{activity.airport.icao})", airport_path(activity.airport) %></p>
+        <% elsif activity.class == AuditLog %>
+          <div class="circle bg-secondary"></div>
+          <p class="flex-grow-1"><%= "#{activity.action.capitalize} #{activity.target_controller.titleize}" %> in <%= link_to "#{activity.airport.name} (#{activity.airport.icao})", airport_path(activity.airport) %></p>
+        <% end %>
+          <p class="flex-shrink-0 fs-0-8 text-gray"><%= time_ago_in_words(activity.created_at) %> ago</p>
+      </div>
+    <% end %>
   </div>
 </div>

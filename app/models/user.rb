@@ -7,8 +7,10 @@ class User < ApplicationRecord
 
   has_many :trip_requests, dependent: :destroy
 
-  has_many :followers, dependent: :restrict_with_error, foreign_key: :following_id, class_name: 'Follower', inverse_of: :following
-  has_many :followings, dependent: :restrict_with_error, foreign_key: :follower_id, class_name: 'Follower', inverse_of: :follower
+  has_many :followers, dependent: :destroy, foreign_key: :following_id, class_name: 'Follower', inverse_of: :following
+  has_many :followings, dependent: :destroy, foreign_key: :follower_id, class_name: 'Follower', inverse_of: :follower
+
+  has_many :audit_logs, dependent: :destroy
 
   has_one_attached :picture do |attachable|
     attachable.variant :thumb, resize_to_limit: [48, 48]

@@ -1,8 +1,8 @@
 <div data-modals-target="modal" class="modal">
   <div class="modal-content">
     <div class="modal-content__title">
+      <h1>⛅ <%= t('activerecord.attributes.pilot_pref.weather_profile') %></h1>
       <span class="modal-close" data-action="click->modals#close">&times;</span>
-      <h1>⛅ <%= t('activerecord.attributes.preference.weather_profile') %></h1>
     </div>
     <div class="modal-content__body">
     </div>
@@ -10,8 +10,8 @@
     <table class="mb-20">
       <tr>
         <th></th>
-        <th><%= t('activerecord.attributes.preference.weather_profile_options.safe') %></th>
-        <th><%= t('activerecord.attributes.preference.weather_profile_options.adventurous') %></th>
+        <th><%= t('activerecord.attributes.pilot_pref.weather_profile_options.safe') %></th>
+        <th><%= t('activerecord.attributes.pilot_pref.weather_profile_options.adventurous') %></th>
       </tr>
       <% @array_profile_safe.each do |profile| %>
         <tr>

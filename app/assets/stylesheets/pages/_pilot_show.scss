@@ -1,3 +1,5 @@
+@import "../../vendor/assets/stylesheets/leaflet";
+
 #pilot-header {
   border-bottom: 1px solid $light;
   padding: 2em 0;
@@ -7,7 +9,8 @@
 
   h1 {
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1em;
+    line-height: 1.2em;
   }
 
   p {
@@ -15,13 +18,25 @@
   }
 }
 
-.pilot-header-profile {
+.pilot-header__profile {
   display: flex;
   align-items: center;
   gap: 12px;
+
+  .pilot-name {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .action {
+    display: flex;
+    gap: 6px;
+  }
 }
 
-.pilot-header-info {
+.pilot-header__info {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -32,10 +47,15 @@
   justify-content: center;
   gap: 12px;
 
+  > div {
+    width: calc(100%/3);
+  }
+
   .pilot-header-social-item {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     gap: 4px;
 
     h3 {
@@ -44,16 +64,58 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .pilot-header-profile {
-    flex-direction: column;
-    justify-content: center;
+.social-media-items {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .social-media-item {
+    display: flex;
     align-items: center;
-    text-align: center;
+    gap: 8px;
+
+    &:not(.social-media-item:last-child) {
+      .circle::after {
+        content: '';
+        border-left: 1px solid $light-gray;
+        height: 24px;
+        width: 2px;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+      }
+    }
+
+    &:not(.social-media-item:first-child) {
+      .circle::before {
+        content: '';
+        border-left: 1px solid $light-gray;
+        height: 24px;
+        width: 2px;
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+      }
+    }
   }
 
-  .pilot-header-info {
-    text-align: center;
-    align-items: center;
+  p {
+    margin: 0;
+  }
+}
+
+.circle {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: relative;
+}
+
+@media screen and (min-width: 768px) {
+  #pilot-header {
+    h1 {
+      font-size: 1.2em;
+    }
   }
 }

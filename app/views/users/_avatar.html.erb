@@ -1,0 +1,24 @@
+<%# locals: (user:) %>
+
+<% initials = user.username[0] %>
+<div class="tooltip">
+  <%= link_to pilot_path(user.pilot), class: "text-decoration-none" do %>
+    <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+  <% end %>
+  <div class="tooltip-content">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+      <%= link_to pilot_path(user.pilot), class: "text-decoration-none" do %>
+        <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
+      <% end %>
+      <% if user == current_user %>
+        <%= link_to 'Edit', edit_pilot_path(user.pilot), class: 'btn btn-small btn-secondary' %>
+      <% elsif current_user.follow?(user) %>
+        <%= link_to "Unfollow", follower_path(current_user.follow(user)), data: { turbo_method: :delete }, class: 'btn btn-small btn-outline-primary' %>
+      <% else %>
+        <%= link_to "+ Follow", user_followers_path(user), data: { turbo_method: :post }, class: 'btn btn-small btn-primary' %>
+      <% end %>
+    </div>
+    <p class="mb-5"><b><%= user.username %></b> <%= user.email %></p>
+    <small>📍 <%= "#{user.base_airport.name} (#{user.base_airport.icao})" %></small>
+  </div>
+</div>

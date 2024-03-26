@@ -1,13 +1,15 @@
 .tag {
-  padding: 1px 4px;
-  border-radius: 7px;
-  text-align: center;
-  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: $border-radius;
+  font-size: 14px;
   width: fit-content;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 .tag-primary {
   @extend .tag;
-  color: white;
+  color: $white;
   text-decoration: none;
   background-color: $primary;
   border: 1px solid $primary;
@@ -15,7 +17,7 @@
 }
 .tag-secondary {
   @extend .tag;
-  color: white;
+  color: $white;
   text-decoration: none;
   background-color: $secondary;
   border: 1px solid $secondary;
@@ -23,7 +25,7 @@
 }
 .tag-success {
   @extend .tag;
-  color: white;
+  color: $white;
   text-decoration: none;
   background-color: $success;
   border: 1px solid $success;
@@ -31,7 +33,7 @@
 }
 .tag-danger {
   @extend .tag;
-  color: white;
+  color: $white;
   text-decoration: none;
   background-color: $danger;
   border: 1px solid $danger;
@@ -63,7 +65,7 @@
 }
 .tag-dark {
   @extend .tag;
-  color: white;
+  color: $white;
   text-decoration: none;
   background-color: $dark;
   border: 1px solid $dark;

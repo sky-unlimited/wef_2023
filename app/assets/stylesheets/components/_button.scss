@@ -9,6 +9,9 @@
 .btn-small {
   padding: 5px 10px;
   font-size: 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .btn-full-width {
   width: 100%;
@@ -141,4 +144,7 @@
     background-color: $secondary;
     color: $light;
   }
+}
+.cursor {
+  cursor: pointer;
 }

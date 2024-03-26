@@ -15,7 +15,7 @@
   border-radius: $border-radius;
   box-shadow: $box-shadow;
   background-color: $light;
-  width: 50%;
+  width: 80%;
   margin: auto;
   padding: 24px;
   border: 1px solid $dark;
@@ -50,5 +50,14 @@
 @media only screen and (min-width: 768px) {
   .modal {
     font-size: 1em;
+  }
+  .modal-content {
+    width: 60%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .modal-content {
+    width: 50%;
   }
 }

@@ -14,7 +14,20 @@
     <div class="display-airport-actions d-flex flex-column align-items-end">
       <div class="d-flex gap-10">
         <%= link_to "👍🏻", "#", class: "btn btn-light" %>
-        <%= link_to "I've been here", "#", class: "btn btn-primary" %>
+
+        <% if current_user.pilot.airport == @airport %>
+          <span class="tag-primary">Home airport</span>
+        <% elsif @visited_airport %>
+          <span class="tag-primary d-flex align-items-center">
+            You've been here
+            <%= link_to visited_airport_path(@visited_airport), data: { turbo_method: :delete }, class: "text-decoration-none text-white pl-5 d-flex align-items-center" do %>
+              <%= image_tag "cancel.png", alt: "cancel", height: 18 %>
+            <% end %>
+          </span>
+        <% else %>
+          <%= link_to "I've been here", airport_visited_airports_path(@airport), data: { turbo_method: :post }, class: "btn btn-primary" %>
+        <% end %>
+
       </div>
 
       <% unless @pilots.empty? %>
@@ -27,31 +40,12 @@
         <% end %>
         <div class="avatars-overlap mt-10">
           <% @pilots.first(5).each do |pilot| %>
-            <% initials = pilot.user.username[0] %>
-            <div class="tooltip">
-              <%= link_to pilot_path(pilot), class: "text-decoration-none" do %>
-                <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
-              <% end %>
-              <div class="tooltip-content">
-                <div class="d-flex justify-content-between align-items-center mb-5">
-                  <%= link_to pilot_path(pilot), class: "text-decoration-none" do %>
-                    <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
-                  <% end %>
-                  <% if current_user.follow?(pilot.user) %>
-                    <%= link_to "Unfollow", follower_path(current_user.follow(pilot)), data: { turbo_method: :delete }, class: 'btn btn-outline-primary btn-small' %>
-                  <% else %>
-                    <%= link_to "+ Follow", user_followers_path(pilot.user), data: { turbo_method: :post }, class: 'btn btn-primary btn-small' %>
-                  <% end %>
-                </div>
-                <p class="mb-5"><b><%= pilot.user.username %></b> <%= pilot.user.email %></p>
-                <small>📍 <%= "#{pilot.user.base_airport.name} (#{@airport.icao})" %></small>
-              </div>
-            </div>
+            <%= render "users/avatar", user: pilot.user %>
           <% end %>
         </div>
         <% if @pilots.count > 5 %>
           <div class="pl-10">
-              <a class="link-dark font-weight-bold" data-action="click->modals#display">+ <%= pluralize(@pilots.count - 5, "pilot") %></a>
+            <a class="link-light font-weight-bold cursor" data-action="click->modals#display">+ <%= pluralize(@pilots.count - 5, "pilot") %></a>
           </div>
         <% end %>
       </div>
@@ -63,7 +57,7 @@
     <div class="modal-content w-50">
       <div class="modal-content__title mb-15">
         <h1><%= pluralize(@pilots.count, "pilot") %></span> based here</h1>
-        <span class="modal-close" data-action="click->modals#close">&times;</span>
+        <span class="modal-close cursor" data-action="click->modals#close">&times;</span>
       </div>
       <div class="modal-content__body d-flex flex-column gap-10">
         <% if @pilots.empty? %>
@@ -72,22 +66,7 @@
 
         <div class="avatars mt-10">
           <% @pilots.each do |pilot| %>
-            <% initials = pilot.user.username[0] %>
-            <div class="tooltip">
-              <%= link_to pilot_path(pilot), class: "text-decoration-none" do %>
-                <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
-              <% end %>
-              <div class="tooltip-content">
-                <div class="d-flex justify-content-between align-items-center mb-5">
-                  <%= link_to pilot_path(pilot), class: "text-decoration-none" do %>
-                    <div class="avatar-fake avatar-small bg-color1 color-light"><%= initials.upcase %></div>
-                  <% end %>
-                  <%= link_to "+ Follow", "#", class: "btn btn-primary btn-small" %>
-                </div>
-                <p class="mb-5"><b><%= pilot.user.username %></b> <%= pilot.user.email %></p>
-                <small>📍 <%= "#{pilot.user.base_airport.name} (#{@airport.icao})" %></small>
-              </div>
-            </div>
+            <%= render "users/avatar", user: pilot.user %>
           <% end %>
         </div>
       </div>
@@ -143,7 +122,7 @@
           </div>
           <div class="d-flex justify-content-between mb-10">
             <p><b><%= t('airport.show.website') %></b></p>
-            <%= link_to @airport.url, @airport.url, target: "_blank", class: "color-dark" if @airport.url.present? %>
+            <%= link_to @airport.url.truncate(40), @airport.url, target: "_blank", class: "color-dark" if @airport.url.present? %>
           </div>
         </div>
       </div>

@@ -1,0 +1,12 @@
+<% if user_signed_in? %>
+  <p><%= link_to t("users.menu"), pilot_path(current_user.pilot) %></p>
+  <p><%= link_to t("shared.account"), edit_user_registration_path %></p>
+  <p><%= link_to t("preferences.menu"), edit_preference_path(current_user) %></p>
+  <p><%= link_to t("shared.sign_out"), destroy_user_session_path, data: {turbo_method: :delete} %></p>
+  <% if current_user.role == "admin" %>
+    <p><%#= link_to t("shared.console"), console_index_path %></p>
+  <% end %>
+<% else %>
+  <p><%= link_to t("shared.sign_in"), new_user_session_path(redirect_to: request.path) %></p>
+  <p><%= link_to t("shared.sign_up"), new_user_registration_path %></p>
+<% end %>
