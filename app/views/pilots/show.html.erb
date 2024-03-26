@@ -66,12 +66,12 @@
             <p>You haven't contribute</p>
           <% end %>
 
-          <div class="mt-10">
+          <div class="mt-10 d-flex flex-column gap-10">
             <% @user.audit_logs.where(target_controller: "fuel_stations").each do |contribution| %>
               <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-10">
                   <%= image_tag(display_fuel_provider_logo(contribution.airport)) %>
-                  <%= "#{contribution.action.capitalize} #{contribution.target_controller.titleize}" %> in <%= link_to "#{contribution.airport.name} (#{contribution.airport.icao})", airport_path(contribution.airport) %>
+                  <p><%= "#{contribution.action.capitalize} #{contribution.target_controller.titleize}" %> in <%= link_to "#{contribution.airport.name} (#{contribution.airport.icao})", airport_path(contribution.airport) %></p>
                 </div>
                 <p class="flex-shrink-0 fs-0-8 text-gray"><%= time_ago_in_words(contribution.created_at) %> ago</p>
               </div>
@@ -95,7 +95,7 @@
             <p>You haven't visited any airports</p>
           <% end %>
 
-          <div class="mt-10">
+          <div class="mt-10 d-flex flex-column gap-10">
             <% @pilot.visited_airports.each do |visited_airport| %>
               <div class="d-flex align-items-center justify-content-between">
                 <p><%= NormalizeCountry(visited_airport.airport.country.code, :to => :emoji) %> <%= link_to "#{visited_airport.airport.name} (#{visited_airport.airport.icao})", airport_path(visited_airport.airport) %></p>
