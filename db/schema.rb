@@ -140,6 +140,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_25_025254) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
+  end
 
   create_table "blogs", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -520,7 +521,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_25_025254) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "airports", "countries"
   add_foreign_key "audit_logs", "users"
-  add_foreign_key "events", "airports"
   add_foreign_key "blogs", "users"
   add_foreign_key "events", "airports"
   add_foreign_key "followers", "users", column: "follower_id"

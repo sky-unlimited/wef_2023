@@ -1,7 +1,9 @@
 class PilotsController < ApplicationController
   def show
     @pilot = Pilot.find(params[:id])
-    @visited_airports = @pilot.visited_airports.includes(:airport).order('visited_airports.created_at DESC')
+    @visited_airports = @pilot.visited_airports.includes(:airport)
+    @pilot_activities = @pilot.user.audit_logs + @visited_airports
+    @pilot_activities = @pilot_activities.sort_by(&:created_at).reverse
   end
 
   def edit

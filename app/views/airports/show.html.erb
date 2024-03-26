@@ -20,7 +20,9 @@
         <% elsif @visited_airport %>
           <span class="tag-primary">
             You've been here
-            <%= link_to "X", visited_airport_path(@visited_airport), data: { turbo_method: :delete }, class: "text-decoration-none text-white pl-5" %>
+            <%= link_to visited_airport_path(@visited_airport), data: { turbo_method: :delete }, class: "text-decoration-none text-white pl-5 d-flex align-items-center" do %>
+              <%= image_tag "cancel.png", alt: "cancel", height: 18 %>
+            <% end %>
           </span>
         <% else %>
           <%= link_to "I've been here", airport_visited_airports_path(@airport), data: { turbo_method: :post }, class: "btn btn-primary" %>

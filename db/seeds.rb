@@ -4,9 +4,10 @@ if Rails.env.development? || Rails.env.staging?
   # ############################################
   # CLEANING
   # ############################################
-  puts "👉 Cleaning databases..."
+  puts '👉 Cleaning databases...'
   AuditLog.destroy_all
   Preference.destroy_all
+  Pilot.destroy_all
   Blog.destroy_all
   User.destroy_all
   Runway.destroy_all
@@ -16,9 +17,9 @@ if Rails.env.development? || Rails.env.staging?
   Country.destroy_all
   Certificate.destroy_all
 
-  puts "-------------------------------"
-  puts "All environments seeds"
-  puts "-------------------------------"
+  puts '-------------------------------'
+  puts 'All environments seeds'
+  puts '-------------------------------'
 
   # ############################################
   # IMPORT TASKS
@@ -40,12 +41,11 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  pilot = user.pilot
-  pilot.update(bio: "I am a passionate pilot who loves to fly in the sky. I am a ultralight pilot and I am looking forward to meet other pilots and share my passion with them.")
+  user.pilot.update(bio: Faker::Lorem.paragraph(sentence_count: 3),
+                    aircraft_type: 'Nynja 912 ULS')
   preference = Preference.find_by(pilot: user.pilot)
   preference.update(is_ultralight_pilot: true, is_private_pilot: false)
-  puts 'Admin user alex created'
-  puts 'Pilot pref alex created'
+  puts 'Alex user - pilot - preferences created'
 end
 
 if Rails.env.development? || Rails.env.staging?
@@ -61,12 +61,11 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  pilot = user.pilot
-  pilot.update(bio: "I am a passionate pilot who loves to fly in the sky. I am a private pilot and I am also a ultralight pilot. I am looking forward to meet other pilots and share my passion with them.")
+  user.pilot.update(bio: Faker::Lorem.paragraph(sentence_count: 3),
+                    aircraft_type: 'Alpi Pionneer 200')
   preference = Preference.find_by(pilot: user.pilot)
   preference.update(is_ultralight_pilot: true, is_private_pilot: true)
-  puts "rachel user created"
-  puts "rachel pilot prefs created"
+  puts 'Rachel user - pilot - preferences created'
 
   user = User.new
   user.username = 'chris_bali'
@@ -76,20 +75,19 @@ if Rails.env.development? || Rails.env.staging?
   user.confirmed_at = Time.zone.now - 1.hour
   user.confirmation_sent_at = Time.zone.now - 2.hours
   user.save
-  pilot = user.pilot
-  pilot.update(bio: "I am a passionate pilot who loves to fly in the sky. I am a private pilot and I am also a ultralight pilot. I am looking forward to meet other pilots and share my passion with them.")
-  user.pilot.update(airport: Airport.find_by(icao: "LFCL"))
+  user.pilot.update(airport: Airport.find_by(icao: 'LFCL'),
+                    bio: Faker::Lorem.paragraph(sentence_count: 3),
+                    aircraft_type: 'Cessna 172')
   preference = Preference.find_by(pilot: user.pilot)
   preference.update(is_ultralight_pilot: true, is_private_pilot: true)
-  puts "christina user created"
-  puts "christina pilot prefs created"
+  puts 'christina user - pilot - preferences created'
 
   # Create blogs
   i = 0
   rand(5..15).times do
     i += 1
     # content
-    lorem = ""
+    lorem = ''
     rand(3..10).times do
       lorem += Faker::Lorem.paragraph(sentence_count: 40)
     end
@@ -112,28 +110,39 @@ if Rails.env.development? || Rails.env.staging?
   puts "Subscriber created for #{hash[:email]} !"
 
   # Create dummy events
-  friedrichshafen_airport = Airport.find_by(icao: "EDNY")
-  Event.create(title: "Aero Friedrichshafen_airport", kind: 0, start_date: DateTime.parse("2024-04-17.12:00:00"), end_date: DateTime.parse("2024-04-20.12:00:00"), image_link: "https://cdn.messe-friedrichshafen.de/assets/aero/logos/_AUTOx240_crop_center-center_none_ns/logo-aero-friedrichshafen.png?v=1706175611" , url: "https://www.aero-expo.com", airport: friedrichshafen_airport)
-  10.times do |i|
+  friedrichshafen_airport = Airport.find_by(icao: 'EDNY')
+  Event.create(title: 'Aero Friedrichshafen_airport', kind: 0,
+               start_date: DateTime.parse('2024-04-17.12:00:00'),
+               end_date: DateTime.parse('2024-04-20.12:00:00'),
+               image_link: 'https://cdn.messe-friedrichshafen.de/assets/aero/logos/_AUTOx240_crop_center-center_none_ns/logo-aero-friedrichshafen.png?v=1706175611',
+               url: 'https://www.aero-expo.com',
+               airport: friedrichshafen_airport)
+  10.times do |num|
     start_date = Date.today + rand(1..3).day
     end_date = start_date + rand(0..3).day
     airport = Airport.all.sample
     kind = Event.kinds.values.sample
-    Event.create(title: "Event #{i + 1}", kind: kind, start_date: start_date, end_date: end_date, image_link: "https://source.unsplash.com/random/?#{airport.name}" , url: "https://google.com?q=#{airport.name}", airport: airport)
+    Event.create(title: "Event #{num + 1}", kind:, start_date:, end_date:,
+                 image_link: "https://source.unsplash.com/random/?#{airport.name}",
+                 url: "https://google.com?q=#{airport.name}", airport:)
   end
 end
 
 # Create Certificates
-Certificate.create!(name: "Student")
-Certificate.create!(name: "Ultra-light/Microlight")
-Certificate.create!(name: "Private")
-Certificate.create!(name: "Commercial")
+Certificate.create!(name: 'Student')
+Certificate.create!(name: 'Ultra-light/Microlight')
+Certificate.create!(name: 'Private')
+Certificate.create!(name: 'Commercial')
 
-User.all.each do |user|
-  if user.preference.is_private_pilot
-    PilotCertificate.create!(pilot: user.pilot, certificate: Certificate.find_by(name: "Private"))
+User.all.each do |u|
+  if u.preference.is_private_pilot
+    PilotCertificate.create!(pilot: u.pilot,
+                             certificate: Certificate.find_by(name: 'Private'))
   end
-  if user.preference.is_ultralight_pilot
-    PilotCertificate.create!(pilot: user.pilot, certificate: Certificate.find_by(name: "Ultra-light/Microlight"))
-  end
+  next unless u.preference.is_ultralight_pilot
+
+  PilotCertificate.create!(pilot: u.pilot,
+                           certificate: Certificate.find_by(
+                             name: 'Ultra-light/Microlight'
+                           ))
 end

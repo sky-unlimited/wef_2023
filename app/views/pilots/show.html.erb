@@ -10,33 +10,27 @@
             <%= link_to 'Edit', edit_pilot_path(@pilot), class: 'btn btn-small btn-secondary' %>
           <% elsif current_user.follow?(@pilot.user) %>
             <%= link_to "Unfollow", follower_path(current_user.follow(@pilot)), data: { turbo_method: :delete }, class: 'btn btn-small btn-outline-primary' %>
-            <%= link_to "mailto:#{@pilot.user.email}", class: "btn btn-small btn-secondary" do %>
-              <%= image_tag "mail.png", alt: "mail", height: 16 %>
-            <% end %>
           <% else %>
             <%= link_to "+ Follow", user_followers_path(@pilot.user), data: { turbo_method: :post }, class: 'btn btn-small btn-primary' %>
-            <%= link_to "mailto:#{@pilot.user.email}", class: "btn btn-small btn-secondary" do %>
-              <%= image_tag "mail.png", alt: "mail", height: 16 %>
-            <% end %>
           <% end %>
         </div>
       </div>
     </div>
     <div class="pilot-header__info">
       <div class="d-flex align-items-center gap-10">
-        <%= image_tag "home.png", alt: "text", height: 18 %>
+        <%= image_tag "home.png", alt: "home", height: 18 %>
         <p><%= "#{@pilot.airport.name} (#{@pilot.airport.icao})" %></p>
       </div>
       <div class="d-flex align-items-center gap-10">
-        <%= image_tag "turbine.png", alt: "text", height: 18 %>
+        <%= image_tag "plane.png", alt: "plane", height: 18 %>
         <p><%= @pilot.aircraft_type %></p>
       </div>
       <div class="d-flex align-items-center gap-10">
-        <%= image_tag "project-manager.png", alt: "text", height: 18 %>
+        <%= image_tag "role.png", alt: "role", height: 18 %>
         <p><%= @pilot.airport_role.titleize %></p>
       </div>
       <div class="d-flex align-items-center gap-10">
-        <%= image_tag "certificate.png", alt: "text", height: 18 %>
+        <%= image_tag "certificate.png", alt: "certificate", height: 18 %>
         <p><%= @pilot.certificates.pluck(:name).join(", ") %></p>
       </div>
       <div class="">
@@ -45,25 +39,34 @@
     </div>
     <div class="pilot-header-social">
       <div class="pilot-header-social-item">
+        <h3><%= @pilot.user.audit_logs.where(target_controller: "fuel_stations").count %></h3>
+        <p class="fs-0-8 font-weight-bold">contributions</p>
+      </div>
+      <div class="pilot-header-social-item">
         <h3><%= @pilot.visited_airports.count %></h3>
-        <p>Visited airport</p>
+        <p class="fs-0-8 font-weight-bold">visited airports</p>
       </div>
       <div class="pilot-header-social-item">
         <h3><%= @pilot.user.followers.count %></h3>
-        <p>Followers</p>
+        <p class="fs-0-8 font-weight-bold">followers</p>
       </div>
       <div class="pilot-header-social-item">
         <h3><%= @pilot.user.followings.count %></h3>
-        <p>Following</p>
+        <p class="fs-0-8 font-weight-bold">following</p>
       </div>
     </div>
   </div>
   <div class="social-media-items mt-20">
-    <% @visited_airports.each do |visited_airport| %>
+    <% @pilot_activities.each do |activity| %>
       <div class="social-media-item">
-        <div class="circle"></div>
-        <p class="flex-grow-1">Visited <%= link_to "#{visited_airport.airport.name} (#{visited_airport.airport.icao})", airport_path(visited_airport.airport) %></p>
-        <p class="flex-shrink-0 fs-0-8 text-gray"><%= time_ago_in_words(visited_airport.created_at) %> ago</p>
+        <% if activity.class == VisitedAirport %>
+          <div class="circle bg-primary"></div>
+          <p class="flex-grow-1">Visited <%= link_to "#{activity.airport.name} (#{activity.airport.icao})", airport_path(activity.airport) %></p>
+        <% elsif activity.class == AuditLog %>
+          <div class="circle bg-secondary"></div>
+          <p class="flex-grow-1"><%= "#{activity.action.capitalize} #{activity.target_controller.titleize}" %> in <%= link_to "#{activity.airport.name} (#{activity.airport.icao})", airport_path(activity.airport) %></p>
+        <% end %>
+          <p class="flex-shrink-0 fs-0-8 text-gray"><%= time_ago_in_words(activity.created_at) %> ago</p>
       </div>
     <% end %>
   </div>

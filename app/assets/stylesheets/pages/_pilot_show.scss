@@ -53,6 +53,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     gap: 4px;
 
     h3 {
@@ -68,7 +69,7 @@
 
   .social-media-item {
     display: flex;
-    align-items: start;
+    align-items: center;
     gap: 8px;
 
     &:not(.social-media-item:last-child) {
@@ -78,7 +79,7 @@
         height: 24px;
         width: 2px;
         position: absolute;
-        bottom: -100%;
+        top: 100%;
         left: 50%;
       }
     }
@@ -90,7 +91,7 @@
         height: 24px;
         width: 2px;
         position: absolute;
-        top: -100%;
+        bottom: 100%;
         left: 50%;
       }
     }
@@ -103,10 +104,9 @@
 
 .circle {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background-color: $primary;
   position: relative;
 }
 
