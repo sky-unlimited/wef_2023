@@ -7,6 +7,7 @@ if Rails.env.development? || Rails.env.staging?
   puts '👉 Cleaning databases...'
   AuditLog.destroy_all
   Preference.destroy_all
+  VisitedAirport.destroy_all
   Pilot.destroy_all
   Blog.destroy_all
   User.destroy_all
@@ -54,7 +55,7 @@ if Rails.env.development? || Rails.env.staging?
   puts 'development & staging seeds'
   puts '-------------------------------'
   user = User.new
-  user.username = 'rachel'
+  user.username = 'RachelFly'
   user.email = 'rachel@sky-unlimited.lu'
   user.role = 'admin'
   user.password = 'Default2024'
@@ -126,6 +127,39 @@ if Rails.env.development? || Rails.env.staging?
                  image_link: "https://source.unsplash.com/random/?#{airport.name}",
                  url: "https://google.com?q=#{airport.name}", airport:)
   end
+
+  # Create visited airports
+  airports_alex   = Airport.where(actif: true).sample(20)
+  airports_rachel = Airport.where(actif: true).sample(20)
+  airports_chris  = Airport.where(actif: true).sample(20)
+  i = 0
+  20.times do
+    # Pilot Alex
+    VisitedAirport.create(
+      pilot: Pilot.find_by(
+        user: User.find_by(username: 'alexstan57')
+      ),
+      airport: airports_alex[i]
+    )
+    # Pilot Rachel
+    VisitedAirport.create(
+      pilot: Pilot.find_by(
+        user: User.find_by(username: 'RachelFly')
+      ),
+      airport: airports_rachel[i]
+    )
+    # Pilot Chris
+    VisitedAirport.create(
+      pilot: Pilot.find_by(
+        user: User.find_by(username: 'chris_bali')
+      ),
+      airport: airports_chris[i]
+    )
+    i.increase
+  end
+  puts 'Visited airports created for Alex'
+  puts 'Visited airports created for Rachel'
+  puts 'Visited airports created for Chris'
 end
 
 # Create Certificates
