@@ -11,6 +11,7 @@ if Rails.env.development? || Rails.env.staging?
   Pilot.destroy_all
   Blog.destroy_all
   Follower.destroy_all
+  FuelStation.destroy_all
   User.destroy_all
   Runway.destroy_all
   FuelStation.destroy_all
@@ -194,6 +195,19 @@ if Rails.env.development? || Rails.env.staging?
   Follower.create(following: User.find_by(username: 'alexstan57'),
                   follower: User.find_by(username: 'chris_bali'))
   puts 'User chris is following rachel and Alex'
+
+  # Fuel stations
+  FuelStation.create(airport: Airport.find_by(local_code: 'LF5755'),
+                     provider: 'Other',
+                     status: :active,
+                     fuel_mogas: 'yes',
+                     email: 'info@aeroplume.lu')
+  AuditLog.create(user: User.find_by(username: 'alexstan57'),
+                  target_id: FuelStation.last.id,
+                  target_controller: 'fuel_stations',
+                  action: 'created')
+  puts 'Alex created a FuelStation at LF5755'
+
 end
 
 # Create Certificates
