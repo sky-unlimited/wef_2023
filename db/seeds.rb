@@ -10,6 +10,7 @@ if Rails.env.development? || Rails.env.staging?
   VisitedAirport.destroy_all
   Pilot.destroy_all
   Blog.destroy_all
+  Follower.destroy_all
   User.destroy_all
   Runway.destroy_all
   FuelStation.destroy_all
@@ -155,11 +156,28 @@ if Rails.env.development? || Rails.env.staging?
       ),
       airport: airports_chris[i]
     )
-    i.increase
+    i += 1
   end
   puts 'Visited airports created for Alex'
   puts 'Visited airports created for Rachel'
   puts 'Visited airports created for Chris'
+
+  # Create followers
+  Follower.create(following: User.find_by(username: 'RachelFly'),
+                  follower: User.find_by(username: 'alexstan57'))
+  Follower.create(following: User.find_by(username: 'chris_bali'),
+                  follower: User.find_by(username: 'alexstan57'))
+  puts 'User alex is following rachel and Chris'
+  Follower.create(following: User.find_by(username: 'alexstan57'),
+                  follower: User.find_by(username: 'RachelFly'))
+  Follower.create(following: User.find_by(username: 'chris_bali'),
+                  follower: User.find_by(username: 'RachelFly'))
+  puts 'User rachel is following Alex and Chris'
+  Follower.create(following: User.find_by(username: 'RachelFly'),
+                  follower: User.find_by(username: 'chris_bali'))
+  Follower.create(following: User.find_by(username: 'alexstan57'),
+                  follower: User.find_by(username: 'chris_bali'))
+  puts 'User chris is following rachel and Alex'
 end
 
 # Create Certificates
