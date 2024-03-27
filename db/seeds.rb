@@ -7,8 +7,11 @@ if Rails.env.development? || Rails.env.staging?
   puts '👉 Cleaning databases...'
   AuditLog.destroy_all
   Preference.destroy_all
+  VisitedAirport.destroy_all
   Pilot.destroy_all
   Blog.destroy_all
+  Follower.destroy_all
+  FuelStation.destroy_all
   User.destroy_all
   Runway.destroy_all
   FuelStation.destroy_all
@@ -54,7 +57,7 @@ if Rails.env.development? || Rails.env.staging?
   puts 'development & staging seeds'
   puts '-------------------------------'
   user = User.new
-  user.username = 'rachel'
+  user.username = 'RachelFly'
   user.email = 'rachel@sky-unlimited.lu'
   user.role = 'admin'
   user.password = 'Default2024'
@@ -111,21 +114,100 @@ if Rails.env.development? || Rails.env.staging?
 
   # Create dummy events
   friedrichshafen_airport = Airport.find_by(icao: 'EDNY')
-  Event.create(title: 'Aero Friedrichshafen_airport', kind: 0,
-               start_date: DateTime.parse('2024-04-17.12:00:00'),
-               end_date: DateTime.parse('2024-04-20.12:00:00'),
+  start_date  = Date.today + rand(1..3).day
+  end_date    = start_date + rand(0..2).day
+  Event.create(title: 'Aero Friedrichshafen', kind: 0,
+               start_date:, end_date:,
                image_link: 'https://cdn.messe-friedrichshafen.de/assets/aero/logos/_AUTOx240_crop_center-center_none_ns/logo-aero-friedrichshafen.png?v=1706175611',
                url: 'https://www.aero-expo.com',
                airport: friedrichshafen_airport)
-  10.times do |num|
-    start_date = Date.today + rand(1..3).day
-    end_date = start_date + rand(0..3).day
-    airport = Airport.all.sample
-    kind = Event.kinds.values.sample
-    Event.create(title: "Event #{num + 1}", kind:, start_date:, end_date:,
-                 image_link: "https://source.unsplash.com/random/?#{airport.name}",
-                 url: "https://google.com?q=#{airport.name}", airport:)
+  blois_airport = Airport.find_by(icao: 'LFOQ')
+  start_date  = Date.today + rand(1..3).day
+  end_date    = start_date + rand(0..2).day
+  Event.create(title: "Mondial de l'ULM", kind: 0,
+               start_date:, end_date:,
+               image_link: 'https://mondialulm.fr/images/logo/logo-MULM-w800x252px.png',
+               url: 'https://mondialulm.fr/',
+               airport: blois_airport)
+  la_ferte_airport = Airport.find_by(icao: 'LFFQ')
+  start_date  = Date.today + rand(1..3).day
+  end_date    = start_date + rand(0..2).day
+  Event.create(title: 'Fête Aérienne', kind: 1,
+               start_date:, end_date:,
+               image_link: 'https://letempsdeshelices.fr/wp-content/uploads/2024/01/Affiche-le-temps-des-helices-2024-1280x1898.jpg',
+               url: 'https://letempsdeshelices.fr/',
+               airport: la_ferte_airport)
+  muret_airport = Airport.find_by(icao: 'LFBR')
+  start_date  = Date.today + rand(1..3).day
+  end_date    = start_date + rand(0..2).day
+  Event.create(title: 'Air Expo Muret', kind: 1,
+               start_date:, end_date:,
+               image_link: 'https://airshowdisplay.fr/medias/evenement/image/affiche/air-expo-muret-2024.jpg',
+               url: 'https://airshowdisplay.fr',
+               airport: muret_airport)
+
+  # Create visited airports
+  airports_alex   = Airport.where(actif: true).sample(20)
+  airports_rachel = Airport.where(actif: true).sample(20)
+  airports_chris  = Airport.where(actif: true).sample(20)
+  i = 0
+  20.times do
+    # Pilot Alex
+    VisitedAirport.create(
+      pilot: Pilot.find_by(
+        user: User.find_by(username: 'alexstan57')
+      ),
+      airport: airports_alex[i]
+    )
+    # Pilot Rachel
+    VisitedAirport.create(
+      pilot: Pilot.find_by(
+        user: User.find_by(username: 'RachelFly')
+      ),
+      airport: airports_rachel[i]
+    )
+    # Pilot Chris
+    VisitedAirport.create(
+      pilot: Pilot.find_by(
+        user: User.find_by(username: 'chris_bali')
+      ),
+      airport: airports_chris[i]
+    )
+    i += 1
   end
+  puts 'Visited airports created for Alex'
+  puts 'Visited airports created for Rachel'
+  puts 'Visited airports created for Chris'
+
+  # Create followers
+  Follower.create(following: User.find_by(username: 'RachelFly'),
+                  follower: User.find_by(username: 'alexstan57'))
+  Follower.create(following: User.find_by(username: 'chris_bali'),
+                  follower: User.find_by(username: 'alexstan57'))
+  puts 'User alex is following rachel and Chris'
+  Follower.create(following: User.find_by(username: 'alexstan57'),
+                  follower: User.find_by(username: 'RachelFly'))
+  Follower.create(following: User.find_by(username: 'chris_bali'),
+                  follower: User.find_by(username: 'RachelFly'))
+  puts 'User rachel is following Alex and Chris'
+  Follower.create(following: User.find_by(username: 'RachelFly'),
+                  follower: User.find_by(username: 'chris_bali'))
+  Follower.create(following: User.find_by(username: 'alexstan57'),
+                  follower: User.find_by(username: 'chris_bali'))
+  puts 'User chris is following rachel and Alex'
+
+  # Fuel stations
+  FuelStation.create(airport: Airport.find_by(local_code: 'LF5755'),
+                     provider: 'Other',
+                     status: :active,
+                     fuel_mogas: 'yes',
+                     email: 'info@aeroplume.lu')
+  AuditLog.create(user: User.find_by(username: 'alexstan57'),
+                  target_id: FuelStation.last.id,
+                  target_controller: 'fuel_stations',
+                  action: 'created')
+  puts 'Alex created a FuelStation at LF5755'
+
 end
 
 # Create Certificates

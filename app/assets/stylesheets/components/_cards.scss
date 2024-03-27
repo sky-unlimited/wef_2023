@@ -31,7 +31,7 @@
   border-radius: $border-radius $border-radius 0 0;
   height: 180px;
   width: 100%;
-  object-fit: fill;
+  object-fit: contain;
 }
 
 .card-trip h2 {
