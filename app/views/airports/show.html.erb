@@ -1,5 +1,4 @@
 <% image = "placeholder_#{@airport.airport_type}.png" %>
-<% image = "placeholder_medium_airport.png" unless Rails.application.assets.find_asset(image) %>
 <div id="airport-background" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(<%= image_path image %>)"></div>
 <div class="container pt-30">
   <div id="airport-header">
